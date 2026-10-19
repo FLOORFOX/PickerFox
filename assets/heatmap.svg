@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="PickerFox heatmap mockup">
+  <title>Heatmap mockup</title>
+  <desc>Floorplan with heatmap overlay showing warm and cold areas based on pick frequency.</desc>
+  <rect width="100%" height="100%" fill="#f6f7fb"/>
+  <rect x="60" y="60" width="1080" height="480" fill="#ffffff" stroke="#e6e9ef"/>
+  <g transform="translate(80,80)">
+    <defs>
+      <radialGradient id="hot" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ff6f3c" stop-opacity="0.95"/>
+        <stop offset="70%" stop-color="#ffbd80" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="960" height="420" fill="#f8fbff"/>
+    <g stroke="#e1e6f3" stroke-width="1">
+      <rect x="600" y="80" width="120" height="100" fill="url(#hot)"/>
+      <rect x="320" y="220" width="140" height="120" fill="#ffd9b3" opacity="0.6"/>
+      <rect x="760" y="300" width="100" height="80" fill="#ffe8d6" opacity="0.4"/>
+      <g fill="none">
+        <path d="M0 0 L0 420 M120 0 L120 420 M240 0 L240 420 M360 0 L360 420 M480 0 L480 420 M600 0 L600 420 M720 0 L720 420 M840 0 L840 420 M960 0 L960 420" stroke="#e6ebf6"/>
+        <path d="M0 0 L960 0 M0 105 L960 105 M0 210 L960 210 M0 315 L960 315 M0 420 L960 420" stroke="#e6ebf6"/>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(980,80)">
+    <text x="0" y="0" font-size="16" fill="#2b2b2b">Heatmap legend</text>
+    <rect x="0" y="20" width="20" height="20" fill="#ff6f3c"/>
+    <text x="28" y="35" font-size="14" fill="#2b2b2b">High picks</text>
+    <rect x="0" y="50" width="20" height="20" fill="#ffbd80"/>
+    <text x="28" y="65" font-size="14" fill="#2b2b2b">Medium picks</text>
+    <rect x="0" y="80" width="20" height="20" fill="#ffeee0"/>
+    <text x="28" y="95" font-size="14" fill="#2b2b2b">Low picks</text>
+  </g>
+</svg>
