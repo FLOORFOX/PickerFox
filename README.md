@@ -11,7 +11,7 @@ PickerFox helps warehouse pickers find any product reliably and quickly. Today p
 - Build a clear, maintainable floorplan representation (SVG) that models racks and storage addresses.
 - Map every storage space to an address (rack, bay, level). Racks can have up to three levels — the UI should display level information and support a 3D-like visualization (stacked levels or simple 3D rendering) so pickers can quickly see which level to target.
 - Provide fast product search → show location(s) on the floorplan and an optimized pick route.
-- Capture pick confirmations (barcode/QR scan) and movement telemetry to create heatmaps for later optimization.
+- Capture pick confirmations and movement telemetry to create heatmaps for later optimization.
 - Support flexible storage areas (pallet zones, temporary placements) that can be created, activated, deactivated and edited by managers without changing the physical floorplan image.
 
 ## Flexible storage spaces & management UI
@@ -30,6 +30,7 @@ Management UI suggestions:
 - A separate "Locations" admin table for bulk edits, CSV import/export, and search by address or product.
 - A visual indicator (color or icon) for cells: empty, occupied, locked (fixed rack), or inactive.
 - History panel per location to view recent moves and picks.
+- Scanning (QR/barcode) is optional and intended primarily for storage/workflow tasks (e.g. when managers assign or move products, activate/deactivate cells, or perform spot-checks). Scanning should be configurable per site — many sites will prefer fast one-tap confirmations for picks while keeping scans available for audits and product placement.
 
 ## Minimum Viable Product (MVP)
 
@@ -37,7 +38,7 @@ Management UI suggestions:
 - Product search by SKU or name that returns one or more storage addresses (including flexible cells when active).
 - Visual map view: pan/zoom floorplan, highlight rack(s) and level(s), toggle to show grid overlay with active flexible cells.
 - Generate an optimized route for a single picklist and display it on the map.
-- Scan-to-confirm picks using the device camera (QR/barcode).
+- Quick picker confirmation (single-tap or swipe) for picked items. Scanning (QR/barcode) is optional and available for storing products, location changes, or audits.
 
 ## Suggested features (planned)
 
@@ -93,12 +94,12 @@ Suggested management API endpoints:
 
 ## Roadmap / next steps
 
-1. Finalize addressing scheme (rack/bay/level format) and sample SVG floorplan.
-2. Decide grid size & flexible-cell semantics for each warehouse/pilot site.
-3. Scaffold frontend (React PWA) with a floorplan viewer, SVG sample, and a grid overlay editor.
-4. Add product search and map highlighting.
-5. Implement simple route generator and picklist flow.
-6. Add scanner-based pick confirmations and start collecting telemetry for heatmaps.
+1. Finalize addressing scheme (rack/bay/level format) and sample SVG floorplan.  
+2. Decide grid size & flexible-cell semantics for each warehouse/pilot site.  
+3. Scaffold frontend (React PWA) with a floorplan viewer, SVG sample, and a grid overlay editor.  
+4. Add product search and map highlighting.  
+5. Implement simple route generator and picklist flow.  
+6. Add manager workflows for assigning/moving products (CSV import, drag/drop, optional scan flows) and start collecting telemetry for heatmaps.  
 7. Pilot in one warehouse and iterate on accuracy and UX.
 
 ## Project status
@@ -112,8 +113,8 @@ Specify a license. Common choices: MIT (permissive), Apache-2.0 (permissive with
 ---
 
 If you want, I can now:
-- Add a LICENSE file, e.g. MIT.
-- Scaffold a starter project (React PWA + simple server).
-- Create GitHub issues from the roadmap items.
+- Create GitHub issues for: admin location management, grid editor, picker quick-confirm UI, and telemetry/heatmap collection.  
+- Scaffold a starter project (React PWA + simple server).  
+- Add an optional LICENSE file (MIT / Apache-2.0).
 
 Tell me which of these to do next.
