@@ -1,2 +1,6 @@
 filename,title,author,date,location,short_description,sensitivity,notes
 2026-10-19-floorplan-sketch-jan.jpg,Floorplan sketch (west wall),Janus,2026-10-19,Warehouse A,Initial sketch of west wall layout,false,Hand-drawn; needs tracing
+floorplan-1.jpg,Floorplan sketch 1,JanusWebHub,2026-10-19,Warehouse,Initial room outline and rough partition sketch,false,Hand-drawn; first rough layout concept
+floorplan-2.jpg,Floorplan sketch 2,JanusWebHub,2026-10-19,Warehouse,Detailed rack and pallet placement sketch,false,Shows repeated storage blocks and aisle layout
+floorplan-3.jpg,Floorplan sketch 3,JanusWebHub,2026-10-19,Warehouse,Annotated measurement plan with pallet size and rack heights,false,Contains handwritten dimensions; useful for spacing and rack sizing
+floorplan-4.jpg,Floorplan sketch 4,JanusWebHub,2026-10-19,Warehouse,Technical blueprint with red border and overlain layout,false,Master reference scan; likely best base for final SVG tracing
