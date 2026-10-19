@@ -1,0 +1,7 @@
+# Placeholder: add your floorplan sketch image here
+
+When ready, add a file named `floorplan-sketch.jpg` (or use the recommended ISO date naming) to this folder.
+
+After you add the sketch image I can:
+- Convert/trace it into an SVG floorplan (vector tracing), or
+- Create a cleaned SVG mock that you can edit in Inkscape.
