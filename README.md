@@ -2,8 +2,6 @@
 
 Indoor warehouse navigation and search — help pickers find products faster with optimized routes and real‑time location search.
 
-<img src="assets/icon.svg" alt="PickerFox logo" width="96" />
-
 ## Overview
 
 PickerFox helps warehouse pickers find any product reliably and quickly. Today pickers frequently need to ask supervisors or search manually, which wastes time and slows the whole operation. PickerFox reduces walking time and confusion by showing an optimized route on a floorplan and giving clear, confirmable pick instructions. Over time we also collect movement data to build a heatmap that highlights fast- and slow-moving products so storage locations can be optimized.
@@ -14,20 +12,6 @@ PickerFox helps warehouse pickers find any product reliably and quickly. Today p
 - Pickers follow a digital twin of the warehouse in a map-based interface.
 - Managers can activate/deactivate storage spaces, assign product locations, and monitor moving hot spots.
 - Heatmaps help reorganize the warehouse to reduce average travel distance over time.
-
-## Key screens
-
-### Picking 3D view
-
-![Picking 3D view](assets/picking-3d.svg)
-
-### Heatmap overview
-
-![Heatmap overview](assets/heatmap.svg)
-
-### Management dashboard
-
-![Management dashboard](assets/dashboard.svg)
 
 ## Goals
 
