@@ -1,0 +1,799 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1300" data-floor-id="EG" data-level="0" data-units-per-meter="10">
+  <g id="underlays">
+    <image href="b7903cae-image.jpg" width="1368" height="1824" transform="translate(0 0) rotate(0) scale(0.37853849183885885 0.37853849183885885) translate(0 0)" opacity="0.6" data-x="0" data-y="0" data-rotation="0" data-scale="0.37853849183885885"/>
+  </g>
+  <g id="trace">
+    <g data-layer="Default">
+      <line id="line4" x1="396.943" y1="567.522" x2="396.943" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line5" x1="396.943" y1="166.76" x2="292.636209" y2="163.850474" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line6" x1="197.724" y1="161.203" x2="194.752" y2="567.522" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line7" x1="394.125776" y1="311.743164" x2="297.3335" y2="311.743164" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line8" x1="297.3335" y1="311.743164" x2="297.3335" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line9" x1="297.3335" y1="361.472046" x2="288.470856" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line10" x1="288.470856" y1="361.472046" x2="288.470856" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line11" x1="297.3335" y1="364.3625" x2="379.075378" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line12" x1="379.075378" y1="364.3625" x2="379.075378" y2="461.825714" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line13" x1="379.075378" y1="461.825714" x2="394.125776" y2="461.825714" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line14" x1="288.470856" y1="364.3625" x2="297.3335" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line15" x1="196.238" y1="361.472046" x2="196.259142" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line16" x1="257.874237" y1="361.472046" x2="257.874237" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line17" x1="257.874237" y1="364.3625" x2="199.830729" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line18" x1="396.943" y1="311.743164" x2="396.943" y2="166.76" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line19" x1="197.724" y1="567.522" x2="199.830729" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line20" x1="201.908646" y1="163.9815" x2="206.527416" y2="164.110336" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line21" x1="300.762" y1="314.18" x2="394.125776" y2="314.18" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line22" x1="394.125776" y1="311.743164" x2="394.125776" y2="169.34319" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line23" x1="394.125776" y1="314.18" x2="396.943" y2="314.18" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line24" x1="396.943" y1="314.18" x2="396.943" y2="310.946869" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line25" x1="300.762" y1="314.18" x2="300.762" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line26" x1="300.762" y1="361.472046" x2="394.125776" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line27" x1="394.125776" y1="364.3625" x2="394.125776" y2="460.588501" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line28" x1="394.125776" y1="361.472046" x2="396.943" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line29" x1="396.943" y1="361.472046" x2="396.943" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line30" x1="381.893005" y1="364.3625" x2="381.893005" y2="460.588501" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line31" x1="381.893005" y1="460.588501" x2="394.125776" y2="460.588501" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line33" x1="394.125776" y1="461.825714" x2="394.125776" y2="563.291748" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line34" x1="381.893005" y1="364.3625" x2="394.125776" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line35" x1="349.63" y1="167.949" x2="349.63" y2="177.743652" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line36" x1="349.63" y1="213.270935" x2="383.784576" y2="213.270935" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line37" x1="347.443888" y1="167.949" x2="347.443888" y2="177.743652" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line38" x1="347.443888" y1="215.400131" x2="383.784576" y2="215.400131" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line39" x1="347.443888" y1="177.743652" x2="349.63" y2="177.743652" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line40" x1="347.443888" y1="188.754684" x2="349.63" y2="188.754684" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line41" x1="347.443888" y1="188.754684" x2="347.443888" y2="215.400131" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line42" x1="349.63" y1="188.754684" x2="349.63" y2="213.270935" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line43" x1="396.943" y1="567.522" x2="396.943" y2="609.988281" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line44" x1="396.943" y1="609.988281" x2="194.752" y2="609.988281" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line45" x1="194.752" y1="609.988281" x2="194.752" y2="567.522" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line46" x1="197.724" y1="567.522" x2="197.724" y2="607.620239" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line48" x1="394.125776" y1="606.433261" x2="394.125776" y2="606.433261" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line49" x1="197.724" y1="607.620239" x2="394.125776" y2="607.620239" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line50" x1="394.125776" y1="607.620239" x2="394.125776" y2="563.291748" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line55" x1="211.342" y1="148.974" x2="206.68071" y2="161.203" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line56" x1="211.342" y1="148.974" x2="239.842" y2="162.35" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line57" x1="262.438446" y1="148.974" x2="256.54361" y2="162.35" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line58" x1="262.438446" y1="148.974" x2="292.902178" y2="163.9815" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line59" x1="256.54361" y1="162.35" x2="256.28284" y2="162.801667" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line62" x1="206.68071" y1="161.203" x2="206.528986" y2="161.465794" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line63" x1="239.842" y1="162.35" x2="239.767035" y2="165.037519" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line64" x1="206.604848" y1="161.334397" x2="206.527416" y2="164.110336" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line65" x1="256.413225" y1="162.5758335" x2="256.33167" y2="165.499572" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line66" x1="292.902178" y1="163.9815" x2="292.831434" y2="166.517693" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line67" x1="206.601606" y1="161.450631" x2="197.724" y2="161.203" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line68" x1="347.443888" y1="168.041049" x2="394.125776" y2="169.34319" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line69" x1="256.40586" y1="162.839868" x2="239.841224" y2="162.377815" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line70" x1="206.527416" y1="164.110336" x2="239.767035" y2="165.037519" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line71" x1="256.33167" y1="165.499572" x2="292.831434" y2="166.517693" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line72" x1="206.601606" y1="161.450631" x2="239.841224" y2="162.377815" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line73" x1="256.40586" y1="162.839868" x2="292.902178" y2="163.9815" stroke="#f80d0d" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line74" x1="239.767035" y1="165.037519" x2="256.33167" y2="165.499572" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line75" x1="292.831434" y1="166.517693" x2="347.443888" y2="167.949" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line76" x1="348.536944" y1="177.743652" x2="348.536944" y2="188.754684" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line77" x1="348.144562" y1="177.743652" x2="348.144562" y2="188.754684" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line78" x1="199.860703" y1="361.472046" x2="201.908646" y2="163.9815" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line79" x1="199.860703" y1="361.472046" x2="257.874237" y2="361.472046" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line80" x1="300.762" y1="364.3625" x2="300.762" y2="367.064728" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line81" x1="300.762" y1="566.069519" x2="295.924888" y2="566.069519" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line82" x1="295.958973" y1="561.18866" x2="295.924888" y2="566.069519" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line83" x1="295.958973" y1="561.18866" x2="300.762" y2="561.18866" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line84" x1="296.629194" y1="512.558731" x2="300.762" y2="512.558731" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line85" x1="296.629194" y1="512.558731" x2="296.629194" y2="512.558731" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line86" x1="296.298578" y1="512.558731" x2="296.629194" y2="512.558731" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line87" x1="296.292816" y1="516.797729" x2="300.762" y2="516.797729" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line88" x1="296.666194" y1="467.048828" x2="300.762" y2="467.048828" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line89" x1="296.666194" y1="461.125488" x2="300.762" y2="461.125488" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line90" x1="297.3335" y1="411.130707" x2="300.762" y2="411.130707" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line91" x1="297.3335" y1="411.130707" x2="297.006912" y2="411.128426" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line92" x1="297.006912" y1="417.666107" x2="300.762" y2="417.666107" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line93" x1="297.3335" y1="367.064728" x2="300.762" y2="367.064728" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line94" x1="300.762" y1="411.130707" x2="300.762" y2="417.666107" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line95" x1="300.762" y1="461.125488" x2="300.762" y2="467.048828" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line96" x1="300.762" y1="512.558731" x2="300.762" y2="516.797729" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line97" x1="300.762" y1="561.18866" x2="300.762" y2="566.069519" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line98" x1="296.268975" y1="516.797729" x2="296.298578" y2="512.558731" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line99" x1="297.3335" y1="367.064728" x2="297.31463" y2="367.064596" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line100" x1="296.961249" y1="417.666107" x2="297.067444" y2="417.666107" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line101" x1="296.961257" y1="417.666107" x2="297.006913" y2="411.128426" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line102" x1="297.31463" y1="367.064596" x2="297.3335" y2="364.3625" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line103" x1="296.26897" y1="516.797729" x2="296.308367" y2="516.797729" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line104" x1="296.666194" y1="461.125488" x2="296.666194" y2="467.048828" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line108" x1="206.938416" y1="396.197339" x2="248.460352" y2="396.197339" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line110" x1="206.938416" y1="403.068067" x2="206.960812" y2="403.068067" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line116" x1="207.06571" y1="441.934526" x2="248.434352" y2="441.934526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line125" x1="248.053542" y1="490.16527" x2="206.61071" y2="490.16527" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line133" x1="296.696286" y1="405.202899" x2="296.26897" y2="516.797729" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line138" x1="284.890438" y1="411.585014" x2="284.942564" y2="411.585014" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line140" x1="284.79742450000003" y1="429.714626" x2="284.901689" y2="429.713973" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line142" x1="284.705347" y1="447.661682" x2="284.861224" y2="447.661682" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line146" x1="206.938416" y1="396.197339" x2="227.699384" y2="396.197339" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line150" x1="297.170206" y1="361.366364" x2="297.170206" y2="337.432861" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line154" x1="297.706533" y1="310.946869" x2="392.736237" y2="310.946869" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line155" x1="392.736237" y1="310.946869" x2="392.736237" y2="298.971023" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line157" x1="297.790144" y1="298.971023" x2="297.706533" y2="310.946869" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line158" x1="297.170206" y1="337.339111" x2="297.579129" y2="278.78268" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line159" x1="291.023712" y1="278.78268" x2="291.023712" y2="278.78268" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line162" x1="285.57178" y1="278.78268" x2="297.579129" y2="278.76268" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line164" x1="285.331818" y1="314.18" x2="297.331641" y2="314.22217" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line165" x1="291.023712" y1="337.339131" x2="291.023712" y2="337.432861" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line166" x1="297.170206" y1="337.212311" x2="297.170206" y2="337.432861" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line167" x1="285.331818" y1="314.337338" x2="297.330542" y2="314.369513" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line168" x1="292.218536" y1="314.204201" x2="292.21678" y2="314.3558" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line169" x1="256.54361" y1="278.78268" x2="256.33167" y2="313.93585" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line170" x1="256.33167" y1="313.93585" x2="244.298685" y2="314.035801" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line172" x1="244.298685" y1="278.851426" x2="256.54361" y2="278.78268" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line173" x1="346.444" y1="214.822" x2="321.923798" y2="214.822" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line176" x1="346.444" y1="202.857651" x2="346.444" y2="214.822" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line185" x1="206.939734" y1="396.197339" x2="207.09171" y2="408.074872" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line186" x1="248.460352" y1="396.197339" x2="248.460352" y2="408.215345" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line188" x1="207.09171" y1="408.074872" x2="248.460352" y2="408.215345" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line190" x1="207.06571" y1="429.920549" x2="248.434352" y2="429.920549" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line191" x1="207.06571" y1="429.920549" x2="207.06571" y2="441.934526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line192" x1="248.434352" y1="429.920549" x2="248.434352" y2="441.934526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line194" x1="206.61071" y1="478.437548" x2="248.053542" y2="478.437548" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line195" x1="206.61071" y1="478.437548" x2="206.61071" y2="490.42827" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line196" x1="248.053542" y1="478.437548" x2="248.053542" y2="490.42827" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line199" x1="296.630834" y1="466.691821" x2="296.630916" y2="466.691818" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line201" x1="297.170206" y1="361.366364" x2="285.148" y2="361.366364" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line205" x1="285.57178" y1="278.78268" x2="285.148" y2="361.366364" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line206" x1="244.298685" y1="314.035801" x2="244.298685" y2="278.851426" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line207" x1="321.923798" y1="214.822" x2="321.923798" y2="202.857651" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line208" x1="321.923798" y1="202.857651" x2="346.444" y2="202.857651" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line209" x1="297.790144" y1="298.971023" x2="392.736237" y2="298.971023" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line210" x1="296.774425" y1="429.639613" x2="296.908608" y2="429.638773" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line211" x1="296.879129" y1="411.585014" x2="297.003564" y2="411.585014" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line212" x1="296.66991" y1="447.661682" x2="296.722662" y2="447.661682" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line213" x1="296.308367" y1="516.797729" x2="284.350401" y2="516.797729" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line214" x1="284.942564" y1="405.202899" x2="284.383401" y2="516.863729" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line216" x1="284.942564" y1="405.202899" x2="296.696286" y2="405.202899" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line217" x1="206.75371" y1="456.136526" x2="248.122352" y2="456.136526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line218" x1="206.75371" y1="444.122549" x2="248.122352" y2="444.122549" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line219" x1="206.75371" y1="444.122549" x2="206.75371" y2="456.136526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line220" x1="248.122352" y1="444.122549" x2="248.122352" y2="456.136526" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line221" x1="248.381542" y1="503.30527" x2="206.93871" y2="503.30527" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line222" x1="206.93871" y1="491.577548" x2="248.381542" y2="491.577548" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line223" x1="206.93871" y1="491.577548" x2="206.93871" y2="503.56827" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line224" x1="248.381542" y1="491.577548" x2="248.381542" y2="503.56827" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line225" x1="207.639416" y1="364.799339" x2="249.161352" y2="364.799339" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line226" x1="207.639416" y1="371.670067" x2="207.661812" y2="371.670067" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line227" x1="207.639416" y1="364.799339" x2="228.400384" y2="364.799339" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line228" x1="207.640734" y1="364.799339" x2="207.79271" y2="376.676872" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line229" x1="249.161352" y1="364.799339" x2="249.161352" y2="376.817345" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line230" x1="207.95371" y1="376.676872" x2="249.322352" y2="376.817345" stroke="#1d19f5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <g id="sym231" data-symbol="pallet" data-cx="204.33271" data-cy="355.226884" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(204.33271 355.226884) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym232" data-symbol="pallet" data-cx="209.037225" data-cy="259.424884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.037225 259.424884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym233" data-symbol="pallet" data-cx="209.052" data-cy="203.428453" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.052 203.428453) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym234" data-symbol="pallet" data-cx="209.27771" data-cy="231.54964" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.27771 231.54964) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym235" data-symbol="pallet" data-cx="209.05871" data-cy="240.760552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.05871 240.760552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym236" data-symbol="pallet" data-cx="209.078355" data-cy="250.125164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.078355 250.125164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym238" data-symbol="pallet" data-cx="212.81071" data-cy="355.197027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(212.81071 355.197027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym240" data-symbol="pallet" data-cx="209.307312" data-cy="221.809499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.307312 221.809499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym241" data-symbol="pallet" data-cx="213.634312" data-cy="419.621136" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(213.634312 419.621136) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym242" data-symbol="pallet" data-cx="213.311312" data-cy="386.597909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(213.311312 386.597909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym243" data-symbol="pallet" data-cx="209.185312" data-cy="212.403909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(209.185312 212.403909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym246" data-symbol="pallet" data-cx="220.96171" data-cy="355.147027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(220.96171 355.147027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym247" data-symbol="pallet" data-cx="229.09371" data-cy="355.122027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(229.09371 355.122027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym248" data-symbol="pallet" data-cx="237.07871" data-cy="355.360027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(237.07871 355.360027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym250" data-symbol="pallet" data-cx="245.57571" data-cy="355.483027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(245.57571 355.483027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym251" data-symbol="pallet" data-cx="253.92971" data-cy="354.866027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(253.92971 354.866027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym252" data-symbol="pallet" data-cx="213.311312" data-cy="465.752136" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(213.311312 465.752136) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym254" data-symbol="pallet" data-cx="313.468" data-cy="272.624" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(313.468 272.624) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym255" data-symbol="pallet" data-cx="322.508" data-cy="272.752" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(322.508 272.752) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym256" data-symbol="pallet" data-cx="331.46" data-cy="272.792" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(331.46 272.792) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym257" data-symbol="pallet" data-cx="340.487" data-cy="272.815" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(340.487 272.815) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym258" data-symbol="pallet" data-cx="349.331" data-cy="272.717" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(349.331 272.717) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym259" data-symbol="pallet" data-cx="358.419" data-cy="272.679" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(358.419 272.679) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym260" data-symbol="pallet" data-cx="367.324" data-cy="272.763" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(367.324 272.763) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym262" data-symbol="pallet" data-cx="313.448" data-cy="258.122" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(313.448 258.122) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym263" data-symbol="pallet" data-cx="322.488" data-cy="258.25" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(322.488 258.25) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym264" data-symbol="pallet" data-cx="331.44" data-cy="258.29" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(331.44 258.29) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym265" data-symbol="pallet" data-cx="340.467" data-cy="258.313" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(340.467 258.313) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym266" data-symbol="pallet" data-cx="349.311" data-cy="258.215" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(349.311 258.215) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym267" data-symbol="pallet" data-cx="358.399" data-cy="258.177" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(358.399 258.177) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym268" data-symbol="pallet" data-cx="367.304" data-cy="258.261" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(367.304 258.261) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym269" data-symbol="pallet" data-cx="375.843" data-cy="258.224" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(375.843 258.224) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym270" data-symbol="pallet" data-cx="313.344" data-cy="243.872" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(313.344 243.872) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym271" data-symbol="pallet" data-cx="322.384" data-cy="244" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(322.384 244) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym272" data-symbol="pallet" data-cx="331.336" data-cy="244.04" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(331.336 244.04) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym273" data-symbol="pallet" data-cx="340.363" data-cy="244.063" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(340.363 244.063) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym274" data-symbol="pallet" data-cx="349.207" data-cy="243.965" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(349.207 243.965) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym275" data-symbol="pallet" data-cx="358.295" data-cy="243.927" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(358.295 243.927) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym276" data-symbol="pallet" data-cx="367.2" data-cy="244.011" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(367.2 244.011) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym277" data-symbol="pallet" data-cx="375.739" data-cy="243.974" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(375.739 243.974) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym278" data-symbol="pallet" data-cx="223.551225" data-cy="259.406884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(223.551225 259.406884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym279" data-symbol="pallet" data-cx="224.11371" data-cy="231.36964" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(224.11371 231.36964) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym280" data-symbol="pallet" data-cx="223.89471" data-cy="240.580552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(223.89471 240.580552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym281" data-symbol="pallet" data-cx="223.592355" data-cy="250.107164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(223.592355 250.107164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym282" data-symbol="pallet" data-cx="224.143312" data-cy="221.629499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(224.143312 221.629499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym283" data-symbol="pallet" data-cx="224.021312" data-cy="212.223909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(224.021312 212.223909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym284" data-symbol="pallet" data-cx="310.205225" data-cy="456.252884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.205225 456.252884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym285" data-symbol="pallet" data-cx="310.26271" data-cy="429.64664" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.26271 429.64664) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym286" data-symbol="pallet" data-cx="310.29671" data-cy="438.520552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.29671 438.520552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym287" data-symbol="pallet" data-cx="310.246355" data-cy="447.458164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.246355 447.458164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym288" data-symbol="pallet" data-cx="310.208312" data-cy="420.664499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.208312 420.664499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym289" data-symbol="pallet" data-cx="310.086312" data-cy="411.763909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.086312 411.763909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym290" data-symbol="pallet" data-cx="309.878225" data-cy="509.730884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(309.878225 509.730884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym291" data-symbol="pallet" data-cx="310.10371" data-cy="482.70464" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.10371 482.70464) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym292" data-symbol="pallet" data-cx="310.05371" data-cy="491.662552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.05371 491.662552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym293" data-symbol="pallet" data-cx="309.919355" data-cy="500.431164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(309.919355 500.431164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym294" data-symbol="pallet" data-cx="310.133312" data-cy="473.890499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.133312 473.890499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym295" data-symbol="pallet" data-cx="310.264312" data-cy="465.073909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(310.264312 465.073909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym296" data-symbol="pallet" data-cx="203.412" data-cy="600.132" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(203.412 600.132) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym297" data-symbol="pallet" data-cx="212.452" data-cy="600.26" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(212.452 600.26) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym298" data-symbol="pallet" data-cx="221.404" data-cy="600.3" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(221.404 600.3) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym299" data-symbol="pallet" data-cx="230.431" data-cy="600.323" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(230.431 600.323) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym300" data-symbol="pallet" data-cx="239.275" data-cy="600.225" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(239.275 600.225) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym301" data-symbol="pallet" data-cx="248.363" data-cy="600.187" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(248.363 600.187) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym302" data-symbol="pallet" data-cx="257.268" data-cy="600.271" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(257.268 600.271) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym303" data-symbol="pallet" data-cx="203.392" data-cy="585.63" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(203.392 585.63) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym304" data-symbol="pallet" data-cx="212.432" data-cy="585.758" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(212.432 585.758) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym305" data-symbol="pallet" data-cx="221.384" data-cy="585.798" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(221.384 585.798) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym306" data-symbol="pallet" data-cx="230.411" data-cy="585.821" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(230.411 585.821) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym307" data-symbol="pallet" data-cx="239.255" data-cy="585.723" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(239.255 585.723) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym308" data-symbol="pallet" data-cx="248.343" data-cy="585.685" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(248.343 585.685) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym309" data-symbol="pallet" data-cx="257.248" data-cy="585.769" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(257.248 585.769) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym310" data-symbol="pallet" data-cx="265.787" data-cy="585.732" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(265.787 585.732) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym311" data-symbol="pallet" data-cx="203.755" data-cy="540.264" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(203.755 540.264) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym312" data-symbol="pallet" data-cx="212.795" data-cy="540.392" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(212.795 540.392) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym313" data-symbol="pallet" data-cx="221.747" data-cy="540.432" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(221.747 540.432) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym314" data-symbol="pallet" data-cx="230.774" data-cy="540.455" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(230.774 540.455) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym315" data-symbol="pallet" data-cx="239.618" data-cy="540.357" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(239.618 540.357) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym316" data-symbol="pallet" data-cx="248.706" data-cy="540.319" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(248.706 540.319) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym317" data-symbol="pallet" data-cx="257.611" data-cy="540.403" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(257.611 540.403) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym318" data-symbol="pallet" data-cx="266.15" data-cy="540.366" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(266.15 540.366) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym319" data-symbol="pallet" data-cx="266.32871" data-cy="600.220027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(266.32871 600.220027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym322" data-symbol="stairs" data-cx="365.486" data-cy="221.805" data-rot="90" data-width="1.1" data-depth="3.6" transform="translate(365.486 221.805) rotate(90) translate(-5.5 -18) scale(10)" fill="none" stroke="#eec01b" stroke-width="1.5" color="#eec01b">
+        <path d="M0 0H1.1V3.6H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 0.3H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 0.6H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 0.9H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 1.2H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 1.5H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 1.8H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 2.1H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 2.4H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 2.7H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 3H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0 3.3H1.1" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.55 3.24V0.36000000000000004M0.43000000000000005 0.6100000000000001L0.55 0.36000000000000004L0.67 0.6100000000000001" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <line id="line323" x1="394.125776" y1="227.004257" x2="383.784576" y2="227.004257" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line324" x1="383.784576" y1="227.004257" x2="383.784576" y2="215.400131" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line325" x1="383.784576" y1="213.270935" x2="383.784576" y2="215.400131" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line326" x1="383.784576" y1="214.029404" x2="393.522278" y2="214.029404" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line327" x1="383.784576" y1="214.580322" x2="393.522278" y2="214.580322" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line328" x1="393.522278" y1="215.400131" x2="394.125776" y2="215.400131" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line329" x1="393.522278" y1="215.400131" x2="393.522278" y2="213.270935" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <line id="line330" x1="393.522278" y1="213.270935" x2="394.125776" y2="213.270935" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      <g id="sym339" data-symbol="pallet" data-cx="326.106" data-cy="600.343" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(326.106 600.343) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym340" data-symbol="pallet" data-cx="335.146" data-cy="600.471" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(335.146 600.471) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym341" data-symbol="pallet" data-cx="344.098" data-cy="600.511" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(344.098 600.511) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym342" data-symbol="pallet" data-cx="353.125" data-cy="600.534" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(353.125 600.534) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym343" data-symbol="pallet" data-cx="361.969" data-cy="600.436" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(361.969 600.436) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym344" data-symbol="pallet" data-cx="371.057" data-cy="600.398" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(371.057 600.398) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym345" data-symbol="pallet" data-cx="379.962" data-cy="600.482" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(379.962 600.482) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym346" data-symbol="pallet" data-cx="326.086" data-cy="585.841" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(326.086 585.841) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym347" data-symbol="pallet" data-cx="335.126" data-cy="585.969" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(335.126 585.969) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym348" data-symbol="pallet" data-cx="344.078" data-cy="586.009" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(344.078 586.009) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym349" data-symbol="pallet" data-cx="353.105" data-cy="586.032" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(353.105 586.032) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym350" data-symbol="pallet" data-cx="361.949" data-cy="585.934" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(361.949 585.934) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym351" data-symbol="pallet" data-cx="371.037" data-cy="585.896" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(371.037 585.896) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym352" data-symbol="pallet" data-cx="379.942" data-cy="585.98" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(379.942 585.98) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym353" data-symbol="pallet" data-cx="388.481" data-cy="585.943" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(388.481 585.943) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym354" data-symbol="pallet" data-cx="389.02271" data-cy="600.431027" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(389.02271 600.431027) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym355" data-symbol="pallet" data-cx="280.268" data-cy="586.135" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(280.268 586.135) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym356" data-symbol="pallet" data-cx="289.356" data-cy="586.097" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(289.356 586.097) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym357" data-symbol="pallet" data-cx="298.261" data-cy="586.181" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(298.261 586.181) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym358" data-symbol="pallet" data-cx="306.8" data-cy="586.144" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(306.8 586.144) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym359" data-symbol="pallet" data-cx="280.479" data-cy="600.097" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(280.479 600.097) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym360" data-symbol="pallet" data-cx="289.567" data-cy="600.059" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(289.567 600.059) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym361" data-symbol="pallet" data-cx="298.472" data-cy="600.143" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(298.472 600.143) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym362" data-symbol="pallet" data-cx="307.011" data-cy="600.106" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(307.011 600.106) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym363" data-symbol="pallet" data-cx="203.733" data-cy="554.11" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(203.733 554.11) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym364" data-symbol="pallet" data-cx="212.773" data-cy="554.238" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(212.773 554.238) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym365" data-symbol="pallet" data-cx="221.725" data-cy="554.278" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(221.725 554.278) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym366" data-symbol="pallet" data-cx="230.752" data-cy="554.301" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(230.752 554.301) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym367" data-symbol="pallet" data-cx="239.596" data-cy="554.203" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(239.596 554.203) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym368" data-symbol="pallet" data-cx="248.684" data-cy="554.165" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(248.684 554.165) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym369" data-symbol="pallet" data-cx="257.589" data-cy="554.249" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(257.589 554.249) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym370" data-symbol="pallet" data-cx="266.128" data-cy="554.212" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(266.128 554.212) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym371" data-symbol="pallet" data-cx="324.935" data-cy="542.227" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(324.935 542.227) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym372" data-symbol="pallet" data-cx="333.975" data-cy="542.355" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(333.975 542.355) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym373" data-symbol="pallet" data-cx="342.927" data-cy="542.395" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(342.927 542.395) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym374" data-symbol="pallet" data-cx="351.954" data-cy="542.418" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(351.954 542.418) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym375" data-symbol="pallet" data-cx="360.798" data-cy="542.32" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(360.798 542.32) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym376" data-symbol="pallet" data-cx="369.886" data-cy="542.282" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(369.886 542.282) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym377" data-symbol="pallet" data-cx="378.791" data-cy="542.366" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(378.791 542.366) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym378" data-symbol="pallet" data-cx="387.33" data-cy="542.329" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(387.33 542.329) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym379" data-symbol="pallet" data-cx="324.913" data-cy="556.073" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(324.913 556.073) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym380" data-symbol="pallet" data-cx="333.953" data-cy="556.201" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(333.953 556.201) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym381" data-symbol="pallet" data-cx="342.905" data-cy="556.241" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(342.905 556.241) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym382" data-symbol="pallet" data-cx="351.932" data-cy="556.264" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(351.932 556.264) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym383" data-symbol="pallet" data-cx="360.776" data-cy="556.166" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(360.776 556.166) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym384" data-symbol="pallet" data-cx="369.864" data-cy="556.128" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(369.864 556.128) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym385" data-symbol="pallet" data-cx="378.769" data-cy="556.212" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(378.769 556.212) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym386" data-symbol="pallet" data-cx="387.308" data-cy="556.175" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(387.308 556.175) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym387" data-symbol="pallet" data-cx="298.937" data-cy="372.091" data-rot="180" data-width="1.2" data-depth="0.8" transform="translate(298.937 372.091) rotate(180) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym388" data-symbol="pallet" data-cx="312.977" data-cy="372.381" data-rot="180" data-width="1.2" data-depth="0.8" transform="translate(312.977 372.381) rotate(180) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym389" data-symbol="pallet" data-cx="326.929" data-cy="373.066" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(326.929 373.066) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym390" data-symbol="pallet" data-cx="335.956" data-cy="373.089" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(335.956 373.089) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym391" data-symbol="pallet" data-cx="344.8" data-cy="372.991" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(344.8 372.991) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym392" data-symbol="pallet" data-cx="353.888" data-cy="372.953" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(353.888 372.953) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym393" data-symbol="pallet" data-cx="362.793" data-cy="373.037" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(362.793 373.037) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym394" data-symbol="pallet" data-cx="371.332" data-cy="373" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(371.332 373) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym395" data-symbol="pallet" data-cx="352.788225" data-cy="445.767884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.788225 445.767884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym396" data-symbol="pallet" data-cx="352.84571" data-cy="419.16164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.84571 419.16164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym397" data-symbol="pallet" data-cx="352.87971" data-cy="428.035552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.87971 428.035552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym398" data-symbol="pallet" data-cx="352.829355" data-cy="436.973164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.829355 436.973164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym399" data-symbol="pallet" data-cx="352.791312" data-cy="410.179499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.791312 410.179499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym400" data-symbol="pallet" data-cx="352.669312" data-cy="401.278909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.669312 401.278909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym401" data-symbol="pallet" data-cx="352.461225" data-cy="499.245884" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.461225 499.245884) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym402" data-symbol="pallet" data-cx="352.68671" data-cy="472.21964" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.68671 472.21964) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym403" data-symbol="pallet" data-cx="352.63671" data-cy="481.177552" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.63671 481.177552) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym404" data-symbol="pallet" data-cx="352.502355" data-cy="489.946164" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.502355 489.946164) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym405" data-symbol="pallet" data-cx="352.716312" data-cy="463.405499" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.716312 463.405499) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym406" data-symbol="pallet" data-cx="352.847312" data-cy="454.588909" data-rot="0" data-width="1.2" data-depth="0.8" transform="translate(352.847312 454.588909) rotate(0) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym407" data-symbol="pallet" data-cx="291.374856" data-cy="397.649339" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(291.374856 397.649339) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym408" data-symbol="pallet" data-cx="300.978856" data-cy="397.737339" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(300.978856 397.737339) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+      <g id="sym409" data-symbol="pallet" data-cx="310.890856" data-cy="397.702339" data-rot="90" data-width="1.2" data-depth="0.8" transform="translate(310.890856 397.702339) rotate(90) translate(-6 -4) scale(10)" fill="none" stroke="#dad9f2" stroke-width="1.5" color="#dad9f2">
+        <path d="M0 0H1.2V0.8H0Z" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M0.39999999999999997 0V0.8M0.7999999999999999 0V0.8" fill="none" vector-effect="non-scaling-stroke"/>
+      </g>
+    </g>
+  </g>
+</svg>
