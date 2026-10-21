@@ -1,1 +1,2486 @@
-tracy
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plan Tracer</title>
+<style>
+  html, body { height: 100%; }
+  :root { --bg: #fff; --fg: #222; --border: #aaa; --btn: #efefef; --btn-active: #cde; --input: #fff; --bar: #ddd; --bar-hover: #bbb; --box: rgba(255,255,255,.92); color-scheme: light; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #23262b; --fg: #e4e6ea; --border: #555; --btn: #363a41; --btn-active: #47608a; --input: #2d3036; --bar: #3a3d44; --bar-hover: #555a63; --box: rgba(35,38,43,.92); color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #23262b; --fg: #e4e6ea; --border: #555; --btn: #363a41; --btn-active: #47608a; --input: #2d3036; --bar: #3a3d44; --bar-hover: #555a63; --box: rgba(35,38,43,.92); color-scheme: dark; }
+  body { margin: 0; font: 14px sans-serif; display: flex; background: var(--bg); color: var(--fg); }
+  #panel { width: 320px; padding: 8px; overflow-y: auto; border-right: 1px solid var(--border); box-sizing: border-box; }
+  @media (max-width: 700px) {
+    body { flex-direction: column; }
+    #panel { width: 100%; max-height: 40%; border-right: 0; border-bottom: 1px solid #aaa; }
+  }
+  #resizer { flex: 0 0 6px; background: var(--bar); cursor: col-resize; touch-action: none; }
+  #resizer:hover { background: var(--bar-hover); }
+  @media (max-width: 700px) { #resizer { cursor: row-resize; } }
+  #panel fieldset { margin: 0 0 8px; padding: 6px; }
+  #panel label { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
+  #panel input[type=number], #panel input[type=text] { width: 90px; }
+  #panel input[type=number], #panel input[type=text], #panel select { background: var(--input); color: var(--fg); border: 1px solid var(--border); }
+  #panel select { width: 100%; }
+  #panel button { margin: 2px 2px 2px 0; background: var(--btn); color: var(--fg); border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px; }
+  #panel button.active { background: var(--btn-active); }
+  #panel legend { cursor: pointer; user-select: none; }
+  #panel legend::before { content: '\25BE  '; }
+  #panel fieldset.collapsed legend::before { content: '\25B8  '; }
+  #panel fieldset.collapsed > :not(legend) { display: none; }
+  #view { flex: 1; background: #fff; touch-action: none; }
+  #status { position: fixed; left: 328px; bottom: 8px; max-width: calc(100vw - 680px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: var(--box); color: var(--fg); padding: 2px 6px; border: 1px solid var(--border); border-radius: 3px; font-size: 12px; pointer-events: none; }
+  @media (max-width: 700px) { #status { left: 8px; } }
+  #info { position: fixed; top: 8px; right: 8px; min-width: 150px; background: var(--box); color: var(--fg); padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 12px; pointer-events: none; }
+  #info div:first-child { font-weight: bold; }
+  #toast { position: fixed; bottom: 44px; transform: translateX(-50%); max-width: 60%; background: rgba(30,30,30,.92); color: #fff; padding: 6px 12px; border-radius: 4px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  #toast.show { opacity: 1; }
+  #help { position: fixed; right: 8px; bottom: 8px; max-width: 290px; max-height: 60%; overflow-y: auto; background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+  #help summary { cursor: pointer; font-weight: bold; }
+  #help ol { margin: 6px 0 2px; padding-left: 18px; }
+  #panel input[type=color] { width: 50px; padding: 0; }
+  #orthoBtn, #mapBtn { position: fixed; top: 8px; left: 334px; background: var(--box); color: var(--fg); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 12px; cursor: pointer; }
+  #orthoBtn.on, #mapBtn.on { background: var(--btn-active); }
+  #rulerH, #rulerV { position: fixed; pointer-events: none; }
+  #minimap { position: fixed; display: none; width: 180px; height: 130px; background: var(--box); border: 1px solid var(--border); touch-action: none; cursor: pointer; }
+  #scaleBar { position: fixed; display: none; height: 6px; border: 2px solid #000; border-top: none; pointer-events: none; }
+  #scaleBar span { position: absolute; top: -16px; left: 0; font-size: 11px; color: #000; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="panel">
+  <button id="themeBtn" data-dyn>Theme: system</button>
+  <button id="langBtn" data-dyn title="Sprache / Language">Deutsch</button>
+  <fieldset>
+    <legend>Floor</legend>
+    <label>Floor ID <input type="text" id="floorId" value="EG"></label>
+    <label>Level <input type="number" id="level" value="0" step="1"></label>
+    <label>Frame x <input type="number" id="fx" value="0"></label>
+    <label>Frame y <input type="number" id="fy" value="0"></label>
+    <label>Frame width <input type="number" id="fw" value="1000"></label>
+    <label>Frame height <input type="number" id="fh" value="700"></label>
+    <label>Units per meter <input type="number" id="upm" value="10" step="any"></label>
+  </fieldset>
+  <fieldset>
+    <legend>Underlays</legend>
+    <select id="underSel"></select>
+    <input type="file" id="imgFile" accept="image/*" multiple>
+    <button id="underRemove">Remove</button>
+    <button id="underFit">Fit to frame</button>
+    <button id="cropClear">Clear crop</button>
+    <button id="underUp" title="Draw this underlay above the next one">Raise</button>
+    <button id="underDown" title="Draw this underlay below the previous one">Lower</button>
+    <label>Name <input type="text" id="ulabel"></label>
+    <label>x <input type="number" id="ux" value="0" step="any"></label>
+    <label>y <input type="number" id="uy" value="0" step="any"></label>
+    <label>Rotation (°) <input type="number" id="urot" value="0" step="any"></label>
+    <label>Scale <input type="number" id="uscale" value="1" step="any"></label>
+    <label>Opacity <input type="range" id="uopacity" min="0.05" max="1" step="0.05" value="0.6"></label>
+    <label>Brightness <input type="range" id="ubright" min="0.2" max="2" step="0.05" value="1"></label>
+    <label>Contrast <input type="range" id="ucontrast" min="0.2" max="2" step="0.05" value="1"></label>
+    <label>Visible <input type="checkbox" id="uvis" checked></label>
+    <label>Locked <input type="checkbox" id="ulock"></label>
+    <label>Flip horizontal <input type="checkbox" id="uflipx"></label>
+    <label>Flip vertical <input type="checkbox" id="uflipy"></label>
+    <label>Nudge step <input type="number" id="nudgeStep" value="1" step="any"></label>
+    <button id="nudgeL" title="Move the underlay left">&larr;</button>
+    <button id="nudgeR" title="Move the underlay right">&rarr;</button>
+    <button id="nudgeU" title="Move the underlay up">&uarr;</button>
+    <button id="nudgeD" title="Move the underlay down">&darr;</button>
+  </fieldset>
+  <fieldset>
+    <legend>Tools</legend>
+    <button data-tool="pan">Pan</button>
+    <button data-tool="underlay">Underlay</button>
+    <button data-tool="crop">Crop</button>
+    <button data-tool="rotate">Rotate</button>
+    <button data-tool="horizontal">Make horizontal</button>
+    <button data-tool="calibrate">Calibrate</button>
+    <button data-tool="line">Line</button>
+    <button data-tool="rect">Rectangle</button>
+    <button data-tool="polyline">Polyline</button>
+    <button data-tool="circle">Circle</button>
+    <button data-tool="path">Path</button>
+    <button data-tool="symbol">Place symbol</button>
+    <button data-tool="text">Text</button>
+    <button data-tool="measure">Measure</button>
+    <button data-tool="dimension">Dimension</button>
+    <button data-tool="offset">Offset</button>
+    <button data-tool="trim">Trim</button>
+    <button data-tool="extend">Extend</button>
+    <button data-tool="zoomwin">Zoom window</button>
+    <button data-tool="select">Select</button>
+    <label>Text <input type="text" id="textValue"></label>
+    <label>Font size <input type="number" id="fontSize" value="12" step="any"></label>
+    <button id="applyText">Apply to selected text</button>
+    <label>Real distance (m) <input type="number" id="calDist" value="" step="any"></label>
+    <label>Line thickness <input type="number" id="lineW" value="1.5" min="0.5" step="0.5"></label>
+    <label>Line color <input type="color" id="lineC" value="#000000"></label>
+    <button id="applyLine">Apply to selected lines</button>
+    <label>Offset distance (m) <input type="number" id="offDist" value="1" step="any"></label>
+    <label>Path: smooth curve <input type="checkbox" id="pathSmooth"></label>
+    <label>Path: closed <input type="checkbox" id="pathClosed"></label>
+    <label>Attach new text to the element under the click <input type="checkbox" id="attachNew" checked></label>
+  </fieldset>
+  <fieldset>
+    <legend>Symbols</legend>
+    <select id="symType"></select>
+    <label>Width (m) <input type="number" id="symW" value="1" step="any"></label>
+    <label>Depth (m) <input type="number" id="symD" value="1" step="any"></label>
+    <label>Rotation <select id="symRot"><option value="0">0°</option><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select></label>
+    <button id="symApply" title="Apply type, size and rotation to the selected symbol">Apply to selected symbol</button>
+    <button id="symRotate" title="Turn the selected symbols by 90 degrees">Rotate 90°</button>
+  </fieldset>
+  <fieldset>
+    <legend>Layers</legend>
+    <select id="layerSel"></select>
+    <label>Name <input type="text" id="layerName"></label>
+    <button id="layerAdd">Add</button>
+    <button id="layerRename">Rename</button>
+    <button id="layerDel" title="Delete the layer; its elements move to the first remaining layer">Delete</button>
+    <label>Visible <input type="checkbox" id="layerVis" checked></label>
+    <label>Locked <input type="checkbox" id="layerLock"></label>
+    <button id="toLayer" title="Move the selected elements to the chosen layer">Move selected here</button>
+  </fieldset>
+  <fieldset>
+    <legend>Edit</legend>
+    <button id="undo">Undo</button>
+    <button id="redo">Redo</button>
+    <button id="del">Delete</button>
+    <button id="dup">Duplicate</button>
+    <button id="selAll">Select all</button>
+    <button id="attachText" title="Select one text and one element, then attach the text to the element">Attach text</button>
+    <button id="detachText" title="Make the selected texts free again">Detach text</button>
+    <label>Element ID <input type="text" id="elId"></label>
+    <button id="applyId">Rename ID</button>
+    <button id="joinCol" title="Join touching or overlapping collinear lines of the same thickness and color">Join collinear</button>
+  </fieldset>
+  <fieldset>
+    <legend>Arrange</legend>
+    <button data-arrange="left">Align left</button>
+    <button data-arrange="right">Align right</button>
+    <button data-arrange="top">Align top</button>
+    <button data-arrange="bottom">Align bottom</button>
+    <button data-arrange="centerx">Center horizontally</button>
+    <button data-arrange="centery">Center vertically</button>
+    <button data-arrange="distx">Distribute horizontally</button>
+    <button data-arrange="disty">Distribute vertically</button>
+  </fieldset>
+  <fieldset>
+    <legend>View and aids</legend>
+    <button id="zoomIn">Zoom in</button>
+    <button id="zoomOut">Zoom out</button>
+    <button id="zoomFrame">Zoom to frame</button>
+    <button id="zoomDraw">Zoom to drawing</button>
+    <label>Show grid <input type="checkbox" id="showGrid"></label>
+    <label>Grid spacing <input type="number" id="gridSize" value="10" step="any"></label>
+    <label>Snap to grid <input type="checkbox" id="snapGrid"></label>
+    <label>Ortho (45°) <input type="checkbox" id="ortho"></label>
+    <label>Tracking guides <input type="checkbox" id="tracking" checked></label>
+    <label>Rulers and scale bar <input type="checkbox" id="rulers" checked></label>
+    <label>Chain lines <input type="checkbox" id="chain"></label>
+  </fieldset>
+  <fieldset>
+    <legend>File</legend>
+    <label>Include underlay reference <input type="checkbox" id="includeUnder" checked></label>
+    <button id="open">Open</button>
+    <button id="save">Save</button>
+    <button id="exportPng">Export PNG</button>
+    <button id="newDoc" data-dyn>New</button>
+    <input type="file" id="openFile" accept=".svg" hidden>
+  </fieldset>
+</div>
+<div id="resizer" title="Drag to resize the panel"></div>
+<svg id="view" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="gridPat" patternUnits="userSpaceOnUse" width="10" height="10"><path id="gridPath" d="M 10 0 L 0 0 L 0 10" fill="none" stroke="#999"/></pattern>
+  </defs>
+  <g id="underlays"></g>
+  <g id="trace"></g>
+  <g id="ui" pointer-events="none">
+    <rect id="grid" fill="url(#gridPat)" visibility="hidden"/>
+    <rect id="frame" fill="none" stroke="#c00" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+    <g id="guides"></g>
+    <polyline id="polyPrev" fill="none" stroke="#0a0" stroke-width="1.5" vector-effect="non-scaling-stroke" visibility="hidden"/>
+    <circle id="circlePrev" fill="none" stroke="#0a0" stroke-width="1.5" vector-effect="non-scaling-stroke" visibility="hidden"/>
+    <line id="preview" stroke="#0a0" stroke-width="1.5" vector-effect="non-scaling-stroke" visibility="hidden"/>
+    <rect id="rubber" fill="rgba(0,100,255,.1)" stroke="#06c" stroke-dasharray="4 3" vector-effect="non-scaling-stroke" visibility="hidden"/>
+    <g id="handles"></g>
+    <path id="snapMark" fill="none" stroke="#e0a000" stroke-width="2" vector-effect="non-scaling-stroke" visibility="hidden"/>
+    <text id="textPreview" fill="#06c" opacity="0.6" visibility="hidden"></text>
+  </g>
+</svg>
+<div id="status"></div>
+<div id="info"></div>
+<div id="toast"></div>
+<canvas id="rulerH"></canvas>
+<canvas id="rulerV"></canvas>
+<button id="orthoBtn" data-dyn title="Orthogonal drawing and moving (also while Shift is held)">Ortho: off</button>
+<button id="mapBtn" data-dyn title="Show or hide the overview map">Map: off</button>
+<canvas id="minimap" width="180" height="130"></canvas>
+<div id="scaleBar"><span id="scaleTxt"></span></div>
+<details id="help" open>
+  <summary>Help</summary>
+  <ol>
+    <li>Floor: set the floor ID, level, frame and units per meter.</li>
+    <li>Underlays: pick one or more images. Choose one in the list, then drag it with the Underlay tool or type x, y, rotation and scale. Flip, opacity, Visible and Locked apply to the chosen one. Crop: drag a rectangle on it with the Crop tool.</li>
+    <li>Underlay tools: Rotate turns the chosen underlay about the center of its visible part as you drag (Shift: 15° steps). Make horizontal: click two points that should be level and the underlay turns about the first. The arrow buttons nudge it by the step. Raise and Lower change which underlay is drawn on top, Name sets a label, Brightness and Contrast adjust the picture. All are saved with the underlay.</li>
+    <li>View: Zoom window zooms to a dragged rectangle. Map shows an overview, and clicking or dragging in it moves the view. The rulers read meters from the frame's top-left corner, and the scale bar shows a round length.</li>
+    <li>Calibrate: enter the real distance in meters, then click two points a known distance apart on the underlay. The underlay is rescaled to match.</li>
+    <li>Line: click the start, then the end, or drag from the start to the end. Ends snap to line ends, midpoints, intersections and the grid. After the start you can type a length in meters and press Enter. Ortho (the button on the drawing, the checkbox, or Shift) locks 45° steps; it makes rectangles square and keeps moves and line-end drags on one axis. Chain lines continues from the last end. Esc cancels.</li>
+    <li>Rectangle: click two opposite corners. Measure: click two points to read the distance. Dimension: click two points, then where the dimension line goes.</li>
+    <li>Polyline and Path: click the points, then right-click, Enter or a second click on the last point to finish (Path can be a smooth curve, open or closed). Circle: click the center, then a point on the circle. Select a shape to drag its vertices or its radius. Every element has an ID, shown and renamable in Edit.</li>
+    <li>Symbols: choose a type, set the width and depth in meters, then click with Place symbol; the symbol is centered on the click. Select one to change its size, type or rotation, or turn it by 90°.</li>
+    <li>Text on an element: with the Text tool, a click on a line, polyline, path, circle or symbol attaches the text to it (the option can be switched off); it then follows the element, lies along lines and can be dragged to set its offset. Select one text and one element and use Attach text or Detach text to change it later. Deleting an element deletes its attached texts.</li>
+    <li>Layers: add, rename and delete layers, hide or lock the chosen one, and move the selected elements to it. New elements go to the chosen layer. Hidden layers are not drawn, snapped to or exported; locked layers cannot be picked.</li>
+    <li>Offset: select lines, set the distance in meters, choose Offset and click the side. Trim: click the part of a line to remove between its crossings. Extend: click a line near the end to lengthen it to the next line.</li>
+    <li>Line thickness and color apply to new lines; use Apply to selected lines to change existing ones. Edit has Select all (Ctrl+A) and Join collinear; Arrange aligns and distributes the selection.</li>
+    <li>Text: type it in the Text field, choose the Text tool, click where it goes.</li>
+    <li>Select: click an element, Shift-click to add, drag on empty space to select a box, drag to move, drag a line end to reshape. Select one text to edit it and use Apply to selected text. Delete, Duplicate, Undo and Redo work on the selection.</li>
+    <li>Pan: Pan tool, middle mouse button, or two fingers. Zoom: wheel, pinch or the Zoom buttons.</li>
+    <li>Right-click ends a chain or cancels a pending point. The marker at the cursor shows the snap: square = end, triangle = midpoint, X = intersection, plus = grid, circle = aligned with another point, bar with ticks = extension of a line, right angle = perpendicular, two slashes = parallel, diamond = polar angle.</li>
+    <li>Tracking guides (dashed green, switched by the checkbox): the cursor snaps level with the ends and midpoints of lines and with the start point, onto the extension of a line beyond its end, and where two guides cross. While drawing it also snaps to the perpendicular foot on a line, parallel to a line you hovered over, and to 0, 30, 45, 60, 90 degrees and so on around the start point. Ortho turns the tracking off while a line is being drawn.</li>
+    <li>Export PNG saves the frame area as a picture. Theme cycles system, light and dark. Click a section title to collapse it.</li>
+    <li>Work is autosaved in this browser. Save writes the plan SVG; untick "Include underlay reference" to leave the images out. Open reads a plan SVG; pick the underlay images again to see them.</li>
+  </ol>
+</details>
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const view = $('view'), gUnder = $('underlays'), gTrace = $('trace');
+const frameRect = $('frame'), preview = $('preview'), rubber = $('rubber'), gHandles = $('handles');
+const gridRect = $('grid'), snapMark = $('snapMark'), textPrev = $('textPreview'), gGuides = $('guides'), polyPrev = $('polyPrev'), circlePrev = $('circlePrev');
+
+// State
+let unders = [], activeU = -1, uidCounter = 0;
+let tool = 'line', startPt = null, calib = null, hover = null;
+let sel = new Set(), undoS = [], redoS = [];
+let drag = null, tap = null, gesture = null, shiftDown = false;
+const ptrs = new Map();
+let snapKind = null, lastP = null, dirty = false;
+let dimB = null, typed = '';
+let guides = [], trackSkip = null, parRef = null, prevTool = 'line', curClient = null, poly = [];
+
+const num = id => parseFloat($(id).value) || 0;
+
+// Toast: a short message at the bottom centre of the drawing
+let toastTimer = null;
+const msg = t => {
+  const el = $('toast'), r = view.getBoundingClientRect();
+  el.style.left = (r.left + r.width / 2) + 'px';
+  el.textContent = t;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+};
+const scale = () => view.getScreenCTM().a;
+
+// Language: English strings are the keys; DE maps them to German. Plan files and layer names stay language-neutral.
+const DE = { "Floor": "Geschoss", "Floor ID": "Geschoss-ID", "Level": "Ebene", "Frame x": "Rahmen x", "Frame y": "Rahmen y", "Frame width": "Rahmenbreite", "Frame height": "Rahmenhöhe", "Units per meter": "Einheiten pro Meter", "Underlays": "Unterlagen", "Remove": "Entfernen", "Fit to frame": "In Rahmen einpassen", "Clear crop": "Zuschnitt löschen", "Raise": "Nach oben", "Lower": "Nach unten", "Name": "Name", "Rotation (°)": "Drehung (°)", "Scale": "Maßstab", "Opacity": "Deckkraft", "Brightness": "Helligkeit", "Contrast": "Kontrast", "Visible": "Sichtbar", "Locked": "Gesperrt", "Flip horizontal": "Horizontal spiegeln", "Flip vertical": "Vertikal spiegeln", "Nudge step": "Schrittweite", "Tools": "Werkzeuge", "Pan": "Verschieben", "Underlay": "Unterlage", "Crop": "Zuschneiden", "Rotate": "Drehen", "Make horizontal": "Waagerecht ausrichten", "Calibrate": "Kalibrieren", "Line": "Linie", "Rectangle": "Rechteck", "Polyline": "Polylinie", "Circle": "Kreis", "Path": "Pfad", "Place symbol": "Symbol setzen", "Text": "Text", "Measure": "Messen", "Dimension": "Bemaßung", "Offset": "Versetzen", "Trim": "Stutzen", "Extend": "Verlängern", "Zoom window": "Zoomfenster", "Select": "Auswählen", "Font size": "Schriftgröße", "Apply to selected text": "Auf gewählten Text anwenden", "Real distance (m)": "Reale Strecke (m)", "Line thickness": "Linienstärke", "Line color": "Linienfarbe", "Apply to selected lines": "Auf gewählte Linien anwenden", "Offset distance (m)": "Versatz (m)", "Path: smooth curve": "Pfad: glatte Kurve", "Path: closed": "Pfad: geschlossen", "Attach new text to the element under the click": "Neuen Text am Element unter dem Klick anheften", "Symbols": "Symbole", "Width (m)": "Breite (m)", "Depth (m)": "Tiefe (m)", "Rotation": "Drehung", "Apply to selected symbol": "Auf gewähltes Symbol anwenden", "Rotate 90°": "90° drehen", "Layers": "Ebenen", "Add": "Hinzufügen", "Rename": "Umbenennen", "Delete": "Löschen", "Move selected here": "Auswahl hierher verschieben", "Edit": "Bearbeiten", "Undo": "Rückgängig", "Redo": "Wiederholen", "Duplicate": "Duplizieren", "Select all": "Alles auswählen", "Attach text": "Text anheften", "Detach text": "Text lösen", "Element ID": "Element-ID", "Rename ID": "ID umbenennen", "Join collinear": "Kollineare verbinden", "Arrange": "Anordnen", "Align left": "Links ausrichten", "Align right": "Rechts ausrichten", "Align top": "Oben ausrichten", "Align bottom": "Unten ausrichten", "Center horizontally": "Horizontal zentrieren", "Center vertically": "Vertikal zentrieren", "Distribute horizontally": "Horizontal verteilen", "Distribute vertically": "Vertikal verteilen", "View and aids": "Ansicht und Hilfen", "Zoom in": "Vergrößern", "Zoom out": "Verkleinern", "Zoom to frame": "Auf Rahmen zoomen", "Zoom to drawing": "Auf Zeichnung zoomen", "Show grid": "Raster anzeigen", "Grid spacing": "Rasterweite", "Snap to grid": "Am Raster fangen", "Ortho (45°)": "Ortho (45°)", "Tracking guides": "Spurführungslinien", "Rulers and scale bar": "Lineale und Maßstabsleiste", "Chain lines": "Linienzug", "File": "Datei", "Include underlay reference": "Unterlage als Referenz einbinden", "Open": "Öffnen", "Save": "Speichern", "Export PNG": "PNG exportieren", "New": "Neu", "Help": "Hilfe", "Draw this underlay above the next one": "Diese Unterlage über der nächsten zeichnen", "Draw this underlay below the previous one": "Diese Unterlage unter der vorherigen zeichnen", "Move the underlay left": "Unterlage nach links verschieben", "Move the underlay right": "Unterlage nach rechts verschieben", "Move the underlay up": "Unterlage nach oben verschieben", "Move the underlay down": "Unterlage nach unten verschieben", "Apply type, size and rotation to the selected symbol": "Typ, Größe und Drehung auf das gewählte Symbol anwenden", "Turn the selected symbols by 90 degrees": "Gewählte Symbole um 90 Grad drehen", "Delete the layer; its elements move to the first remaining layer": "Ebene löschen; ihre Elemente wandern in die erste verbleibende Ebene", "Move the selected elements to the chosen layer": "Gewählte Elemente in die gewählte Ebene verschieben", "Select one text and one element, then attach the text to the element": "Einen Text und ein Element wählen, dann den Text am Element anheften", "Make the selected texts free again": "Gewählte Texte wieder freigeben", "Join touching or overlapping collinear lines of the same thickness and color": "Sich berührende oder überlappende kollineare Linien gleicher Stärke und Farbe verbinden", "Drag to resize the panel": "Ziehen, um die Leiste zu vergrößern", "Orthogonal drawing and moving (also while Shift is held)": "Orthogonal zeichnen und verschieben (auch bei gedrückter Umschalttaste)", "Show or hide the overview map": "Übersichtskarte ein- oder ausblenden", "Floor: set the floor ID, level, frame and units per meter.": "Geschoss: Geschoss-ID, Ebene, Rahmen und Einheiten pro Meter festlegen.", "Underlays: pick one or more images. Choose one in the list, then drag it with the Underlay tool or type x, y, rotation and scale. Flip, opacity, Visible and Locked apply to the chosen one. Crop: drag a rectangle on it with the Crop tool.": "Unterlagen: ein oder mehrere Bilder wählen. In der Liste eines auswählen, dann mit dem Werkzeug Unterlage ziehen oder x, y, Drehung und Maßstab eintippen. Spiegeln, Deckkraft, Sichtbar und Gesperrt gelten für die gewählte Unterlage. Zuschneiden: mit dem Werkzeug Zuschneiden ein Rechteck darauf ziehen.", "Underlay tools: Rotate turns the chosen underlay about the center of its visible part as you drag (Shift: 15° steps). Make horizontal: click two points that should be level and the underlay turns about the first. The arrow buttons nudge it by the step. Raise and Lower change which underlay is drawn on top, Name sets a label, Brightness and Contrast adjust the picture. All are saved with the underlay.": "Unterlagen-Werkzeuge: Drehen dreht die gewählte Unterlage beim Ziehen um die Mitte ihres sichtbaren Teils (Umschalt: 15°-Schritte). Waagerecht ausrichten: zwei Punkte anklicken, die auf gleicher Höhe liegen sollen; die Unterlage dreht sich um den ersten. Die Pfeiltasten verschieben sie um die Schrittweite. Nach oben und Nach unten bestimmen, welche Unterlage oben liegt, Name vergibt eine Bezeichnung, Helligkeit und Kontrast passen das Bild an. Alles wird mit der Unterlage gespeichert.", "View: Zoom window zooms to a dragged rectangle. Map shows an overview, and clicking or dragging in it moves the view. The rulers read meters from the frame's top-left corner, and the scale bar shows a round length.": "Ansicht: Zoomfenster zoomt auf ein aufgezogenes Rechteck. Karte zeigt eine Übersicht; Klicken oder Ziehen darin verschiebt die Ansicht. Die Lineale zeigen Meter ab der oberen linken Ecke des Rahmens, die Maßstabsleiste eine runde Länge.", "Calibrate: enter the real distance in meters, then click two points a known distance apart on the underlay. The underlay is rescaled to match.": "Kalibrieren: die reale Strecke in Metern eingeben, dann zwei Punkte mit bekanntem Abstand auf der Unterlage anklicken. Die Unterlage wird entsprechend skaliert.", "Line: click the start, then the end, or drag from the start to the end. Ends snap to line ends, midpoints, intersections and the grid. After the start you can type a length in meters and press Enter. Ortho (the button on the drawing, the checkbox, or Shift) locks 45° steps; it makes rectangles square and keeps moves and line-end drags on one axis. Chain lines continues from the last end. Esc cancels.": "Linie: Anfang und dann Ende anklicken oder vom Anfang zum Ende ziehen. Enden rasten an Linienenden, Mittelpunkten, Schnittpunkten und am Raster ein. Nach dem Anfang kann eine Länge in Metern getippt und mit Enter bestätigt werden. Ortho (die Schaltfläche auf der Zeichnung, das Kontrollkästchen oder Umschalt) rastet in 45°-Schritten ein; Rechtecke werden quadratisch, Verschieben und Ziehen von Linienenden bleiben auf einer Achse. Linienzug setzt am letzten Ende fort. Esc bricht ab.", "Rectangle: click two opposite corners. Measure: click two points to read the distance. Dimension: click two points, then where the dimension line goes.": "Rechteck: zwei gegenüberliegende Ecken anklicken. Messen: zwei Punkte anklicken, um den Abstand abzulesen. Bemaßung: zwei Punkte anklicken, dann die Lage der Maßlinie.", "Polyline and Path: click the points, then right-click, Enter or a second click on the last point to finish (Path can be a smooth curve, open or closed). Circle: click the center, then a point on the circle. Select a shape to drag its vertices or its radius. Every element has an ID, shown and renamable in Edit.": "Polylinie und Pfad: Punkte anklicken, zum Beenden Rechtsklick, Enter oder ein zweiter Klick auf den letzten Punkt (ein Pfad kann eine glatte Kurve, offen oder geschlossen sein). Kreis: Mittelpunkt und dann einen Punkt auf dem Kreis anklicken. Eine Form auswählen, um ihre Eckpunkte oder ihren Radius zu ziehen. Jedes Element hat eine ID, die unter Bearbeiten angezeigt und umbenannt werden kann.", "Symbols: choose a type, set the width and depth in meters, then click with Place symbol; the symbol is centered on the click. Select one to change its size, type or rotation, or turn it by 90°.": "Symbole: einen Typ wählen, Breite und Tiefe in Metern festlegen, dann mit Symbol setzen klicken; das Symbol wird auf dem Klick zentriert. Ein Symbol auswählen, um Größe, Typ oder Drehung zu ändern oder es um 90° zu drehen.", "Text on an element: with the Text tool, a click on a line, polyline, path, circle or symbol attaches the text to it (the option can be switched off); it then follows the element, lies along lines and can be dragged to set its offset. Select one text and one element and use Attach text or Detach text to change it later. Deleting an element deletes its attached texts.": "Text an einem Element: Ein Klick mit dem Textwerkzeug auf eine Linie, Polylinie, einen Pfad, Kreis oder ein Symbol heftet den Text daran an (die Option lässt sich abschalten); er folgt dann dem Element, liegt entlang von Linien und kann zum Einstellen des Abstands gezogen werden. Einen Text und ein Element wählen und Text anheften oder Text lösen verwenden, um es später zu ändern. Beim Löschen eines Elements werden seine angehefteten Texte mitgelöscht.", "Layers: add, rename and delete layers, hide or lock the chosen one, and move the selected elements to it. New elements go to the chosen layer. Hidden layers are not drawn, snapped to or exported; locked layers cannot be picked.": "Ebenen: Ebenen hinzufügen, umbenennen und löschen, die gewählte ausblenden oder sperren und die gewählten Elemente dorthin verschieben. Neue Elemente kommen in die gewählte Ebene. Ausgeblendete Ebenen werden weder gezeichnet noch gefangen noch exportiert; gesperrte Ebenen lassen sich nicht anwählen.", "Offset: select lines, set the distance in meters, choose Offset and click the side. Trim: click the part of a line to remove between its crossings. Extend: click a line near the end to lengthen it to the next line.": "Versetzen: Linien auswählen, Abstand in Metern einstellen, Versetzen wählen und die Seite anklicken. Stutzen: den Teil einer Linie zwischen ihren Schnittpunkten anklicken, um ihn zu entfernen. Verlängern: eine Linie nahe dem Ende anklicken, um sie bis zur nächsten Linie zu verlängern.", "Line thickness and color apply to new lines; use Apply to selected lines to change existing ones. Edit has Select all (Ctrl+A) and Join collinear; Arrange aligns and distributes the selection.": "Linienstärke und -farbe gelten für neue Linien; bestehende ändert man mit Auf gewählte Linien anwenden. Bearbeiten enthält Alles auswählen (Strg+A) und Kollineare verbinden; Anordnen richtet die Auswahl aus und verteilt sie.", "Text: type it in the Text field, choose the Text tool, click where it goes.": "Text: im Textfeld eingeben, das Textwerkzeug wählen und dorthin klicken, wo der Text hin soll.", "Select: click an element, Shift-click to add, drag on empty space to select a box, drag to move, drag a line end to reshape. Select one text to edit it and use Apply to selected text. Delete, Duplicate, Undo and Redo work on the selection.": "Auswählen: ein Element anklicken, mit Umschalt-Klick hinzufügen, auf leerer Fläche ziehen für einen Auswahlrahmen, ziehen zum Verschieben, ein Linienende ziehen zum Verformen. Einen Text auswählen, um ihn zu bearbeiten, und Auf gewählten Text anwenden verwenden. Löschen, Duplizieren, Rückgängig und Wiederholen wirken auf die Auswahl.", "Pan: Pan tool, middle mouse button, or two fingers. Zoom: wheel, pinch or the Zoom buttons.": "Verschieben: Werkzeug Verschieben, mittlere Maustaste oder zwei Finger. Zoom: Mausrad, Pinch-Geste oder die Zoom-Schaltflächen.", "Right-click ends a chain or cancels a pending point. The marker at the cursor shows the snap: square = end, triangle = midpoint, X = intersection, plus = grid, circle = aligned with another point, bar with ticks = extension of a line, right angle = perpendicular, two slashes = parallel, diamond = polar angle.": "Rechtsklick beendet einen Linienzug oder verwirft einen offenen Punkt. Die Markierung am Cursor zeigt den Fang: Quadrat = Endpunkt, Dreieck = Mittelpunkt, X = Schnittpunkt, Plus = Raster, Kreis = fluchtend mit einem anderen Punkt, Balken mit Strichen = Verlängerung einer Linie, rechter Winkel = senkrecht, zwei Schrägstriche = parallel, Raute = Polarwinkel.", "Tracking guides (dashed green, switched by the checkbox): the cursor snaps level with the ends and midpoints of lines and with the start point, onto the extension of a line beyond its end, and where two guides cross. While drawing it also snaps to the perpendicular foot on a line, parallel to a line you hovered over, and to 0, 30, 45, 60, 90 degrees and so on around the start point. Ortho turns the tracking off while a line is being drawn.": "Spurführungslinien (grün gestrichelt, per Kontrollkästchen schaltbar): Der Cursor rastet auf gleicher Höhe mit den Enden und Mittelpunkten von Linien und mit dem Startpunkt ein, auf der Verlängerung einer Linie über ihr Ende hinaus und dort, wo sich zwei Führungslinien kreuzen. Beim Zeichnen rastet er außerdem auf dem Lotfußpunkt einer Linie, parallel zu einer überfahrenen Linie und bei 0, 30, 45, 60, 90 Grad usw. um den Startpunkt ein. Ortho schaltet die Spurführung beim Zeichnen einer Linie ab.", "Export PNG saves the frame area as a picture. Theme cycles system, light and dark. Click a section title to collapse it.": "PNG exportieren speichert den Rahmenbereich als Bild. Design wechselt zwischen System, Hell und Dunkel. Ein Klick auf einen Abschnittstitel klappt ihn zu.", "Work is autosaved in this browser. Save writes the plan SVG; untick \"Include underlay reference\" to leave the images out. Open reads a plan SVG; pick the underlay images again to see them.": "Die Arbeit wird automatisch in diesem Browser gespeichert. Speichern schreibt die Plan-SVG; \"Unterlage als Referenz einbinden\" abwählen, um die Bilder wegzulassen. Öffnen liest eine Plan-SVG; die Unterlagen-Bilder müssen erneut gewählt werden, um sie zu sehen.", "drag to pan": "zum Verschieben ziehen", "drag the chosen underlay": "die gewählte Unterlage ziehen", "drag a rectangle on the underlay": "Rechteck auf der Unterlage aufziehen", "click the second point": "zweiten Punkt anklicken", "click the first point": "ersten Punkt anklicken", "click the end point or type a length, right-click to finish": "Endpunkt anklicken oder Länge tippen, Rechtsklick beendet", "click or drag from the start point": "Startpunkt anklicken oder von dort ziehen", "click where the dimension line goes": "dorthin klicken, wo die Maßlinie verlaufen soll", "drag around the chosen underlay to turn it, Shift for 15° steps": "um die gewählte Unterlage ziehen, um sie zu drehen, Umschalt für 15°-Schritte", "click the first of two points that should be level": "ersten von zwei Punkten anklicken, die auf gleicher Höhe liegen sollen", "drag a rectangle to zoom to": "Rechteck zum Hineinzoomen aufziehen", "select lines, then click the side to offset them": "Linien auswählen, dann die Seite für den Versatz anklicken", "click the part of a line to remove": "den zu entfernenden Teil einer Linie anklicken", "click a line near the end to extend": "eine Linie nahe dem Ende zum Verlängern anklicken", "click the next point, right-click or Enter to finish": "nächsten Punkt anklicken, Rechtsklick oder Enter beendet", "click the first point (Smooth curve and Closed are in Tools)": "ersten Punkt anklicken (Glatte Kurve und Geschlossen unter Werkzeuge)", "click a point on the circle": "Punkt auf dem Kreis anklicken", "click the center": "Mittelpunkt anklicken", "click where the symbol goes (centered)": "dorthin klicken, wo das Symbol hin soll (zentriert)", "click the opposite corner": "gegenüberliegende Ecke anklicken", "click a corner": "Ecke anklicken", "click where the text goes": "dorthin klicken, wo der Text hin soll", "click or drag to select": "zum Auswählen klicken oder ziehen", "{0} selected": "{0} gewählt", "length {0}": "Länge {0}", "length {0} at {1}": "Länge {0} bei {1}", "typed length {0} m, Enter to place": "eingegebene Länge {0} m, Enter zum Setzen", "total length {0}": "Gesamtlänge {0}", "drawing length {0}": "Zeichenlänge {0}", "angle {0}": "Winkel {0}", "typed length {0} m": "eingegebene Länge {0} m", "Ortho: {0}": "Ortho: {0}", "Map: {0}": "Karte: {0}", "Theme: {0}": "Design: {0}", "on": "an", "off": "aus", "system": "System", "light": "Hell", "dark": "Dunkel", "Really clear?": "Wirklich leeren?", "(hidden)": "(ausgeblendet)", "(locked)": "(gesperrt)", "(image missing)": "(Bild fehlt)", "Stairs": "Treppe", "Shelf or rack": "Regal", "Door with swing": "Tür mit Aufschlag", "Gate or roller door": "Tor oder Rolltor", "Loading dock door": "Rampentor", "Column": "Stütze", "Pallet": "Palette", "Ramp": "Rampe", "Elevator": "Aufzug", "Underlay turned by {0}°.": "Unterlage um {0}° gedreht.", "Underlay loaded: {0}": "Unterlage geladen: {0}", "Could not load image: {0}": "Bild konnte nicht geladen werden: {0}", "The active layer is hidden or locked.": "Die aktive Ebene ist ausgeblendet oder gesperrt.", "Select a text element first.": "Zuerst ein Textelement auswählen.", "Select a line, shape or symbol first.": "Zuerst eine Linie, Form oder ein Symbol auswählen.", "Select at least three elements.": "Mindestens drei Elemente auswählen.", "Select at least two elements.": "Mindestens zwei Elemente auswählen.", "Already arranged.": "Bereits angeordnet.", "Nothing to join.": "Nichts zu verbinden.", "Joined {0} lines into {1}.": "{0} Linien zu {1} verbunden.", "Enter an offset distance above zero.": "Einen Versatz größer als null eingeben.", "Select the lines first, then choose Offset and click the side.": "Zuerst die Linien auswählen, dann Versetzen wählen und die Seite anklicken.", "Click a line.": "Eine Linie anklicken.", "No crossing line to trim at.": "Keine kreuzende Linie zum Stutzen.", "Click a line near the end to extend.": "Eine Linie nahe dem Ende zum Verlängern anklicken.", "No line to extend to.": "Keine Linie, bis zu der verlängert werden kann.", "Click at least {0} points.": "Mindestens {0} Punkte anklicken.", "Enter the text in the Text field first.": "Zuerst den Text im Textfeld eingeben.", "Distance: {0}": "Abstand: {0}", "Click to one side of the measured line.": "Auf eine Seite der gemessenen Linie klicken.", "Pick an underlay image first.": "Zuerst ein Unterlagenbild wählen.", "The underlay is locked.": "Die Unterlage ist gesperrt.", "Enter the real distance in meters first.": "Zuerst die reale Strecke in Metern eingeben.", "Underlay scale set to {0}": "Maßstab der Unterlage auf {0} gesetzt", "Set units per meter and type a length above zero.": "Einheiten pro Meter festlegen und eine Länge größer als null tippen.", "Move the cursor in the direction of the line first.": "Zuerst den Cursor in Richtung der Linie bewegen.", "Select a symbol first.": "Zuerst ein Symbol auswählen.", "Select one text and one element to attach it to.": "Einen Text und ein Element zum Anheften wählen.", "Select an attached text first.": "Zuerst einen angehefteten Text auswählen.", "Select one element first.": "Zuerst ein Element auswählen.", "An ID starts with a letter and has only letters, digits and underscores.": "Eine ID beginnt mit einem Buchstaben und enthält nur Buchstaben, Ziffern und Unterstriche.", "That ID is already used.": "Diese ID wird bereits verwendet.", "A layer with that name exists.": "Eine Ebene mit diesem Namen existiert bereits.", "The last layer cannot be deleted.": "Die letzte Ebene kann nicht gelöscht werden.", "Layer deleted; its elements moved to {0}.": "Ebene gelöscht; ihre Elemente wurden nach {0} verschoben.", "Select elements that are on another layer first.": "Zuerst Elemente auswählen, die auf einer anderen Ebene liegen.", "Error: {0}": "Fehler: {0}", "Cannot save: {0}.": "Speichern nicht möglich: {0}.", "Saved.": "Gespeichert.", "the frame width and height must be above zero": "Rahmenbreite und -höhe müssen größer als null sein", "the floor ID is empty": "die Geschoss-ID ist leer", "units per meter must be above zero": "Einheiten pro Meter müssen größer als null sein", "Cannot export: the frame width and height must be above zero.": "Export nicht möglich: Rahmenbreite und -höhe müssen größer als null sein.", "Could not create the PNG.": "Das PNG konnte nicht erstellt werden.", "PNG saved.": "PNG gespeichert.", "Not an SVG file.": "Keine SVG-Datei.", "Opened. Pick the underlay images again: {0}": "Geöffnet. Unterlagenbilder erneut wählen: {0}", "Opened.": "Geöffnet.", "Cleared.": "Geleert.", "Restored the autosave from {0}.": "Automatische Sicherung von {0} wiederhergestellt.", "Pick the underlay images again.": "Unterlagenbilder erneut wählen." };
+let lang = 'en';
+const tr = (s, ...a) => {
+  let r = lang === 'de' && DE[s] !== undefined ? DE[s] : s;
+  a.forEach((v, i) => { r = r.split('{' + i + '}').join(v); });
+  return r;
+};
+const i18nOrig = new Map();   // text node or element -> original English
+function applyLang() {
+  document.documentElement.lang = lang;
+  const roots = ['panel', 'help', 'resizer', 'orthoBtn', 'mapBtn'].map($);
+  const setText = (n, en) => {
+    const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(en), key = m[2].replace(/\s+/g, ' ');
+    n.nodeValue = m[1] + (lang === 'de' && DE[key] !== undefined ? DE[key] : m[2]) + m[3];
+  };
+  for (const r of roots) {
+    const skip = e => e.closest('[data-dyn]') || e.closest('select');
+    const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT);
+    for (let n; (n = w.nextNode());) {
+      if (!n.nodeValue.trim() || skip(n.parentElement)) continue;
+      if (!i18nOrig.has(n)) i18nOrig.set(n, n.nodeValue);
+      setText(n, i18nOrig.get(n));
+    }
+    for (const e of [r, ...r.querySelectorAll('[title]')]) {
+      if (!e.hasAttribute('title') || e.id === 'langBtn') continue;
+      if (!i18nOrig.has(e)) i18nOrig.set(e, e.getAttribute('title'));
+      const en = i18nOrig.get(e);
+      e.setAttribute('title', lang === 'de' && DE[en] !== undefined ? DE[en] : en);
+    }
+  }
+  $('langBtn').textContent = lang === 'de' ? 'English' : 'Deutsch';
+  fillSymTypes(); syncControls(); syncLayers(); applyTheme(); syncOrtho(); syncMap();
+  clearTimeout(newArmed); newArmed = null; $('newDoc').textContent = tr('New');
+  updateStatus();
+}
+function setLang(l) { lang = l; ui.lang = l; uiSave(); applyLang(); }
+
+
+function frame() { return { x: num('fx'), y: num('fy'), w: num('fw'), h: num('fh') }; }
+function curU() { return unders[activeU] || null; }
+
+// Viewport
+function setView(x, y, w, h) {
+  view.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
+  updateGrid(); drawHandles();
+  ui.view = [x, y, w, h]; uiSaveSoon();
+  drawRulers(); schedMap();
+}
+function vb() { return view.viewBox.baseVal; }
+function fitBox(x, y, w, h) {
+  const m = Math.max(w, h) * 0.05;
+  setView(x - m, y - m, w + 2 * m, h + 2 * m);
+}
+function fitCamera() { const f = frame(); fitBox(f.x, f.y, f.w, f.h); }
+function zoomAt(p, f) {
+  const v = vb();
+  setView(p.x - (p.x - v.x) * f, p.y - (p.y - v.y) * f, v.width * f, v.height * f);
+}
+function zoomCenter(f) { const v = vb(); zoomAt({ x: v.x + v.width / 2, y: v.y + v.height / 2 }, f); }
+function zoomDrawing() {
+  if (!gTrace.children.length) { fitCamera(); return; }
+  const b = gTrace.getBBox();
+  fitBox(b.x, b.y, Math.max(b.width, 1), Math.max(b.height, 1));
+}
+
+function applyFrame() {
+  const f = frame();
+  for (const [k, v] of [['x', f.x], ['y', f.y], ['width', f.w], ['height', f.h]]) {
+    frameRect.setAttribute(k, v); gridRect.setAttribute(k, v);
+  }
+  updateGrid(); drawRulers(); schedMap();
+  for (const e of gTrace.children) if (kindOf(e) === 'symbol') buildSymbol(e);   // symbols are sized in meters
+}
+
+function updateGrid() {
+  const s = num('gridSize');
+  const on = $('showGrid').checked && s > 0;
+  gridRect.setAttribute('visibility', on ? 'visible' : 'hidden');
+  if (!on) return;
+  const f = frame();
+  const pat = $('gridPat');
+  pat.setAttribute('width', s); pat.setAttribute('height', s);
+  pat.setAttribute('x', f.x); pat.setAttribute('y', f.y);
+  $('gridPath').setAttribute('d', `M ${s} 0 L 0 0 L 0 ${s}`);
+  $('gridPath').setAttribute('stroke-width', 1 / scale());
+}
+
+function toPt(cx, cy) {
+  const p = view.createSVGPoint();
+  p.x = cx; p.y = cy;
+  return p.matrixTransform(view.getScreenCTM().inverse());
+}
+const toSvg = ev => toPt(ev.clientX, ev.clientY);
+
+// Underlays
+function uTransform(u) {
+  const sx = (u.flipX ? -1 : 1) * u.scale, sy = (u.flipY ? -1 : 1) * u.scale;
+  return `translate(${u.x} ${u.y}) rotate(${u.rot}) scale(${sx} ${sy}) translate(${u.flipX ? -u.w : 0} ${u.flipY ? -u.h : 0})`;
+}
+
+function renderU(u) {
+  if (!u.el) return;
+  u.el.setAttribute('transform', uTransform(u));
+  u.el.setAttribute('opacity', u.opacity);
+  u.el.setAttribute('display', u.vis ? 'inline' : 'none');
+  u.el.style.filter = u.bright !== 1 || u.contrast !== 1 ? `brightness(${u.bright}) contrast(${u.contrast})` : '';
+  schedMap();
+  if (u.crop) {
+    u.clipRect.setAttribute('x', u.crop.x); u.clipRect.setAttribute('y', u.crop.y);
+    u.clipRect.setAttribute('width', u.crop.w); u.clipRect.setAttribute('height', u.crop.h);
+    u.el.setAttribute('clip-path', `url(#clip${u.id})`);
+  } else u.el.removeAttribute('clip-path');
+}
+
+function rebuildUnderDom() {
+  gUnder.textContent = '';
+  const defs = document.createElementNS(NS, 'defs');
+  gUnder.appendChild(defs);
+  for (const u of unders) {
+    u.el = null; u.clipRect = null;
+    if (!u.url) continue;
+    const cp = document.createElementNS(NS, 'clipPath');
+    cp.setAttribute('id', 'clip' + u.id);
+    u.clipRect = document.createElementNS(NS, 'rect');
+    cp.appendChild(u.clipRect); defs.appendChild(cp);
+    u.el = document.createElementNS(NS, 'image');
+    u.el.setAttribute('href', u.url);
+    u.el.setAttribute('width', u.w); u.el.setAttribute('height', u.h);
+    gUnder.appendChild(u.el);
+    renderU(u);
+  }
+}
+
+const underName = u => (u.label || u.name) + (u.url ? '' : ' ' + tr('(image missing)'));
+
+function syncControls() {
+  const s = $('underSel');
+  s.textContent = '';
+  unders.forEach((u, i) => {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = underName(u);
+    s.appendChild(o);
+  });
+  const u = curU();
+  if (!u) return;
+  s.value = activeU;
+  $('ulabel').value = u.label; $('ubright').value = u.bright; $('ucontrast').value = u.contrast;
+  $('ux').value = u.x; $('uy').value = u.y; $('urot').value = u.rot; $('uscale').value = u.scale;
+  $('uopacity').value = u.opacity; $('uvis').checked = u.vis; $('ulock').checked = u.locked;
+  $('uflipx').checked = u.flipX; $('uflipy').checked = u.flipY;
+}
+
+function readControls() {
+  const u = curU();
+  if (!u) return;
+  u.x = num('ux'); u.y = num('uy'); u.rot = num('urot');
+  u.scale = num('uscale') || 1; u.opacity = num('uopacity') || 0.6;
+  u.bright = num('ubright') || 1; u.contrast = num('ucontrast') || 1;
+  u.vis = $('uvis').checked; u.locked = $('ulock').checked;
+  u.flipX = $('uflipx').checked; u.flipY = $('uflipy').checked;
+  renderU(u); changed();
+}
+
+function newUnder(name, url, w, h) {
+  return { id: ++uidCounter, name, url, w, h, x: 0, y: 0, rot: 0, scale: w ? frame().w / w : 1,
+    vis: true, opacity: 0.6, flipX: false, flipY: false, locked: false, crop: null, el: null, clipRect: null,
+    label: '', bright: 1, contrast: 1 };
+}
+
+// Underlay geometry: a point of the image in the drawing, the center of its visible part, angles
+function uWorld(u, lx, ly) {
+  const sx = (u.flipX ? -1 : 1) * u.scale, sy = (u.flipY ? -1 : 1) * u.scale;
+  const px = (lx + (u.flipX ? -u.w : 0)) * sx, py = (ly + (u.flipY ? -u.h : 0)) * sy;
+  const r = u.rot * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+  return { x: u.x + px * c - py * s, y: u.y + px * s + py * c };
+}
+const localCenter = u => u.crop ? { x: u.crop.x + u.crop.w / 2, y: u.crop.y + u.crop.h / 2 } : { x: u.w / 2, y: u.h / 2 };
+const normDeg = d => ((d + 180) % 360 + 360) % 360 - 180;
+const r3 = v => +v.toFixed(3);
+
+// Turn the underlay about the point a so that the line a-b becomes horizontal (the smaller turn)
+function makeHorizontal(u, a, b) {
+  if (Math.hypot(b.x - a.x, b.y - a.y) < 1e-9) return;
+  const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+  const delta = ang > 90 ? 180 - ang : ang < -90 ? -180 - ang : -ang;
+  const r = delta * Math.PI / 180, c = Math.cos(r), s = Math.sin(r), dx = u.x - a.x, dy = u.y - a.y;
+  u.x = r3(a.x + dx * c - dy * s); u.y = r3(a.y + dx * s + dy * c);
+  u.rot = r3(normDeg(u.rot + delta));
+  renderU(u); syncControls(); changed();
+  msg(tr('Underlay turned by {0}°.', delta.toFixed(2)));
+}
+
+function addUnderlayFile(file) {
+  const url = URL.createObjectURL(file);
+  const probe = new Image();
+  probe.onload = () => {
+    let u = unders.find(q => q.name === file.name && !q.url);
+    if (u) u.url = url;
+    else { u = newUnder(file.name, url, probe.naturalWidth, probe.naturalHeight); unders.push(u); }
+    u.w = probe.naturalWidth; u.h = probe.naturalHeight; u.bitmap = probe;
+    activeU = unders.indexOf(u);
+    rebuildUnderDom(); syncControls(); changed();
+    msg(tr('Underlay loaded: {0}', u.name));
+  };
+  probe.onerror = () => msg(tr('Could not load image: {0}', file.name));
+  probe.src = url;
+}
+
+// Geometry helpers
+const segOf = l => ({ x1: +l.getAttribute('x1'), y1: +l.getAttribute('y1'), x2: +l.getAttribute('x2'), y2: +l.getAttribute('y2') });
+function distSeg(p, s) {
+  const dx = s.x2 - s.x1, dy = s.y2 - s.y1, L = dx * dx + dy * dy;
+  let t = L ? ((p.x - s.x1) * dx + (p.y - s.y1) * dy) / L : 0;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(p.x - (s.x1 + t * dx), p.y - (s.y1 + t * dy));
+}
+function intersect(a, b) {
+  const d = (a.x2 - a.x1) * (b.y2 - b.y1) - (a.y2 - a.y1) * (b.x2 - b.x1);
+  if (Math.abs(d) < 1e-9) return null;
+  const t = ((b.x1 - a.x1) * (b.y2 - b.y1) - (b.y1 - a.y1) * (b.x2 - b.x1)) / d;
+  const u = ((b.x1 - a.x1) * (a.y2 - a.y1) - (b.y1 - a.y1) * (a.x2 - a.x1)) / d;
+  if (t < 0 || t > 1 || u < 0 || u > 1) return null;
+  return { x: a.x1 + t * (a.x2 - a.x1), y: a.y1 + t * (a.y2 - a.y1) };
+}
+
+// Tracking: dashed guides that the cursor snaps to (alignment, extension, parallel, polar) and the perpendicular foot
+const TRACK_ANGLES = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+const isDrawing = () => !!startPt && (LINE_TOOLS.includes(tool) || (tool === 'dimension' && !dimB));
+const orthoLock = () => !!startPt && LINE_TOOLS.includes(tool) && orthoOn();
+const TRACK_RANK = { par: 0, polar: 1, ext: 2, align: 3 };
+
+function trackLines(p, tol) {
+  const T = [], refs = [];
+  for (const l of traceLines()) {
+    if (l === trackSkip) continue;
+    const s = segOf(l), L = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+    refs.push({ x: s.x1, y: s.y1 }, { x: s.x2, y: s.y2 }, { x: (s.x1 + s.x2) / 2, y: (s.y1 + s.y2) / 2 });
+    if (!L) continue;
+    const ux = (s.x2 - s.x1) / L, uy = (s.y2 - s.y1) / L;
+    T.push({ ox: s.x2, oy: s.y2, dx: ux, dy: uy, kind: 'ext', ray: true }, { ox: s.x1, oy: s.y1, dx: -ux, dy: -uy, kind: 'ext', ray: true });
+  }
+  if (startPt) refs.push(startPt);
+  if (dimB) refs.push(dimB);
+  for (const r of refs) T.push({ ox: r.x, oy: r.y, dx: 1, dy: 0, kind: 'align' }, { ox: r.x, oy: r.y, dx: 0, dy: 1, kind: 'align' });
+  if (isDrawing() && Math.hypot(p.x - startPt.x, p.y - startPt.y) > 2 * tol) {
+    for (const a of TRACK_ANGLES) {
+      const r = a * Math.PI / 180;
+      T.push({ ox: startPt.x, oy: startPt.y, dx: Math.cos(r), dy: -Math.sin(r), kind: 'polar', ray: true });
+    }
+    if (parRef && parRef.isConnected) {
+      const s = segOf(parRef), L = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+      if (L) {
+        const ux = (s.x2 - s.x1) / L, uy = (s.y2 - s.y1) / L;
+        T.push({ ox: startPt.x, oy: startPt.y, dx: ux, dy: uy, kind: 'par', ray: true }, { ox: startPt.x, oy: startPt.y, dx: -ux, dy: -uy, kind: 'par', ray: true });
+      }
+    }
+  }
+  return T;
+}
+
+// The tracking line or crossing of two tracking lines nearest the cursor, within the tolerance; null when none
+function trackSnap(p, tol) {
+  const hits = [];
+  for (const L of trackLines(p, tol)) {
+    const vx = p.x - L.ox, vy = p.y - L.oy, t = vx * L.dx + vy * L.dy;
+    if (L.ray && t < 0) continue;
+    const d = Math.abs(vx * L.dy - vy * L.dx);
+    if (d < tol) hits.push({ L, d, pt: { x: L.kind === 'align' && L.dx === 0 ? L.ox : L.ox + L.dx * t, y: L.kind === 'align' && L.dy === 0 ? L.oy : L.oy + L.dy * t } });
+  }
+  if (!hits.length) return null;
+  const rank = h => TRACK_RANK[h.L.kind];
+  let cross = null;
+  for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) {
+    const A = hits[i].L, B = hits[j].L, den = A.dx * B.dy - A.dy * B.dx;
+    if (Math.abs(den) < 1e-6) continue;
+    const tA = ((B.ox - A.ox) * B.dy - (B.oy - A.oy) * B.dx) / den;
+    const tB = ((B.ox - A.ox) * A.dy - (B.oy - A.oy) * A.dx) / den;
+    if ((A.ray && tA < -1e-9) || (B.ray && tB < -1e-9)) continue;
+    const I = { x: A.ox + A.dx * tA, y: A.oy + A.dy * tA };
+    for (const Q of [A, B]) { if (Q.kind === 'align' && Q.dx === 0) I.x = Q.ox; if (Q.kind === 'align' && Q.dy === 0) I.y = Q.oy; }
+    const dd = Math.hypot(I.x - p.x, I.y - p.y);
+    if (dd < 2 * tol && (!cross || dd < cross.dd)) cross = { I, dd, hi: hits[i], hj: hits[j] };
+  }
+  const pick = (pt, hs) => {
+    const best = hs.slice().sort((a, b) => rank(a) - rank(b))[0];
+    return { p: { x: r6(pt.x), y: r6(pt.y) }, kind: best.L.kind, guides: hs.map(h => ({ a: { x: h.L.ox, y: h.L.oy }, b: { x: r6(pt.x), y: r6(pt.y) } })) };
+  };
+  if (cross) return pick(cross.I, [cross.hi, cross.hj]);
+  const best = hits.slice().sort((a, b) => rank(a) - rank(b) || a.d - b.d)[0];
+  return pick(best.pt, [best]);
+}
+
+// Perpendicular foot of the start point on the nearest line, when the cursor is near it
+function perpSnap(p, tol) {
+  let best = null, bd = tol;
+  for (const l of traceLines()) {
+    const s = segOf(l), dx = s.x2 - s.x1, dy = s.y2 - s.y1, L2 = dx * dx + dy * dy;
+    if (!L2) continue;
+    const t = ((startPt.x - s.x1) * dx + (startPt.y - s.y1) * dy) / L2;
+    if (t < 0 || t > 1) continue;
+    const f = { x: r6(s.x1 + t * dx), y: r6(s.y1 + t * dy) }, d = Math.hypot(f.x - p.x, f.y - p.y);
+    if (d < bd) { bd = d; best = f; }
+  }
+  return best;
+}
+
+// Snap to line ends, midpoints, intersections, then tracking, then the grid
+function snapPoint(p) {
+  guides = [];
+  const tol = 8 / scale();
+  const segs = traceLines().map(segOf);
+  let best = null, bd = tol;
+  const cand = (x, y, kind) => { const d = Math.hypot(x - p.x, y - p.y); if (d < bd) { bd = d; best = { x, y, kind }; } };
+  for (const s of segs) { cand(s.x1, s.y1, 'end'); cand(s.x2, s.y2, 'end'); cand((s.x1 + s.x2) / 2, (s.y1 + s.y2) / 2, 'mid'); }
+  const near = segs.filter(s => distSeg(p, s) < tol);
+  for (let i = 0; i < near.length; i++) for (let j = i + 1; j < near.length; j++) {
+    const ip = intersect(near[i], near[j]);
+    if (ip) cand(ip.x, ip.y, 'int');
+  }
+  if (best) { snapKind = best.kind; return best; }
+  if ($('tracking').checked && !orthoLock()) {
+    const f = isDrawing() ? perpSnap(p, tol) : null;
+    if (f) { snapKind = 'perp'; guides = [{ a: { x: startPt.x, y: startPt.y }, b: f }]; return f; }
+    const r = trackSnap(p, tol);
+    if (r) { snapKind = r.kind; guides = r.guides; return r.p; }
+  }
+  const g = num('gridSize');
+  if ($('snapGrid').checked && g > 0) {
+    const f = frame();
+    snapKind = 'grid';
+    return { x: f.x + Math.round((p.x - f.x) / g) * g, y: f.y + Math.round((p.y - f.y) / g) * g };
+  }
+  snapKind = null;
+  return { x: r3(p.x), y: r3(p.y) };   // a free point is kept to a thousandth of a unit
+}
+
+function orthoPoint(a, p) {
+  const ang = Math.round(Math.atan2(p.y - a.y, p.x - a.x) / (Math.PI / 4)) * (Math.PI / 4);
+  const dx = Math.cos(ang), dy = Math.sin(ang);
+  const d = (p.x - a.x) * dx + (p.y - a.y) * dy;
+  return { x: a.x + dx * d, y: a.y + dy * d };
+}
+
+const orthoOn = () => $('ortho').checked || shiftDown;
+const LINE_TOOLS = ['line', 'measure', 'calibrate', 'polyline', 'path'];
+const r6 = v => +v.toFixed(6);
+
+function drawPoint(raw) {
+  let p = snapPoint(raw);
+  if (startPt && LINE_TOOLS.includes(tool) && orthoOn()) { p = orthoPoint(startPt, p); snapKind = null; }
+  return p;
+}
+
+// Second corner of a rectangle; with ortho on the rectangle is a square
+function rectPoint(raw) {
+  let q = snapPoint(raw);
+  if (startPt && orthoOn()) {
+    const dx = q.x - startPt.x, dy = q.y - startPt.y, s = Math.max(Math.abs(dx), Math.abs(dy));
+    q = { x: startPt.x + (dx < 0 ? -s : s), y: startPt.y + (dy < 0 ? -s : s) };
+    snapKind = null;
+  }
+  return q;
+}
+
+// End of a line whose length was typed (meters), in the direction of the cursor point q
+function typedEnd(q) {
+  const len = parseFloat(typed) * num('upm'), d = Math.hypot(q.x - startPt.x, q.y - startPt.y);
+  if (!(len > 0) || !d) return q;
+  return { x: r6(startPt.x + (q.x - startPt.x) * len / d), y: r6(startPt.y + (q.y - startPt.y) * len / d) };
+}
+
+// Dimension line through p, parallel to a-b; null when p lies on the measured line
+function dimGeom(a, b, p) {
+  const L = Math.hypot(b.x - a.x, b.y - a.y);
+  if (!L) return null;
+  const nx = -(b.y - a.y) / L, ny = (b.x - a.x) / L;
+  const o = (p.x - a.x) * nx + (p.y - a.y) * ny;
+  if (Math.abs(o) < 1e-9) return null;
+  const sg = Math.sign(o);
+  return { a2: { x: r6(a.x + nx * o), y: r6(a.y + ny * o) }, b2: { x: r6(b.x + nx * o), y: r6(b.y + ny * o) }, nx: sg * nx, ny: sg * ny, len: L };
+}
+
+// Trace elements, selection and history
+const curStyle = () => ({ w: num('lineW') > 0 ? num('lineW') : 1.5, c: $('lineC').value || '#000000' });
+const lineColor = e => e.getAttribute('data-color') || '#000';
+const hex6 = c => /^#[0-9a-f]{6}$/i.test(c) ? c : /^#[0-9a-f]{3}$/i.test(c) ? '#' + [...c.slice(1)].map(h => h + h).join('') : '#000000';
+
+// Layers, ids and element kinds. Traced elements are kept flat in #trace; each has an id and a data-layer.
+let layers = [{ name: 'Default', visible: true, locked: false }], activeLayer = 'Default', idN = 0;
+const layerByName = n => layers.find(l => l.name === n);
+const layerOf = e => layerByName(e.getAttribute('data-layer') || '') || layers[0];
+const visibleEl = e => layerOf(e).visible;
+const editableEl = e => { const l = layerOf(e); return l.visible && !l.locked; };
+const traceEls = () => [...gTrace.children];
+const traceLines = () => traceEls().filter(e => e.tagName === 'line' && visibleEl(e));
+const kindOf = e => e.hasAttribute('data-symbol') ? 'symbol' : e.tagName;
+const isShape = e => kindOf(e) !== 'text';
+const byId = id => traceEls().find(e => e.id === id) || null;
+const ID_PREFIX = { line: 'line', polyline: 'poly', circle: 'circle', path: 'path', text: 'text', symbol: 'sym' };
+function newId(kind) {
+  let id;
+  do { id = ID_PREFIX[kind] + (++idN); } while (byId(id));
+  return id;
+}
+function stamp(e, kind) { e.setAttribute('id', newId(kind)); e.setAttribute('data-layer', activeLayer); return e; }
+function parsePts(s) { return (s || '').trim().split(/\s+/).filter(Boolean).map(t => { const [x, y] = t.split(',').map(Number); return { x, y }; }); }
+const ptsStr = pts => pts.map(p => r6(p.x) + ',' + r6(p.y)).join(' ');
+
+// The real color is kept in data-color; stroke is overwritten while a shape is selected or hovered
+function styleShape(e, st) {
+  e.setAttribute('stroke', st.c); e.setAttribute('data-color', st.c); e.setAttribute('stroke-width', st.w);
+  e.setAttribute('vector-effect', 'non-scaling-stroke');
+  return e;
+}
+const svgEl = n => document.createElementNS(NS, n);
+function mkLine(x1, y1, x2, y2, st = curStyle()) {
+  const l = svgEl('line');
+  l.setAttribute('x1', x1); l.setAttribute('y1', y1); l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+  return stamp(styleShape(l, st), 'line');
+}
+function mkPoly(pts, st = curStyle()) {
+  const e = svgEl('polyline');
+  e.setAttribute('points', ptsStr(pts)); e.setAttribute('fill', 'none');
+  return stamp(styleShape(e, st), 'polyline');
+}
+function mkCircle(cx, cy, r, st = curStyle()) {
+  const e = svgEl('circle');
+  e.setAttribute('cx', r6(cx)); e.setAttribute('cy', r6(cy)); e.setAttribute('r', r6(r)); e.setAttribute('fill', 'none');
+  return stamp(styleShape(e, st), 'circle');
+}
+
+// A path through the points: straight segments, or a smooth curve (Catmull-Rom as cubic Beziers), open or closed
+function pathD(pts, smooth, closed) {
+  if (pts.length < 2) return '';
+  const f = v => r6(v);
+  if (!smooth || pts.length < 3) return 'M ' + pts.map(p => f(p.x) + ' ' + f(p.y)).join(' L ') + (closed ? ' Z' : '');
+  const n = pts.length, P = i => closed ? pts[(i + n) % n] : pts[Math.max(0, Math.min(n - 1, i))];
+  let d = 'M ' + f(pts[0].x) + ' ' + f(pts[0].y);
+  for (let i = 0; i < (closed ? n : n - 1); i++) {
+    const p0 = P(i - 1), p1 = P(i), p2 = P(i + 1), p3 = P(i + 2);
+    d += ` C ${f(p1.x + (p2.x - p0.x) / 6)} ${f(p1.y + (p2.y - p0.y) / 6)} ${f(p2.x - (p3.x - p1.x) / 6)} ${f(p2.y - (p3.y - p1.y) / 6)} ${f(p2.x)} ${f(p2.y)}`;
+  }
+  return d + (closed ? ' Z' : '');
+}
+function setPts(e, pts) {
+  if (e.tagName === 'polyline') e.setAttribute('points', ptsStr(pts));
+  else { e.setAttribute('data-points', ptsStr(pts)); e.setAttribute('d', pathD(pts, e.getAttribute('data-smooth') === 'true', e.getAttribute('data-closed') === 'true')); }
+}
+function mkPath(pts, smooth, closed, st = curStyle()) {
+  const e = svgEl('path');
+  e.setAttribute('data-smooth', smooth); e.setAttribute('data-closed', closed); e.setAttribute('fill', 'none');
+  setPts(e, pts);
+  return stamp(styleShape(e, st), 'path');
+}
+function mkText(x, y, s, size) {
+  const t = svgEl('text');
+  t.setAttribute('x', x); t.setAttribute('y', y);
+  t.setAttribute('font-size', size); t.setAttribute('fill', '#000');
+  t.textContent = s;
+  return stamp(t, 'text');
+}
+
+// Warehouse symbols: drawn in meters (scaled by units per meter), rotated in 90 degree steps, kept as a named group
+const SYMBOLS = {
+  stairs: { name: 'Stairs', w: 1.2, d: 3, shapes: (w, d) => {
+    const s = [{ d: `M0 0H${w}V${d}H0Z` }];
+    for (let y = 0.3; y < d - 0.05; y += 0.3) s.push({ d: `M0 ${r6(y)}H${w}` });
+    s.push({ d: `M${w / 2} ${d * 0.9}V${d * 0.1}M${w / 2 - 0.12} ${d * 0.1 + 0.25}L${w / 2} ${d * 0.1}L${w / 2 + 0.12} ${d * 0.1 + 0.25}` });
+    return s; } },
+  rack: { name: 'Shelf or rack', w: 2.7, d: 1.1, shapes: (w, d) => {
+    const s = [{ d: `M0 0H${w}V${d}H0Z` }];
+    for (let x = 1.35; x < w - 0.05; x += 1.35) s.push({ d: `M${r6(x)} 0V${d}` });
+    return s; } },
+  door: { name: 'Door with swing', w: 0.9, d: 0.9, square: true, shapes: w => [
+    { d: `M0 ${w}H${w}` }, { d: `M0 ${w}V0` }, { d: `M0 0A${w} ${w} 0 0 1 ${w} ${w}` }] },
+  gate: { name: 'Gate or roller door', w: 3, d: 0.2, shapes: (w, d) => [
+    { d: `M0 0H${w}V${d}H0Z` }, { d: `M0 ${d / 2}H${w}`, dash: true }] },
+  dock: { name: 'Loading dock door', w: 3, d: 0.5, shapes: (w, d) => [
+    { d: `M0 0H${w}V${d}H0Z` }, { d: `M-0.25 ${d}h0.25v0.3h-0.25ZM${w} ${d}h0.25v0.3h-0.25Z` },
+    { d: `M${w / 2} ${d + 0.9}V${d + 0.1}M${w / 2 - 0.15} ${d + 0.3}L${w / 2} ${d + 0.1}L${w / 2 + 0.15} ${d + 0.3}` }] },
+  column: { name: 'Column', w: 0.4, d: 0.4, square: true, shapes: w => [{ d: `M0 0H${w}V${w}H0Z`, fill: true }] },
+  pallet: { name: 'Pallet', w: 1.2, d: 0.8, shapes: (w, d) => [
+    { d: `M0 0H${w}V${d}H0Z` }, { d: `M${w / 3} 0V${d}M${2 * w / 3} 0V${d}` }] },
+  ramp: { name: 'Ramp', w: 4, d: 1.5, shapes: (w, d) => {
+    const s = [{ d: `M0 0H${w}V${d}H0Z` }];
+    for (let i = 1; i < 5; i++) s.push({ d: `M${r6(w * i / 5)} ${d}V${r6(d - d * i / 5)}` });
+    return s; } },
+  elevator: { name: 'Elevator', w: 2, d: 2, shapes: (w, d) => [
+    { d: `M0 0H${w}V${d}H0Z` }, { d: `M0 0L${w} ${d}M${w} 0L0 ${d}` }] }
+};
+const unitsPerM = () => num('upm') > 0 ? num('upm') : 1;
+function symDims(g) {
+  const def = SYMBOLS[g.getAttribute('data-symbol')], w = +g.getAttribute('data-width') || def.w;
+  return { w, d: def.square ? w : (+g.getAttribute('data-depth') || def.d) };
+}
+function symTransform(g) {
+  const u = unitsPerM(), { w, d } = symDims(g);
+  return `translate(${g.getAttribute('data-cx')} ${g.getAttribute('data-cy')}) rotate(${g.getAttribute('data-rot') || 0}) translate(${r6(-w * u / 2)} ${r6(-d * u / 2)}) scale(${u})`;
+}
+function buildSymbol(g) {
+  const def = SYMBOLS[g.getAttribute('data-symbol')];
+  if (!def) return;
+  const { w, d } = symDims(g);
+  g.setAttribute('transform', symTransform(g));
+  g.textContent = '';
+  for (const s of def.shapes(w, d)) {
+    const p = svgEl('path');
+    p.setAttribute('d', s.d); p.setAttribute('vector-effect', 'non-scaling-stroke'); p.setAttribute('fill', s.fill ? 'currentColor' : 'none');
+    if (s.dash) p.setAttribute('stroke-dasharray', '6 4');
+    g.appendChild(p);
+  }
+}
+function mkSymbol(type, cx, cy, wm, dm, rot, st = curStyle()) {
+  const g = svgEl('g');
+  g.setAttribute('data-symbol', type); g.setAttribute('data-cx', r6(cx)); g.setAttribute('data-cy', r6(cy));
+  g.setAttribute('data-rot', rot); g.setAttribute('data-width', wm); g.setAttribute('data-depth', dm);
+  g.setAttribute('fill', 'none'); g.setAttribute('stroke', st.c); g.setAttribute('data-color', st.c); g.setAttribute('color', st.c);
+  g.setAttribute('stroke-width', st.w);
+  buildSymbol(g);
+  return stamp(g, 'symbol');
+}
+// Position of a point in the symbol's own frame (centered, in drawing units): inside test and distance
+function symLocal(g, p) {
+  const c = { x: +g.getAttribute('data-cx'), y: +g.getAttribute('data-cy') }, r = -(+g.getAttribute('data-rot') || 0) * Math.PI / 180;
+  const dx = p.x - c.x, dy = p.y - c.y;
+  return { x: dx * Math.cos(r) - dy * Math.sin(r), y: dx * Math.sin(r) + dy * Math.cos(r) };
+}
+function symDist(g, p) {
+  const u = unitsPerM(), { w, d } = symDims(g), q = symLocal(g, p);
+  return Math.hypot(Math.max(Math.abs(q.x) - w * u / 2, 0), Math.max(Math.abs(q.y) - d * u / 2, 0));
+}
+function symBox(g) {
+  const u = unitsPerM(), { w, d } = symDims(g), c = { x: +g.getAttribute('data-cx'), y: +g.getAttribute('data-cy') };
+  const r = (+g.getAttribute('data-rot') || 0) * Math.PI / 180, ex = Math.abs(w * u / 2 * Math.cos(r)) + Math.abs(d * u / 2 * Math.sin(r));
+  const ey = Math.abs(w * u / 2 * Math.sin(r)) + Math.abs(d * u / 2 * Math.cos(r));
+  return { x: c.x - ex, y: c.y - ey, w: 2 * ex, h: 2 * ey };
+}
+
+// Text attached to an element by id: placed at the element's anchor plus its own offset, aligned along lines
+function anchorOf(t) {
+  const e = byId(t.getAttribute('data-for'));
+  if (!e || e.tagName === 'text') return null;
+  const k = kindOf(e), norm = a => a > 90 ? a - 180 : a <= -90 ? a + 180 : a;
+  if (k === 'line') {
+    const s = segOf(e);
+    return { x: (s.x1 + s.x2) / 2, y: (s.y1 + s.y2) / 2, ang: norm(Math.atan2(s.y2 - s.y1, s.x2 - s.x1) * 180 / Math.PI) };
+  }
+  if (k === 'polyline') {
+    const q = parsePts(e.getAttribute('points'));
+    let total = 0;
+    for (let i = 1; i < q.length; i++) total += Math.hypot(q[i].x - q[i - 1].x, q[i].y - q[i - 1].y);
+    let run = 0;
+    for (let i = 1; i < q.length; i++) {
+      const L = Math.hypot(q[i].x - q[i - 1].x, q[i].y - q[i - 1].y);
+      if (L > 0 && run + L >= total / 2) {
+        const f = (total / 2 - run) / L;
+        return { x: q[i - 1].x + (q[i].x - q[i - 1].x) * f, y: q[i - 1].y + (q[i].y - q[i - 1].y) * f, ang: norm(Math.atan2(q[i].y - q[i - 1].y, q[i].x - q[i - 1].x) * 180 / Math.PI) };
+      }
+      run += L;
+    }
+    return q.length ? { x: q[0].x, y: q[0].y, ang: 0 } : null;
+  }
+  if (k === 'path') {
+    const L = e.getTotalLength(), a = e.getPointAtLength(L / 2), b = e.getPointAtLength(Math.min(L, L / 2 + L * 0.01 + 0.001));
+    return { x: a.x, y: a.y, ang: norm(Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI) };
+  }
+  if (k === 'circle') return { x: +e.getAttribute('cx'), y: +e.getAttribute('cy'), ang: 0 };
+  return { x: +e.getAttribute('data-cx'), y: +e.getAttribute('data-cy'), ang: 0 };
+}
+function relayoutTexts() {
+  for (const t of gTrace.querySelectorAll('text[data-for]')) {
+    const a = anchorOf(t);
+    if (!a) { for (const k of ['data-for', 'data-dx', 'data-dy']) t.removeAttribute(k); continue; }
+    const x = r6(a.x + (+t.getAttribute('data-dx') || 0)), y = r6(a.y + (+t.getAttribute('data-dy') || 0));
+    t.setAttribute('x', x); t.setAttribute('y', y); t.setAttribute('text-anchor', 'middle');
+    if (a.ang) t.setAttribute('transform', `rotate(${r6(a.ang)} ${x} ${y})`); else t.removeAttribute('transform');
+  }
+}
+// Default offset of a new attached text: just above a line, polyline or path, on the anchor otherwise
+const textOffsetY = (target, size) => ['line', 'polyline', 'path'].includes(kindOf(target)) ? -r6(size * 0.5) : 0;
+function attachTo(t, target) {
+  t.setAttribute('data-for', target.id); t.setAttribute('data-dx', 0); t.setAttribute('data-dy', textOffsetY(target, +t.getAttribute('font-size') || 12));
+}
+
+function applyLayers() {
+  for (const e of traceEls()) e.setAttribute('display', visibleEl(e) ? 'inline' : 'none');
+  for (const e of [...sel]) if (!editableEl(e)) sel.delete(e);
+}
+
+function paint() {
+  relayoutTexts();
+  for (const e of gTrace.children) {
+    const hl = sel.has(e) ? '#e60' : e === hover ? '#06c' : null;
+    if (isShape(e)) { e.setAttribute('stroke', hl || lineColor(e)); if (kindOf(e) === 'symbol') e.setAttribute('color', hl || lineColor(e)); }
+    else e.setAttribute('fill', hl || '#000');
+  }
+  drawHandles();
+  updateStatus();
+  schedMap();
+}
+
+// Handles: the end points of a line, the vertices of a polyline or path, the rim of a circle
+function handlePts(e) {
+  const k = kindOf(e);
+  if (k === 'line') { const s = segOf(e); return [{ x: s.x1, y: s.y1 }, { x: s.x2, y: s.y2 }]; }
+  if (k === 'polyline') return parsePts(e.getAttribute('points'));
+  if (k === 'path') return parsePts(e.getAttribute('data-points'));
+  if (k === 'circle') return [{ x: +e.getAttribute('cx') + +e.getAttribute('r'), y: +e.getAttribute('cy') }];
+  return [];
+}
+function moveHandle(e, i, q) {
+  const k = kindOf(e);
+  if (k === 'line') setAttrs(e, { ['x' + (i + 1)]: q.x, ['y' + (i + 1)]: q.y });
+  else if (k === 'polyline' || k === 'path') { const pts = handlePts(e); pts[i] = { x: q.x, y: q.y }; setPts(e, pts); }
+  else if (k === 'circle') e.setAttribute('r', r6(Math.hypot(q.x - +e.getAttribute('cx'), q.y - +e.getAttribute('cy'))));
+}
+function drawHandles() {
+  gHandles.textContent = '';
+  const r = 5 / scale();
+  for (const e of sel) {
+    for (const { x, y } of handlePts(e)) {
+      const c = svgEl('circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r);
+      c.setAttribute('fill', '#fff'); c.setAttribute('stroke', '#e60');
+      gHandles.appendChild(c);
+    }
+  }
+}
+
+function selChanged() {
+  if (sel.size === 1) {
+    const e = [...sel][0], k = kindOf(e);
+    $('elId').value = e.id;
+    if (k === 'text') { $('textValue').value = e.textContent; $('fontSize').value = e.getAttribute('font-size'); }
+    else {
+      $('lineW').value = e.getAttribute('stroke-width'); $('lineC').value = hex6(lineColor(e));
+      if (k === 'symbol') {
+        const { w, d } = symDims(e);
+        $('symType').value = e.getAttribute('data-symbol'); $('symW').value = w; $('symD').value = d; $('symRot').value = (+e.getAttribute('data-rot') || 0) % 360;
+      }
+    }
+  }
+  paint();
+}
+
+const SNAP_ATTRS = {
+  line: ['x1', 'y1', 'x2', 'y2'], polyline: ['points'], circle: ['cx', 'cy', 'r'], path: ['d', 'data-points'],
+  text: ['x', 'y', 'transform', 'text-anchor', 'data-dx', 'data-dy', 'data-for'],
+  symbol: ['data-symbol', 'data-cx', 'data-cy', 'data-rot', 'data-width', 'data-depth', 'transform']
+};
+const snapshot = e => {
+  const o = {};
+  for (const k of SNAP_ATTRS[kindOf(e)].concat(['id', 'data-layer'])) o[k] = e.getAttribute(k);
+  return o;
+};
+
+function setAttrs(e, a) { for (const k in a) { if (a[k] === null || a[k] === undefined) e.removeAttribute(k); else e.setAttribute(k, a[k]); } }
+
+// An element moved by (dx, dy) from its snapshot o. Text attached to an element moves its offset instead.
+function applyMove(e, o, dx, dy) {
+  const k = kindOf(e);
+  if (k === 'line') setAttrs(e, { x1: r6(+o.x1 + dx), x2: r6(+o.x2 + dx), y1: r6(+o.y1 + dy), y2: r6(+o.y2 + dy) });
+  else if (k === 'polyline' || k === 'path') setPts(e, parsePts(k === 'path' ? o['data-points'] : o.points).map(p => ({ x: p.x + dx, y: p.y + dy })));
+  else if (k === 'circle') setAttrs(e, { cx: r6(+o.cx + dx), cy: r6(+o.cy + dy) });
+  else if (k === 'symbol') { setAttrs(e, { 'data-cx': r6(+o['data-cx'] + dx), 'data-cy': r6(+o['data-cy'] + dy) }); e.setAttribute('transform', symTransform(e)); }
+  else if (e.hasAttribute('data-for')) setAttrs(e, { 'data-dx': r6(+o['data-dx'] + dx), 'data-dy': r6(+o['data-dy'] + dy) });
+  else setAttrs(e, { x: r6(+o.x + dx), y: r6(+o.y + dy) });
+}
+// True when e is a text attached to an element that is in the set (it follows that element)
+const followsSet = (e, set) => e.tagName === 'text' && e.hasAttribute('data-for') && [...set].some(o => o.id === e.getAttribute('data-for'));
+
+function runOp(op, dir) {
+  if (op.type === 'multi') {
+    (dir === 'undo' ? [...op.ops].reverse() : op.ops).forEach(o => runOp(o, dir));
+    return;
+  }
+  if (op.type === 'add') {
+    if (dir === 'undo') op.els.forEach(e => { sel.delete(e); e.remove(); });
+    else op.els.forEach(e => gTrace.appendChild(e));
+  } else if (op.type === 'del') {
+    if (dir === 'undo') op.items.forEach(it => gTrace.insertBefore(it.el, gTrace.children[it.idx] || null));
+    else op.items.forEach(it => { sel.delete(it.el); it.el.remove(); });
+  } else {
+    for (const it of op.items) {
+      setAttrs(it.el, dir === 'undo' ? it.before : it.after);
+      if (kindOf(it.el) === 'symbol') buildSymbol(it.el);
+      const t = dir === 'undo' ? it.beforeText : it.afterText;
+      if (t !== undefined) it.el.textContent = t;
+    }
+  }
+  applyLayers();
+  paint();
+}
+function push(op) { undoS.push(op); redoS.length = 0; changed(); paint(); }
+function undo() { const op = undoS.pop(); if (!op) return; runOp(op, 'undo'); redoS.push(op); changed(); }
+function redo() { const op = redoS.pop(); if (!op) return; runOp(op, 'redo'); undoS.push(op); changed(); }
+
+function addEls(els) {
+  const L = layerByName(activeLayer);
+  if (!L || !L.visible || L.locked) { msg(tr('The active layer is hidden or locked.')); return; }
+  els.forEach(e => gTrace.appendChild(e));
+  push({ type: 'add', els });
+}
+
+function deleteSelected() {
+  if (!sel.size) return;
+  // Text attached to a deleted element goes with it
+  const ids = new Set([...sel].map(e => e.id));
+  for (const t of gTrace.querySelectorAll('text[data-for]')) if (ids.has(t.getAttribute('data-for'))) sel.add(t);
+  const all = [...gTrace.children];
+  const items = [...sel].map(el => ({ el, idx: all.indexOf(el) })).sort((a, b) => a.idx - b.idx);
+  items.forEach(it => it.el.remove());
+  sel.clear();
+  push({ type: 'del', items });
+}
+
+function duplicateSelected() {
+  if (!sel.size) return;
+  const L = layerByName(activeLayer);
+  const off = frame().w * 0.01, idMap = new Map();
+  const clones = [...sel].map(e => {
+    const c = e.cloneNode(true), id = newId(kindOf(e));
+    idMap.set(e.id, id); c.setAttribute('id', id);
+    return c;
+  });
+  clones.forEach(c => {
+    if (c.tagName !== 'text' || !c.hasAttribute('data-for')) { applyMove(c, snapshot(c), off, off); return; }
+    const t = idMap.get(c.getAttribute('data-for'));
+    if (t) c.setAttribute('data-for', t);   // follows its copied element
+    else { ['data-for', 'data-dx', 'data-dy'].forEach(k => c.removeAttribute(k)); applyMove(c, snapshot(c), off, off); }
+  });
+  clones.forEach(c => gTrace.appendChild(c));
+  sel = new Set(clones);
+  push({ type: 'add', els: clones });
+  selChanged();
+}
+
+function applyToSelectedText() {
+  const items = [];
+  for (const e of sel) {
+    if (e.tagName !== 'text') continue;
+    const s = $('textValue').value || e.textContent;
+    items.push({ el: e, before: { 'font-size': e.getAttribute('font-size') }, after: { 'font-size': num('fontSize') },
+      beforeText: e.textContent, afterText: s });
+  }
+  if (!items.length) { msg(tr('Select a text element first.')); return; }
+  const op = { type: 'attrs', items };
+  runOp(op, 'redo'); push(op);
+}
+
+function applyLineStyle() {
+  const st = curStyle(), items = [];
+  for (const e of sel) {
+    if (!isShape(e)) continue;
+    items.push({ el: e, before: { 'stroke-width': e.getAttribute('stroke-width'), 'data-color': lineColor(e) }, after: { 'stroke-width': st.w, 'data-color': st.c } });
+  }
+  if (!items.length) { msg(tr('Select a line, shape or symbol first.')); return; }
+  const op = { type: 'attrs', items };
+  runOp(op, 'redo'); push(op);
+}
+
+function selectAll() { sel = new Set(traceEls().filter(editableEl)); selChanged(); }
+
+// Align and distribute the selection by bounding boxes
+function bboxOf(e) {
+  if (e.tagName === 'line') {
+    const s = segOf(e);
+    return { x: Math.min(s.x1, s.x2), y: Math.min(s.y1, s.y2), w: Math.abs(s.x2 - s.x1), h: Math.abs(s.y2 - s.y1) };
+  }
+  if (kindOf(e) === 'symbol') return symBox(e);
+  const b = e.getBBox();
+  return { x: b.x, y: b.y, w: b.width, h: b.height };
+}
+function arrange(kind) {
+  const els = [...sel], dist = kind.startsWith('dist');
+  if (els.length < (dist ? 3 : 2)) { msg(dist ? tr('Select at least three elements.') : tr('Select at least two elements.')); return; }
+  const bs = els.map(bboxOf), n = els.length;
+  const minX = Math.min(...bs.map(b => b.x)), maxX = Math.max(...bs.map(b => b.x + b.w));
+  const minY = Math.min(...bs.map(b => b.y)), maxY = Math.max(...bs.map(b => b.y + b.h));
+  const mv = els.map(() => [0, 0]);
+  bs.forEach((b, i) => {
+    if (kind === 'left') mv[i][0] = minX - b.x;
+    else if (kind === 'right') mv[i][0] = maxX - (b.x + b.w);
+    else if (kind === 'top') mv[i][1] = minY - b.y;
+    else if (kind === 'bottom') mv[i][1] = maxY - (b.y + b.h);
+    else if (kind === 'centerx') mv[i][0] = (minX + maxX) / 2 - (b.x + b.w / 2);
+    else if (kind === 'centery') mv[i][1] = (minY + maxY) / 2 - (b.y + b.h / 2);
+  });
+  if (dist) {
+    const k = kind === 'distx' ? 0 : 1;
+    const c = bs.map(b => k === 0 ? b.x + b.w / 2 : b.y + b.h / 2);
+    const order = c.map((v, i) => i).sort((a, b) => c[a] - c[b]);
+    const step = (c[order[n - 1]] - c[order[0]]) / (n - 1);
+    order.forEach((i, j) => { mv[i][k] = c[order[0]] + j * step - c[i]; });
+  }
+  const items = els.map((e, i) => {
+    const before = snapshot(e);
+    if (!followsSet(e, sel)) applyMove(e, before, mv[i][0], mv[i][1]);
+    return { el: e, before, after: snapshot(e) };
+  }).filter(it => JSON.stringify(it.before) !== JSON.stringify(it.after));
+  if (!items.length) { msg(tr('Already arranged.')); return; }
+  push({ type: 'attrs', items });
+}
+
+// Join touching or overlapping collinear lines of the same thickness and color (selected lines, or all when none is selected)
+function joinCollinear() {
+  let lines = [...sel].filter(e => e.tagName === 'line');
+  if (!lines.length) lines = [...gTrace.children].filter(e => e.tagName === 'line' && editableEl(e));
+  const tol = 0.01, all = [...gTrace.children];
+  const orig = new Map(lines.map(l => [l, snapshot(l)]));
+  const alive = new Set(lines), removed = [];
+  const key = l => l.getAttribute('stroke-width') + '|' + lineColor(l) + '|' + l.getAttribute('data-layer');
+  let merged = true;
+  while (merged) {
+    merged = false;
+    const arr = [...alive];
+    outer: for (let i = 0; i < arr.length; i++) for (let j = i + 1; j < arr.length; j++) {
+      const a = arr[i], b = arr[j];
+      if (key(a) !== key(b)) continue;
+      const s = segOf(a), q = segOf(b), L = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+      if (!L) continue;
+      const ux = (s.x2 - s.x1) / L, uy = (s.y2 - s.y1) / L;
+      const off = pt => Math.abs((pt.x - s.x1) * uy - (pt.y - s.y1) * ux);
+      const tt = pt => (pt.x - s.x1) * ux + (pt.y - s.y1) * uy;
+      const b1 = { x: q.x1, y: q.y1 }, b2 = { x: q.x2, y: q.y2 };
+      if (off(b1) > tol || off(b2) > tol) continue;
+      const ends = [{ t: 0, p: { x: s.x1, y: s.y1 } }, { t: L, p: { x: s.x2, y: s.y2 } }, { t: tt(b1), p: b1 }, { t: tt(b2), p: b2 }];
+      const bLo = Math.min(ends[2].t, ends[3].t), bHi = Math.max(ends[2].t, ends[3].t);
+      if (Math.max(0, bLo) - Math.min(L, bHi) > tol) continue;
+      ends.sort((u, v) => u.t - v.t);
+      const lo = ends[0].p, hi = ends[3].p;
+      setAttrs(a, { x1: lo.x, y1: lo.y, x2: hi.x, y2: hi.y });
+      alive.delete(b); removed.push(b);
+      merged = true;
+      break outer;
+    }
+  }
+  if (!removed.length) { msg(tr('Nothing to join.')); return; }
+  removed.forEach(r => setAttrs(r, orig.get(r)));
+  const aItems = [...alive].map(el => ({ el, before: orig.get(el), after: snapshot(el) }))
+    .filter(it => JSON.stringify(it.before) !== JSON.stringify(it.after));
+  const dItems = removed.map(el => ({ el, idx: all.indexOf(el) })).sort((a, b) => a.idx - b.idx);
+  const op = { type: 'multi', ops: [{ type: 'attrs', items: aItems }, { type: 'del', items: dItems }] };
+  runOp(op, 'redo'); push(op);
+  msg(tr('Joined {0} lines into {1}.', lines.length, alive.size));
+}
+
+// Offset: parallel copies of the selected lines at the typed distance, on the side of the click
+function doOffset(p) {
+  const d = num('offDist') * num('upm');
+  if (!(d > 0)) { msg(tr('Enter an offset distance above zero.')); return; }
+  const lines = [...sel].filter(e => e.tagName === 'line');
+  if (!lines.length) { msg(tr('Select the lines first, then choose Offset and click the side.')); return; }
+  const els = [];
+  for (const l of lines) {
+    const s = segOf(l), L = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+    if (!L) continue;
+    let nx = -(s.y2 - s.y1) / L, ny = (s.x2 - s.x1) / L;
+    if ((p.x - s.x1) * nx + (p.y - s.y1) * ny < 0) { nx = -nx; ny = -ny; }
+    els.push(mkLine(r6(s.x1 + nx * d), r6(s.y1 + ny * d), r6(s.x2 + nx * d), r6(s.y2 + ny * d), { w: l.getAttribute('stroke-width'), c: lineColor(l) }));
+  }
+  if (els.length) addEls(els);
+}
+
+// Trim: remove the clicked part of a line between its nearest crossings with other lines
+function doTrim(p) {
+  const l = hitTest(p);
+  if (!l || l.tagName !== 'line') { msg(tr('Click a line.')); return; }
+  const s = segOf(l), dx = s.x2 - s.x1, dy = s.y2 - s.y1, L2 = dx * dx + dy * dy;
+  if (!L2) return;
+  const tOf = q => ((q.x - s.x1) * dx + (q.y - s.y1) * dy) / L2;
+  const t0 = tOf(p), ts = [];
+  for (const o of traceLines()) {
+    if (o === l) continue;
+    const ip = intersect(s, segOf(o));
+    if (ip) ts.push(tOf(ip));
+  }
+  const lows = ts.filter(t => t <= t0), highs = ts.filter(t => t > t0);
+  const lo = lows.length ? Math.max(...lows) : null, hi = highs.length ? Math.min(...highs) : null;
+  if (lo === null && hi === null) { msg(tr('No crossing line to trim at.')); return; }
+  const pieces = [];
+  if (lo !== null && lo > 1e-6) pieces.push([0, lo]);
+  if (hi !== null && hi < 1 - 1e-6) pieces.push([hi, 1]);
+  const pt = t => t === 0 ? { x: s.x1, y: s.y1 } : t === 1 ? { x: s.x2, y: s.y2 } : { x: r6(s.x1 + t * dx), y: r6(s.y1 + t * dy) };
+  const ops = [];
+  if (!pieces.length) ops.push({ type: 'del', items: [{ el: l, idx: [...gTrace.children].indexOf(l) }] });
+  else {
+    const a = pt(pieces[0][0]), b = pt(pieces[0][1]);
+    ops.push({ type: 'attrs', items: [{ el: l, before: snapshot(l), after: { x1: a.x, y1: a.y, x2: b.x, y2: b.y } }] });
+    if (pieces[1]) {
+      const c = pt(pieces[1][0]), e = pt(pieces[1][1]), n = l.cloneNode(true);
+      setAttrs(n, { x1: c.x, y1: c.y, x2: e.x, y2: e.y, id: newId('line') });
+      ops.push({ type: 'add', els: [n] });
+    }
+  }
+  const op = { type: 'multi', ops };
+  runOp(op, 'redo'); push(op);
+}
+
+// Extend: lengthen the end of the clicked line nearest the click to the first line it meets
+function doExtend(p) {
+  const l = hitTest(p);
+  if (!l || l.tagName !== 'line') { msg(tr('Click a line near the end to extend.')); return; }
+  const s = segOf(l);
+  const end = Math.hypot(p.x - s.x1, p.y - s.y1) <= Math.hypot(p.x - s.x2, p.y - s.y2) ? 1 : 2;
+  const e = end === 1 ? { x: s.x1, y: s.y1 } : { x: s.x2, y: s.y2 };
+  const o = end === 1 ? { x: s.x2, y: s.y2 } : { x: s.x1, y: s.y1 };
+  const dx = e.x - o.x, dy = e.y - o.y;
+  if (!dx && !dy) return;
+  let best = null;
+  for (const m of traceLines()) {
+    if (m === l) continue;
+    const b = segOf(m), bx = b.x2 - b.x1, by = b.y2 - b.y1, den = dx * by - dy * bx;
+    if (Math.abs(den) < 1e-9) continue;
+    const sT = ((b.x1 - e.x) * by - (b.y1 - e.y) * bx) / den;
+    const uT = ((b.x1 - e.x) * dy - (b.y1 - e.y) * dx) / den;
+    if (sT > 1e-9 && uT >= 0 && uT <= 1 && (!best || sT < best.s)) best = { s: sT, x: r6(e.x + sT * dx), y: r6(e.y + sT * dy) };
+  }
+  if (!best) { msg(tr('No line to extend to.')); return; }
+  const op = { type: 'attrs', items: [{ el: l, before: snapshot(l), after: { ['x' + end]: best.x, ['y' + end]: best.y } }] };
+  runOp(op, 'redo'); push(op);
+}
+
+// Dimension: two extension lines, the dimension line and its length as text, as ordinary lines and a text
+function dimensionEls(a, b, d) {
+  const size = num('fontSize'), st = curStyle(), upm = num('upm');
+  const s = upm > 0 ? (d.len / upm).toFixed(2) + ' m' : d.len.toFixed(1);
+  const w = s.length * size * 0.55;
+  const cx = (d.a2.x + d.b2.x) / 2 + d.nx * size * 0.9, cy = (d.a2.y + d.b2.y) / 2 + d.ny * size * 0.9;
+  return [mkLine(a.x, a.y, d.a2.x, d.a2.y, st), mkLine(b.x, b.y, d.b2.x, d.b2.y, st), mkLine(d.a2.x, d.a2.y, d.b2.x, d.b2.y, st),
+    mkText(r6(cx - w / 2), r6(cy + size * 0.35), s, size)];
+}
+
+// Distance from the point p to an element (0 inside a symbol or text box)
+function distTo(e, p, tol) {
+  const k = kindOf(e);
+  if (k === 'line') return distSeg(p, segOf(e));
+  if (k === 'polyline') {
+    const q = parsePts(e.getAttribute('points'));
+    let d = Infinity;
+    for (let i = 1; i < q.length; i++) d = Math.min(d, distSeg(p, { x1: q[i - 1].x, y1: q[i - 1].y, x2: q[i].x, y2: q[i].y }));
+    return d;
+  }
+  if (k === 'circle') return Math.abs(Math.hypot(p.x - +e.getAttribute('cx'), p.y - +e.getAttribute('cy')) - +e.getAttribute('r'));
+  if (k === 'path') {
+    const L = e.getTotalLength(), n = Math.max(20, Math.min(300, Math.ceil(L * scale() / 4)));
+    let d = Infinity;
+    for (let i = 0; i <= n; i++) { const q = e.getPointAtLength(L * i / n); d = Math.min(d, Math.hypot(p.x - q.x, p.y - q.y)); }
+    return d;
+  }
+  if (k === 'symbol') return symDist(e, p);
+  const b = e.getBBox();
+  return (p.x >= b.x - tol && p.x <= b.x + b.width + tol && p.y >= b.y - tol && p.y <= b.y + b.height + tol) ? 0 : Infinity;
+}
+
+function hitTest(p) {
+  const tol = 8 / scale();
+  let best = null, bd = tol;
+  for (const e of gTrace.children) {
+    if (!editableEl(e)) continue;
+    const d = distTo(e, p, tol);
+    if (d <= bd) { bd = d; best = e; }
+  }
+  return best;
+}
+
+// Tools
+function setTool(t) {
+  if (t === 'zoomwin' && tool !== 'zoomwin') prevTool = tool;
+  tool = t; startPt = null; calib = null; dimB = null; typed = ''; parRef = null; poly = [];
+  preview.setAttribute('visibility', 'hidden'); rubber.setAttribute('visibility', 'hidden');
+  polyPrev.setAttribute('visibility', 'hidden'); circlePrev.setAttribute('visibility', 'hidden');
+  document.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('active', b.dataset.tool === t));
+  view.style.cursor = { pan: 'grab', underlay: 'move', crop: 'crosshair', calibrate: 'crosshair', line: 'crosshair',
+    rect: 'crosshair', text: 'text', measure: 'crosshair', dimension: 'crosshair', offset: 'crosshair', trim: 'crosshair',
+    extend: 'crosshair', rotate: 'crosshair', horizontal: 'crosshair', zoomwin: 'crosshair', polyline: 'crosshair',
+    circle: 'crosshair', path: 'crosshair', symbol: 'crosshair', select: 'default' }[t];
+  hideAids(); updateStatus();
+}
+
+function setPreview(a, b) {
+  preview.setAttribute('x1', a.x); preview.setAttribute('y1', a.y);
+  preview.setAttribute('x2', b.x); preview.setAttribute('y2', b.y);
+  preview.setAttribute('visibility', 'visible');
+}
+function setRubber(a, b) {
+  rubber.setAttribute('x', Math.min(a.x, b.x)); rubber.setAttribute('y', Math.min(a.y, b.y));
+  rubber.setAttribute('width', Math.abs(a.x - b.x)); rubber.setAttribute('height', Math.abs(a.y - b.y));
+  rubber.setAttribute('visibility', 'visible');
+}
+function updatePolyPrev() {
+  if (poly.length < 2) { polyPrev.setAttribute('visibility', 'hidden'); return; }
+  polyPrev.setAttribute('points', ptsStr(poly)); polyPrev.setAttribute('visibility', 'visible');
+}
+function updatePreview(p) {
+  if (!startPt) return;
+  if (tool === 'rect') setRubber(startPt, rectPoint(p));
+  else if (tool === 'horizontal') setPreview(startPt, p);
+  else if (tool === 'circle') {
+    const q = snapPoint(p);
+    circlePrev.setAttribute('cx', startPt.x); circlePrev.setAttribute('cy', startPt.y);
+    circlePrev.setAttribute('r', Math.hypot(q.x - startPt.x, q.y - startPt.y)); circlePrev.setAttribute('visibility', 'visible');
+    setPreview(startPt, q);
+  }
+  else if (tool === 'dimension') {
+    const q = snapPoint(p);
+    if (!dimB) setPreview(startPt, q);
+    else { const d = dimGeom(startPt, dimB, q); if (d) setPreview(d.a2, d.b2); }
+  } else {
+    let q = drawPoint(p);
+    if (tool === 'line' && typed) q = typedEnd(q);
+    setPreview(startPt, q);
+  }
+}
+function endDraw() {
+  startPt = null; dimB = null; typed = ''; parRef = null; poly = [];
+  preview.setAttribute('visibility', 'hidden'); rubber.setAttribute('visibility', 'hidden');
+  polyPrev.setAttribute('visibility', 'hidden'); circlePrev.setAttribute('visibility', 'hidden');
+}
+
+// A polyline or path ends with right-click, Enter or a second click on the last point
+function finishShape() {
+  const pts = poly.slice(), closed = tool === 'path' && $('pathClosed').checked, min = closed ? 3 : 2;
+  const t = tool;
+  endDraw();
+  if (pts.length < min) { if (pts.length) msg(tr('Click at least {0} points.', min)); return; }
+  addEls([t === 'polyline' ? mkPoly(pts) : mkPath(pts, $('pathSmooth').checked, closed)]);
+}
+
+function fmtLen(d) {
+  const upm = num('upm');
+  return d.toFixed(1) + ' units' + (upm > 0 ? ' = ' + (d / upm).toFixed(2) + ' m' : '');
+}
+function lengthText(a, b) { return fmtLen(Math.hypot(b.x - a.x, b.y - a.y)); }
+
+const TOOL_NAMES = { pan: 'Pan', underlay: 'Underlay', crop: 'Crop', calibrate: 'Calibrate', line: 'Line',
+  rect: 'Rectangle', text: 'Text', measure: 'Measure', dimension: 'Dimension', offset: 'Offset', trim: 'Trim',
+  extend: 'Extend', rotate: 'Rotate', horizontal: 'Make horizontal', zoomwin: 'Zoom window', polyline: 'Polyline',
+  circle: 'Circle', path: 'Path', symbol: 'Place symbol', select: 'Select' };
+
+function hint() { return tr(hintEn()); }
+function hintEn() {
+  switch (tool) {
+    case 'pan': return 'drag to pan';
+    case 'underlay': return 'drag the chosen underlay';
+    case 'crop': return 'drag a rectangle on the underlay';
+    case 'calibrate': return startPt ? 'click the second point' : 'click the first point';
+    case 'line': return startPt ? 'click the end point or type a length, right-click to finish' : 'click or drag from the start point';
+    case 'dimension': return !startPt ? 'click the first point' : !dimB ? 'click the second point' : 'click where the dimension line goes';
+    case 'rotate': return 'drag around the chosen underlay to turn it, Shift for 15° steps';
+    case 'horizontal': return startPt ? 'click the second point' : 'click the first of two points that should be level';
+    case 'zoomwin': return 'drag a rectangle to zoom to';
+    case 'offset': return 'select lines, then click the side to offset them';
+    case 'trim': return 'click the part of a line to remove';
+    case 'extend': return 'click a line near the end to extend';
+    case 'polyline': return poly.length ? 'click the next point, right-click or Enter to finish' : 'click the first point';
+    case 'path': return poly.length ? 'click the next point, right-click or Enter to finish' : 'click the first point (Smooth curve and Closed are in Tools)';
+    case 'circle': return startPt ? 'click a point on the circle' : 'click the center';
+    case 'symbol': return 'click where the symbol goes (centered)';
+    case 'rect': return startPt ? 'click the opposite corner' : 'click a corner';
+    case 'text': return 'click where the text goes';
+    case 'measure': return startPt ? 'click the second point' : 'click the first point';
+    default: return 'click or drag to select';
+  }
+}
+
+// Total length of the selected lines, or null when no line is selected
+function selectionLength() {
+  let n = 0, total = 0;
+  for (const e of sel) {
+    if (e.tagName !== 'line') continue;
+    const s = segOf(e);
+    total += Math.hypot(s.x2 - s.x1, s.y2 - s.y1); n++;
+  }
+  return n ? { n, total } : null;
+}
+
+function updateStatus(p) {
+  if (p) lastP = p;
+  const q = startPt && lastP && LINE_TOOLS.includes(tool) ? drawPoint(lastP) : null;
+  const live = q ? lengthText(startPt, q) : null;
+  const ang = q && (snapKind === 'polar' || snapKind === 'par' || snapKind === 'perp')
+    ? ((Math.atan2(-(q.y - startPt.y), q.x - startPt.x) * 180 / Math.PI + 360) % 360).toFixed(1) + '°' : null;
+  let t = tr(TOOL_NAMES[tool]) + ': ' + hint();
+  if (lastP) t += `  |  ${lastP.x.toFixed(1)}, ${lastP.y.toFixed(1)}`;
+  if (live) t += '  |  ' + (ang ? tr('length {0} at {1}', live, ang) : tr('length {0}', live));
+  if (typed) t += '  |  ' + tr('typed length {0} m, Enter to place', typed);
+  t += '  |  ' + tr('{0} selected', sel.size);
+  $('status').textContent = t;
+
+  const box = $('info'), rows = [tr(TOOL_NAMES[tool]), hint()];
+  if (lastP) rows.push(`x ${lastP.x.toFixed(1)}, y ${lastP.y.toFixed(1)}`);
+  rows.push(tr('{0} selected', sel.size));
+  const L = selectionLength();
+  if (L) rows.push(L.n > 1 ? tr('total length {0}', fmtLen(L.total)) : tr('length {0}', fmtLen(L.total)));
+  if (live) rows.push(tr('drawing length {0}', live));
+  if (ang) rows.push(tr('angle {0}', ang));
+  if (typed) rows.push(tr('typed length {0} m', typed));
+  box.textContent = '';
+  rows.forEach(r => { const d = document.createElement('div'); d.textContent = r; box.appendChild(d); });
+}
+
+// Snap marker and text preview at the cursor
+function hideAids() { snapMark.setAttribute('visibility', 'hidden'); textPrev.setAttribute('visibility', 'hidden'); gGuides.textContent = ''; }
+function drawGuides() {
+  gGuides.textContent = '';
+  for (const g of guides) {
+    const l = document.createElementNS(NS, 'line');
+    l.setAttribute('x1', g.a.x); l.setAttribute('y1', g.a.y); l.setAttribute('x2', g.b.x); l.setAttribute('y2', g.b.y);
+    l.setAttribute('stroke', '#2a9d4a'); l.setAttribute('stroke-width', 1); l.setAttribute('stroke-dasharray', '5 4');
+    l.setAttribute('vector-effect', 'non-scaling-stroke');
+    gGuides.appendChild(l);
+  }
+}
+function showSnapMark(q, kind) {
+  if (!kind) { snapMark.setAttribute('visibility', 'hidden'); return; }
+  const r = 6 / scale(), x = q.x, y = q.y;
+  const d = {
+    end: `M ${x - r} ${y - r} h ${2 * r} v ${2 * r} h ${-2 * r} z`,
+    mid: `M ${x} ${y - r} L ${x + r} ${y + r} L ${x - r} ${y + r} z`,
+    int: `M ${x - r} ${y - r} L ${x + r} ${y + r} M ${x - r} ${y + r} L ${x + r} ${y - r}`,
+    grid: `M ${x - r} ${y} L ${x + r} ${y} M ${x} ${y - r} L ${x} ${y + r}`,
+    align: `M ${x - r} ${y} a ${r} ${r} 0 1 0 ${2 * r} 0 a ${r} ${r} 0 1 0 ${-2 * r} 0`,
+    ext: `M ${x - r} ${y} h ${2 * r} M ${x - r} ${y - r / 2} v ${r} M ${x + r} ${y - r / 2} v ${r}`,
+    perp: `M ${x - r} ${y - r} v ${2 * r} h ${2 * r} M ${x - r} ${y} h ${r} v ${r}`,
+    par: `M ${x - r} ${y + r} L ${x} ${y - r} M ${x} ${y + r} L ${x + r} ${y - r}`,
+    polar: `M ${x} ${y - r} L ${x + r} ${y} L ${x} ${y + r} L ${x - r} ${y} z`
+  }[kind];
+  snapMark.setAttribute('d', d); snapMark.setAttribute('visibility', 'visible');
+}
+function updateAids(p) {
+  if (![...LINE_TOOLS, 'rect', 'text', 'dimension', 'circle', 'symbol'].includes(tool)) { hideAids(); return; }
+  const q = LINE_TOOLS.includes(tool) ? drawPoint(p) : tool === 'rect' ? rectPoint(p) : snapPoint(p);
+  showSnapMark(q, snapKind);
+  drawGuides();
+  const s = $('textValue').value;
+  if (tool === 'text' && s) {
+    textPrev.setAttribute('x', q.x); textPrev.setAttribute('y', q.y);
+    textPrev.setAttribute('font-size', num('fontSize'));
+    textPrev.textContent = s;
+    textPrev.setAttribute('visibility', 'visible');
+  } else textPrev.setAttribute('visibility', 'hidden');
+}
+
+// Clicks of the drawing tools run on pointer release, so a pinch never places a point
+function clickAction(raw) {
+  doClick(raw);
+  updateStatus();
+  if (lastP) updateAids(lastP);
+}
+function doClick(raw) {
+  if (tool === 'line') {
+    const p = drawPoint(raw);
+    if (!startPt) { startPt = p; setPreview(p, p); return; }
+    addEls([mkLine(startPt.x, startPt.y, p.x, p.y)]);
+    if ($('chain').checked) { startPt = p; typed = ''; parRef = null; setPreview(p, p); } else endDraw();
+  } else if (tool === 'rect') {
+    const p = rectPoint(raw);
+    if (!startPt) { startPt = p; setRubber(p, p); return; }
+    const a = startPt;
+    addEls([mkLine(a.x, a.y, p.x, a.y), mkLine(p.x, a.y, p.x, p.y), mkLine(p.x, p.y, a.x, p.y), mkLine(a.x, p.y, a.x, a.y)]);
+    endDraw();
+  } else if (tool === 'text') {
+    const s = $('textValue').value;
+    if (!s) { msg(tr('Enter the text in the Text field first.')); return; }
+    const p = snapPoint(raw), t = mkText(p.x, p.y, s, num('fontSize'));
+    const h = $('attachNew').checked ? hitTest(raw) : null;
+    if (h && h.tagName !== 'text') attachTo(t, h);
+    addEls([t]);
+  } else if (tool === 'polyline' || tool === 'path') {
+    const p = drawPoint(raw), last = poly[poly.length - 1];
+    if (last && Math.hypot(p.x - last.x, p.y - last.y) < 1e-9) { finishShape(); return; }
+    poly.push({ x: p.x, y: p.y }); startPt = { x: p.x, y: p.y };
+    updatePolyPrev(); setPreview(p, p);
+  } else if (tool === 'circle') {
+    const p = snapPoint(raw);
+    if (!startPt) { startPt = p; circlePrev.setAttribute('visibility', 'hidden'); setPreview(p, p); return; }
+    const r = Math.hypot(p.x - startPt.x, p.y - startPt.y), c = startPt;
+    endDraw();
+    if (r > 0) addEls([mkCircle(c.x, c.y, r)]);
+  } else if (tool === 'symbol') {
+    const p = snapPoint(raw), def = SYMBOLS[$('symType').value];
+    if (!def) return;
+    addEls([mkSymbol($('symType').value, p.x, p.y, num('symW') || def.w, num('symD') || def.d, +$('symRot').value || 0)]);
+  } else if (tool === 'measure') {
+    const p = drawPoint(raw);
+    if (!startPt) { startPt = p; setPreview(p, p); return; }
+    msg(tr('Distance: {0}', lengthText(startPt, p)));
+    setPreview(startPt, p);
+    startPt = null;
+  } else if (tool === 'dimension') {
+    const p = snapPoint(raw);
+    if (!startPt) { startPt = p; setPreview(p, p); return; }
+    if (!dimB) {
+      if (p.x === startPt.x && p.y === startPt.y) return;
+      dimB = p; updatePreview(raw); return;
+    }
+    const d = dimGeom(startPt, dimB, p);
+    if (!d) { msg(tr('Click to one side of the measured line.')); return; }
+    addEls(dimensionEls(startPt, dimB, d));
+    endDraw();
+  } else if (tool === 'horizontal') {
+    const u = curU();
+    if (!u || !u.el) { msg(tr('Pick an underlay image first.')); return; }
+    if (u.locked) { msg(tr('The underlay is locked.')); return; }
+    if (!startPt) { startPt = { x: raw.x, y: raw.y }; setPreview(startPt, startPt); return; }
+    makeHorizontal(u, startPt, raw);
+    endDraw();
+  } else if (tool === 'offset') doOffset(raw);
+  else if (tool === 'trim') doTrim(raw);
+  else if (tool === 'extend') doExtend(raw);
+  else if (tool === 'calibrate') {
+    const u = curU();
+    if (!u || !u.el) { msg(tr('Pick an underlay image first.')); return; }
+    if (!(num('calDist') > 0)) { msg(tr('Enter the real distance in meters first.')); return; }
+    const p = drawPoint(raw);
+    if (!startPt) { startPt = p; setPreview(p, p); return; }
+    const d = Math.hypot(p.x - startPt.x, p.y - startPt.y);
+    if (d > 0) {
+      u.scale *= num('calDist') * num('upm') / d;
+      renderU(u); syncControls(); changed();
+      msg(tr('Underlay scale set to {0}', u.scale.toFixed(5)));
+    }
+    endDraw();
+  }
+}
+
+// Pointer handling
+function selectDown(ev, p) {
+  const tol = 8 / scale();
+  if (sel.size === 1) {
+    const l = [...sel][0], pts = handlePts(l);
+    for (let i = 0; i < pts.length; i++) {
+      if (Math.hypot(pts[i].x - p.x, pts[i].y - p.y) < tol) {
+        drag = { kind: 'handle', el: l, idx: i, orig: snapshot(l) };
+        return;
+      }
+    }
+  }
+  const hit = hitTest(p);
+  if (hit) {
+    if (ev.shiftKey) { if (sel.has(hit)) sel.delete(hit); else sel.add(hit); }
+    else if (!sel.has(hit)) { sel.clear(); sel.add(hit); }
+    drag = { kind: 'move', start: p, items: [...sel].map(e => ({ el: e, orig: snapshot(e) })) };
+  } else {
+    if (!ev.shiftKey) sel.clear();
+    drag = { kind: 'rubber', start: p, additive: ev.shiftKey };
+  }
+  selChanged();
+}
+
+function cancelDrag() {
+  if (!drag) return;
+  if (drag.kind === 'move') drag.items.forEach(it => setAttrs(it.el, it.orig));
+  else if (drag.kind === 'handle') setAttrs(drag.el, drag.orig);
+  if ((drag.kind === 'move' || drag.kind === 'handle') && (drag.items || [drag]).some(it => kindOf(it.el) === 'symbol')) (drag.items || [drag]).forEach(it => kindOf(it.el) === 'symbol' && buildSymbol(it.el));
+  else if (drag.kind === 'crop') { drag.u.crop = drag.prev; renderU(drag.u); }
+  else if (drag.kind === 'underlay') { drag.u.x = drag.ux; drag.u.y = drag.uy; renderU(drag.u); syncControls(); }
+  else if (drag.kind === 'rotate') { drag.u.rot = drag.rot0; drag.u.x = drag.x0; drag.u.y = drag.y0; renderU(drag.u); syncControls(); }
+  rubber.setAttribute('visibility', 'hidden'); gGuides.textContent = '';
+  drag = null; paint();
+}
+
+function localPt(u, cx, cy) {
+  const p = view.createSVGPoint();
+  p.x = cx; p.y = cy;
+  return p.matrixTransform(u.el.getScreenCTM().inverse());
+}
+
+function dragMove(ev, p) {
+  if (drag.kind === 'pan') {
+    const k = 1 / scale(), v = vb();
+    setView(v.x - (ev.clientX - drag.x) * k, v.y - (ev.clientY - drag.y) * k, v.width, v.height);
+    drag.x = ev.clientX; drag.y = ev.clientY;
+  } else if (drag.kind === 'underlay') {
+    drag.u.x = +(drag.ux + p.x - drag.px).toFixed(3);
+    drag.u.y = +(drag.uy + p.y - drag.py).toFixed(3);
+    renderU(drag.u); syncControls();
+  } else if (drag.kind === 'crop') {
+    const q = localPt(drag.u, ev.clientX, ev.clientY), a = drag.start;
+    const cl = (v, m) => Math.max(0, Math.min(m, v));
+    const x1 = cl(Math.min(a.x, q.x), drag.u.w), x2 = cl(Math.max(a.x, q.x), drag.u.w);
+    const y1 = cl(Math.min(a.y, q.y), drag.u.h), y2 = cl(Math.max(a.y, q.y), drag.u.h);
+    drag.u.crop = { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
+    renderU(drag.u);
+  } else if (drag.kind === 'move') {
+    let dx = r3(p.x - drag.start.x), dy = r3(p.y - drag.start.y);
+    if (orthoOn()) { if (Math.abs(dx) >= Math.abs(dy)) dy = 0; else dx = 0; }
+    const moving = drag.items.map(it => it.el);
+    for (const it of drag.items) if (!followsSet(it.el, moving)) applyMove(it.el, it.orig, dx, dy);
+    relayoutTexts(); drawHandles();
+  } else if (drag.kind === 'handle') {
+    trackSkip = drag.el;
+    let q = snapPoint(p);
+    trackSkip = null; drawGuides();
+    if (orthoOn() && drag.el.tagName === 'line') {
+      const o = drag.idx === 0 ? { x: +drag.orig.x2, y: +drag.orig.y2 } : { x: +drag.orig.x1, y: +drag.orig.y1 };
+      q = orthoPoint(o, q);
+    }
+    moveHandle(drag.el, drag.idx, q);
+    relayoutTexts(); drawHandles();
+  } else if (drag.kind === 'rubber' || drag.kind === 'zoomwin') {
+    setRubber(drag.start, p);
+  } else if (drag.kind === 'rotate') {
+    const u = drag.u;
+    let rot = drag.rot0 + (Math.atan2(p.y - drag.C.y, p.x - drag.C.x) - drag.a0) * 180 / Math.PI;
+    if (shiftDown) rot = Math.round(rot / 15) * 15;
+    u.rot = normDeg(rot); u.x = drag.x0; u.y = drag.y0;
+    const lc = localCenter(u), W = uWorld(u, lc.x, lc.y);
+    u.x = r3(drag.x0 + drag.C.x - W.x); u.y = r3(drag.y0 + drag.C.y - W.y); u.rot = r3(u.rot);
+    renderU(u); syncControls();
+  }
+}
+
+function endDrag(p) {
+  const d = drag; drag = null;
+  gGuides.textContent = '';
+  if (d.kind === 'move' || d.kind === 'handle') {
+    const items = (d.kind === 'move' ? d.items : [{ el: d.el, orig: d.orig }])
+      .map(it => ({ el: it.el, before: it.orig, after: snapshot(it.el) }))
+      .filter(it => JSON.stringify(it.before) !== JSON.stringify(it.after));
+    if (items.length) push({ type: 'attrs', items });
+  } else if (d.kind === 'rubber') {
+    rubber.setAttribute('visibility', 'hidden');
+    const x1 = Math.min(d.start.x, p.x), x2 = Math.max(d.start.x, p.x), y1 = Math.min(d.start.y, p.y), y2 = Math.max(d.start.y, p.y);
+    if (x2 - x1 > 2 / scale() || y2 - y1 > 2 / scale()) {
+      const inside = (x, y) => x >= x1 && x <= x2 && y >= y1 && y <= y2;
+      for (const e of gTrace.children) {
+        if (!editableEl(e)) continue;
+        const b = bboxOf(e);
+        if (inside(b.x, b.y) && inside(b.x + b.w, b.y + b.h)) sel.add(e);
+      }
+      selChanged();
+    }
+  } else if (d.kind === 'crop') {
+    if (!d.u.crop || d.u.crop.w < 2 || d.u.crop.h < 2) { d.u.crop = d.prev; renderU(d.u); }
+    changed();
+  } else if (d.kind === 'underlay' || d.kind === 'rotate') changed();
+  else if (d.kind === 'zoomwin') {
+    rubber.setAttribute('visibility', 'hidden');
+    const x = Math.min(d.start.x, p.x), y = Math.min(d.start.y, p.y), w = Math.abs(p.x - d.start.x), h = Math.abs(p.y - d.start.y);
+    if (w > 3 / scale() && h > 3 / scale()) setView(x, y, w, h);
+    setTool(prevTool);
+  }
+}
+
+function startGesture() {
+  const [a, b] = [...ptrs.values()];
+  gesture = { cx: (a.x + b.x) / 2, cy: (a.y + b.y) / 2, d: Math.hypot(a.x - b.x, a.y - b.y) || 1 };
+}
+function gestureMove() {
+  const [a, b] = [...ptrs.values()];
+  if (!gesture) startGesture();
+  const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2, d = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+  const k = 1 / scale(), v = vb();
+  setView(v.x - (cx - gesture.cx) * k, v.y - (cy - gesture.cy) * k, v.width, v.height);
+  zoomAt(toPt(cx, cy), gesture.d / d);
+  gesture = { cx, cy, d };
+}
+
+view.addEventListener('pointerdown', ev => {
+  if (ev.button === 2) return; // right-click is handled by the contextmenu event
+  try { view.setPointerCapture(ev.pointerId); } catch (e) { /* not supported */ }
+  ptrs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+  if (ptrs.size >= 2) {
+    cancelDrag();
+    if (tap && tap.drawFrom && tap.moved) endDraw();
+    tap = null; startGesture(); return;
+  }
+  tap = { x: ev.clientX, y: ev.clientY, moved: false };
+  const p = toSvg(ev);
+  // A line can be drawn by dragging from its start point
+  if (tool === 'line' && !startPt && ev.button === 0) tap.drawFrom = snapPoint(p);
+  if (tool === 'pan' || ev.button === 1) { drag = { kind: 'pan', x: ev.clientX, y: ev.clientY }; tap = null; return; }
+  if (tool === 'underlay') {
+    const u = curU();
+    if (u && !u.locked) drag = { kind: 'underlay', u, px: p.x, py: p.y, ux: u.x, uy: u.y };
+  } else if (tool === 'crop') {
+    const u = curU();
+    if (u && u.el && !u.locked) drag = { kind: 'crop', u, start: localPt(u, ev.clientX, ev.clientY), prev: u.crop };
+  } else if (tool === 'rotate') {
+    const u = curU();
+    if (u && u.el && !u.locked) {
+      const lc = localCenter(u), C = uWorld(u, lc.x, lc.y);
+      drag = { kind: 'rotate', u, C, a0: Math.atan2(p.y - C.y, p.x - C.x), rot0: u.rot, x0: u.x, y0: u.y };
+    } else msg(u && u.locked ? tr('The underlay is locked.') : tr('Pick an underlay image first.'));
+  } else if (tool === 'zoomwin') drag = { kind: 'zoomwin', start: p };
+  else if (tool === 'select') selectDown(ev, p);
+});
+
+view.addEventListener('pointermove', ev => {
+  if (ptrs.has(ev.pointerId)) ptrs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+  if (ptrs.size >= 2) { gestureMove(); return; }
+  if (tap && Math.hypot(ev.clientX - tap.x, ev.clientY - tap.y) > 6) tap.moved = true;
+  const p = toSvg(ev);
+  curClient = { x: ev.clientX, y: ev.clientY }; drawRulers();
+  updateStatus(p);
+  if (drag) { dragMove(ev, p); return; }
+  if (tap && tap.moved && tap.drawFrom && !startPt && tool === 'line') startPt = tap.drawFrom;
+  if (isDrawing() && $('tracking').checked) { const h = hitTest(p); if (h && h.tagName === 'line') parRef = h; }
+  updatePreview(p);
+  updateAids(p);
+  if (tool === 'select' && ev.pointerType === 'mouse') {
+    const h = hitTest(p);
+    if (h !== hover) { hover = h; paint(); }
+  }
+});
+
+function pointerEnd(ev) {
+  const wasTwo = ptrs.size >= 2;
+  ptrs.delete(ev.pointerId);
+  if (wasTwo) { if (ptrs.size < 2) gesture = null; tap = null; return; }
+  if (drag) { endDrag(toSvg(ev)); tap = null; return; }
+  if (tap && ev.type === 'pointerup') {
+    if (!tap.moved) clickAction(toPt(tap.x, tap.y));
+    else if (tap.drawFrom && startPt) finishDragLine(toSvg(ev));
+  } else if (tap && tap.drawFrom && tap.moved) endDraw();
+  tap = null;
+}
+function finishDragLine(raw) {
+  const p = drawPoint(raw);
+  if (Math.hypot(p.x - startPt.x, p.y - startPt.y) > 0) addEls([mkLine(startPt.x, startPt.y, p.x, p.y)]);
+  if ($('chain').checked) { startPt = p; typed = ''; parRef = null; setPreview(p, p); } else endDraw();
+  updateStatus();
+}
+view.addEventListener('pointerup', pointerEnd);
+view.addEventListener('pointercancel', pointerEnd);
+view.addEventListener('pointerleave', () => { hideAids(); curClient = null; drawRulers(); });
+// Right-click ends a chain or cancels a pending point
+view.addEventListener('contextmenu', ev => {
+  ev.preventDefault(); tap = null;
+  if ((tool === 'polyline' || tool === 'path') && poly.length) finishShape(); else endDraw();
+  updateStatus();
+});
+
+view.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  zoomAt(toSvg(ev), ev.deltaY < 0 ? 0.85 : 1 / 0.85);
+}, { passive: false });
+
+window.addEventListener('keydown', ev => {
+  if (ev.key === 'Shift') shiftDown = true;
+  if (ev.target.tagName === 'INPUT') return;
+  // Typed length: digits after the first point of a line, Enter places the line
+  if (tool === 'line' && startPt && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
+    if (/^[0-9]$/.test(ev.key) || ((ev.key === '.' || ev.key === ',') && !typed.includes('.'))) {
+      typed += ev.key === ',' ? '.' : ev.key; typedChanged(); return;
+    }
+    if (ev.key === 'Backspace' && typed) { typed = typed.slice(0, -1); typedChanged(); return; }
+    if (ev.key === 'Enter' && typed) { ev.preventDefault(); placeTyped(); return; }
+  }
+  if (ev.key === 'Enter' && (tool === 'polyline' || tool === 'path') && poly.length) { ev.preventDefault(); finishShape(); updateStatus(); return; }
+  if (ev.key === 'a' && ev.ctrlKey) { ev.preventDefault(); selectAll(); }
+  if (ev.key === 'Delete') deleteSelected();
+  if (ev.key === 'Escape') {
+    if (tool === 'zoomwin') { cancelDrag(); setTool(prevTool); }
+    endDraw(); sel.clear(); selChanged();
+  }
+  if (ev.key === 'z' && ev.ctrlKey && !ev.shiftKey) undo();
+  if ((ev.key === 'y' && ev.ctrlKey) || (ev.key === 'Z' && ev.ctrlKey && ev.shiftKey)) redo();
+});
+window.addEventListener('keyup', ev => { if (ev.key === 'Shift') shiftDown = false; });
+
+function typedChanged() { if (lastP) updatePreview(lastP); updateStatus(); }
+function placeTyped() {
+  if (!(parseFloat(typed) * num('upm') > 0)) { msg(tr('Set units per meter and type a length above zero.')); typed = ''; updateStatus(); return; }
+  const q = lastP ? drawPoint(lastP) : null;
+  if (!q || (q.x === startPt.x && q.y === startPt.y)) { msg(tr('Move the cursor in the direction of the line first.')); return; }
+  const e = typedEnd(q);
+  addEls([mkLine(startPt.x, startPt.y, e.x, e.y)]);
+  typed = '';
+  if ($('chain').checked) { startPt = e; parRef = null; setPreview(e, e); } else endDraw();
+  updateStatus();
+}
+
+// Controls
+document.querySelectorAll('[data-tool]').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
+$('undo').addEventListener('click', undo);
+$('redo').addEventListener('click', redo);
+$('del').addEventListener('click', deleteSelected);
+$('dup').addEventListener('click', duplicateSelected);
+$('applyText').addEventListener('click', applyToSelectedText);
+$('applyLine').addEventListener('click', applyLineStyle);
+$('selAll').addEventListener('click', selectAll);
+$('joinCol').addEventListener('click', joinCollinear);
+document.querySelectorAll('[data-arrange]').forEach(b => b.addEventListener('click', () => arrange(b.dataset.arrange)));
+function syncOrtho() {
+  const on = $('ortho').checked;
+  $('orthoBtn').textContent = tr('Ortho: {0}', on ? tr('on') : tr('off'));
+  $('orthoBtn').classList.toggle('on', on);
+  layoutOverlays();
+}
+$('orthoBtn').addEventListener('click', () => { $('ortho').checked = !$('ortho').checked; syncOrtho(); });
+$('ortho').addEventListener('change', syncOrtho);
+$('zoomIn').addEventListener('click', () => zoomCenter(0.7));
+$('zoomOut').addEventListener('click', () => zoomCenter(1 / 0.7));
+$('zoomFrame').addEventListener('click', fitCamera);
+$('zoomDraw').addEventListener('click', zoomDrawing);
+$('imgFile').addEventListener('change', e => { [...e.target.files].forEach(addUnderlayFile); e.target.value = ''; });
+['ux', 'uy', 'urot', 'uscale', 'uopacity', 'ubright', 'ucontrast', 'uvis', 'ulock', 'uflipx', 'uflipy'].forEach(id => $(id).addEventListener('input', readControls));
+$('underSel').addEventListener('change', e => { activeU = +e.target.value; syncControls(); });
+$('underRemove').addEventListener('click', () => {
+  const u = curU();
+  if (!u) return;
+  if (u.url) URL.revokeObjectURL(u.url);
+  unders.splice(activeU, 1);
+  activeU = unders.length ? Math.min(activeU, unders.length - 1) : -1;
+  rebuildUnderDom(); syncControls(); changed();
+});
+$('underFit').addEventListener('click', () => {
+  const u = curU();
+  if (!u) return;
+  // Fit the cropped part (the whole image when not cropped) to the frame width, its corner on the frame corner
+  const c = u.crop || { x: 0, y: 0, w: u.w, h: u.h };
+  if (!(c.w > 0)) return;
+  u.rot = 0; u.scale = frame().w / c.w;
+  const sx = u.flipX ? -1 : 1, sy = u.flipY ? -1 : 1;
+  const tx = u.flipX ? -u.w : 0, ty = u.flipY ? -u.h : 0;
+  const ax = [sx * (c.x + tx), sx * (c.x + c.w + tx)], ay = [sy * (c.y + ty), sy * (c.y + c.h + ty)];
+  u.x = frame().x - Math.min(...ax) * u.scale;
+  u.y = frame().y - Math.min(...ay) * u.scale;
+  renderU(u); syncControls(); changed();
+});
+
+// Resizable panel: drag the bar between the panel and the drawing
+const narrow = () => window.matchMedia('(max-width: 700px)').matches;
+function placeOverlays(w) { $('status').style.left = (w + 14) + 'px'; layoutOverlays(); }
+let resizing = false;
+$('resizer').addEventListener('pointerdown', ev => { resizing = true; $('resizer').setPointerCapture(ev.pointerId); });
+$('resizer').addEventListener('pointermove', ev => {
+  if (!resizing) return;
+  const panel = $('panel');
+  if (narrow()) {
+    const h = Math.max(80, Math.min(window.innerHeight - 120, ev.clientY - panel.getBoundingClientRect().top));
+    panel.style.height = h + 'px'; panel.style.maxHeight = h + 'px';
+  } else {
+    const w = Math.max(180, Math.min(window.innerWidth - 200, ev.clientX));
+    panel.style.width = w + 'px';
+    placeOverlays(w);
+  }
+});
+$('resizer').addEventListener('pointerup', () => {
+  resizing = false;
+  if (!narrow()) { ui.panelWidth = Math.round($('panel').getBoundingClientRect().width); uiSave(); }
+});
+$('resizer').addEventListener('pointercancel', () => { resizing = false; });
+$('cropClear').addEventListener('click', () => { const u = curU(); if (u) { u.crop = null; renderU(u); changed(); } });
+['fx', 'fy', 'fw', 'fh', 'floorId', 'level', 'upm'].forEach(id => $(id).addEventListener('input', () => { applyFrame(); changed(); }));
+['showGrid', 'gridSize'].forEach(id => $(id).addEventListener('input', updateGrid));
+
+// Symbols
+function fillSymTypes() {
+  const sel = $('symType'), cur = sel.value;
+  sel.textContent = '';
+  for (const k in SYMBOLS) {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = tr(SYMBOLS[k].name);
+    sel.appendChild(o);
+  }
+  if (cur) sel.value = cur;
+}
+fillSymTypes();
+function symDefaults() {
+  const d = SYMBOLS[$('symType').value];
+  $('symW').value = d.w; $('symD').value = d.d; $('symD').disabled = !!d.square;
+}
+$('symType').addEventListener('change', symDefaults);
+symDefaults();
+function changeSymbols(fn) {
+  const items = [];
+  for (const e of sel) {
+    if (kindOf(e) !== 'symbol') continue;
+    const before = snapshot(e);
+    fn(e);
+    buildSymbol(e);
+    items.push({ el: e, before, after: snapshot(e) });
+  }
+  if (!items.length) { msg(tr('Select a symbol first.')); return; }
+  push({ type: 'attrs', items });
+}
+$('symApply').addEventListener('click', () => changeSymbols(e => {
+  const def = SYMBOLS[$('symType').value], w = num('symW') || def.w;
+  setAttrs(e, { 'data-symbol': $('symType').value, 'data-width': w, 'data-depth': def.square ? w : (num('symD') || def.d), 'data-rot': +$('symRot').value || 0 });
+}));
+$('symRotate').addEventListener('click', () => changeSymbols(e => e.setAttribute('data-rot', ((+e.getAttribute('data-rot') || 0) + 90) % 360)));
+
+// Text attached to elements, and element ids
+$('attachText').addEventListener('click', () => {
+  const ts = [...sel].filter(e => e.tagName === 'text'), os = [...sel].filter(e => e.tagName !== 'text');
+  if (ts.length !== 1 || os.length !== 1) { msg(tr('Select one text and one element to attach it to.')); return; }
+  const t = ts[0], before = snapshot(t);
+  attachTo(t, os[0]); relayoutTexts();
+  push({ type: 'attrs', items: [{ el: t, before, after: snapshot(t) }] });
+});
+$('detachText').addEventListener('click', () => {
+  const items = [];
+  for (const t of sel) {
+    if (t.tagName !== 'text' || !t.hasAttribute('data-for')) continue;
+    const before = snapshot(t);
+    ['data-for', 'data-dx', 'data-dy'].forEach(k => t.removeAttribute(k));
+    items.push({ el: t, before, after: snapshot(t) });
+  }
+  if (!items.length) { msg(tr('Select an attached text first.')); return; }
+  push({ type: 'attrs', items });
+});
+$('applyId').addEventListener('click', () => {
+  if (sel.size !== 1) { msg(tr('Select one element first.')); return; }
+  const e = [...sel][0], id = $('elId').value.trim();
+  if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(id)) { msg(tr('An ID starts with a letter and has only letters, digits and underscores.')); return; }
+  if (id === e.id) return;
+  if (byId(id)) { msg(tr('That ID is already used.')); return; }
+  const items = [{ el: e, before: { id: e.id }, after: { id } }];
+  for (const t of gTrace.querySelectorAll('text[data-for]')) if (t.getAttribute('data-for') === e.id) items.push({ el: t, before: { 'data-for': e.id }, after: { 'data-for': id } });
+  const op = { type: 'attrs', items };
+  runOp(op, 'redo'); push(op);
+});
+
+// Layers: named, each with visibility and a lock; elements keep their layer in data-layer
+function syncLayers() {
+  const s = $('layerSel');
+  s.textContent = '';
+  for (const l of layers) {
+    const o = document.createElement('option');
+    o.value = l.name; o.textContent = l.name + (l.visible ? '' : ' ' + tr('(hidden)')) + (l.locked ? ' ' + tr('(locked)') : '');
+    s.appendChild(o);
+  }
+  if (!layerByName(activeLayer)) activeLayer = layers[0].name;
+  s.value = activeLayer;
+  const L = layerByName(activeLayer);
+  $('layerVis').checked = L.visible; $('layerLock').checked = L.locked; $('layerName').value = L.name;
+  applyLayers();
+}
+$('layerSel').addEventListener('change', e => { activeLayer = e.target.value; syncLayers(); paint(); });
+$('layerAdd').addEventListener('click', () => {
+  const name = $('layerName').value.trim() || 'Layer ' + (layers.length + 1);
+  if (layerByName(name)) { msg(tr('A layer with that name exists.')); return; }
+  layers.push({ name, visible: true, locked: false }); activeLayer = name;
+  syncLayers(); paint(); changed();
+});
+$('layerRename').addEventListener('click', () => {
+  const name = $('layerName').value.trim(), L = layerByName(activeLayer);
+  if (!name || name === L.name) return;
+  if (layerByName(name)) { msg(tr('A layer with that name exists.')); return; }
+  for (const e of gTrace.children) if (e.getAttribute('data-layer') === L.name) e.setAttribute('data-layer', name);
+  L.name = name; activeLayer = name;
+  syncLayers(); paint(); changed();
+});
+$('layerDel').addEventListener('click', () => {
+  if (layers.length < 2) { msg(tr('The last layer cannot be deleted.')); return; }
+  const L = layerByName(activeLayer), rest = layers.filter(l => l !== L);
+  for (const e of gTrace.children) if (e.getAttribute('data-layer') === L.name) e.setAttribute('data-layer', rest[0].name);
+  layers = rest; activeLayer = rest[0].name;
+  syncLayers(); paint(); changed();
+  msg(tr('Layer deleted; its elements moved to {0}.', rest[0].name));
+});
+['layerVis', 'layerLock'].forEach(id => $(id).addEventListener('change', () => {
+  const L = layerByName(activeLayer);
+  L.visible = $('layerVis').checked; L.locked = $('layerLock').checked;
+  syncLayers(); paint(); changed();
+}));
+$('toLayer').addEventListener('click', () => {
+  const items = [...sel].filter(e => e.getAttribute('data-layer') !== activeLayer)
+    .map(e => ({ el: e, before: { 'data-layer': e.getAttribute('data-layer') }, after: { 'data-layer': activeLayer } }));
+  if (!items.length) { msg(tr('Select elements that are on another layer first.')); return; }
+  const op = { type: 'attrs', items };
+  runOp(op, 'redo'); push(op);
+});
+
+// Underlay name, order and nudging
+$('ulabel').addEventListener('input', () => {
+  const u = curU();
+  if (!u) return;
+  u.label = $('ulabel').value;
+  $('underSel').options[activeU].textContent = underName(u);
+  changed();
+});
+function moveUnder(d) {
+  const j = activeU + d;
+  if (activeU < 0 || j < 0 || j >= unders.length) return;
+  [unders[activeU], unders[j]] = [unders[j], unders[activeU]];
+  activeU = j;
+  rebuildUnderDom(); syncControls(); changed();
+}
+$('underUp').addEventListener('click', () => moveUnder(1));
+$('underDown').addEventListener('click', () => moveUnder(-1));
+function nudge(dx, dy) {
+  const u = curU();
+  if (!u) return;
+  if (u.locked) { msg(tr('The underlay is locked.')); return; }
+  const s = num('nudgeStep') || 1;
+  u.x = r3(u.x + dx * s); u.y = r3(u.y + dy * s);
+  renderU(u); syncControls(); changed();
+}
+$('nudgeL').addEventListener('click', () => nudge(-1, 0));
+$('nudgeR').addEventListener('click', () => nudge(1, 0));
+$('nudgeU').addEventListener('click', () => nudge(0, -1));
+$('nudgeD').addEventListener('click', () => nudge(0, 1));
+
+// Overlays on the drawing: rulers in meters from the frame corner, scale bar, overview map
+const RULER = 20;
+function niceStep(min) {
+  const p = Math.pow(10, Math.floor(Math.log10(min)));
+  for (const m of [1, 2, 5, 10]) if (p * m >= min) return p * m;
+  return p * 10;
+}
+
+function layoutOverlays() {
+  const r = view.getBoundingClientRect(), off = $('rulers').checked ? RULER + 6 : 8;
+  const place = (el, l, t) => { el.style.left = l + 'px'; el.style.top = t + 'px'; };
+  place($('rulerH'), r.left, r.top); place($('rulerV'), r.left, r.top + RULER);
+  place($('orthoBtn'), r.left + off, r.top + off);
+  place($('mapBtn'), r.left + off + $('orthoBtn').offsetWidth + 6, r.top + off);
+  place($('minimap'), r.left + off, r.top + off + 30);
+  $('info').style.top = (r.top + off) + 'px';
+  $('scaleBar').style.left = (r.left + off) + 'px';
+  $('scaleBar').style.bottom = (window.innerHeight - r.bottom + 36) + 'px';
+  drawRulers(); schedMap();
+}
+
+function drawRulers() {
+  const on = $('rulers').checked, H = $('rulerH'), V = $('rulerV'), sb = $('scaleBar');
+  H.style.display = V.style.display = on ? 'block' : 'none';
+  sb.style.display = 'none';
+  if (!on) return;
+  const m = view.getScreenCTM(), r = view.getBoundingClientRect();
+  if (!m) return;
+  if (!m || !(r.width > RULER * 2) || !(r.height > RULER * 2)) return;
+  const f = frame(), upm = num('upm') > 0 ? num('upm') : 1, ppm = m.a * upm;
+  if (!(ppm > 0)) return;
+  const cs = getComputedStyle(document.documentElement), bg = cs.getPropertyValue('--box').trim(), fg = cs.getPropertyValue('--fg').trim();
+  const dpr = window.devicePixelRatio || 1;
+  const setup = (cv, w, h) => {
+    const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
+    if (cv.width !== cw || cv.height !== ch) { cv.width = cw; cv.height = ch; }
+    cv.style.width = w + 'px'; cv.style.height = h + 'px';
+    const c = cv.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, w, h); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    c.strokeStyle = fg; c.fillStyle = fg; c.font = '10px sans-serif'; c.lineWidth = 1;
+    return c;
+  };
+  const major = niceStep(70 / ppm), mant = Math.round(major / Math.pow(10, Math.floor(Math.log10(major))));
+  const minor = major / (mant === 2 ? 2 : 5), label = M => +M.toFixed(4) + ' m';
+  const isMajor = M => Math.abs(M / major - Math.round(M / major)) < 1e-6;
+  const cH = setup(H, r.width, RULER);
+  const mx0 = ((r.left - m.e) / m.a - f.x) / upm, mx1 = ((r.right - m.e) / m.a - f.x) / upm;
+  for (let k = Math.ceil(mx0 / minor), n = 0; k * minor <= mx1 && n < 2000; k++, n++) {
+    const M = k * minor, x = m.a * (f.x + M * upm) + m.e - r.left;
+    cH.beginPath(); cH.moveTo(x + 0.5, RULER); cH.lineTo(x + 0.5, isMajor(M) ? 2 : 14); cH.stroke();
+    if (isMajor(M)) cH.fillText(label(M), x + 3, 11);
+  }
+  const cV = setup(V, RULER, r.height - RULER);
+  const my0 = ((r.top - m.f) / m.d - f.y) / upm, my1 = ((r.bottom - m.f) / m.d - f.y) / upm;
+  for (let k = Math.ceil(my0 / minor), n = 0; k * minor <= my1 && n < 2000; k++, n++) {
+    const M = k * minor, y = m.d * (f.y + M * upm) + m.f - r.top - RULER;
+    if (y < 0) continue;
+    cV.beginPath(); cV.moveTo(RULER, y + 0.5); cV.lineTo(isMajor(M) ? 2 : 14, y + 0.5); cV.stroke();
+    if (isMajor(M)) { cV.save(); cV.translate(11, y - 3); cV.rotate(-Math.PI / 2); cV.fillText(label(M), 0, 0); cV.restore(); }
+  }
+  if (curClient) {
+    cH.strokeStyle = cV.strokeStyle = '#d00';
+    const x = curClient.x - r.left, y = curClient.y - r.top - RULER;
+    cH.beginPath(); cH.moveTo(x + 0.5, 0); cH.lineTo(x + 0.5, RULER); cH.stroke();
+    cV.beginPath(); cV.moveTo(0, y + 0.5); cV.lineTo(RULER, y + 0.5); cV.stroke();
+  }
+  if (num('upm') > 0) {
+    const L = niceStep(60 / ppm);
+    sb.style.display = 'block'; sb.style.width = (L * ppm) + 'px'; $('scaleTxt').textContent = label(L);
+  }
+}
+
+const mm = $('minimap');
+let mapT = null, mapQueued = false, mapDrag = false;
+function schedMap() {
+  if (!ui.map || mapQueued) return;
+  mapQueued = true;
+  requestAnimationFrame(() => { mapQueued = false; drawMinimap(); });
+}
+function drawMinimap() {
+  mm.style.display = ui.map ? 'block' : 'none';
+  if (!ui.map) return;
+  const W = 180, H = 130, dpr = window.devicePixelRatio || 1;
+  if (mm.width !== Math.round(W * dpr)) { mm.width = Math.round(W * dpr); mm.height = Math.round(H * dpr); }
+  const c = mm.getContext('2d'), f = frame(), v = vb();
+  let x1 = f.x, y1 = f.y, x2 = f.x + f.w, y2 = f.y + f.h;
+  const grow = (x, y) => { x1 = Math.min(x1, x); y1 = Math.min(y1, y); x2 = Math.max(x2, x); y2 = Math.max(y2, y); };
+  if (gTrace.children.length) { const b = gTrace.getBBox(); grow(b.x, b.y); grow(b.x + b.width, b.y + b.height); }
+  const boxes = unders.filter(u => u.vis && u.el).map(u => {
+    const b = u.crop || { x: 0, y: 0, w: u.w, h: u.h };
+    return [[b.x, b.y], [b.x + b.w, b.y], [b.x + b.w, b.y + b.h], [b.x, b.y + b.h]].map(([lx, ly]) => uWorld(u, lx, ly));
+  });
+  boxes.forEach(b => b.forEach(q => grow(q.x, q.y)));
+  const pad = Math.max(x2 - x1, y2 - y1) * 0.1;
+  x1 -= pad; y1 -= pad; x2 += pad; y2 += pad;
+  const bw = Math.max(x2 - x1, 1), bh = Math.max(y2 - y1, 1), s = Math.min((W - 8) / bw, (H - 8) / bh);
+  const ox = (W - bw * s) / 2, oy = (H - bh * s) / 2;
+  mapT = { x1, y1, s, ox, oy };
+  const X = x => ox + (x - x1) * s, Y = y => oy + (y - y1) * s;
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.fillStyle = '#fff'; c.fillRect(0, 0, W, H); c.lineWidth = 1;
+  c.strokeStyle = '#c00'; c.setLineDash([3, 2]); c.strokeRect(X(f.x), Y(f.y), f.w * s, f.h * s); c.setLineDash([]);
+  c.strokeStyle = '#888';
+  for (const b of boxes) { c.beginPath(); b.forEach((q, i) => i ? c.lineTo(X(q.x), Y(q.y)) : c.moveTo(X(q.x), Y(q.y))); c.closePath(); c.stroke(); }
+  for (const e of gTrace.children) {
+    if (!visibleEl(e) || e.tagName === 'text') continue;
+    const k = kindOf(e);
+    c.strokeStyle = lineColor(e); c.beginPath();
+    if (k === 'line') { const g = segOf(e); c.moveTo(X(g.x1), Y(g.y1)); c.lineTo(X(g.x2), Y(g.y2)); }
+    else if (k === 'circle') c.arc(X(+e.getAttribute('cx')), Y(+e.getAttribute('cy')), +e.getAttribute('r') * s, 0, 2 * Math.PI);
+    else if (k === 'symbol') { const b = symBox(e); c.rect(X(b.x), Y(b.y), b.w * s, b.h * s); }
+    else handlePts(e).forEach((q, i) => i ? c.lineTo(X(q.x), Y(q.y)) : c.moveTo(X(q.x), Y(q.y)));
+    c.stroke();
+  }
+  c.strokeStyle = '#06c'; c.lineWidth = 2; c.strokeRect(X(v.x), Y(v.y), v.width * s, v.height * s);
+}
+function mapMove(ev) {
+  if (!mapT) return;
+  const r = mm.getBoundingClientRect(), v = vb();
+  const wx = mapT.x1 + (ev.clientX - r.left - mapT.ox) / mapT.s, wy = mapT.y1 + (ev.clientY - r.top - mapT.oy) / mapT.s;
+  setView(wx - v.width / 2, wy - v.height / 2, v.width, v.height);
+}
+mm.addEventListener('pointerdown', ev => { mapDrag = true; try { mm.setPointerCapture(ev.pointerId); } catch (e) { /* not supported */ } mapMove(ev); });
+mm.addEventListener('pointermove', ev => { if (mapDrag) mapMove(ev); });
+mm.addEventListener('pointerup', () => { mapDrag = false; });
+mm.addEventListener('pointercancel', () => { mapDrag = false; });
+function syncMap() {
+  $('mapBtn').textContent = tr('Map: {0}', ui.map ? tr('on') : tr('off'));
+  $('mapBtn').classList.toggle('on', !!ui.map);
+  layoutOverlays(); drawMinimap();
+}
+$('mapBtn').addEventListener('click', () => { ui.map = !ui.map; uiSave(); syncMap(); });
+$('rulers').addEventListener('change', layoutOverlays);
+window.addEventListener('resize', layoutOverlays);
+
+// Serialization: frame as viewBox, underlays as references in their own group, traced elements in their own group
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+// One traced element as markup lines. Every element carries its id; text may name the element it is attached to.
+function elemMarkup(e) {
+  const k = kindOf(e), a = n => esc(e.getAttribute(n)), id = ` id="${esc(e.id)}"`;
+  const st = ` stroke="${lineColor(e)}" stroke-width="${a('stroke-width')}"`, ve = ' vector-effect="non-scaling-stroke"';
+  if (k === 'line') return [`<line${id} x1="${a('x1')}" y1="${a('y1')}" x2="${a('x2')}" y2="${a('y2')}"${st}${ve}/>`];
+  if (k === 'polyline') return [`<polyline${id} points="${a('points')}" fill="none"${st}${ve}/>`];
+  if (k === 'circle') return [`<circle${id} cx="${a('cx')}" cy="${a('cy')}" r="${a('r')}" fill="none"${st}${ve}/>`];
+  if (k === 'path') return [`<path${id} d="${a('d')}" data-points="${a('data-points')}" data-smooth="${a('data-smooth')}" data-closed="${a('data-closed')}" fill="none"${st}${ve}/>`];
+  if (k === 'text') {
+    let at = e.hasAttribute('data-for') ? ` data-for="${a('data-for')}" data-dx="${a('data-dx')}" data-dy="${a('data-dy')}"` : '';
+    at += ` x="${a('x')}" y="${a('y')}" font-size="${a('font-size')}" fill="#000"`;
+    if (e.hasAttribute('text-anchor')) at += ` text-anchor="${a('text-anchor')}"`;
+    if (e.hasAttribute('transform')) at += ` transform="${a('transform')}"`;
+    return [`<text${id}${at}>${esc(e.textContent)}</text>`];
+  }
+  const out = [`<g${id} data-symbol="${a('data-symbol')}" data-cx="${a('data-cx')}" data-cy="${a('data-cy')}" data-rot="${a('data-rot')}" data-width="${a('data-width')}" data-depth="${a('data-depth')}" transform="${a('transform')}" fill="none"${st} color="${lineColor(e)}">`];
+  for (const p of e.children) out.push(`  <path d="${esc(p.getAttribute('d'))}" fill="${p.getAttribute('fill')}"${p.hasAttribute('stroke-dasharray') ? ' stroke-dasharray="6 4"' : ''}${ve}/>`);
+  out.push('</g>');
+  return out;
+}
+
+// The traced elements grouped by layer, in layer order; a hidden layer has display="none", a locked one data-locked
+function traceMarkup() {
+  const out = [];
+  for (const L of layers) {
+    out.push(`    <g data-layer="${esc(L.name)}"${L.visible ? '' : ' display="none"'}${L.locked ? ' data-locked="true"' : ''}>`);
+    for (const e of gTrace.children) if (layerOf(e) === L) out.push(...elemMarkup(e).map(s => '      ' + s));
+    out.push('    </g>');
+  }
+  return out;
+}
+
+function underMarkup(withClips) {
+  const out = [];
+  if (withClips) {
+    const cropped = unders.map((u, i) => [u, i]).filter(([u]) => u.crop);
+    if (cropped.length) {
+      out.push('    <defs>');
+      for (const [u, i] of cropped) out.push(`      <clipPath id="clip-${i}"><rect x="${u.crop.x}" y="${u.crop.y}" width="${u.crop.w}" height="${u.crop.h}"/></clipPath>`);
+      out.push('    </defs>');
+    }
+  }
+  unders.forEach((u, i) => {
+    const a = [`href="${esc(u.name)}"`, `width="${u.w}"`, `height="${u.h}"`, `transform="${uTransform(u)}"`, `opacity="${u.opacity}"`];
+    if (u.label) a.push(`data-label="${esc(u.label)}"`);
+    if (u.bright !== 1) a.push(`data-brightness="${u.bright}"`);
+    if (u.contrast !== 1) a.push(`data-contrast="${u.contrast}"`);
+    if (!u.vis) a.push('display="none"');
+    if (u.crop) a.push(`clip-path="url(#clip-${i})"`);
+    a.push(`data-x="${u.x}"`, `data-y="${u.y}"`, `data-rotation="${u.rot}"`, `data-scale="${u.scale}"`);
+    if (u.flipX) a.push('data-flip-x="true"');
+    if (u.flipY) a.push('data-flip-y="true"');
+    if (u.locked) a.push('data-locked="true"');
+    if (u.crop) a.push(`data-crop="${u.crop.x} ${u.crop.y} ${u.crop.w} ${u.crop.h}"`);
+    out.push(`    <image ${a.join(' ')}/>`);
+  });
+  return out;
+}
+
+function buildSvg() {
+  const f = frame();
+  const out = [];
+  out.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${f.x} ${f.y} ${f.w} ${f.h}" data-floor-id="${esc($('floorId').value)}" data-level="${num('level')}" data-units-per-meter="${num('upm')}">`);
+  out.push('  <g id="underlays">');
+  if ($('includeUnder').checked) out.push(...underMarkup(true));
+  out.push('  </g>');
+  out.push('  <g id="trace">');
+  out.push(...traceMarkup());
+  out.push('  </g>');
+  out.push('</svg>');
+  return out.join('\n') + '\n';
+}
+
+// Writes a file: the downloads capability inside an Artifact, else the file dialog, else a download link
+async function saveFile(name, data, mime, ext) {
+  try {
+    const dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+    if (dl) {
+      await dl.save({ filename: name, data });
+    } else if (window.showSaveFilePicker) {
+      const h = await showSaveFilePicker({ suggestedName: name, types: [{ description: ext.toUpperCase(), accept: { [mime]: ['.' + ext] } }] });
+      const w = await h.createWritable();
+      await w.write(data); await w.close();
+    } else {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type: mime }));
+      a.download = name; a.click();
+    }
+    return true;
+  } catch (e) {
+    if (e.name !== 'AbortError' && e.code !== 'declined') msg(tr('Error: {0}', e.message));
+    return false;
+  }
+}
+
+function validate() {
+  const problems = [];
+  if (!(num('fw') > 0) || !(num('fh') > 0)) problems.push(tr('the frame width and height must be above zero'));
+  if (!$('floorId').value.trim()) problems.push(tr('the floor ID is empty'));
+  if (!(num('upm') > 0)) problems.push(tr('units per meter must be above zero'));
+  return problems;
+}
+
+$('save').addEventListener('click', async () => {
+  const problems = validate();
+  if (problems.length) { msg(tr('Cannot save: {0}.', problems.join('; '))); return; }
+  const name = $('floorId').value.trim() + '-plan.svg';
+  if (await saveFile(name, buildSvg(), 'image/svg+xml', 'svg')) { dirty = false; msg(tr('Saved.')); }
+});
+
+// PNG preview of the frame area: visible underlays and traced elements, without grid or guides
+$('exportPng').addEventListener('click', async () => {
+  const f = frame();
+  if (!(f.w > 0 && f.h > 0)) { msg(tr('Cannot export: the frame width and height must be above zero.')); return; }
+  const cw = Math.round(f.w >= f.h ? 2000 : 2000 * f.w / f.h), ch = Math.round(cw * f.h / f.w), s = cw / f.w;
+  const cv = document.createElement('canvas');
+  cv.width = cw; cv.height = ch;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cw, ch);
+  for (const u of unders) {
+    if (!u.vis || !u.bitmap) continue;
+    ctx.save();
+    ctx.setTransform(s, 0, 0, s, -f.x * s, -f.y * s);
+    ctx.translate(u.x, u.y); ctx.rotate(u.rot * Math.PI / 180);
+    ctx.scale((u.flipX ? -1 : 1) * u.scale, (u.flipY ? -1 : 1) * u.scale);
+    ctx.translate(u.flipX ? -u.w : 0, u.flipY ? -u.h : 0);
+    ctx.globalAlpha = u.opacity;
+    if (u.bright !== 1 || u.contrast !== 1) ctx.filter = `brightness(${u.bright}) contrast(${u.contrast})`;
+    if (u.crop) { ctx.beginPath(); ctx.rect(u.crop.x, u.crop.y, u.crop.w, u.crop.h); ctx.clip(); }
+    ctx.drawImage(u.bitmap, 0, 0);
+    ctx.restore();
+  }
+  ctx.setTransform(s, 0, 0, s, -f.x * s, -f.y * s);
+  ctx.fillStyle = '#000';
+  for (const e of gTrace.children) {
+    if (!visibleEl(e)) continue;
+    const k = kindOf(e);
+    if (k === 'text') {
+      ctx.save();
+      const m = /rotate\(([-\d.]+) /.exec(e.getAttribute('transform') || '');
+      ctx.translate(+e.getAttribute('x'), +e.getAttribute('y'));
+      if (m) ctx.rotate(+m[1] * Math.PI / 180);
+      ctx.font = `${e.getAttribute('font-size')}px serif`; ctx.textAlign = e.getAttribute('text-anchor') === 'middle' ? 'center' : 'left';
+      ctx.fillText(e.textContent, 0, 0);
+      ctx.restore();
+      continue;
+    }
+    ctx.strokeStyle = lineColor(e); ctx.lineWidth = +e.getAttribute('stroke-width') * 4 / 3 / s; ctx.setLineDash([]);
+    if (k === 'line') {
+      const g = segOf(e);
+      ctx.beginPath(); ctx.moveTo(g.x1, g.y1); ctx.lineTo(g.x2, g.y2); ctx.stroke();
+    } else if (k === 'polyline') {
+      const q = parsePts(e.getAttribute('points'));
+      ctx.beginPath(); q.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.stroke();
+    } else if (k === 'circle') {
+      ctx.beginPath(); ctx.arc(+e.getAttribute('cx'), +e.getAttribute('cy'), +e.getAttribute('r'), 0, 2 * Math.PI); ctx.stroke();
+    } else if (k === 'path') ctx.stroke(new Path2D(e.getAttribute('d')));
+    else {
+      const u = unitsPerM(), { w, d } = symDims(e);
+      ctx.save();
+      ctx.translate(+e.getAttribute('data-cx'), +e.getAttribute('data-cy')); ctx.rotate((+e.getAttribute('data-rot') || 0) * Math.PI / 180);
+      ctx.translate(-w * u / 2, -d * u / 2); ctx.scale(u, u);
+      ctx.lineWidth = +e.getAttribute('stroke-width') * 4 / 3 / (s * u); ctx.fillStyle = lineColor(e);
+      for (const c of e.children) {
+        const p = new Path2D(c.getAttribute('d'));
+        ctx.setLineDash(c.hasAttribute('stroke-dasharray') ? [6 * 4 / 3 / (s * u), 4 * 4 / 3 / (s * u)] : []);
+        if (c.getAttribute('fill') === 'currentColor') ctx.fill(p);
+        ctx.stroke(p);
+      }
+      ctx.restore();
+      ctx.fillStyle = '#000';
+    }
+  }
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  if (!blob) { msg(tr('Could not create the PNG.')); return; }
+  if (await saveFile(($('floorId').value.trim() || 'plan') + '-preview.png', blob, 'image/png', 'png')) msg(tr('PNG saved.'));
+});
+
+// Loading: traced elements from SVG markup (a list of element nodes)
+// Only known elements and attributes are taken over; the id and layer are kept when valid
+const KEEP_ATTRS = {
+  line: ['x1', 'y1', 'x2', 'y2'], polyline: ['points'], circle: ['cx', 'cy', 'r'], path: ['d', 'data-points', 'data-smooth', 'data-closed'],
+  text: ['x', 'y', 'font-size', 'data-for', 'data-dx', 'data-dy', 'text-anchor', 'transform']
+};
+function importElement(el, layerName) {
+  const tag = el.tagName, sym = tag === 'g' && el.hasAttribute('data-symbol');
+  let n;
+  if (sym) {
+    if (!SYMBOLS[el.getAttribute('data-symbol')]) return null;
+    n = svgEl('g');
+    for (const k of ['data-symbol', 'data-cx', 'data-cy', 'data-rot', 'data-width', 'data-depth']) if (el.hasAttribute(k)) n.setAttribute(k, el.getAttribute(k));
+  } else if (KEEP_ATTRS[tag]) {
+    n = svgEl(tag);
+    for (const k of KEEP_ATTRS[tag]) if (el.hasAttribute(k)) n.setAttribute(k, el.getAttribute(k));
+  } else return null;
+  if (tag === 'text') { n.textContent = el.textContent; n.setAttribute('fill', '#000'); }
+  else {
+    const c = el.getAttribute('stroke') || el.getAttribute('data-color') || '#000', w = parseFloat(el.getAttribute('stroke-width'));
+    const col = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(c) ? c : '#000';
+    styleShape(n, { c: col, w: w > 0 ? w : 1.5 });
+    n.setAttribute('fill', 'none');
+    if (sym) { n.setAttribute('color', col); buildSymbol(n); }
+    if (tag === 'path' && !n.hasAttribute('data-points')) n.setAttribute('data-points', '');
+  }
+  const id = el.getAttribute('id');
+  n.setAttribute('id', id && /^[A-Za-z][A-Za-z0-9_]*$/.test(id) && !byId(id) ? id : newId(sym ? 'symbol' : tag));
+  n.setAttribute('data-layer', layerName);
+  return n;
+}
+// nodes: the children of the saved trace group, layer groups or (older files) plain elements
+function importTrace(nodes) {
+  gTrace.textContent = '';
+  layers = [];
+  const addLayer = (name, vis, lock) => { if (!layerByName(name)) layers.push({ name, visible: vis, locked: lock }); return name; };
+  const items = [];
+  for (const el of nodes) {
+    if (el.tagName === 'g' && el.hasAttribute('data-layer') && !el.hasAttribute('data-symbol')) {
+      const name = addLayer(el.getAttribute('data-layer') || 'Default', el.getAttribute('display') !== 'none', el.getAttribute('data-locked') === 'true');
+      for (const c of el.children) items.push([c, name]);
+    } else items.push([el, null]);
+  }
+  for (const [el, name] of items) {
+    const n = importElement(el, name || addLayer('Default', true, false));
+    if (n) gTrace.appendChild(n);
+  }
+  if (!layers.length) layers.push({ name: 'Default', visible: true, locked: false });
+  idN = 0;
+  for (const e of gTrace.children) { const m = /(\d+)$/.exec(e.id); if (m) idN = Math.max(idN, +m[1]); }
+  sel.clear(); hover = null; undoS = []; redoS = [];
+  syncLayers();
+  paint();
+}
+
+function underFromImage(img) {
+  const u = newUnder(img.getAttribute('href') || 'image', '', +img.getAttribute('width'), +img.getAttribute('height'));
+  const g = (k, d) => img.hasAttribute(k) ? parseFloat(img.getAttribute(k)) : d;
+  u.x = g('data-x', 0); u.y = g('data-y', 0); u.rot = g('data-rotation', 0); u.scale = g('data-scale', 1);
+  u.opacity = g('opacity', 0.6);
+  u.label = img.getAttribute('data-label') || '';
+  u.bright = g('data-brightness', 1) || 1; u.contrast = g('data-contrast', 1) || 1;
+  u.vis = img.getAttribute('display') !== 'none';
+  u.flipX = img.getAttribute('data-flip-x') === 'true'; u.flipY = img.getAttribute('data-flip-y') === 'true';
+  u.locked = img.getAttribute('data-locked') === 'true';
+  if (img.hasAttribute('data-crop')) { const c = img.getAttribute('data-crop').split(/\s+/).map(Number); u.crop = { x: c[0], y: c[1], w: c[2], h: c[3] }; }
+  return u;
+}
+
+$('open').addEventListener('click', () => $('openFile').click());
+$('openFile').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  e.target.value = '';
+  if (!file) return;
+  const doc = new DOMParser().parseFromString(await file.text(), 'image/svg+xml');
+  const root = doc.documentElement;
+  if (root.tagName !== 'svg') { msg(tr('Not an SVG file.')); return; }
+  const v = (root.getAttribute('viewBox') || '0 0 1000 700').split(/[\s,]+/).map(Number);
+  ['fx', 'fy', 'fw', 'fh'].forEach((id, i) => { $(id).value = v[i]; });
+  $('floorId').value = root.getAttribute('data-floor-id') || '';
+  $('level').value = root.getAttribute('data-level') || 0;
+  $('upm').value = root.getAttribute('data-units-per-meter') || 10;
+  importTrace(doc.querySelectorAll('#trace > *'));
+  unders.forEach(u => { if (u.url) URL.revokeObjectURL(u.url); });
+  unders = [...doc.querySelectorAll('#underlays image')].map(underFromImage);
+  activeU = unders.length ? 0 : -1;
+  rebuildUnderDom(); syncControls();
+  applyFrame(); fitCamera(); changed(); dirty = false;
+  msg(unders.length ? tr('Opened. Pick the underlay images again: {0}', unders.map(u => u.name).join(', ')) : tr('Opened.'));
+});
+
+// New document: needs a second click within three seconds
+let newArmed = null;
+$('newDoc').addEventListener('click', () => {
+  if (!newArmed) {
+    $('newDoc').textContent = tr('Really clear?');
+    newArmed = setTimeout(() => { newArmed = null; $('newDoc').textContent = tr('New'); }, 3000);
+    return;
+  }
+  clearTimeout(newArmed); newArmed = null; $('newDoc').textContent = tr('New');
+  gTrace.textContent = ''; sel.clear(); undoS = []; redoS = [];
+  layers = [{ name: 'Default', visible: true, locked: false }]; activeLayer = 'Default'; syncLayers();
+  unders.forEach(u => { if (u.url) URL.revokeObjectURL(u.url); });
+  unders = []; activeU = -1; rebuildUnderDom(); syncControls(); endDraw(); hideAids(); paint();
+  clearTimeout(saveTimer); autosave(); dirty = false;
+  msg(tr('Cleared.'));
+});
+
+// Autosave in the browser's storage; underlay images are not stored, only their placement
+const KEY = 'planTracer.autosave';
+let saveTimer = null;
+function changed() { dirty = true; clearTimeout(saveTimer); saveTimer = setTimeout(autosave, 500); }
+function autosave() {
+  try {
+    const data = {
+      fields: Object.fromEntries(['floorId', 'level', 'fx', 'fy', 'fw', 'fh', 'upm'].map(id => [id, $(id).value])),
+      trace: traceMarkup().join('\n'),
+      unders: underMarkup(false).join('\n'),
+      saved: new Date().toISOString()
+    };
+    localStorage.setItem(KEY, JSON.stringify(data));
+  } catch (e) { /* storage unavailable */ }
+}
+function restore() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    for (const id in data.fields) $(id).value = data.fields[id];
+    const doc = new DOMParser().parseFromString(`<svg xmlns="${NS}"><g id="trace">${data.trace}</g><g id="underlays">${data.unders}</g></svg>`, 'image/svg+xml');
+    importTrace(doc.querySelectorAll('#trace > *'));
+    unders = [...doc.querySelectorAll('#underlays image')].map(underFromImage);
+    activeU = unders.length ? 0 : -1;
+    if (gTrace.children.length || unders.length) {
+      msg(tr('Restored the autosave from {0}.', data.saved.slice(0, 16).replace('T', ' ')) + (unders.length ? ' ' + tr('Pick the underlay images again.') : ''));
+    }
+  } catch (e) { /* ignore a broken autosave */ }
+}
+
+// Interface state kept in the browser: theme, collapsed sections, panel width, last view
+const UIKEY = 'planTracer.ui';
+let ui = {}, uiTimer = null;
+try { ui = JSON.parse(localStorage.getItem(UIKEY)) || {}; } catch (e) { ui = {}; }
+function uiSave() { try { localStorage.setItem(UIKEY, JSON.stringify(ui)); } catch (e) { /* storage unavailable */ } }
+function uiSaveSoon() { clearTimeout(uiTimer); uiTimer = setTimeout(uiSave, 500); }
+
+function applyTheme() {
+  const t = ui.theme || 'system';
+  if (t === 'system') delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = t;
+  $('themeBtn').textContent = tr('Theme: {0}', tr(t));
+}
+$('themeBtn').addEventListener('click', () => {
+  const order = ['system', 'light', 'dark'];
+  ui.theme = order[(order.indexOf(ui.theme || 'system') + 1) % order.length];
+  applyTheme(); uiSave();
+});
+
+ui.collapsed = ui.collapsed || {};
+document.querySelectorAll('#panel fieldset').forEach(fs => {
+  const lg = fs.querySelector('legend'), key = lg.textContent;
+  if (ui.collapsed[key]) fs.classList.add('collapsed');
+  lg.addEventListener('click', () => {
+    fs.classList.toggle('collapsed');
+    ui.collapsed[key] = fs.classList.contains('collapsed');
+    uiSave();
+  });
+});
+
+if (ui.panelWidth && !narrow()) {
+  $('panel').style.width = ui.panelWidth + 'px';
+  placeOverlays(ui.panelWidth);
+}
+
+window.addEventListener('beforeunload', ev => { if (dirty) { ev.preventDefault(); ev.returnValue = ''; } });
+// Write the autosave at once when the page is closed, so the last half second of edits is kept
+window.addEventListener('pagehide', () => { clearTimeout(saveTimer); autosave(); });
+
+restore();
+if (gTrace.children.length || unders.length) dirty = true;
+rebuildUnderDom(); syncControls(); syncLayers();
+applyFrame();
+if (Array.isArray(ui.view) && ui.view.length === 4 && ui.view.every(Number.isFinite)) setView(...ui.view); else fitCamera();
+setTool('line');
+lang = ui.lang || (/^de/i.test(navigator.language || '') ? 'de' : 'en');
+$('langBtn').addEventListener('click', () => setLang(lang === 'de' ? 'en' : 'de'));
+applyLang();
+</script>
+</body>
+</html>
