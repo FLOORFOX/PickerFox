@@ -3,6 +3,18 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+claude-cloud/
+
+# Binary files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.pdf
+
 # C extensions
 *.so
 
