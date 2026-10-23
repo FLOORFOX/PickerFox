@@ -303,30 +303,7 @@
 
     <script>
       const maxProductNumber = 100;
-      const productMap = [
-        { product: 3, pallet: 'P-03', x: 18, y: 28 },
-        { product: 8, pallet: 'P-08', x: 34, y: 22 },
-        { product: 12, pallet: 'P-12', x: 51, y: 26 },
-        { product: 16, pallet: 'P-16', x: 64, y: 25 },
-        { product: 19, pallet: 'P-19', x: 77, y: 28 },
-        { product: 23, pallet: 'P-23', x: 25, y: 49 },
-        { product: 27, pallet: 'P-27', x: 39, y: 45 },
-        { product: 31, pallet: 'P-31', x: 56, y: 50 },
-        { product: 35, pallet: 'P-35', x: 73, y: 47 },
-        { product: 39, pallet: 'P-39', x: 86, y: 49 },
-        { product: 42, pallet: 'P-42', x: 18, y: 68 },
-        { product: 47, pallet: 'P-47', x: 32, y: 71 },
-        { product: 52, pallet: 'P-52', x: 48, y: 72 },
-        { product: 57, pallet: 'P-57', x: 63, y: 71 },
-        { product: 63, pallet: 'P-63', x: 79, y: 68 },
-        { product: 68, pallet: 'P-68', x: 20, y: 84 },
-        { product: 73, pallet: 'P-73', x: 35, y: 86 },
-        { product: 79, pallet: 'P-79', x: 52, y: 85 },
-        { product: 84, pallet: 'P-84', x: 67, y: 84 },
-        { product: 91, pallet: 'P-91', x: 81, y: 86 },
-        { product: 100, pallet: 'P-100', x: 91, y: 18 }
-      ];
-
+      const productMap = [];
       const productLookup = new Map(productMap.map(item => [item.product, item]));
 
       const input = document.getElementById('productInput');
@@ -337,24 +314,11 @@
       const clearBtn = document.getElementById('clearBtn');
 
       function buildDatalist() {
-        for (let i = 0; i <= maxProductNumber; i++) {
-          const option = document.createElement('option');
-          option.value = String(i);
-          datalist.appendChild(option);
-        }
+        datalist.innerHTML = '';
       }
 
       function createPalletMarkers() {
-        productMap.forEach((entry) => {
-          const marker = document.createElement('div');
-          marker.className = 'pallet';
-          marker.dataset.code = entry.pallet;
-          marker.style.left = `${entry.x}%`;
-          marker.style.top = `${entry.y}%`;
-          marker.dataset.product = String(entry.product);
-          marker.title = `Product ${entry.product} / Pallet ${entry.pallet}`;
-          palletLayer.appendChild(marker);
-        });
+        palletLayer.innerHTML = '';
       }
 
       function setSelection(productNumber) {
