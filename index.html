@@ -112,7 +112,7 @@
         gap: 10px;
       }
 
-      input, select {
+      select {
         width: 100%;
         min-height: 46px;
         border-radius: 12px;
@@ -123,7 +123,7 @@
         background: #fff;
       }
 
-      input:focus, select:focus {
+      select:focus {
         outline: 3px solid rgba(15, 91, 216, 0.18);
         border-color: var(--primary);
       }
@@ -170,13 +170,6 @@
         font-size: 0.92rem;
       }
 
-      .result.not-found {
-        background: var(--danger-soft);
-        border: 1px solid rgba(229,57,53,0.18);
-        border-radius: 12px;
-        padding: 12px 14px;
-      }
-
       .map-panel {
         background: linear-gradient(180deg, #f8fafd 0%, #edf5ff 100%);
         padding: 18px;
@@ -218,7 +211,7 @@
       }
 
       .pallet::after {
-        content: attr(data-code);
+        content: attr(data-number);
         position: absolute;
         left: 50%;
         top: 50%;
@@ -268,26 +261,19 @@
       <div class="content">
         <aside class="sidebar">
           <div class="search-card">
-            <label for="productInput">What product are you looking for?</label>
+            <label for="palletSelect">Which pallet number are you looking for?</label>
             <div class="input-wrap">
-              <input
-                id="productInput"
-                type="number"
-                min="0"
-                max="100"
-                step="1"
-                placeholder="Type a product number"
-                list="productOptions"
-              />
-              <datalist id="productOptions"></datalist>
+              <select id="palletSelect">
+                <option value="">Choose a pallet</option>
+              </select>
               <button class="clear-btn" id="clearBtn" type="button">Clear</button>
             </div>
           </div>
 
           <div class="result-card">
-            <div id="status" class="status">No product selected</div>
+            <div id="status" class="status">No pallet selected</div>
             <div id="result" class="result">
-              <div class="meta">Select a product number to highlight its pallet.</div>
+              <div class="meta">Select a pallet number to highlight it on the map.</div>
             </div>
           </div>
         </aside>
@@ -302,83 +288,107 @@
     </div>
 
     <script>
-      const maxProductNumber = 100;
-      const productMap = [];
-      const productLookup = new Map(productMap.map(item => [item.product, item]));
+      const palletMap = [
+        { number: 1, pallet: 'P-01', x: 18, y: 28 },
+        { number: 2, pallet: 'P-02', x: 34, y: 22 },
+        { number: 3, pallet: 'P-03', x: 51, y: 26 },
+        { number: 4, pallet: 'P-04', x: 64, y: 25 },
+        { number: 5, pallet: 'P-05', x: 77, y: 28 },
+        { number: 6, pallet: 'P-06', x: 25, y: 49 },
+        { number: 7, pallet: 'P-07', x: 39, y: 45 },
+        { number: 8, pallet: 'P-08', x: 56, y: 50 },
+        { number: 9, pallet: 'P-09', x: 73, y: 47 },
+        { number: 10, pallet: 'P-10', x: 86, y: 49 },
+        { number: 11, pallet: 'P-11', x: 18, y: 68 },
+        { number: 12, pallet: 'P-12', x: 32, y: 71 },
+        { number: 13, pallet: 'P-13', x: 48, y: 72 },
+        { number: 14, pallet: 'P-14', x: 63, y: 71 },
+        { number: 15, pallet: 'P-15', x: 79, y: 68 },
+        { number: 16, pallet: 'P-16', x: 20, y: 84 },
+        { number: 17, pallet: 'P-17', x: 35, y: 86 },
+        { number: 18, pallet: 'P-18', x: 52, y: 85 },
+        { number: 19, pallet: 'P-19', x: 67, y: 84 },
+        { number: 20, pallet: 'P-20', x: 81, y: 86 },
+        { number: 21, pallet: 'P-21', x: 91, y: 18 }
+      ];
 
-      const input = document.getElementById('productInput');
-      const datalist = document.getElementById('productOptions');
+      const palletLookup = new Map(palletMap.map(item => [item.number, item]));
+
+      const select = document.getElementById('palletSelect');
       const result = document.getElementById('result');
       const status = document.getElementById('status');
       const palletLayer = document.getElementById('palletLayer');
       const clearBtn = document.getElementById('clearBtn');
 
-      function buildDatalist() {
-        datalist.innerHTML = '';
+      function buildPalletOptions() {
+        palletMap.forEach((entry) => {
+          const option = document.createElement('option');
+          option.value = String(entry.number);
+          option.textContent = `Pallet ${entry.number}`;
+          select.appendChild(option);
+        });
       }
 
       function createPalletMarkers() {
-        palletLayer.innerHTML = '';
+        palletMap.forEach((entry) => {
+          const marker = document.createElement('div');
+          marker.className = 'pallet';
+          marker.dataset.number = String(entry.number);
+          marker.dataset.pallet = entry.pallet;
+          marker.style.left = `${entry.x}%`;
+          marker.style.top = `${entry.y}%`;
+          marker.title = `Pallet ${entry.number} / ${entry.pallet}`;
+          palletLayer.appendChild(marker);
+        });
       }
 
-      function setSelection(productNumber) {
+      function setSelection(selectedNumber) {
         const markers = [...document.querySelectorAll('.pallet')];
-        const selected = markers.find((marker) => Number(marker.dataset.product) === Number(productNumber));
+        const selected = markers.find((marker) => Number(marker.dataset.number) === Number(selectedNumber));
 
         markers.forEach((marker) => marker.classList.remove('selected'));
 
         if (!selected) {
-          status.textContent = 'No match found';
-          result.className = 'result not-found';
-          result.innerHTML = `
-            <div><strong>Product ${productNumber}</strong></div>
-            <div class="meta">No pallet is assigned to this product in the demo.</div>
-          `;
+          status.textContent = 'No pallet selected';
+          result.className = 'result';
+          result.innerHTML = '<div class="meta">Select a pallet number to highlight it on the map.</div>';
           return;
         }
 
         selected.classList.add('selected');
 
-        const item = productLookup.get(Number(productNumber));
-        status.textContent = 'Product found';
+        const item = palletLookup.get(Number(selectedNumber));
+        status.textContent = 'Pallet found';
         result.className = 'result';
         result.innerHTML = `
-          <div><strong>${item.product}</strong></div>
-          <div class="meta">Pallet: ${item.pallet}</div>
+          <div><strong>Pallet ${item.number}</strong></div>
+          <div class="meta">Code: ${item.pallet}</div>
           <div class="meta">Location: highlighted on the floorplan</div>
         `;
       }
 
-      function handleSearch() {
-        const value = Number(input.value);
-        if (!Number.isInteger(value) || value < 0 || value > maxProductNumber) {
-          status.textContent = 'No product selected';
+      select.addEventListener('change', (event) => {
+        const value = event.target.value;
+        if (!value) {
+          document.querySelectorAll('.pallet').forEach((el) => el.classList.remove('selected'));
+          status.textContent = 'No pallet selected';
           result.className = 'result';
-          result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
+          result.innerHTML = '<div class="meta">Select a pallet number to highlight it on the map.</div>';
           return;
         }
-        setSelection(value);
-      }
 
-      input.addEventListener('change', handleSearch);
-      input.addEventListener('input', () => {
-        if (input.value === '') {
-          status.textContent = 'No product selected';
-          result.className = 'result';
-          result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
-          document.querySelectorAll('.pallet').forEach((el) => el.classList.remove('selected'));
-        }
+        setSelection(Number(value));
       });
 
       clearBtn.addEventListener('click', () => {
-        input.value = '';
+        select.value = '';
         document.querySelectorAll('.pallet').forEach((el) => el.classList.remove('selected'));
-        status.textContent = 'No product selected';
+        status.textContent = 'No pallet selected';
         result.className = 'result';
-        result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
+        result.innerHTML = '<div class="meta">Select a pallet number to highlight it on the map.</div>';
       });
 
-      buildDatalist();
+      buildPalletOptions();
       createPalletMarkers();
     </script>
   </body>
