@@ -12,7 +12,9 @@
         --text: #142033;
         --muted: #58657d;
         --primary: #0f5bd8;
+        --primary-soft: rgba(15, 91, 216, 0.12);
         --danger: #e53935;
+        --danger-soft: rgba(229, 57, 53, 0.16);
         --neutral: #dfe6f3;
         --shadow: 0 14px 30px rgba(28, 39, 58, 0.12);
       }
@@ -80,7 +82,7 @@
 
       .content {
         display: grid;
-        grid-template-columns: 300px minmax(0, 1fr);
+        grid-template-columns: 320px minmax(0, 1fr);
       }
 
       .sidebar {
@@ -104,7 +106,13 @@
         color: var(--text);
       }
 
-      input {
+      .input-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      input, select {
         width: 100%;
         min-height: 46px;
         border-radius: 12px;
@@ -115,9 +123,58 @@
         background: #fff;
       }
 
-      input:focus {
+      input:focus, select:focus {
         outline: 3px solid rgba(15, 91, 216, 0.18);
         border-color: var(--primary);
+      }
+
+      .clear-btn {
+        appearance: none;
+        border: none;
+        background: var(--neutral);
+        color: var(--text);
+        padding: 10px 14px;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .result-card {
+        margin-top: 18px;
+        background: var(--panel);
+        border: 1px solid rgba(20, 32, 51, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .status {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .result {
+        margin-top: 10px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .result strong {
+        font-size: 1.5rem;
+      }
+
+      .result .meta {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .result.not-found {
+        background: var(--danger-soft);
+        border: 1px solid rgba(229,57,53,0.18);
+        border-radius: 12px;
+        padding: 12px 14px;
       }
 
       .map-panel {
@@ -143,11 +200,43 @@
         background: #fff;
       }
 
-      .search-hint {
-        margin-top: 12px;
-        color: var(--muted);
-        font-size: 0.9rem;
-        line-height: 1.5;
+      .pallet-layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      .pallet {
+        position: absolute;
+        width: 24px;
+        height: 18px;
+        border-radius: 4px;
+        border: 2px solid rgba(44, 50, 58, 0.6);
+        background: #d8dfe8;
+        transform: translate(-50%, -50%);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+        transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .pallet::after {
+        content: attr(data-code);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8px;
+        font-weight: 700;
+        color: rgba(18, 27, 39, 0.8);
+      }
+
+      .pallet.selected {
+        background: var(--danger);
+        border-color: rgba(102, 14, 13, 0.9);
+        box-shadow: 0 0 0 5px rgba(229,57,53,0.18), 0 0 18px rgba(229,57,53,0.56);
+        transform: translate(-50%, -50%) scale(1.22);
+      }
+
+      .pallet.selected::after {
+        color: #fff;
       }
 
       @media (max-width: 820px) {
@@ -173,16 +262,32 @@
           PickerFox
           <small>Warehouse picker demo</small>
         </div>
-        <div class="demo-label">Floorplan</div>
+        <div class="demo-label">Early version</div>
       </div>
 
       <div class="content">
         <aside class="sidebar">
           <div class="search-card">
-            <label for="searchInput">Find a location</label>
-            <input id="searchInput" type="text" placeholder="Search aisle, rack or zone" />
-            <div class="search-hint">
-              This demo focuses on the warehouse map and the search field only.
+            <label for="productInput">What product are you looking for?</label>
+            <div class="input-wrap">
+              <input
+                id="productInput"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                placeholder="Type a product number"
+                list="productOptions"
+              />
+              <datalist id="productOptions"></datalist>
+              <button class="clear-btn" id="clearBtn" type="button">Clear</button>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div id="status" class="status">No product selected</div>
+            <div id="result" class="result">
+              <div class="meta">Select a product number to highlight its pallet.</div>
             </div>
           </div>
         </aside>
@@ -190,18 +295,127 @@
         <main class="map-panel">
           <div class="map-shell">
             <img src="./floorplan_racks_pallets.svg" alt="Warehouse floorplan" />
+            <div id="palletLayer" class="pallet-layer" aria-live="polite"></div>
           </div>
         </main>
       </div>
     </div>
 
     <script>
-      const input = document.getElementById('searchInput');
+      const maxProductNumber = 100;
+      const productMap = [
+        { product: 3, pallet: 'P-03', x: 18, y: 28 },
+        { product: 8, pallet: 'P-08', x: 34, y: 22 },
+        { product: 12, pallet: 'P-12', x: 51, y: 26 },
+        { product: 16, pallet: 'P-16', x: 64, y: 25 },
+        { product: 19, pallet: 'P-19', x: 77, y: 28 },
+        { product: 23, pallet: 'P-23', x: 25, y: 49 },
+        { product: 27, pallet: 'P-27', x: 39, y: 45 },
+        { product: 31, pallet: 'P-31', x: 56, y: 50 },
+        { product: 35, pallet: 'P-35', x: 73, y: 47 },
+        { product: 39, pallet: 'P-39', x: 86, y: 49 },
+        { product: 42, pallet: 'P-42', x: 18, y: 68 },
+        { product: 47, pallet: 'P-47', x: 32, y: 71 },
+        { product: 52, pallet: 'P-52', x: 48, y: 72 },
+        { product: 57, pallet: 'P-57', x: 63, y: 71 },
+        { product: 63, pallet: 'P-63', x: 79, y: 68 },
+        { product: 68, pallet: 'P-68', x: 20, y: 84 },
+        { product: 73, pallet: 'P-73', x: 35, y: 86 },
+        { product: 79, pallet: 'P-79', x: 52, y: 85 },
+        { product: 84, pallet: 'P-84', x: 67, y: 84 },
+        { product: 91, pallet: 'P-91', x: 81, y: 86 },
+        { product: 100, pallet: 'P-100', x: 91, y: 18 }
+      ];
 
+      const productLookup = new Map(productMap.map(item => [item.product, item]));
+
+      const input = document.getElementById('productInput');
+      const datalist = document.getElementById('productOptions');
+      const result = document.getElementById('result');
+      const status = document.getElementById('status');
+      const palletLayer = document.getElementById('palletLayer');
+      const clearBtn = document.getElementById('clearBtn');
+
+      function buildDatalist() {
+        for (let i = 0; i <= maxProductNumber; i++) {
+          const option = document.createElement('option');
+          option.value = String(i);
+          datalist.appendChild(option);
+        }
+      }
+
+      function createPalletMarkers() {
+        productMap.forEach((entry) => {
+          const marker = document.createElement('div');
+          marker.className = 'pallet';
+          marker.dataset.code = entry.pallet;
+          marker.style.left = `${entry.x}%`;
+          marker.style.top = `${entry.y}%`;
+          marker.dataset.product = String(entry.product);
+          marker.title = `Product ${entry.product} / Pallet ${entry.pallet}`;
+          palletLayer.appendChild(marker);
+        });
+      }
+
+      function setSelection(productNumber) {
+        const markers = [...document.querySelectorAll('.pallet')];
+        const selected = markers.find((marker) => Number(marker.dataset.product) === Number(productNumber));
+
+        markers.forEach((marker) => marker.classList.remove('selected'));
+
+        if (!selected) {
+          status.textContent = 'No match found';
+          result.className = 'result not-found';
+          result.innerHTML = `
+            <div><strong>Product ${productNumber}</strong></div>
+            <div class="meta">No pallet is assigned to this product in the demo.</div>
+          `;
+          return;
+        }
+
+        selected.classList.add('selected');
+
+        const item = productLookup.get(Number(productNumber));
+        status.textContent = 'Product found';
+        result.className = 'result';
+        result.innerHTML = `
+          <div><strong>${item.product}</strong></div>
+          <div class="meta">Pallet: ${item.pallet}</div>
+          <div class="meta">Location: highlighted on the floorplan</div>
+        `;
+      }
+
+      function handleSearch() {
+        const value = Number(input.value);
+        if (!Number.isInteger(value) || value < 0 || value > maxProductNumber) {
+          status.textContent = 'No product selected';
+          result.className = 'result';
+          result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
+          return;
+        }
+        setSelection(value);
+      }
+
+      input.addEventListener('change', handleSearch);
       input.addEventListener('input', () => {
-        const value = input.value.trim();
-        input.style.borderColor = value ? '#0f5bd8' : 'rgba(20, 32, 51, 0.18)';
+        if (input.value === '') {
+          status.textContent = 'No product selected';
+          result.className = 'result';
+          result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
+          document.querySelectorAll('.pallet').forEach((el) => el.classList.remove('selected'));
+        }
       });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        document.querySelectorAll('.pallet').forEach((el) => el.classList.remove('selected'));
+        status.textContent = 'No product selected';
+        result.className = 'result';
+        result.innerHTML = '<div class="meta">Select a product number to highlight its pallet.</div>';
+      });
+
+      buildDatalist();
+      createPalletMarkers();
     </script>
   </body>
 </html>
