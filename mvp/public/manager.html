@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PickerFox Manager</title>
     <link rel="stylesheet" href="./shared.css">
+    <script src="./vendor/qrcode.js"></script>
+    <script src="./vendor/peerjs.min.js"></script>
     <style>
       body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
       header { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #182233; color: #fff; }
@@ -93,10 +95,27 @@
       <b>PickerFox</b><span class="muted">Manager</span><span class="dot" id="conn" title="Connection to server"></span>
       <span class="grow"></span>
       <span class="small muted" id="phone"></span>
+      <button class="btn" id="pairBtn" type="button"><span>📱</span> <span id="pairBtnText">Connect Phone</span></button>
       <button class="btn" id="toggleLayout" type="button"><span id="layoutIcon">🔒</span> <span id="layoutText">Edit layout</span></button>
       <a class="btn" href="./picker.html" target="_blank" rel="noopener">Open picker view</a>
       <button class="btn danger" id="reset" type="button">Reset demo</button>
     </header>
+    <div id="pairModal" class="modal-backdrop" hidden>
+      <div class="modal-card">
+        <div class="row" style="justify-content:space-between;">
+          <h3>📱 Connect Phone</h3>
+          <button class="x" id="closePairModal" type="button" style="width:32px;height:32px;border:0;background:none;font-size:1.4rem;cursor:pointer;">×</button>
+        </div>
+        <p class="small muted">Scan this QR code with your phone camera to control picking live from your phone:</p>
+        <div id="qrHost" class="qr-box" style="text-align:center;margin:8px 0;"></div>
+        <div class="row small" style="justify-content:center;gap:6px;">
+          <span class="muted">Room code:</span>
+          <code id="roomCodeText" style="font-weight:700;font-size:14px;background:#eee;padding:2px 8px;border-radius:4px;"></code>
+          <button type="button" class="btn small" id="copyRoomLink">Copy link</button>
+        </div>
+        <div id="peerStatus" class="small muted" style="margin-top:4px;text-align:center;">Initializing peer network…</div>
+      </div>
+    </div>
     <div id="layoutBar" class="layout-strip" hidden>
       <span class="layout-badge">Layout tools</span>
       <button type="button" class="btn small" data-add-type="pallet">＋ Pallet</button>
@@ -491,6 +510,61 @@
         }
       });
 
+      let peerHost = null;
+
+      function showPairModal() {
+        const modal = $('pairModal');
+        modal.hidden = false;
+        let room = localStorage.getItem('pf.room');
+        if (!room) {
+          room = 'FOX-' + Math.floor(1000 + Math.random() * 9000);
+          localStorage.setItem('pf.room', room);
+        }
+        $('roomCodeText').textContent = room;
+
+        const pickerUrl = new URL(location.href);
+        pickerUrl.pathname = pickerUrl.pathname.replace(/manager(\.html)?$/, 'picker.html');
+        pickerUrl.search = `?room=${room}`;
+
+        if (typeof qrcode !== 'undefined') {
+          try {
+            const qr = qrcode(0, 'M');
+            qr.addData(pickerUrl.toString());
+            qr.make();
+            $('qrHost').innerHTML = qr.createSvgTag(6, 12);
+          } catch (e) {
+            console.error('QR code generation failed:', e);
+          }
+        }
+
+        if (!peerHost && PF.startPeerHost) {
+          peerHost = PF.startPeerHost({
+            roomCode: room,
+            getState: () => state,
+            onAction: async (path, body) => {
+              await PF.post(path, body);
+              render(true);
+            },
+            onStatus: (msg, count) => {
+              $('peerStatus').textContent = msg;
+              $('pairBtnText').textContent = count ? `Phone connected (${count})` : 'Connect Phone';
+            }
+          });
+        }
+      }
+
+      $('pairBtn').addEventListener('click', showPairModal);
+      $('closePairModal').addEventListener('click', () => { $('pairModal').hidden = true; });
+      $('pairModal').addEventListener('click', e => { if (e.target.id === 'pairModal') $('pairModal').hidden = true; });
+      $('copyRoomLink').addEventListener('click', () => {
+        let room = localStorage.getItem('pf.room');
+        const pickerUrl = new URL(location.href);
+        pickerUrl.pathname = pickerUrl.pathname.replace(/manager(\.html)?$/, 'picker.html');
+        pickerUrl.search = `?room=${room}`;
+        navigator.clipboard?.writeText(pickerUrl.toString());
+        PF.toast('Link copied to clipboard');
+      });
+
       $('reset').addEventListener('click', () => {
         if (confirm('Reset all demo data? Pick lists, new orders and stock changes are discarded.')) PF.post('/api/reset');
       });
@@ -544,6 +618,7 @@
           }
         }).then(created => { map = created; paint(); });
         render();
+        peerHost?.broadcastState(state);
       }, online => $('conn').classList.toggle('on', online));
     </script>
   </body>

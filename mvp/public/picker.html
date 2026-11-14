@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#182233">
     <title>PickerFox Picker</title>
     <link rel="stylesheet" href="./shared.css">
+    <script src="./vendor/peerjs.min.js"></script>
     <style>
       body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; overscroll-behavior: none; }
       #mapwrap { position: relative; flex: 1; min-height: 0; }
@@ -353,6 +354,24 @@
         }).then(created => { map = created; paint(); });
         render();
       }, online => $('conn').classList.toggle('on', online));
+
+      const roomParam = new URLSearchParams(location.search).get('room');
+      if (roomParam && PF.connectPeerClient) {
+        PF.connectPeerClient({
+          roomCode: roomParam,
+          onState: next => {
+            state = next;
+            ix = PF.index(state);
+            map?.updateElements(state.elements);
+            render();
+          },
+          onStatus: (online, text) => {
+            $('conn').classList.toggle('on', online);
+            $('whoName').title = text;
+            if (online) PF.toast(text);
+          }
+        });
+      }
     </script>
   </body>
 </html>

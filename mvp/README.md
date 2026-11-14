@@ -23,6 +23,10 @@ The app is **dual-mode**: when hosted statically on GitHub Pages or any static w
 - It automatically detects the static environment.
 - It loads `./initial-state.json` and manages state directly in browser `localStorage`.
 - Open tabs on the same computer (e.g. Manager in one window, Picker in another) sync in real time using the browser's native `BroadcastChannel` API.
+- **📱 Phone connection via QR Code (Zero-backend WebRTC):**
+  - Click **`📱 Connect Phone`** in the Manager header to display a QR code.
+  - Scan the QR code with any smartphone camera (or open the link) to connect phone to laptop peer-to-peer.
+  - Picking an item on the phone immediately updates the manager's laptop in real time, with zero cloud servers or databases.
 - Deployed automatically from `mvp/public` via GitHub Actions (`.github/workflows/pages.yml`).
 
 To enable GitHub Pages in your GitHub repository:

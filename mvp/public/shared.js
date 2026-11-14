@@ -243,6 +243,15 @@ const PF = (() => {
   }
 
   async function post(path, body = {}) {
+    if (clientPeerConnection && clientPeerConnection.open) {
+      try {
+        clientPeerConnection.send({ type: 'action', path, body });
+        return true;
+      } catch (err) {
+        console.error('Failed to send action over WebRTC:', err);
+      }
+    }
+
     if (mode === 'server') {
       try {
         const cleanPath = path.startsWith('/') ? path : '/' + path;
@@ -604,5 +613,129 @@ const PF = (() => {
     return wrap;
   }
 
-  return { esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, connect, post, toast, createMap, frontView };
+  let activePeer = null;
+  const peerConnections = new Set();
+  let clientPeerConnection = null;
+
+  function generateRoomCode() {
+    return 'FOX-' + Math.floor(1000 + Math.random() * 9000);
+  }
+
+  function startPeerHost({ roomCode, onStatus, onAction, getState }) {
+    if (typeof Peer === 'undefined') {
+      onStatus?.('PeerJS library not loaded', 0);
+      return null;
+    }
+    const code = roomCode || generateRoomCode();
+    const peerId = 'pickerfox-room-' + code.toLowerCase();
+
+    try {
+      if (activePeer) activePeer.destroy();
+      activePeer = new Peer(peerId);
+
+      activePeer.on('open', () => {
+        onStatus?.(`Waiting for phone to scan… (Room ${code})`, 0);
+      });
+
+      activePeer.on('connection', conn => {
+        peerConnections.add(conn);
+        onStatus?.(`Phone connected (${peerConnections.size} phone active)`, peerConnections.size);
+
+        conn.on('open', () => {
+          const s = getState?.();
+          if (s) conn.send({ type: 'state', state: s });
+        });
+
+        conn.on('data', data => {
+          if (data?.type === 'action') {
+            onAction?.(data.path, data.body);
+          }
+        });
+
+        const drop = () => {
+          peerConnections.delete(conn);
+          onStatus?.(peerConnections.size ? `Phone connected (${peerConnections.size} phone active)` : `Waiting for phone to scan…`, peerConnections.size);
+        };
+        conn.on('close', drop);
+        conn.on('error', drop);
+      });
+
+      activePeer.on('error', err => {
+        if (err.type === 'unavailable-id') {
+          // If ID is busy, restart with random code
+          return startPeerHost({ roomCode: generateRoomCode(), onStatus, onAction, getState });
+        }
+        onStatus?.('Peer notice: ' + (err.message || err.type), peerConnections.size);
+      });
+    } catch (err) {
+      onStatus?.('WebRTC init failed: ' + err.message, 0);
+    }
+
+    return {
+      roomCode: code,
+      broadcastState: s => {
+        peerConnections.forEach(conn => {
+          try { if (conn.open) conn.send({ type: 'state', state: s }); } catch {}
+        });
+      },
+      close: () => {
+        peerConnections.forEach(c => c.close());
+        peerConnections.clear();
+        activePeer?.destroy();
+        activePeer = null;
+      }
+    };
+  }
+
+  function connectPeerClient({ roomCode, onState, onStatus }) {
+    if (typeof Peer === 'undefined') {
+      onStatus?.(false, 'PeerJS not available');
+      return null;
+    }
+    const targetPeerId = 'pickerfox-room-' + roomCode.toLowerCase();
+    onStatus?.(false, 'Connecting to manager…');
+
+    try {
+      const clientPeer = new Peer();
+      clientPeer.on('open', () => {
+        const conn = clientPeer.connect(targetPeerId, { reliable: true });
+        clientPeerConnection = conn;
+
+        conn.on('open', () => {
+          onStatus?.(true, `Live with Manager (${roomCode})`);
+        });
+
+        conn.on('data', data => {
+          if (data?.type === 'state') {
+            onState?.(data.state);
+          }
+        });
+
+        const drop = () => {
+          onStatus?.(false, 'Disconnected from manager');
+          clientPeerConnection = null;
+        };
+        conn.on('close', drop);
+        conn.on('error', drop);
+      });
+
+      clientPeer.on('error', err => {
+        onStatus?.(false, 'Peer error: ' + err.type);
+      });
+    } catch (err) {
+      onStatus?.(false, 'WebRTC error');
+    }
+
+    return {
+      sendAction: (path, body) => {
+        if (clientPeerConnection && clientPeerConnection.open) {
+          clientPeerConnection.send({ type: 'action', path, body });
+          return true;
+        }
+        return false;
+      }
+    };
+  }
+
+  return { esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, connect, post, toast, createMap, frontView, startPeerHost, connectPeerClient };
 })();
