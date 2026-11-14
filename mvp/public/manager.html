@@ -98,6 +98,7 @@
       <button class="btn" id="pairBtn" type="button"><span>📱</span> <span id="pairBtnText">Connect Phone</span></button>
       <button class="btn" id="toggleLayout" type="button"><span id="layoutIcon">🔒</span> <span id="layoutText">Edit layout</span></button>
       <a class="btn" href="./picker.html" target="_blank" rel="noopener">Open picker view</a>
+      <button class="btn" id="clearData" type="button">Clear saved data</button>
       <button class="btn danger" id="reset" type="button">Reset demo</button>
     </header>
     <div id="pairModal" class="modal-backdrop" hidden>
@@ -517,8 +518,8 @@
         const modal = $('pairModal');
         modal.hidden = false;
         let room = localStorage.getItem('pf.room');
-        if (!room || forceNew) {
-          room = 'FOX-' + Math.floor(1000 + Math.random() * 9000);
+        if (!room || forceNew || room.length < 32) {
+          room = PF.generateRoomCode();
           localStorage.setItem('pf.room', room);
           if (peerHost) {
             peerHost.close();
@@ -572,6 +573,10 @@
         pickerUrl.search = `?room=${room}`;
         navigator.clipboard?.writeText(pickerUrl.toString());
         PF.toast('Link copied to clipboard');
+      });
+
+      $('clearData').addEventListener('click', () => {
+        if (confirm('Clear the data saved in this browser and reload? Phones need to scan the new QR code afterwards.')) PF.clearSavedData();
       });
 
       $('reset').addEventListener('click', () => {

@@ -139,7 +139,7 @@
           const count = state.picklists.filter(l => l.pickerId === p.id && PF.status(l) !== 'Done').length;
           const badge = count ? ` <b>(${count} list${count > 1 ? 's' : ''} waiting)</b>` : ' <span class="muted">(0 lists)</span>';
           return `<button class="btn${p.id === me || (!me && count > 0) ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}${badge}</button>`;
-        }).join('');
+        }).join('') + '<button class="btn" type="button" data-clear-data>Clear saved data</button>';
         renderSheet();
         renderCard();
         paint();
@@ -344,6 +344,10 @@
 
       $('who').addEventListener('click', () => { whoOpen = true; render(); });
       $('whoBox').addEventListener('click', event => {
+        if (event.target.closest('[data-clear-data]')) {
+          if (confirm('Clear the data saved on this device and reload?')) PF.clearSavedData();
+          return;
+        }
         const choice = event.target.closest('[data-picker]');
         if (!choice) return;
         me = choice.dataset.picker;
@@ -402,7 +406,7 @@
             const badge = $('roomBadge');
             if (badge) {
               badge.style.display = 'inline-flex';
-              badge.textContent = online ? `🟢 ${roomParam}` : `🟡 ${text || 'Connecting…'}`;
+              badge.textContent = online ? `🟢 ${roomParam.slice(0, 6)}` : `🟡 ${text || 'Connecting…'}`;
               badge.style.color = online ? '#05603a' : '#93370d';
               badge.style.background = online ? '#d1fadf' : '#fef0c7';
               badge.style.borderColor = online ? '#a6f4c5' : '#fedf89';

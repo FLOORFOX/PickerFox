@@ -618,7 +618,8 @@ const PF = (() => {
   let clientPeerConnection = null;
 
   function generateRoomCode() {
-    return 'FOX-' + Math.floor(1000 + Math.random() * 9000);
+    const bytes = crypto.getRandomValues(new Uint8Array(16));
+    return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
   }
 
   function startPeerHost({ roomCode, onStatus, onAction, getState }) {
@@ -685,7 +686,9 @@ const PF = (() => {
 
       activePeer.on('error', err => {
         if (err.type === 'unavailable-id') {
-          return startPeerHost({ roomCode: generateRoomCode(), onStatus, onAction, getState });
+          currentStatus = 'This room is already open in another tab. Press "New room".';
+          onStatus?.(currentStatus, peerConnections.size);
+          return;
         }
         currentStatus = 'Peer notice: ' + (err.message || err.type);
         onStatus?.(currentStatus, peerConnections.size);
@@ -712,13 +715,23 @@ const PF = (() => {
     };
   }
 
+  function clearSavedData() {
+    try {
+      Object.keys(localStorage)
+        .filter(key => key.startsWith('pf.'))
+        .forEach(key => localStorage.removeItem(key));
+    } catch {}
+    location.reload();
+  }
+
   function connectPeerClient({ roomCode, onState, onStatus }) {
     if (typeof Peer === 'undefined') {
       onStatus?.(false, 'PeerJS not available');
       return null;
     }
     const targetPeerId = 'pickerfox-room-' + roomCode.toLowerCase();
-    onStatus?.(false, `Connecting to Manager (Room ${roomCode})…`);
+    const shortCode = roomCode.slice(0, 6);
+    onStatus?.(false, `Connecting to Manager (Room ${shortCode})…`);
 
     try {
       const clientPeer = new Peer({
@@ -734,12 +747,12 @@ const PF = (() => {
       });
 
       clientPeer.on('open', () => {
-        onStatus?.(false, `Joining room ${roomCode}…`);
+        onStatus?.(false, `Joining room ${shortCode}…`);
         const conn = clientPeer.connect(targetPeerId, { reliable: true });
         clientPeerConnection = conn;
 
         const onConnected = () => {
-          onStatus?.(true, `Live with Manager (${roomCode})`);
+          onStatus?.(true, `Live with Manager (${shortCode})`);
           try { conn.send({ type: 'get_state' }); } catch {}
         };
 
@@ -781,5 +794,5 @@ const PF = (() => {
     };
   }
 
-  return { esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, connect, post, toast, createMap, frontView, startPeerHost, connectPeerClient };
+  return { esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, connect, post, toast, createMap, frontView, startPeerHost, connectPeerClient, generateRoomCode, clearSavedData };
 })();
