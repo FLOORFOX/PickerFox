@@ -5,6 +5,9 @@ __pycache__/
 
 claude-cloud/
 
+# PickerFox MVP demo state
+mvp/data/
+
 # Binary files
 *.png
 *.jpg

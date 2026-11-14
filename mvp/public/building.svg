@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1032 677 2136 4646" data-units="cm">
+  <g id="building">
+    <rect id="floor" x="1072" y="717" width="2056" height="4506" fill="#fdfdfa" stroke="#cfd5d0" stroke-width="2"/>
+    <g id="circulation">
+      <polygon class="bg-aisle" points="2477,1310 2226,1310 2226,3232 2477,3232" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="2352" y1="1325" x2="2352" y2="3217" stroke="#70889c" stroke-width="3" stroke-dasharray="18 12" stroke-opacity="0.75"/>
+      <text class="lbl-circulation" x="2352" y="2271" transform="rotate(-90 2352 2271)">HAUPTSTRASSE</text>
+      <polygon class="bg-aisle" points="2400,4591 2193,4591 2193,3257 2400,3257" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="2297" y1="3272" x2="2297" y2="4576" stroke="#70889c" stroke-width="3" stroke-dasharray="18 12" stroke-opacity="0.75"/>
+      <text class="lbl-circulation" x="2297" y="3924" transform="rotate(-90 2297 3924)">HAUPTSTRASSE</text>
+      <polygon class="bg-ladezone" points="2498,4799 2098,4799 2098,5199 2498,5199" fill="#dbe4ed" fill-opacity="0.7" stroke="#70889c" stroke-width="2" stroke-dasharray="12 8"/>
+      <text class="lbl-circulation" x="2298" y="4987">LADEZONE 1</text>
+      <text class="lbl-circulation-sub" x="2298" y="5021">Bereitstellung</text>
+      <polygon class="bg-ladezone" points="3054,4799 2654,4799 2654,5199 3054,5199" fill="#dbe4ed" fill-opacity="0.7" stroke="#70889c" stroke-width="2" stroke-dasharray="12 8"/>
+      <text class="lbl-circulation" x="2854" y="4987">LADEZONE 2</text>
+      <text class="lbl-circulation-sub" x="2854" y="5021">Bereitstellung</text>
+      <rect class="bg-aisle" x="1780" y="1330" width="130" height="1750" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="1845" y1="1350" x2="1845" y2="3060" stroke="#70889c" stroke-width="2.5" stroke-dasharray="16 10" stroke-opacity="0.65"/>
+      <text class="lbl-circulation" x="1845" y="2400" transform="rotate(-90 1845 2400)">FAHRWEG</text>
+      <rect class="bg-aisle" x="1096" y="1060" width="2008" height="150" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <rect class="bg-aisle" x="1096" y="1570" width="1380" height="60" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="2131" width="1380" height="144" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="2615" width="1380" height="100" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="2230" y="2240" width="874" height="190" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="2230" y="2670" width="874" height="205" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3207" width="2008" height="50" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3560" width="1134" height="175" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3870" width="1134" height="153" fill="#dbe4ed"/>
+    </g>
+    <polygon class="bg-cutout" points="2048,3726 1096,3726 1096,3257 2048,3257" fill="#d0d8d0" stroke="#2d3732" stroke-width="2.5"/>
+    <text class="lbl-outside" x="1572" y="3491">AUßENBEREICH</text>
+    <polygon class="bg-buero" points="1570,4716 1096,4716 1096,5199 1570,5199" fill="#f3eee5" stroke="#2d3732" stroke-width="2.2"/>
+    <text class="lbl-room" x="1333" y="4935">BÜRO</text>
+    <text class="lbl-room-sub" x="1333" y="4970">2 Ebenen</text>
+    <polygon class="bg-wc" points="1260,2690 1260,2442 1096,2442 1096,2690" fill="#e9efec" stroke="#2d3732" stroke-width="1.8"/>
+    <text class="lbl-room-sm" x="1178" y="2566">WC</text>
+    <polygon class="bg-wc" points="1260,2430 1260,2287 1096,2287 1096,2430" fill="#e9efec" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-block" points="1096,3751 2071,3751 2071,4591 1096,4591" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="3796">HALL 1 · BLOCK 3</text>
+    <polygon class="bg-block" points="2071,4591 3104,4591 3104,3257 2071,3257" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="2106" y="3302">HALL 1 · BLOCK 2</text>
+    <polygon class="bg-block" points="1595,4591 3104,4591 3104,5199 1595,5199" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1630" y="4636">HALL 1 · BLOCK 1</text>
+    <polygon class="bg-block" points="2076,3232 3116,3232 3116,1211 2076,1211" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="2111" y="1256">HALL 2 · BLOCK 1</text>
+    <polygon class="bg-block" points="2076,1211 1096,1211 1096,2275 1272,2275 1272,3232 2076,3232" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="1256">HALL 2 · BLOCK 2</text>
+    <polygon class="bg-block" points="3104,741 1096,741 1096,1211 3104,1211" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="786">HALL 2 · BLOCK 3</text>
+    <polyline class="bg-wall-line" points="2073,3751 1096,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3726 1096,3726" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1272,3232 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2442 1260,2442" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2430 1260,2430" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,5199 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3128,5223 1072,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 3104,741" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,717 3128,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,741 3104,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3128,717 3128,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,717 1072,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,3232 3104,3232" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,3257 3104,3257" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2073,3257 2073,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3257 2048,3726" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2714 1248,2714" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2690 1272,2690" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1260,2690 1260,2287" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2275 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,4716 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,4691 1595,4691" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2287 1260,2287" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1570,5199 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1595,5199 1595,4691" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1248,2714 1248,3232" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,5223 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1595,4691 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3726 2073,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1248,2714 1272,2690" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1260,2287 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,741 3128,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 1072,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,5199 3128,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polygon class="bg-wall" points="2048,3257 2073,3257 2073,3751 2048,3726" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,3726 2048,3726 2073,3751 1096,3751" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1072,717 1096,741 1096,5199 1072,5223" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,3232 3104,3232 3104,3257 1096,3257" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1272,2690 1272,3232 1248,3232 1248,2714" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1272,2275 1272,2690 1260,2690 1260,2287" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2275 1272,2275 1260,2287 1096,2287" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2430 1260,2430 1260,2442 1096,2442" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="3128,717 3128,5223 3104,5199 3104,741" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,5199 3104,5199 3128,5223 1072,5223" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1072,717 3128,717 3104,741 1096,741" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2690 1272,2690 1248,2714 1096,2714" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,4691 1595,4691 1570,4716 1096,4716" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1595,4691 1595,5199 1570,5199 1570,4716" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-stairs" points="1099,4591 1261,4591 1261,4691 1099,4691" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-stairs" points="1261,4591 1593,4591 1593,4691 1261,4691" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <line x1="1288.6666666666667" y1="4591" x2="1288.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1316.3333333333333" y1="4591" x2="1316.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1344" y1="4591" x2="1344" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1371.6666666666667" y1="4591" x2="1371.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1399.3333333333333" y1="4591" x2="1399.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1427" y1="4591" x2="1427" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1454.6666666666667" y1="4591" x2="1454.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1482.3333333333333" y1="4591" x2="1482.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1510" y1="4591" x2="1510" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1537.6666666666667" y1="4591" x2="1537.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1565.3333333333333" y1="4591" x2="1565.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/>
+    <polygon class="bg-stairs" points="1147,2714 1247,2714 1247,2788 1147,2788" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-stairs" points="1147,2788 1247,2788 1247,3124 1147,3124" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <line x1="1147" y1="2816" x2="1247" y2="2816" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2844" x2="1247" y2="2844" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2872" x2="1247" y2="2872" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2900" x2="1247" y2="2900" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2928" x2="1247" y2="2928" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2956" x2="1247" y2="2956" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2984" x2="1247" y2="2984" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3012" x2="1247" y2="3012" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3040" x2="1247" y2="3040" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3068" x2="1247" y2="3068" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3096" x2="1247" y2="3096" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/>
+    <text class="lbl-room-sub" x="1170" y="4641">Treppe</text>
+    <polygon class="bg-door" points="2474,3232 2174,3232 2174,3257 2474,3257" fill="#e2efe3" stroke="#2e7d32" stroke-width="2"/>
+    <polygon class="bg-obstacle" points="1157,4023 1237,4023 1237,4143 1157,4143" fill="#f3eee9" stroke="#8d6e63" stroke-width="2"/>
+    <text class="lbl-room-sub" x="1197" y="4083">Haustechnik</text>
+    <rect x="2158" y="5199" width="280" height="24" fill="#f8f8f5"/>
+    <line x1="2158" y1="5207" x2="2438" y2="5207" stroke="#1565c0" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="2158" y1="5202" x2="2438" y2="5202" stroke="#1565c0" stroke-width="1.6" stroke-dasharray="6 3"/>
+    <rect x="2154" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <rect x="2434" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <path d="M2158 5223 L2223 5285 L2373 5285 L2438 5223" fill="none" stroke="#546e7a" stroke-width="2.2" stroke-dasharray="8 4"/>
+    <text class="lbl-dock" x="2298" y="5176">Sektionaltor</text>
+    <rect x="2714" y="5199" width="280" height="24" fill="#f8f8f5"/>
+    <line x1="2714" y1="5207" x2="2994" y2="5207" stroke="#1565c0" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="2714" y1="5202" x2="2994" y2="5202" stroke="#1565c0" stroke-width="1.6" stroke-dasharray="6 3"/>
+    <rect x="2710" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <rect x="2990" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <path d="M2714 5223 L2779 5285 L2929 5285 L2994 5223" fill="none" stroke="#546e7a" stroke-width="2.2" stroke-dasharray="8 4"/>
+    <text class="lbl-dock" x="2854" y="5176">Sektionaltor</text>
+  </g>
+</svg>

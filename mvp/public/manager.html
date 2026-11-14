@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PickerFox Manager</title>
+    <link rel="stylesheet" href="./shared.css">
+    <style>
+      body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+      header { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #182233; color: #fff; }
+      header .btn { color: var(--text); text-decoration: none; }
+      header .btn.danger { color: #b42318; }
+      header .muted { color: #b6c0d2; }
+      .grow { flex: 1; min-width: 0; }
+      .cols { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr) minmax(320px, 400px); }
+      @media (max-width: 1100px) {
+        .cols { grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
+        #leftcol { grid-row: 1 / 3; }
+        #detail { border-left: 0; border-top: 1px solid var(--line); }
+      }
+      aside { display: flex; flex-direction: column; min-height: 0; background: #f8f9fb; }
+      #leftcol { border-right: 1px solid var(--line); }
+      #detail { border-left: 1px solid var(--line); overflow: auto; padding: 12px; gap: 12px; }
+      #left { flex: 1; overflow: auto; padding: 12px; display: grid; gap: 10px; align-content: start; }
+
+      #tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; }
+      #tabs button { flex: 1; padding: 11px 6px; border: 0; border-bottom: 3px solid transparent; background: none; cursor: pointer; }
+      #tabs button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 700; }
+      #q { margin: 12px 12px 0; padding: 8px 10px; border: 1px solid #c9ced8; border-radius: 8px; }
+
+      .card { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: grid; gap: 8px; }
+      .card.selected { border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
+      .row { display: flex; align-items: center; gap: 8px; }
+      .rowbtn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; }
+      .bar { display: flex; gap: 8px; }
+      .badge { padding: 2px 8px; border-radius: 10px; background: #eef0f4; font-size: 12px; white-space: nowrap; }
+      .badge.Done { background: #d1fadf; color: #05603a; }
+      .badge.In { background: #fef0c7; color: #93370d; }
+      .badge.Assigned { background: #d9e8ff; color: #0b3d91; }
+      .link { padding: 2px 0; border: 0; background: none; text-align: left; cursor: pointer; }
+      .link:hover { color: var(--accent); text-decoration: underline; }
+      .lines { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; font-size: 13.5px; }
+      .lines li { display: flex; justify-content: space-between; gap: 8px; }
+      .lines li.picked .link { color: #067647; }
+      .prow { display: grid; gap: 2px; width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; text-align: left; cursor: pointer; }
+      .prow.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
+      select, input[type="number"] { padding: 5px 6px; border: 1px solid #c9ced8; border-radius: 6px; background: #fff; }
+      input[type="number"] { width: 72px; }
+
+      #mapwrap { position: relative; min-width: 0; }
+      #map { position: absolute; inset: 0; }
+      .zoom { position: absolute; right: 12px; top: 12px; display: grid; gap: 6px; }
+      .zoom button { width: 36px; height: 36px; border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 8px; background: #fff; font-size: 1.15rem; cursor: pointer; }
+      #legend { position: absolute; left: 12px; top: 12px; max-width: calc(100% - 72px); display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255, 255, 255, 0.95); font-size: 13px; }
+
+      dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 13.5px; }
+      dt { color: var(--muted); }
+      dd { margin: 0; }
+      table { width: 100%; border-collapse: collapse; }
+      td { padding: 5px 4px; border-top: 1px solid var(--line); vertical-align: middle; }
+      td:first-child { padding-left: 0; }
+      .add-box { display: grid; gap: 8px; margin-top: 8px; padding-top: 10px; border-top: 1px dashed var(--line); }
+      .field { display: grid; gap: 4px; }
+      .wide-select { width: 100%; max-width: 100%; box-sizing: border-box; }
+      .add-row { display: flex; align-items: flex-end; gap: 8px; }
+      .qty-field { display: grid; gap: 4px; width: 84px; flex: none; }
+      .qty-field input { width: 100%; }
+      .add-btn { flex: 1; min-height: 36px; font-weight: 600; white-space: nowrap; }
+      .hint { padding: 24px 8px; text-align: center; }
+
+      .layout-strip {
+        display: flex; align-items: center; gap: 8px; padding: 6px 16px; flex: none;
+        background: #fff8e1; border-bottom: 1.5px solid #ffb74d; color: #7c4700;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      }
+      .layout-badge {
+        background: #ff9800; color: #fff; font-weight: 700; font-size: 11.5px;
+        padding: 2px 8px; border-radius: 6px;
+      }
+      body.layout-mode aside#leftcol { display: none !important; }
+      body.layout-mode .cols { grid-template-columns: minmax(0, 1fr) 380px !important; }
+      #toggleLayout.active { background: #fff3e0; border-color: #ff9800; color: #e65100; font-weight: 700; }
+      .lock-card {
+        display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        padding: 8px 10px; border-radius: 8px; margin-bottom: 8px;
+      }
+      .lock-card.locked { background: #f3f4f6; border: 1px solid #e5e7eb; }
+      .lock-card.unlocked { background: #fff3e0; border: 1.5px solid #ffb74d; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <b>PickerFox</b><span class="muted">Manager</span><span class="dot" id="conn" title="Connection to server"></span>
+      <span class="grow"></span>
+      <span class="small muted" id="phone"></span>
+      <button class="btn" id="toggleLayout" type="button"><span id="layoutIcon">🔒</span> <span id="layoutText">Edit layout</span></button>
+      <a class="btn" href="./picker.html" target="_blank" rel="noopener">Open picker view</a>
+      <button class="btn danger" id="reset" type="button">Reset demo</button>
+    </header>
+    <div id="layoutBar" class="layout-strip" hidden>
+      <span class="layout-badge">Layout tools</span>
+      <button type="button" class="btn small" data-add-type="pallet">＋ Pallet</button>
+      <button type="button" class="btn small" data-add-type="rack" data-bays="2">＋ Rack 2-Bay</button>
+      <button type="button" class="btn small" data-add-type="rack" data-bays="3">＋ Rack 3-Bay</button>
+      <button type="button" class="btn small" data-add-type="rack" data-bays="4">＋ Rack 4-Bay</button>
+      <span class="grow"></span>
+      <span class="small muted">Drag unlocked elements to move · Click "Unlock" in panel to edit position</span>
+    </div>
+    <div class="cols">
+      <aside id="leftcol">
+        <nav id="tabs" role="tablist"></nav>
+        <input id="q" type="search" placeholder="Search name, SKU or carton label" aria-label="Search products" hidden>
+        <div id="left"></div>
+      </aside>
+      <main id="mapwrap">
+        <div id="map"></div>
+        <div id="legend" hidden></div>
+        <div class="zoom">
+          <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+          <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+          <button id="zoomReset" type="button" aria-label="Show whole warehouse">⤢</button>
+        </div>
+      </main>
+      <aside id="detail"></aside>
+    </div>
+
+    <script src="./shared.js"></script>
+    <script>
+      const $ = id => document.getElementById(id);
+      const { esc } = PF;
+      let state;
+      let ix;
+      let map;
+      let mapReady;
+      const ui = { tab: 'orders', listId: null, elementId: null, slot: null, productId: null, addProduct: '', addQty: 10 };
+
+      // Updates from other devices must not wipe a field the manager is typing in.
+      function guarded(container, draw) {
+        let stale = false;
+        const run = force => {
+          const active = document.activeElement;
+          if (!force && container.contains(active) && /^(INPUT|SELECT)$/.test(active.tagName)) {
+            stale = true;
+            return;
+          }
+          stale = false;
+          draw();
+        };
+        container.addEventListener('focusout', () => { if (stale) setTimeout(run, 250); });
+        return run;
+      }
+
+      const selectedList = () => state.picklists.find(l => l.id === ui.listId) || null;
+      const productElements = () => new Set(PF.locations(ix, ui.productId).map(s => s.elementId));
+
+      function paint() {
+        if (!map) return;
+        const list = selectedList();
+        const selected = productElements();
+        if (ui.elementId) selected.add(ui.elementId);
+        map.paint({ stocked: new Set(ix.stockByElement.keys()), marks: list ? PF.listMarks(ix, list) : new Map(), selected });
+        const legend = $('legend');
+        legend.hidden = !list;
+        if (list) legend.innerHTML = `${PF.swatch(list)}<span>List ${list.number} · ${esc(list.customer)} · faded = picked</span>`;
+      }
+
+      function renderTabs() {
+        const withList = new Set(state.picklists.map(l => l.orderId));
+        const counts = {
+          orders: state.orders.filter(o => !withList.has(o.id)).length,
+          lists: state.picklists.filter(l => PF.status(l) !== 'Done').length,
+          products: state.products.length,
+        };
+        $('tabs').innerHTML = [['orders', 'Orders'], ['lists', 'Pick lists'], ['products', 'Products']]
+          .map(([id, label]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${ui.tab === id}">${label} (${counts[id]})</button>`).join('');
+        $('q').hidden = ui.tab !== 'products';
+      }
+
+      function renderOrders() {
+        const listByOrder = new Map(state.picklists.map(l => [l.orderId, l]));
+        const open = state.orders.filter(o => !listByOrder.has(o.id));
+        const cards = [...open, ...state.orders.filter(o => listByOrder.has(o.id))].map(o => {
+          const list = listByOrder.get(o.id);
+          const cartons = o.lines.reduce((sum, l) => sum + l.qty, 0);
+          return `<article class="card">
+            <div class="row"><b>Order ${o.number}</b><span class="grow">${esc(o.customer)}</span>${list
+              ? `<button type="button" class="link row" data-act="show-list" data-id="${list.id}">${PF.swatch(list)} List ${list.number}</button>`
+              : `<button type="button" class="btn primary" data-act="create" data-id="${o.id}">Create pick list</button>`}</div>
+            <div class="small muted">${o.lines.length} products · ${cartons} cartons</div>
+            <ul class="lines">${o.lines.map(l => `<li><button type="button" class="link" data-act="product" data-id="${l.productId}">${l.qty} × ${esc(ix.products.get(l.productId).name)}</button></li>`).join('')}</ul>
+          </article>`;
+        }).join('');
+        return `<div class="bar"><button type="button" class="btn" data-act="demo-order">+ Demo order</button>${
+          open.length > 1 ? `<button type="button" class="btn" data-act="create-all">Create all ${open.length} pick lists</button>` : ''}</div>${cards}`;
+      }
+
+      function renderLists() {
+        if (!state.picklists.length) return '<p class="muted hint">No pick lists yet. Create them from the Orders tab.</p>';
+        return state.picklists.map(list => {
+          const { done, total } = PF.progress(list);
+          const status = PF.status(list);
+          const selected = list.id === ui.listId;
+          const options = [`<option value="">Unassigned</option>`, ...state.pickers.map(p => `<option value="${p.id}"${p.id === list.pickerId ? ' selected' : ''}>${esc(p.name)}</option>`)].join('');
+          return `<article class="card${selected ? ' selected' : ''}" style="--c:${PF.color(list).bg}">
+            <button type="button" class="rowbtn" data-act="select-list" data-id="${list.id}" aria-expanded="${selected}">${PF.swatch(list)}<b>List ${list.number}</b><span class="grow">${esc(list.customer)}</span><span class="badge ${status.split(' ')[0]}">${status}</span></button>
+            <div class="progress"><i style="width:${(done / total) * 100}%"></i></div>
+            <div class="row small"><span class="muted grow">Order ${list.orderNumber} · ${done}/${total} picked</span>
+              <label>Picker <select data-assign="${list.id}">${options}</select></label>
+              <button type="button" class="btn danger" data-act="delete-list" data-id="${list.id}">Delete</button></div>
+            ${selected ? `<ul class="lines">${list.lines.map(line => `<li class="${line.picked ? 'picked' : ''}"><button type="button" class="link" data-act="product" data-id="${line.productId}">${line.picked ? '✓' : '○'} ${line.qty} × ${esc(ix.products.get(line.productId).name)}</button><span class="muted small">${esc(PF.addresses(ix, line.productId))}</span></li>`).join('')}</ul>` : ''}
+          </article>`;
+        }).join('');
+      }
+
+      function renderProducts() {
+        const query = $('q').value.trim().toLowerCase();
+        const hits = state.products.filter(p => !query || [p.name, p.sku, p.mfrSku, p.cartonLabel].some(v => v.toLowerCase().includes(query)));
+        return hits.map(p => `<button type="button" class="prow${p.id === ui.productId ? ' selected' : ''}" data-act="product" data-id="${p.id}"><b>${esc(p.name)}</b><span class="small muted">${p.sku} · ${p.mfrSku} · ${esc(PF.addresses(ix, p.id))}</span></button>`).join('')
+          || '<p class="muted hint">No product found.</p>';
+      }
+
+      const drawLeft = guarded($('left'), () => {
+        $('left').innerHTML = { orders: renderOrders, lists: renderLists, products: renderProducts }[ui.tab]();
+      });
+
+      const drawDetail = guarded($('detail'), () => {
+        const box = $('detail');
+        const product = ix.products.get(ui.productId);
+        const el = ix.elements.get(ui.elementId);
+        let html = '';
+        if (product) {
+          const locs = PF.locations(ix, product.id);
+          html += `<section class="card"><div class="small muted">Product</div><h3>${esc(product.name)}</h3>
+            <dl><dt>Tidox SKU</dt><dd>${product.sku}</dd><dt>Manufacturer code</dt><dd>${product.mfrSku}</dd><dt>Carton label</dt><dd>${esc(product.cartonLabel)}</dd>
+            <dt>Locations</dt><dd>${locs.length
+              ? locs.map(s => `<button type="button" class="link" data-act="loc" data-el="${s.elementId}" data-bay="${s.bay}" data-level="${s.level}">${PF.address(ix, s)} · ${s.qty} cartons</button>`).join('<br>')
+              : 'None. Select a slot on the map and place it there.'}</dd></dl></section>`;
+        }
+        if (!el) {
+          box.innerHTML = html || '<p class="muted hint">Select a rack or pallet on the map to open its front view, or pick a product, order or pick list on the left.</p>';
+          return;
+        }
+        const entries = ix.stockByElement.get(el.id) || [];
+        const rack = el.type === 'rack';
+        const kinds = new Set(entries.map(s => s.productId)).size;
+        const totalCartons = entries.reduce((sum, s) => sum + s.qty, 0);
+
+        let lockCardHtml = '';
+        if (ui.layoutMode) {
+          const isUnlocked = !el.locked;
+          lockCardHtml = `
+            <div class="lock-card ${el.locked ? 'locked' : 'unlocked'}">
+              <div class="row" style="justify-content:space-between;width:100%;">
+                <span class="small"><b>${el.locked ? '🔒 Position fixed' : '🔓 Unlocked to move'}</b></span>
+                <button type="button" class="btn small ${el.locked ? '' : 'primary'}" data-act="toggle-lock" data-id="${el.id}">
+                  ${el.locked ? 'Unlock to move' : 'Lock position'}
+                </button>
+              </div>
+              ${isUnlocked ? `
+                <div class="row" style="gap:4px;margin-top:6px;flex-wrap:wrap;">
+                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="0" data-dy="-50" title="Move up 50cm">↑ 50cm</button>
+                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="0" data-dy="50" title="Move down 50cm">↓ 50cm</button>
+                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="-50" data-dy="0" title="Move left 50cm">← 50cm</button>
+                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="50" data-dy="0" title="Move right 50cm">→ 50cm</button>
+                  <button type="button" class="btn small" data-act="rotate-element" data-id="${el.id}" title="Rotate 90 degrees">↻ 90°</button>
+                  <button type="button" class="btn danger small" data-act="delete-element" data-id="${el.id}">Delete</button>
+                </div>
+                <div class="small muted" style="margin-top:4px;">You can also drag it directly on the map.</div>
+              ` : ''}
+            </div>
+          `;
+        }
+
+        html += `<section class="card">
+          ${lockCardHtml}
+          <div class="row">
+            <div class="grow">
+              <div class="small muted">${rack ? 'Rack' : 'Pallet'} · front view</div>
+              <h3>${el.code}</h3>
+            </div>
+            <label class="row small">
+              <span><b>Levels</b></span>
+              <select data-el-levels="${el.id}" aria-label="Number of levels for ${el.code}">
+                ${[1, 2, 3, 4, 5, 6].map(n => `<option value="${n}"${el.levels === n ? ' selected' : ''}>${n}</option>`).join('')}
+              </select>
+            </label>
+            <button type="button" class="btn small" data-act="apply-all-levels" data-id="${el.id}" title="Set all ${rack ? 'racks' : 'pallets'} to ${el.levels} levels">All ${rack ? 'racks' : 'pallets'}</button>
+          </div>
+          <div class="small muted">${rack ? `${el.bays} bays × ${el.levels} levels · ` : (el.levels > 1 ? `${el.levels} stacked levels · ` : '')}${kinds} product${kinds === 1 ? '' : 's'} · ${totalCartons} cartons</div>
+          <div id="frontHost"></div>
+        </section>`;
+        if (ui.slot) {
+          if (ui.slot.level > el.levels) ui.slot.level = el.levels;
+          const inSlot = entries.filter(s => s.bay === ui.slot.bay && s.level === ui.slot.level);
+          const free = state.products.filter(p => !inSlot.some(s => s.productId === p.id));
+          const slotLabel = PF.address(ix, { elementId: el.id, ...ui.slot });
+          html += `<section class="card">
+            <div class="small muted">Slot (${inSlot.length} product${inSlot.length === 1 ? '' : 's'})</div>
+            <h3>${slotLabel}</h3>
+            ${inSlot.length ? `<table>${inSlot.map(s => {
+              const p = ix.products.get(s.productId);
+              return `<tr><td><b>${esc(p.name)}</b><br><span class="small muted">${p.sku}</span></td>
+                <td><input type="number" min="0" max="9999" value="${s.qty}" data-qty="${p.id}" aria-label="Cartons of ${esc(p.name)}"> ct</td>
+                <td><button type="button" class="btn danger" data-act="remove" data-id="${p.id}">Remove</button></td></tr>`;
+            }).join('')}</table>` : '<p class="muted">Empty slot. Place one or more products below.</p>'}
+            <div class="add-box">
+              <div class="field">
+                <label for="addProduct" class="small muted"><b>${inSlot.length ? '+ Add another product to this slot' : 'Product to place'}</b></label>
+                <select id="addProduct" class="wide-select" aria-label="Product to place">
+                  <option value="">Choose product…</option>
+                  ${free.map(p => `<option value="${p.id}"${p.id === ui.addProduct ? ' selected' : ''}>${esc(p.name)} (${p.sku})</option>`).join('')}
+                </select>
+              </div>
+              <div class="add-row">
+                <label class="qty-field">
+                  <span class="small muted">Cartons</span>
+                  <input id="addQty" type="number" min="1" max="9999" value="${ui.addQty}" aria-label="Cartons">
+                </label>
+                <button type="button" class="btn primary add-btn" data-act="place">${inSlot.length ? '+ Add to slot' : 'Place in slot'}</button>
+              </div>
+            </div>
+          </section>`;
+        } else {
+          html += '<p class="muted hint">Select a slot in the front view to see and edit its contents.</p>';
+        }
+        box.innerHTML = html;
+        $('frontHost').appendChild(PF.frontView(ix, el, {
+          hot: new Set(product ? [product.id] : []),
+          selected: ui.slot,
+          onSlot: slot => { ui.slot = slot; render(true); },
+        }));
+      });
+
+      function render(force) {
+        if (!state) return;
+        $('phone').textContent = state.serverUrls?.[0] ? `Picker on phones: ${state.serverUrls[0]}/picker` : (location.hostname.endsWith('github.io') ? 'GitHub Pages Demo' : 'Static Demo');
+        renderTabs();
+        drawLeft(force);
+        drawDetail(force);
+        paint();
+      }
+
+      function selectProduct(id) {
+        ui.productId = id;
+        const first = PF.locations(ix, id)[0];
+        ui.elementId = first ? first.elementId : null;
+        ui.slot = first ? { bay: first.bay, level: first.level } : null;
+        render(true);
+        map?.focus(productElements());
+      }
+
+      function selectElement(id) {
+        const el = ix.elements.get(id);
+        if (!el) {
+          Object.assign(ui, { elementId: null, slot: null, productId: null });
+        } else {
+          const here = PF.locations(ix, ui.productId).find(s => s.elementId === id);
+          if (!here) ui.productId = null;
+          ui.elementId = id;
+          ui.slot = here ? { bay: here.bay, level: here.level } : el.type === 'pallet' ? { bay: 1, level: 1 } : null;
+        }
+        render(true);
+      }
+
+      const setStock = (productId, qty) => PF.post('/api/stock', { productId, elementId: ui.elementId, ...ui.slot, qty });
+
+      $('tabs').addEventListener('click', event => {
+        const tab = event.target.closest('[data-tab]');
+        if (!tab) return;
+        ui.tab = tab.dataset.tab;
+        render(true);
+      });
+      $('q').addEventListener('input', () => drawLeft(true));
+
+      $('left').addEventListener('click', async event => {
+        const target = event.target.closest('[data-act]');
+        if (!target) return;
+        const { act, id } = target.dataset;
+        if (act === 'demo-order') {
+          PF.post('/api/orders/demo');
+        } else if (act === 'create') {
+          PF.post('/api/picklists', { orderId: id });
+        } else if (act === 'create-all') {
+          const withList = new Set(state.picklists.map(l => l.orderId));
+          for (const order of state.orders.filter(o => !withList.has(o.id))) await PF.post('/api/picklists', { orderId: order.id });
+          ui.tab = 'lists';
+          render(true);
+        } else if (act === 'show-list' || act === 'select-list') {
+          ui.listId = act === 'select-list' && ui.listId === id ? null : id;
+          ui.tab = 'lists';
+          render(true);
+          const list = selectedList();
+          if (list) map?.focus(PF.listMarks(ix, list).keys());
+        } else if (act === 'delete-list') {
+          const list = state.picklists.find(l => l.id === id);
+          if (confirm(`Delete pick list ${list.number}? Its order becomes available again.`)) PF.post(`/api/picklists/${id}/delete`);
+        } else if (act === 'product') {
+          selectProduct(id);
+        }
+      });
+      $('left').addEventListener('change', event => {
+        const select = event.target.closest('[data-assign]');
+        if (!select) return;
+        select.blur();
+        PF.post(`/api/picklists/${select.dataset.assign}/assign`, { pickerId: select.value || null });
+      });
+
+      $('detail').addEventListener('click', async event => {
+        const target = event.target.closest('[data-act]');
+        if (!target) return;
+        const { act, id } = target.dataset;
+        if (act === 'loc') {
+          ui.elementId = target.dataset.el;
+          ui.slot = { bay: Number(target.dataset.bay), level: Number(target.dataset.level) };
+          render(true);
+          map?.focus([ui.elementId]);
+        } else if (act === 'remove') {
+          setStock(id, 0);
+        } else if (act === 'place') {
+          const qty = Number(ui.addQty);
+          if (!ui.addProduct) return PF.toast('Choose a product to place');
+          if (!Number.isInteger(qty) || qty < 1) return PF.toast('Enter a whole number of cartons');
+          const pId = ui.addProduct;
+          ui.addProduct = '';
+          await setStock(pId, qty);
+          render(true);
+        } else if (act === 'apply-all-levels') {
+          const el = ix.elements.get(id);
+          if (el && confirm(`Set all ${el.type === 'rack' ? 'racks' : 'pallets'} to ${el.levels} levels?`)) {
+            PF.post(`/api/elements/${id}/levels`, { levels: el.levels, applyToAll: true });
+          }
+        } else if (act === 'toggle-lock') {
+          const el = ix.elements.get(id);
+          if (el) {
+            await PF.post(`/api/elements/${id}/lock`, { locked: !el.locked });
+            PF.toast(el.locked ? `${el.code} unlocked (ready to move)` : `${el.code} locked`);
+          }
+        } else if (act === 'nudge') {
+          const el = ix.elements.get(id);
+          if (el) {
+            const dx = Number(target.dataset.dx) || 0;
+            const dy = Number(target.dataset.dy) || 0;
+            await PF.post(`/api/elements/${id}/move`, { cx: el.cx + dx, cy: el.cy + dy });
+            PF.toast(`${el.code} moved`);
+          }
+        } else if (act === 'rotate-element') {
+          await PF.post(`/api/elements/${id}/rotate`);
+          PF.toast('Rotated 90°');
+        } else if (act === 'delete-element') {
+          const el = ix.elements.get(id);
+          const stockCount = state.stock.filter(s => s.elementId === id).reduce((sum, s) => sum + s.qty, 0);
+          const msg = stockCount > 0
+            ? `Delete ${el.code}? It currently holds ${stockCount} cartons which will also be removed.`
+            : `Delete ${el.code}?`;
+          if (confirm(msg)) {
+            await PF.post(`/api/elements/${id}/delete`, { force: true });
+            ui.elementId = null;
+            ui.slot = null;
+            render(true);
+            PF.toast(`${el.code} deleted`);
+          }
+        }
+      });
+      $('detail').addEventListener('keydown', event => {
+        if (event.key === 'Enter' && (event.target.id === 'addQty' || event.target.id === 'addProduct')) {
+          event.preventDefault();
+          const btn = document.querySelector('[data-act="place"]');
+          if (btn) btn.click();
+        }
+      });
+      $('detail').addEventListener('input', event => {
+        if (event.target.id === 'addQty') ui.addQty = event.target.value;
+      });
+      $('detail').addEventListener('change', event => {
+        if (event.target.dataset.elLevels) {
+          const id = event.target.dataset.elLevels;
+          const levels = Number(event.target.value);
+          event.target.blur();
+          PF.post(`/api/elements/${id}/levels`, { levels });
+        } else if (event.target.id === 'addProduct') {
+          ui.addProduct = event.target.value;
+        } else if (event.target.dataset.qty) {
+          const qty = Number(event.target.value);
+          event.target.blur();
+          if (event.target.value === '' || !Number.isInteger(qty) || qty < 0) {
+            PF.toast('Enter a whole number of cartons');
+            render(true);
+          } else {
+            setStock(event.target.dataset.qty, qty);
+          }
+        }
+      });
+
+      $('reset').addEventListener('click', () => {
+        if (confirm('Reset all demo data? Pick lists, new orders and stock changes are discarded.')) PF.post('/api/reset');
+      });
+
+      $('toggleLayout').addEventListener('click', () => {
+        ui.layoutMode = !ui.layoutMode;
+        $('toggleLayout').classList.toggle('active', ui.layoutMode);
+        $('layoutIcon').textContent = ui.layoutMode ? '🔓' : '🔒';
+        $('layoutText').textContent = ui.layoutMode ? 'Done layout' : 'Edit layout';
+        $('layoutBar').hidden = !ui.layoutMode;
+        document.body.classList.toggle('layout-mode', ui.layoutMode);
+        PF.toast(ui.layoutMode ? 'Layout editing enabled. Select an element and unlock it to move.' : 'Layout editing disabled. All positions locked.');
+        render(true);
+      });
+
+      $('layoutBar').addEventListener('click', async event => {
+        const btn = event.target.closest('[data-add-type]');
+        if (!btn) return;
+        const type = btn.dataset.addType;
+        const bays = Number(btn.dataset.bays) || 1;
+        const res = await PF.post('/api/elements', { type, bays });
+        if (res && res.elements) {
+          const added = res.elements[res.elements.length - 1];
+          selectElement(added.id);
+          PF.toast(`Added ${added.code} (unlocked - drag to move)`);
+        }
+      });
+
+      $('zoomIn').addEventListener('click', () => map?.zoom(1.5));
+      $('zoomOut').addEventListener('click', () => map?.zoom(1 / 1.5));
+      $('zoomReset').addEventListener('click', () => map?.reset());
+
+      let lastFloorplanHash = null;
+      PF.connect(async next => {
+        state = next;
+        ix = PF.index(state);
+        if (map) {
+          map.updateElements(state.elements);
+          if (lastFloorplanHash && lastFloorplanHash !== state.floorplanHash) {
+            await map.reloadSvg();
+          }
+        }
+        lastFloorplanHash = state.floorplanHash;
+        if (!selectedList()) ui.listId = null;
+        mapReady ||= PF.createMap($('map'), state, {
+          onSelect: selectElement,
+          onMoveElement: async (id, newCx, newCy) => {
+            const el = ix.elements.get(id);
+            await PF.post(`/api/elements/${id}/move`, { cx: newCx, cy: newCy });
+            PF.toast(`${el?.code || 'Element'} moved`);
+          }
+        }).then(created => { map = created; paint(); });
+        render();
+      }, online => $('conn').classList.toggle('on', online));
+    </script>
+  </body>
+</html>

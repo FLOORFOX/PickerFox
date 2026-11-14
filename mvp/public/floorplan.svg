@@ -1,0 +1,1096 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1032 677 2136 4646" data-units="cm">
+<defs>
+    <style>
+      .bg-row { fill: none; stroke: #b9a58a; stroke-width: 1.5; stroke-dasharray: 10 5; stroke-opacity: 0.8; }
+      .el { cursor: pointer; }
+      .el-base { vector-effect: non-scaling-stroke; transition: fill 0.12s, stroke 0.12s; }
+      .el.pallet .el-base { fill: #fdfbf7; stroke: #c2c0dc; stroke-width: 1.6; }
+      .el.pallet.stocked .el-base { fill: #e5e3f5; }
+      .el.rack .el-base { fill: #ebf2fc; stroke: #4f84b8; stroke-width: 2.2; }
+      .el.rack.stocked .el-base { fill: #d4e5fc; }
+      .el.mark .el-base { fill: var(--mark) !important; stroke: #182233 !important; }
+      .el.mark.done .el-base { fill-opacity: 0.25 !important; }
+      .el.sel .el-base { stroke: #111 !important; stroke-width: 4 !important; }
+      .el.sel:not(.mark) .el-base { fill: var(--sel) !important; }
+      .el.unlocked .el-base { stroke: #e65100 !important; stroke-width: 3.5 !important; stroke-dasharray: 8 4 !important; }
+      .el.unlocked { cursor: move !important; }
+      .lbl { font: 24px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #656382; paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+      .lbl.rack { font-size: 38px; font-weight: 700; fill: #0b2f9e; stroke-width: 6px; }
+      .lbl-room { font: 700 36px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #374151; letter-spacing: 2px; }
+      .lbl-room-sub { font: 20px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #6b7280; }
+      .lbl-room-sm { font: 700 24px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #4b5563; }
+      .lbl-outside { font: 700 32px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #4e5f52; letter-spacing: 4px; }
+      .lbl-dock { font: 700 18px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #0d47a1; letter-spacing: 1px; }
+      .lbl-block { font: 700 26px Arial, sans-serif; text-anchor: start; dominant-baseline: central; fill: #607282; fill-opacity: 0.5; letter-spacing: 2px; }
+      .pin { fill: rgba(229, 57, 53, 0.18); stroke: var(--sel); stroke-width: 4; vector-effect: non-scaling-stroke; pointer-events: none; animation: pin-pulse 1.3s ease-in-out infinite alternate; }
+    </style>
+  </defs>
+<g id="building">
+    <rect id="floor" x="1072" y="717" width="2056" height="4506" fill="#fdfdfa" stroke="#cfd5d0" stroke-width="2"/>
+    <g id="circulation">
+      <polygon class="bg-aisle" points="2477,1310 2226,1310 2226,3232 2477,3232" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="2352" y1="1325" x2="2352" y2="3217" stroke="#70889c" stroke-width="3" stroke-dasharray="18 12" stroke-opacity="0.75"/>
+      <text class="lbl-circulation" x="2352" y="2271" transform="rotate(-90 2352 2271)">HAUPTSTRASSE</text>
+      <polygon class="bg-aisle" points="2400,4591 2193,4591 2193,3257 2400,3257" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="2297" y1="3272" x2="2297" y2="4576" stroke="#70889c" stroke-width="3" stroke-dasharray="18 12" stroke-opacity="0.75"/>
+      <text class="lbl-circulation" x="2297" y="3924" transform="rotate(-90 2297 3924)">HAUPTSTRASSE</text>
+      <polygon class="bg-ladezone" points="2498,4799 2098,4799 2098,5199 2498,5199" fill="#dbe4ed" fill-opacity="0.7" stroke="#70889c" stroke-width="2" stroke-dasharray="12 8"/>
+      <text class="lbl-circulation" x="2298" y="4987">LADEZONE 1</text>
+      <text class="lbl-circulation-sub" x="2298" y="5021">Bereitstellung</text>
+      <polygon class="bg-ladezone" points="3054,4799 2654,4799 2654,5199 3054,5199" fill="#dbe4ed" fill-opacity="0.7" stroke="#70889c" stroke-width="2" stroke-dasharray="12 8"/>
+      <text class="lbl-circulation" x="2854" y="4987">LADEZONE 2</text>
+      <text class="lbl-circulation-sub" x="2854" y="5021">Bereitstellung</text>
+      <rect class="bg-aisle" x="1780" y="1330" width="130" height="1750" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <line x1="1845" y1="1350" x2="1845" y2="3060" stroke="#70889c" stroke-width="2.5" stroke-dasharray="16 10" stroke-opacity="0.65"/>
+      <text class="lbl-circulation" x="1845" y="2400" transform="rotate(-90 1845 2400)">FAHRWEG</text>
+      <rect class="bg-aisle" x="1096" y="1060" width="2008" height="150" fill="#dbe4ed" stroke="#b0c2d4" stroke-width="1.6" stroke-dasharray="10 6"/>
+      <rect class="bg-aisle" x="1096" y="1570" width="1380" height="60" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="2131" width="1380" height="144" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="2615" width="1380" height="100" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="2230" y="2240" width="874" height="190" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="2230" y="2670" width="874" height="205" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3207" width="2008" height="50" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3560" width="1134" height="175" fill="#dbe4ed"/>
+      <rect class="bg-aisle" x="1096" y="3870" width="1134" height="153" fill="#dbe4ed"/>
+    </g>
+    <polygon class="bg-cutout" points="2048,3726 1096,3726 1096,3257 2048,3257" fill="#d0d8d0" stroke="#2d3732" stroke-width="2.5"/>
+    <text class="lbl-outside" x="1572" y="3491">AUßENBEREICH</text>
+    <polygon class="bg-buero" points="1570,4716 1096,4716 1096,5199 1570,5199" fill="#f3eee5" stroke="#2d3732" stroke-width="2.2"/>
+    <text class="lbl-room" x="1333" y="4935">BÜRO</text>
+    <text class="lbl-room-sub" x="1333" y="4970">2 Ebenen</text>
+    <polygon class="bg-wc" points="1260,2690 1260,2442 1096,2442 1096,2690" fill="#e9efec" stroke="#2d3732" stroke-width="1.8"/>
+    <text class="lbl-room-sm" x="1178" y="2566">WC</text>
+    <polygon class="bg-wc" points="1260,2430 1260,2287 1096,2287 1096,2430" fill="#e9efec" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-block" points="1096,3751 2071,3751 2071,4591 1096,4591" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="3796">HALL 1 · BLOCK 3</text>
+    <polygon class="bg-block" points="2071,4591 3104,4591 3104,3257 2071,3257" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="2106" y="3302">HALL 1 · BLOCK 2</text>
+    <polygon class="bg-block" points="1595,4591 3104,4591 3104,5199 1595,5199" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1630" y="4636">HALL 1 · BLOCK 1</text>
+    <polygon class="bg-block" points="2076,3232 3116,3232 3116,1211 2076,1211" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="2111" y="1256">HALL 2 · BLOCK 1</text>
+    <polygon class="bg-block" points="2076,1211 1096,1211 1096,2275 1272,2275 1272,3232 2076,3232" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="1256">HALL 2 · BLOCK 2</text>
+    <polygon class="bg-block" points="3104,741 1096,741 1096,1211 3104,1211" fill="#ffffff" fill-opacity="0.45" stroke="#9aa8b5" stroke-width="1.4" stroke-dasharray="10 6" stroke-opacity="0.4"/>
+    <text class="lbl-block" x="1131" y="786">HALL 2 · BLOCK 3</text>
+    <polyline class="bg-wall-line" points="2073,3751 1096,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3726 1096,3726" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1272,3232 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2442 1260,2442" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2430 1260,2430" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,5199 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3128,5223 1072,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 3104,741" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,717 3128,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,741 3104,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3128,717 3128,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,717 1072,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,3232 3104,3232" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,3257 3104,3257" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2073,3257 2073,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3257 2048,3726" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2714 1248,2714" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2690 1272,2690" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1260,2690 1260,2287" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2275 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,4716 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,4691 1595,4691" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,2287 1260,2287" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1570,5199 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1595,5199 1595,4691" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1248,2714 1248,3232" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1072,5223 1096,5199" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1595,4691 1570,4716" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="2048,3726 2073,3751" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1248,2714 1272,2690" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1260,2287 1272,2275" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,741 3128,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="1096,741 1072,717" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polyline class="bg-wall-line" points="3104,5199 3128,5223" fill="none" stroke="#2d3732" stroke-width="2.6" stroke-linecap="round"/>
+    <polygon class="bg-wall" points="2048,3257 2073,3257 2073,3751 2048,3726" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,3726 2048,3726 2073,3751 1096,3751" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1072,717 1096,741 1096,5199 1072,5223" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,3232 3104,3232 3104,3257 1096,3257" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1272,2690 1272,3232 1248,3232 1248,2714" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1272,2275 1272,2690 1260,2690 1260,2287" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2275 1272,2275 1260,2287 1096,2287" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2430 1260,2430 1260,2442 1096,2442" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="3128,717 3128,5223 3104,5199 3104,741" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,5199 3104,5199 3128,5223 1072,5223" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1072,717 3128,717 3104,741 1096,741" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,2690 1272,2690 1248,2714 1096,2714" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1096,4691 1595,4691 1570,4716 1096,4716" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-wall" points="1595,4691 1595,5199 1570,5199 1570,4716" fill="#e2e6e3" stroke="#2d3732" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon class="bg-stairs" points="1099,4591 1261,4591 1261,4691 1099,4691" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-stairs" points="1261,4591 1593,4591 1593,4691 1261,4691" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <line x1="1288.6666666666667" y1="4591" x2="1288.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1316.3333333333333" y1="4591" x2="1316.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1344" y1="4591" x2="1344" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1371.6666666666667" y1="4591" x2="1371.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1399.3333333333333" y1="4591" x2="1399.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1427" y1="4591" x2="1427" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1454.6666666666667" y1="4591" x2="1454.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1482.3333333333333" y1="4591" x2="1482.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1510" y1="4591" x2="1510" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1537.6666666666667" y1="4591" x2="1537.6666666666667" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1565.3333333333333" y1="4591" x2="1565.3333333333333" y2="4691" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/>
+    <polygon class="bg-stairs" points="1147,2714 1247,2714 1247,2788 1147,2788" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <polygon class="bg-stairs" points="1147,2788 1247,2788 1247,3124 1147,3124" fill="#eef0ee" stroke="#2d3732" stroke-width="1.8"/>
+    <line x1="1147" y1="2816" x2="1247" y2="2816" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2844" x2="1247" y2="2844" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2872" x2="1247" y2="2872" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2900" x2="1247" y2="2900" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2928" x2="1247" y2="2928" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2956" x2="1247" y2="2956" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="2984" x2="1247" y2="2984" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3012" x2="1247" y2="3012" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3040" x2="1247" y2="3040" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3068" x2="1247" y2="3068" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/><line x1="1147" y1="3096" x2="1247" y2="3096" stroke="#2d3732" stroke-opacity="0.5" stroke-width="1.4"/>
+    <text class="lbl-room-sub" x="1170" y="4641">Treppe</text>
+    <polygon class="bg-door" points="2474,3232 2174,3232 2174,3257 2474,3257" fill="#e2efe3" stroke="#2e7d32" stroke-width="2"/>
+    <polygon class="bg-obstacle" points="1157,4023 1237,4023 1237,4143 1157,4143" fill="#f3eee9" stroke="#8d6e63" stroke-width="2"/>
+    <text class="lbl-room-sub" x="1197" y="4083">Haustechnik</text>
+    <rect x="2158" y="5199" width="280" height="24" fill="#f8f8f5"/>
+    <line x1="2158" y1="5207" x2="2438" y2="5207" stroke="#1565c0" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="2158" y1="5202" x2="2438" y2="5202" stroke="#1565c0" stroke-width="1.6" stroke-dasharray="6 3"/>
+    <rect x="2154" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <rect x="2434" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <path d="M2158 5223 L2223 5285 L2373 5285 L2438 5223" fill="none" stroke="#546e7a" stroke-width="2.2" stroke-dasharray="8 4"/>
+    <text class="lbl-dock" x="2298" y="5176">Sektionaltor</text>
+    <rect x="2714" y="5199" width="280" height="24" fill="#f8f8f5"/>
+    <line x1="2714" y1="5207" x2="2994" y2="5207" stroke="#1565c0" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="2714" y1="5202" x2="2994" y2="5202" stroke="#1565c0" stroke-width="1.6" stroke-dasharray="6 3"/>
+    <rect x="2710" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <rect x="2990" y="5198" width="8" height="18" fill="#1565c0" rx="1"/>
+    <path d="M2714 5223 L2779 5285 L2929 5285 L2994 5223" fill="none" stroke="#546e7a" stroke-width="2.2" stroke-dasharray="8 4"/>
+    <text class="lbl-dock" x="2854" y="5176">Sektionaltor</text>
+  </g>
+
+
+  <g id="rows">
+    <polygon class="bg-row" points="2514,3087 3104,3087 3104,3207 2514,3207"/>
+    <polygon class="bg-row" points="1157,4383 1277,4383 1277,4548 1157,4548"/>
+    <polygon class="bg-row" points="1157,4263 1832,4263 1832,4383 1157,4383"/>
+    <polygon class="bg-row" points="1713,4507 1958,4507 1958,4587 1713,4587"/>
+    <polygon class="bg-row" points="1157,4143 1832,4143 1832,4263 1157,4263"/>
+    <polygon class="bg-row" points="1242,4023 1832,4023 1832,4143 1242,4143"/>
+    <polygon class="bg-row" points="2073,4235 2193,4235 2193,4315 2073,4315"/>
+    <polygon class="bg-row" points="2520,3647 2640,3647 2640,4322 2520,4322"/>
+    <polygon class="bg-row" points="2400,3671 2520,3671 2520,3921 2400,3921"/>
+    <polygon class="bg-row" points="2814,3377 2934,3377 2934,4732 2814,4732"/>
+    <polygon class="bg-row" points="2934,3377 3054,3377 3054,4732 2934,4732"/>
+    <polygon class="bg-row" points="2514,3257 3104,3257 3104,3377 2514,3377"/>
+    <polygon class="bg-row" points="1272,3087 2117,3087 2117,3207 1272,3207"/>
+    <polygon class="bg-row" points="1272,2815 1777,2815 1777,2935 1272,2935"/>
+    <polygon class="bg-row" points="1906,2815 2241,2815 2241,2935 1906,2935"/>
+    <polygon class="bg-row" points="1272,2495 1777,2495 1777,2615 1272,2615"/>
+    <polygon class="bg-row" points="1272,2375 1777,2375 1777,2495 1272,2495"/>
+    <polygon class="bg-row" points="1146,2011 1736,2011 1736,2131 1146,2131"/>
+    <polygon class="bg-row" points="1913,1630 2033,1630 2033,2815 1913,2815"/>
+    <polygon class="bg-row" points="1146,1891 1736,1891 1736,2011 1146,2011"/>
+    <polygon class="bg-row" points="1146,1571 1736,1571 1736,1691 1146,1691"/>
+    <polygon class="bg-row" points="1146,1451 1736,1451 1736,1571 1146,1571"/>
+    <polygon class="bg-row" points="1906,1495 2241,1495 2241,1615 1906,1615"/>
+    <polygon class="bg-row" points="2489,1604 3079,1604 3079,1724 2489,1724"/>
+    <polygon class="bg-row" points="2489,1484 3079,1484 3079,1604 2489,1604"/>
+    <polygon class="bg-row" points="1883,1190 2048,1190 2048,1310 1883,1310"/>
+    <polygon class="bg-row" points="2464,1211 3054,1211 3054,1331 2464,1331"/>
+    <polygon class="bg-row" points="2934,791 3054,791 3054,1211 2934,1211"/>
+    <polygon class="bg-row" points="2098,1190 2263,1190 2263,1310 2098,1310"/>
+  </g>
+  <g id="storage-pallets">
+    <g id="pallet-0252" class="el pallet" data-el="pallet-0252" data-code="P-001" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-001">
+      <polygon class="el-base" points="2934,791 3054,791 3054,871 2934,871" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0253" class="el pallet" data-el="pallet-0253" data-code="P-002" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-002">
+      <polygon class="el-base" points="2934,876 3054,876 3054,956 2934,956" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0254" class="el pallet" data-el="pallet-0254" data-code="P-003" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-003">
+      <polygon class="el-base" points="2934,961 3054,961 3054,1041 2934,1041" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0255" class="el pallet" data-el="pallet-0255" data-code="P-004" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-004">
+      <polygon class="el-base" points="2934,1046 3054,1046 3054,1126 2934,1126" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0256" class="el pallet" data-el="pallet-0256" data-code="P-005" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-005">
+      <polygon class="el-base" points="2934,1131 3054,1131 3054,1211 2934,1211" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0241" class="el pallet" data-el="pallet-0241" data-code="P-006" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-006">
+      <polygon class="el-base" points="1883,1190 1963,1190 1963,1310 1883,1310" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0242" class="el pallet" data-el="pallet-0242" data-code="P-007" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-007">
+      <polygon class="el-base" points="1968,1190 2048,1190 2048,1310 1968,1310" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0243" class="el pallet" data-el="pallet-0243" data-code="P-008" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-008">
+      <polygon class="el-base" points="2098,1190 2178,1190 2178,1310 2098,1310" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0244" class="el pallet" data-el="pallet-0244" data-code="P-009" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-009">
+      <polygon class="el-base" points="2183,1190 2263,1190 2263,1310 2183,1310" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0245" class="el pallet" data-el="pallet-0245" data-code="P-010" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-010">
+      <polygon class="el-base" points="2464,1211 2544,1211 2544,1331 2464,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0246" class="el pallet" data-el="pallet-0246" data-code="P-011" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-011">
+      <polygon class="el-base" points="2549,1211 2629,1211 2629,1331 2549,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0247" class="el pallet" data-el="pallet-0247" data-code="P-012" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-012">
+      <polygon class="el-base" points="2634,1211 2714,1211 2714,1331 2634,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0248" class="el pallet" data-el="pallet-0248" data-code="P-013" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-013">
+      <polygon class="el-base" points="2719,1211 2799,1211 2799,1331 2719,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0249" class="el pallet" data-el="pallet-0249" data-code="P-014" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-014">
+      <polygon class="el-base" points="2804,1211 2884,1211 2884,1331 2804,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0250" class="el pallet" data-el="pallet-0250" data-code="P-015" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-015">
+      <polygon class="el-base" points="2889,1211 2969,1211 2969,1331 2889,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0251" class="el pallet" data-el="pallet-0251" data-code="P-016" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-016">
+      <polygon class="el-base" points="2974,1211 3054,1211 3054,1331 2974,1331" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0216" class="el pallet" data-el="pallet-0216" data-code="P-017" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-017">
+      <polygon class="el-base" points="1146,1451 1226,1451 1226,1571 1146,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0217" class="el pallet" data-el="pallet-0217" data-code="P-018" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-018">
+      <polygon class="el-base" points="1231,1451 1311,1451 1311,1571 1231,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0218" class="el pallet" data-el="pallet-0218" data-code="P-019" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-019">
+      <polygon class="el-base" points="1316,1451 1396,1451 1396,1571 1316,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0219" class="el pallet" data-el="pallet-0219" data-code="P-020" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-020">
+      <polygon class="el-base" points="1401,1451 1481,1451 1481,1571 1401,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0220" class="el pallet" data-el="pallet-0220" data-code="P-021" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-021">
+      <polygon class="el-base" points="1486,1451 1566,1451 1566,1571 1486,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0221" class="el pallet" data-el="pallet-0221" data-code="P-022" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-022">
+      <polygon class="el-base" points="1571,1451 1651,1451 1651,1571 1571,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0222" class="el pallet" data-el="pallet-0222" data-code="P-023" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-023">
+      <polygon class="el-base" points="1656,1451 1736,1451 1736,1571 1656,1571" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0223" class="el pallet" data-el="pallet-0223" data-code="P-024" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-024">
+      <polygon class="el-base" points="1906,1495 1986,1495 1986,1615 1906,1615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0224" class="el pallet" data-el="pallet-0224" data-code="P-025" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-025">
+      <polygon class="el-base" points="1991,1495 2071,1495 2071,1615 1991,1615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0225" class="el pallet" data-el="pallet-0225" data-code="P-026" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-026">
+      <polygon class="el-base" points="2076,1495 2156,1495 2156,1615 2076,1615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0226" class="el pallet" data-el="pallet-0226" data-code="P-027" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-027">
+      <polygon class="el-base" points="2161,1495 2241,1495 2241,1615 2161,1615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0234" class="el pallet" data-el="pallet-0234" data-code="P-028" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-028">
+      <polygon class="el-base" points="2489,1484 2569,1484 2569,1604 2489,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0235" class="el pallet" data-el="pallet-0235" data-code="P-029" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-029">
+      <polygon class="el-base" points="2574,1484 2654,1484 2654,1604 2574,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0236" class="el pallet" data-el="pallet-0236" data-code="P-030" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-030">
+      <polygon class="el-base" points="2659,1484 2739,1484 2739,1604 2659,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0237" class="el pallet" data-el="pallet-0237" data-code="P-031" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-031">
+      <polygon class="el-base" points="2744,1484 2824,1484 2824,1604 2744,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0238" class="el pallet" data-el="pallet-0238" data-code="P-032" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-032">
+      <polygon class="el-base" points="2829,1484 2909,1484 2909,1604 2829,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0239" class="el pallet" data-el="pallet-0239" data-code="P-033" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-033">
+      <polygon class="el-base" points="2914,1484 2994,1484 2994,1604 2914,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0240" class="el pallet" data-el="pallet-0240" data-code="P-034" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-034">
+      <polygon class="el-base" points="2999,1484 3079,1484 3079,1604 2999,1604" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0209" class="el pallet" data-el="pallet-0209" data-code="P-035" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-035">
+      <polygon class="el-base" points="1146,1571 1226,1571 1226,1691 1146,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0210" class="el pallet" data-el="pallet-0210" data-code="P-036" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-036">
+      <polygon class="el-base" points="1231,1571 1311,1571 1311,1691 1231,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0211" class="el pallet" data-el="pallet-0211" data-code="P-037" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-037">
+      <polygon class="el-base" points="1316,1571 1396,1571 1396,1691 1316,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0212" class="el pallet" data-el="pallet-0212" data-code="P-038" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-038">
+      <polygon class="el-base" points="1401,1571 1481,1571 1481,1691 1401,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0213" class="el pallet" data-el="pallet-0213" data-code="P-039" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-039">
+      <polygon class="el-base" points="1486,1571 1566,1571 1566,1691 1486,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0214" class="el pallet" data-el="pallet-0214" data-code="P-040" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-040">
+      <polygon class="el-base" points="1571,1571 1651,1571 1651,1691 1571,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0215" class="el pallet" data-el="pallet-0215" data-code="P-041" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-041">
+      <polygon class="el-base" points="1656,1571 1736,1571 1736,1691 1656,1691" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0189" class="el pallet" data-el="pallet-0189" data-code="P-042" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-042">
+      <polygon class="el-base" points="1913,1630 2033,1630 2033,1710 1913,1710" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0227" class="el pallet" data-el="pallet-0227" data-code="P-043" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-043">
+      <polygon class="el-base" points="2489,1604 2569,1604 2569,1724 2489,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0228" class="el pallet" data-el="pallet-0228" data-code="P-044" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-044">
+      <polygon class="el-base" points="2574,1604 2654,1604 2654,1724 2574,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0229" class="el pallet" data-el="pallet-0229" data-code="P-045" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-045">
+      <polygon class="el-base" points="2659,1604 2739,1604 2739,1724 2659,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0230" class="el pallet" data-el="pallet-0230" data-code="P-046" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-046">
+      <polygon class="el-base" points="2744,1604 2824,1604 2824,1724 2744,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0231" class="el pallet" data-el="pallet-0231" data-code="P-047" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-047">
+      <polygon class="el-base" points="2829,1604 2909,1604 2909,1724 2829,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0232" class="el pallet" data-el="pallet-0232" data-code="P-048" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-048">
+      <polygon class="el-base" points="2914,1604 2994,1604 2994,1724 2914,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0233" class="el pallet" data-el="pallet-0233" data-code="P-049" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-049">
+      <polygon class="el-base" points="2999,1604 3079,1604 3079,1724 2999,1724" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0190" class="el pallet" data-el="pallet-0190" data-code="P-050" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-050">
+      <polygon class="el-base" points="1913,1715 2033,1715 2033,1795 1913,1795" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0191" class="el pallet" data-el="pallet-0191" data-code="P-051" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-051">
+      <polygon class="el-base" points="1913,1800 2033,1800 2033,1880 1913,1880" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0202" class="el pallet" data-el="pallet-0202" data-code="P-052" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-052">
+      <polygon class="el-base" points="1146,1891 1226,1891 1226,2011 1146,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0203" class="el pallet" data-el="pallet-0203" data-code="P-053" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-053">
+      <polygon class="el-base" points="1231,1891 1311,1891 1311,2011 1231,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0204" class="el pallet" data-el="pallet-0204" data-code="P-054" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-054">
+      <polygon class="el-base" points="1316,1891 1396,1891 1396,2011 1316,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0205" class="el pallet" data-el="pallet-0205" data-code="P-055" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-055">
+      <polygon class="el-base" points="1401,1891 1481,1891 1481,2011 1401,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0206" class="el pallet" data-el="pallet-0206" data-code="P-056" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-056">
+      <polygon class="el-base" points="1486,1891 1566,1891 1566,2011 1486,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0207" class="el pallet" data-el="pallet-0207" data-code="P-057" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-057">
+      <polygon class="el-base" points="1571,1891 1651,1891 1651,2011 1571,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0208" class="el pallet" data-el="pallet-0208" data-code="P-058" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-058">
+      <polygon class="el-base" points="1656,1891 1736,1891 1736,2011 1656,2011" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0192" class="el pallet" data-el="pallet-0192" data-code="P-059" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-059">
+      <polygon class="el-base" points="1913,1885 2033,1885 2033,1965 1913,1965" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0193" class="el pallet" data-el="pallet-0193" data-code="P-060" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-060">
+      <polygon class="el-base" points="1913,1970 2033,1970 2033,2050 1913,2050" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0181" class="el pallet" data-el="pallet-0181" data-code="P-061" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-061">
+      <polygon class="el-base" points="1146,2011 1226,2011 1226,2131 1146,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0182" class="el pallet" data-el="pallet-0182" data-code="P-062" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-062">
+      <polygon class="el-base" points="1231,2011 1311,2011 1311,2131 1231,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0183" class="el pallet" data-el="pallet-0183" data-code="P-063" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-063">
+      <polygon class="el-base" points="1316,2011 1396,2011 1396,2131 1316,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0184" class="el pallet" data-el="pallet-0184" data-code="P-064" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-064">
+      <polygon class="el-base" points="1401,2011 1481,2011 1481,2131 1401,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0185" class="el pallet" data-el="pallet-0185" data-code="P-065" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-065">
+      <polygon class="el-base" points="1486,2011 1566,2011 1566,2131 1486,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0186" class="el pallet" data-el="pallet-0186" data-code="P-066" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-066">
+      <polygon class="el-base" points="1571,2011 1651,2011 1651,2131 1571,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0187" class="el pallet" data-el="pallet-0187" data-code="P-067" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-067">
+      <polygon class="el-base" points="1656,2011 1736,2011 1736,2131 1656,2131" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0194" class="el pallet" data-el="pallet-0194" data-code="P-068" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-068">
+      <polygon class="el-base" points="1913,2055 2033,2055 2033,2135 1913,2135" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0195" class="el pallet" data-el="pallet-0195" data-code="P-069" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-069">
+      <polygon class="el-base" points="1913,2140 2033,2140 2033,2220 1913,2220" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0196" class="el pallet" data-el="pallet-0196" data-code="P-070" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-070">
+      <polygon class="el-base" points="1913,2225 2033,2225 2033,2305 1913,2305" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0197" class="el pallet" data-el="pallet-0197" data-code="P-071" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-071">
+      <polygon class="el-base" points="1913,2310 2033,2310 2033,2390 1913,2390" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0175" class="el pallet" data-el="pallet-0175" data-code="P-072" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-072">
+      <polygon class="el-base" points="1272,2375 1352,2375 1352,2495 1272,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0176" class="el pallet" data-el="pallet-0176" data-code="P-073" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-073">
+      <polygon class="el-base" points="1357,2375 1437,2375 1437,2495 1357,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0177" class="el pallet" data-el="pallet-0177" data-code="P-074" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-074">
+      <polygon class="el-base" points="1442,2375 1522,2375 1522,2495 1442,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0178" class="el pallet" data-el="pallet-0178" data-code="P-075" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-075">
+      <polygon class="el-base" points="1527,2375 1607,2375 1607,2495 1527,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0179" class="el pallet" data-el="pallet-0179" data-code="P-076" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-076">
+      <polygon class="el-base" points="1612,2375 1692,2375 1692,2495 1612,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0180" class="el pallet" data-el="pallet-0180" data-code="P-077" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-077">
+      <polygon class="el-base" points="1697,2375 1777,2375 1777,2495 1697,2495" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0198" class="el pallet" data-el="pallet-0198" data-code="P-078" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-078">
+      <polygon class="el-base" points="1913,2395 2033,2395 2033,2475 1913,2475" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0169" class="el pallet" data-el="pallet-0169" data-code="P-079" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-079">
+      <polygon class="el-base" points="1272,2495 1352,2495 1352,2615 1272,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0170" class="el pallet" data-el="pallet-0170" data-code="P-080" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-080">
+      <polygon class="el-base" points="1357,2495 1437,2495 1437,2615 1357,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0171" class="el pallet" data-el="pallet-0171" data-code="P-081" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-081">
+      <polygon class="el-base" points="1442,2495 1522,2495 1522,2615 1442,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0172" class="el pallet" data-el="pallet-0172" data-code="P-082" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-082">
+      <polygon class="el-base" points="1527,2495 1607,2495 1607,2615 1527,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0173" class="el pallet" data-el="pallet-0173" data-code="P-083" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-083">
+      <polygon class="el-base" points="1612,2495 1692,2495 1692,2615 1612,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0174" class="el pallet" data-el="pallet-0174" data-code="P-084" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-084">
+      <polygon class="el-base" points="1697,2495 1777,2495 1777,2615 1697,2615" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0199" class="el pallet" data-el="pallet-0199" data-code="P-085" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-085">
+      <polygon class="el-base" points="1913,2480 2033,2480 2033,2560 1913,2560" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0200" class="el pallet" data-el="pallet-0200" data-code="P-086" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-086">
+      <polygon class="el-base" points="1913,2565 2033,2565 2033,2645 1913,2645" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0201" class="el pallet" data-el="pallet-0201" data-code="P-087" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-087">
+      <polygon class="el-base" points="1913,2650 2033,2650 2033,2730 1913,2730" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0272" class="el pallet" data-el="pallet-0272" data-code="P-088" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-088">
+      <polygon class="el-base" points="1913,2735 2033,2735 2033,2815 1913,2815" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0159" class="el pallet" data-el="pallet-0159" data-code="P-089" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-089">
+      <polygon class="el-base" points="1272,2815 1352,2815 1352,2935 1272,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0160" class="el pallet" data-el="pallet-0160" data-code="P-090" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-090">
+      <polygon class="el-base" points="1357,2815 1437,2815 1437,2935 1357,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0161" class="el pallet" data-el="pallet-0161" data-code="P-091" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-091">
+      <polygon class="el-base" points="1442,2815 1522,2815 1522,2935 1442,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0162" class="el pallet" data-el="pallet-0162" data-code="P-092" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-092">
+      <polygon class="el-base" points="1527,2815 1607,2815 1607,2935 1527,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0163" class="el pallet" data-el="pallet-0163" data-code="P-093" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-093">
+      <polygon class="el-base" points="1612,2815 1692,2815 1692,2935 1612,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0164" class="el pallet" data-el="pallet-0164" data-code="P-094" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-094">
+      <polygon class="el-base" points="1697,2815 1777,2815 1777,2935 1697,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0165" class="el pallet" data-el="pallet-0165" data-code="P-095" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-095">
+      <polygon class="el-base" points="1906,2815 1986,2815 1986,2935 1906,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0166" class="el pallet" data-el="pallet-0166" data-code="P-096" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-096">
+      <polygon class="el-base" points="1991,2815 2071,2815 2071,2935 1991,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0167" class="el pallet" data-el="pallet-0167" data-code="P-097" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-097">
+      <polygon class="el-base" points="2076,2815 2156,2815 2156,2935 2076,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0168" class="el pallet" data-el="pallet-0168" data-code="P-098" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-098">
+      <polygon class="el-base" points="2161,2815 2241,2815 2241,2935 2161,2935" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0149" class="el pallet" data-el="pallet-0149" data-code="P-099" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-099">
+      <polygon class="el-base" points="1272,3087 1352,3087 1352,3207 1272,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0150" class="el pallet" data-el="pallet-0150" data-code="P-100" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-100">
+      <polygon class="el-base" points="1357,3087 1437,3087 1437,3207 1357,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0151" class="el pallet" data-el="pallet-0151" data-code="P-101" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-101">
+      <polygon class="el-base" points="1442,3087 1522,3087 1522,3207 1442,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0152" class="el pallet" data-el="pallet-0152" data-code="P-102" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-102">
+      <polygon class="el-base" points="1527,3087 1607,3087 1607,3207 1527,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0153" class="el pallet" data-el="pallet-0153" data-code="P-103" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-103">
+      <polygon class="el-base" points="1612,3087 1692,3087 1692,3207 1612,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0154" class="el pallet" data-el="pallet-0154" data-code="P-104" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-104">
+      <polygon class="el-base" points="1697,3087 1777,3087 1777,3207 1697,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0155" class="el pallet" data-el="pallet-0155" data-code="P-105" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-105">
+      <polygon class="el-base" points="1782,3087 1862,3087 1862,3207 1782,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0156" class="el pallet" data-el="pallet-0156" data-code="P-106" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-106">
+      <polygon class="el-base" points="1867,3087 1947,3087 1947,3207 1867,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0157" class="el pallet" data-el="pallet-0157" data-code="P-107" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-107">
+      <polygon class="el-base" points="1952,3087 2032,3087 2032,3207 1952,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0158" class="el pallet" data-el="pallet-0158" data-code="P-108" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-108">
+      <polygon class="el-base" points="2037,3087 2117,3087 2117,3207 2037,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0065" class="el pallet" data-el="pallet-0065" data-code="P-109" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-109">
+      <polygon class="el-base" points="2514,3087 2594,3087 2594,3207 2514,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0066" class="el pallet" data-el="pallet-0066" data-code="P-110" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-110">
+      <polygon class="el-base" points="2599,3087 2679,3087 2679,3207 2599,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0067" class="el pallet" data-el="pallet-0067" data-code="P-111" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-111">
+      <polygon class="el-base" points="2684,3087 2764,3087 2764,3207 2684,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0068" class="el pallet" data-el="pallet-0068" data-code="P-112" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-112">
+      <polygon class="el-base" points="2769,3087 2849,3087 2849,3207 2769,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0069" class="el pallet" data-el="pallet-0069" data-code="P-113" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-113">
+      <polygon class="el-base" points="2854,3087 2934,3087 2934,3207 2854,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0070" class="el pallet" data-el="pallet-0070" data-code="P-114" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-114">
+      <polygon class="el-base" points="2939,3087 3019,3087 3019,3207 2939,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0071" class="el pallet" data-el="pallet-0071" data-code="P-115" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-115">
+      <polygon class="el-base" points="3024,3087 3104,3087 3104,3207 3024,3207" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0142" class="el pallet" data-el="pallet-0142" data-code="P-116" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-116">
+      <polygon class="el-base" points="2514,3257 2594,3257 2594,3377 2514,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0143" class="el pallet" data-el="pallet-0143" data-code="P-117" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-117">
+      <polygon class="el-base" points="2599,3257 2679,3257 2679,3377 2599,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0144" class="el pallet" data-el="pallet-0144" data-code="P-118" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-118">
+      <polygon class="el-base" points="2684,3257 2764,3257 2764,3377 2684,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0145" class="el pallet" data-el="pallet-0145" data-code="P-119" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-119">
+      <polygon class="el-base" points="2769,3257 2849,3257 2849,3377 2769,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0146" class="el pallet" data-el="pallet-0146" data-code="P-120" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-120">
+      <polygon class="el-base" points="2854,3257 2934,3257 2934,3377 2854,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0147" class="el pallet" data-el="pallet-0147" data-code="P-121" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-121">
+      <polygon class="el-base" points="2939,3257 3019,3257 3019,3377 2939,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0148" class="el pallet" data-el="pallet-0148" data-code="P-122" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-122">
+      <polygon class="el-base" points="3024,3257 3104,3257 3104,3377 3024,3377" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0110" class="el pallet" data-el="pallet-0110" data-code="P-123" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-123">
+      <polygon class="el-base" points="2814,3377 2934,3377 2934,3457 2814,3457" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0126" class="el pallet" data-el="pallet-0126" data-code="P-124" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-124">
+      <polygon class="el-base" points="2934,3377 3054,3377 3054,3457 2934,3457" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0111" class="el pallet" data-el="pallet-0111" data-code="P-125" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-125">
+      <polygon class="el-base" points="2814,3462 2934,3462 2934,3542 2814,3542" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0127" class="el pallet" data-el="pallet-0127" data-code="P-126" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-126">
+      <polygon class="el-base" points="2934,3462 3054,3462 3054,3542 2934,3542" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0112" class="el pallet" data-el="pallet-0112" data-code="P-127" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-127">
+      <polygon class="el-base" points="2814,3547 2934,3547 2934,3627 2814,3627" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0128" class="el pallet" data-el="pallet-0128" data-code="P-128" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-128">
+      <polygon class="el-base" points="2934,3547 3054,3547 3054,3627 2934,3627" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0107" class="el pallet" data-el="pallet-0107" data-code="P-129" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-129">
+      <polygon class="el-base" points="2400,3671 2520,3671 2520,3751 2400,3751" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0099" class="el pallet" data-el="pallet-0099" data-code="P-130" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-130">
+      <polygon class="el-base" points="2520,3647 2640,3647 2640,3727 2520,3727" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0113" class="el pallet" data-el="pallet-0113" data-code="P-131" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-131">
+      <polygon class="el-base" points="2814,3632 2934,3632 2934,3712 2814,3712" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0129" class="el pallet" data-el="pallet-0129" data-code="P-132" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-132">
+      <polygon class="el-base" points="2934,3632 3054,3632 3054,3712 2934,3712" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0108" class="el pallet" data-el="pallet-0108" data-code="P-133" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-133">
+      <polygon class="el-base" points="2400,3756 2520,3756 2520,3836 2400,3836" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0100" class="el pallet" data-el="pallet-0100" data-code="P-134" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-134">
+      <polygon class="el-base" points="2520,3732 2640,3732 2640,3812 2520,3812" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0114" class="el pallet" data-el="pallet-0114" data-code="P-135" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-135">
+      <polygon class="el-base" points="2814,3717 2934,3717 2934,3797 2814,3797" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0130" class="el pallet" data-el="pallet-0130" data-code="P-136" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-136">
+      <polygon class="el-base" points="2934,3717 3054,3717 3054,3797 2934,3797" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0257" class="el pallet" data-el="pallet-0257" data-code="P-137" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-137">
+      <polygon class="el-base" points="1181,3751 1261,3751 1261,3871 1181,3871" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0109" class="el pallet" data-el="pallet-0109" data-code="P-138" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-138">
+      <polygon class="el-base" points="2400,3841 2520,3841 2520,3921 2400,3921" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0101" class="el pallet" data-el="pallet-0101" data-code="P-139" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-139">
+      <polygon class="el-base" points="2520,3817 2640,3817 2640,3897 2520,3897" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0115" class="el pallet" data-el="pallet-0115" data-code="P-140" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-140">
+      <polygon class="el-base" points="2814,3802 2934,3802 2934,3882 2814,3882" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0131" class="el pallet" data-el="pallet-0131" data-code="P-141" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-141">
+      <polygon class="el-base" points="2934,3802 3054,3802 3054,3882 2934,3882" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0102" class="el pallet" data-el="pallet-0102" data-code="P-142" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-142">
+      <polygon class="el-base" points="2520,3902 2640,3902 2640,3982 2520,3982" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0116" class="el pallet" data-el="pallet-0116" data-code="P-143" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-143">
+      <polygon class="el-base" points="2814,3887 2934,3887 2934,3967 2814,3967" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0132" class="el pallet" data-el="pallet-0132" data-code="P-144" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-144">
+      <polygon class="el-base" points="2934,3887 3054,3887 3054,3967 2934,3967" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0103" class="el pallet" data-el="pallet-0103" data-code="P-145" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-145">
+      <polygon class="el-base" points="2520,3987 2640,3987 2640,4067 2520,4067" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0117" class="el pallet" data-el="pallet-0117" data-code="P-146" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-146">
+      <polygon class="el-base" points="2814,3972 2934,3972 2934,4052 2814,4052" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0133" class="el pallet" data-el="pallet-0133" data-code="P-147" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-147">
+      <polygon class="el-base" points="2934,3972 3054,3972 3054,4052 2934,4052" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0091" class="el pallet" data-el="pallet-0091" data-code="P-148" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-148">
+      <polygon class="el-base" points="1242,4023 1322,4023 1322,4143 1242,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0092" class="el pallet" data-el="pallet-0092" data-code="P-149" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-149">
+      <polygon class="el-base" points="1327,4023 1407,4023 1407,4143 1327,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0093" class="el pallet" data-el="pallet-0093" data-code="P-150" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-150">
+      <polygon class="el-base" points="1412,4023 1492,4023 1492,4143 1412,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0094" class="el pallet" data-el="pallet-0094" data-code="P-151" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-151">
+      <polygon class="el-base" points="1497,4023 1577,4023 1577,4143 1497,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0095" class="el pallet" data-el="pallet-0095" data-code="P-152" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-152">
+      <polygon class="el-base" points="1582,4023 1662,4023 1662,4143 1582,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0096" class="el pallet" data-el="pallet-0096" data-code="P-153" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-153">
+      <polygon class="el-base" points="1667,4023 1747,4023 1747,4143 1667,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0097" class="el pallet" data-el="pallet-0097" data-code="P-154" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-154">
+      <polygon class="el-base" points="1752,4023 1832,4023 1832,4143 1752,4143" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0104" class="el pallet" data-el="pallet-0104" data-code="P-155" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-155">
+      <polygon class="el-base" points="2520,4072 2640,4072 2640,4152 2520,4152" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0118" class="el pallet" data-el="pallet-0118" data-code="P-156" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-156">
+      <polygon class="el-base" points="2814,4057 2934,4057 2934,4137 2814,4137" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0134" class="el pallet" data-el="pallet-0134" data-code="P-157" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-157">
+      <polygon class="el-base" points="2934,4057 3054,4057 3054,4137 2934,4137" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0083" class="el pallet" data-el="pallet-0083" data-code="P-158" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-158">
+      <polygon class="el-base" points="1157,4143 1237,4143 1237,4263 1157,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0084" class="el pallet" data-el="pallet-0084" data-code="P-159" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-159">
+      <polygon class="el-base" points="1242,4143 1322,4143 1322,4263 1242,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0085" class="el pallet" data-el="pallet-0085" data-code="P-160" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-160">
+      <polygon class="el-base" points="1327,4143 1407,4143 1407,4263 1327,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0086" class="el pallet" data-el="pallet-0086" data-code="P-161" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-161">
+      <polygon class="el-base" points="1412,4143 1492,4143 1492,4263 1412,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0087" class="el pallet" data-el="pallet-0087" data-code="P-162" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-162">
+      <polygon class="el-base" points="1497,4143 1577,4143 1577,4263 1497,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0088" class="el pallet" data-el="pallet-0088" data-code="P-163" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-163">
+      <polygon class="el-base" points="1582,4143 1662,4143 1662,4263 1582,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0089" class="el pallet" data-el="pallet-0089" data-code="P-164" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-164">
+      <polygon class="el-base" points="1667,4143 1747,4143 1747,4263 1667,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0090" class="el pallet" data-el="pallet-0090" data-code="P-165" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-165">
+      <polygon class="el-base" points="1752,4143 1832,4143 1832,4263 1752,4263" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0105" class="el pallet" data-el="pallet-0105" data-code="P-166" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-166">
+      <polygon class="el-base" points="2520,4157 2640,4157 2640,4237 2520,4237" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0119" class="el pallet" data-el="pallet-0119" data-code="P-167" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-167">
+      <polygon class="el-base" points="2814,4142 2934,4142 2934,4222 2814,4222" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0135" class="el pallet" data-el="pallet-0135" data-code="P-168" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-168">
+      <polygon class="el-base" points="2934,4142 3054,4142 3054,4222 2934,4222" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0098" class="el pallet" data-el="pallet-0098" data-code="P-169" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-169">
+      <polygon class="el-base" points="2073,4235 2193,4235 2193,4315 2073,4315" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0106" class="el pallet" data-el="pallet-0106" data-code="P-170" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-170">
+      <polygon class="el-base" points="2520,4242 2640,4242 2640,4322 2520,4322" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0120" class="el pallet" data-el="pallet-0120" data-code="P-171" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-171">
+      <polygon class="el-base" points="2814,4227 2934,4227 2934,4307 2814,4307" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0136" class="el pallet" data-el="pallet-0136" data-code="P-172" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-172">
+      <polygon class="el-base" points="2934,4227 3054,4227 3054,4307 2934,4307" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0073" class="el pallet" data-el="pallet-0073" data-code="P-173" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-173">
+      <polygon class="el-base" points="1157,4263 1237,4263 1237,4383 1157,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0074" class="el pallet" data-el="pallet-0074" data-code="P-174" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-174">
+      <polygon class="el-base" points="1242,4263 1322,4263 1322,4383 1242,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0075" class="el pallet" data-el="pallet-0075" data-code="P-175" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-175">
+      <polygon class="el-base" points="1327,4263 1407,4263 1407,4383 1327,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0076" class="el pallet" data-el="pallet-0076" data-code="P-176" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-176">
+      <polygon class="el-base" points="1412,4263 1492,4263 1492,4383 1412,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0077" class="el pallet" data-el="pallet-0077" data-code="P-177" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-177">
+      <polygon class="el-base" points="1497,4263 1577,4263 1577,4383 1497,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0078" class="el pallet" data-el="pallet-0078" data-code="P-178" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-178">
+      <polygon class="el-base" points="1582,4263 1662,4263 1662,4383 1582,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0079" class="el pallet" data-el="pallet-0079" data-code="P-179" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-179">
+      <polygon class="el-base" points="1667,4263 1747,4263 1747,4383 1667,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0080" class="el pallet" data-el="pallet-0080" data-code="P-180" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-180">
+      <polygon class="el-base" points="1752,4263 1832,4263 1832,4383 1752,4383" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0121" class="el pallet" data-el="pallet-0121" data-code="P-181" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-181">
+      <polygon class="el-base" points="2814,4312 2934,4312 2934,4392 2814,4392" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0137" class="el pallet" data-el="pallet-0137" data-code="P-182" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-182">
+      <polygon class="el-base" points="2934,4312 3054,4312 3054,4392 2934,4392" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0072" class="el pallet" data-el="pallet-0072" data-code="P-183" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-183">
+      <polygon class="el-base" points="1157,4383 1277,4383 1277,4463 1157,4463" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0122" class="el pallet" data-el="pallet-0122" data-code="P-184" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-184">
+      <polygon class="el-base" points="2814,4397 2934,4397 2934,4477 2814,4477" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0138" class="el pallet" data-el="pallet-0138" data-code="P-185" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-185">
+      <polygon class="el-base" points="2934,4397 3054,4397 3054,4477 2934,4477" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0259" class="el pallet" data-el="pallet-0259" data-code="P-186" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-186">
+      <polygon class="el-base" points="1157,4468 1277,4468 1277,4548 1157,4548" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0081" class="el pallet" data-el="pallet-0081" data-code="P-187" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-187">
+      <polygon class="el-base" points="1713,4507 1833,4507 1833,4587 1713,4587" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0082" class="el pallet" data-el="pallet-0082" data-code="P-188" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-188">
+      <polygon class="el-base" points="1838,4507 1958,4507 1958,4587 1838,4587" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0123" class="el pallet" data-el="pallet-0123" data-code="P-189" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-189">
+      <polygon class="el-base" points="2814,4482 2934,4482 2934,4562 2814,4562" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0139" class="el pallet" data-el="pallet-0139" data-code="P-190" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-190">
+      <polygon class="el-base" points="2934,4482 3054,4482 3054,4562 2934,4562" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0124" class="el pallet" data-el="pallet-0124" data-code="P-191" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-191">
+      <polygon class="el-base" points="2814,4567 2934,4567 2934,4647 2814,4647" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0140" class="el pallet" data-el="pallet-0140" data-code="P-192" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-192">
+      <polygon class="el-base" points="2934,4567 3054,4567 3054,4647 2934,4647" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0125" class="el pallet" data-el="pallet-0125" data-code="P-193" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-193">
+      <polygon class="el-base" points="2814,4652 2934,4652 2934,4732 2814,4732" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+    <g id="pallet-0141" class="el pallet" data-el="pallet-0141" data-code="P-194" data-locked="true" tabindex="0" role="button" aria-label="Pallet P-194">
+      <polygon class="el-base" points="2934,4652 3054,4652 3054,4732 2934,4732" fill="#fdfbf7" stroke="#c2c0dc" stroke-width="1.6"/>
+    </g>
+  </g>
+  <g id="storage-racks">
+    <g id="rack-0012" class="el rack" data-el="rack-0012" data-code="R-01" data-locked="true" tabindex="0" role="button" aria-label="Rack R-01">
+      <polygon points="2111,1672 2221,1672 2221,1679 2111,1679" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,1759 2221,1759 2221,1767 2111,1767" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,1847 2221,1847 2221,1855 2111,1855" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,1935 2221,1935 2221,1942 2111,1942" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2111,1663 2221,1663 2221,1951 2111,1951" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,1663 2221,1663 2221,1672 2111,1672" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,1942 2221,1942 2221,1951 2111,1951" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2106,1663 2226,1663 2226,1951 2106,1951" fill="transparent"/>
+    </g>
+    <g id="rack-0021" class="el rack" data-el="rack-0021" data-code="R-02" data-locked="true" tabindex="0" role="button" aria-label="Rack R-02">
+      <polygon points="2486,1908 2493,1908 2493,2018 2486,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2573,1908 2581,1908 2581,2018 2573,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2661,1908 2669,1908 2669,2018 2661,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2749,1908 2756,1908 2756,2018 2749,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2477,1908 2765,1908 2765,2018 2477,2018" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2477,1908 2486,1908 2486,2018 2477,2018" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2756,1908 2765,1908 2765,2018 2756,2018" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2477,1903 2765,1903 2765,2023 2477,2023" fill="transparent"/>
+    </g>
+    <g id="rack-0022" class="el rack" data-el="rack-0022" data-code="R-03" data-locked="true" tabindex="0" role="button" aria-label="Rack R-03">
+      <polygon points="2774,1908 2781,1908 2781,2018 2774,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2861,1908 2869,1908 2869,2018 2861,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2949,1908 2957,1908 2957,2018 2949,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="3037,1908 3044,1908 3044,2018 3037,2018" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2765,1908 3053,1908 3053,2018 2765,2018" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2765,1908 2774,1908 2774,2018 2765,2018" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="3044,1908 3053,1908 3053,2018 3044,2018" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2765,1903 3053,1903 3053,2023 2765,2023" fill="transparent"/>
+    </g>
+    <g id="rack-0011" class="el rack" data-el="rack-0011" data-code="R-04" data-locked="true" tabindex="0" role="button" aria-label="Rack R-04">
+      <polygon points="2111,1960 2221,1960 2221,1967 2111,1967" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2047 2221,2047 2221,2055 2111,2055" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2135 2221,2135 2221,2143 2111,2143" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2223 2221,2223 2221,2230 2111,2230" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2111,1951 2221,1951 2221,2239 2111,2239" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,1951 2221,1951 2221,1960 2111,1960" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,2230 2221,2230 2221,2239 2111,2239" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2106,1951 2226,1951 2226,2239 2106,2239" fill="transparent"/>
+    </g>
+    <g id="rack-0019" class="el rack" data-el="rack-0019" data-code="R-05" data-locked="true" tabindex="0" role="button" aria-label="Rack R-05">
+      <polygon points="2486,2028 2493,2028 2493,2138 2486,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2573,2028 2581,2028 2581,2138 2573,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2661,2028 2669,2028 2669,2138 2661,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2749,2028 2756,2028 2756,2138 2749,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2477,2028 2765,2028 2765,2138 2477,2138" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2477,2028 2486,2028 2486,2138 2477,2138" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2756,2028 2765,2028 2765,2138 2756,2138" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2477,2023 2765,2023 2765,2143 2477,2143" fill="transparent"/>
+    </g>
+    <g id="rack-0020" class="el rack" data-el="rack-0020" data-code="R-06" data-locked="true" tabindex="0" role="button" aria-label="Rack R-06">
+      <polygon points="2774,2028 2781,2028 2781,2138 2774,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2861,2028 2869,2028 2869,2138 2861,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2949,2028 2957,2028 2957,2138 2949,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="3037,2028 3044,2028 3044,2138 3037,2138" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2765,2028 3053,2028 3053,2138 2765,2138" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2765,2028 2774,2028 2774,2138 2765,2138" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="3044,2028 3053,2028 3053,2138 3044,2138" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2765,2023 3053,2023 3053,2143 2765,2143" fill="transparent"/>
+    </g>
+    <g id="rack-0010" class="el rack" data-el="rack-0010" data-code="R-07" data-locked="true" tabindex="0" role="button" aria-label="Rack R-07">
+      <polygon points="2111,2248 2221,2248 2221,2255 2111,2255" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2335 2221,2335 2221,2343 2111,2343" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2423 2221,2423 2221,2431 2111,2431" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2511 2221,2511 2221,2518 2111,2518" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2111,2239 2221,2239 2221,2527 2111,2527" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,2239 2221,2239 2221,2248 2111,2248" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,2518 2221,2518 2221,2527 2111,2527" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2106,2239 2226,2239 2226,2527 2106,2527" fill="transparent"/>
+    </g>
+    <g id="rack-0017" class="el rack" data-el="rack-0017" data-code="R-08" data-locked="true" tabindex="0" role="button" aria-label="Rack R-08">
+      <polygon points="2486,2378 2493,2378 2493,2488 2486,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2573,2378 2581,2378 2581,2488 2573,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2661,2378 2669,2378 2669,2488 2661,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2749,2378 2756,2378 2756,2488 2749,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2477,2378 2765,2378 2765,2488 2477,2488" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2477,2378 2486,2378 2486,2488 2477,2488" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2756,2378 2765,2378 2765,2488 2756,2488" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2477,2373 2765,2373 2765,2493 2477,2493" fill="transparent"/>
+    </g>
+    <g id="rack-0018" class="el rack" data-el="rack-0018" data-code="R-09" data-locked="true" tabindex="0" role="button" aria-label="Rack R-09">
+      <polygon points="2774,2378 2781,2378 2781,2488 2774,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2861,2378 2869,2378 2869,2488 2861,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2949,2378 2957,2378 2957,2488 2949,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="3037,2378 3044,2378 3044,2488 3037,2488" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2765,2378 3053,2378 3053,2488 2765,2488" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2765,2378 2774,2378 2774,2488 2765,2488" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="3044,2378 3053,2378 3053,2488 3044,2488" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2765,2373 3053,2373 3053,2493 2765,2493" fill="transparent"/>
+    </g>
+    <g id="rack-0015" class="el rack" data-el="rack-0015" data-code="R-10" data-locked="true" tabindex="0" role="button" aria-label="Rack R-10">
+      <polygon points="2486,2498 2493,2498 2493,2608 2486,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2573,2498 2581,2498 2581,2608 2573,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2661,2498 2669,2498 2669,2608 2661,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2749,2498 2756,2498 2756,2608 2749,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2477,2498 2765,2498 2765,2608 2477,2608" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2477,2498 2486,2498 2486,2608 2477,2608" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2756,2498 2765,2498 2765,2608 2756,2608" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2477,2493 2765,2493 2765,2613 2477,2613" fill="transparent"/>
+    </g>
+    <g id="rack-0016" class="el rack" data-el="rack-0016" data-code="R-11" data-locked="true" tabindex="0" role="button" aria-label="Rack R-11">
+      <polygon points="2774,2498 2781,2498 2781,2608 2774,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2861,2498 2869,2498 2869,2608 2861,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2949,2498 2957,2498 2957,2608 2949,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="3037,2498 3044,2498 3044,2608 3037,2608" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2765,2498 3053,2498 3053,2608 2765,2608" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2765,2498 2774,2498 2774,2608 2765,2608" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="3044,2498 3053,2498 3053,2608 3044,2608" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2765,2493 3053,2493 3053,2613 2765,2613" fill="transparent"/>
+    </g>
+    <g id="rack-0009" class="el rack" data-el="rack-0009" data-code="R-12" data-locked="true" tabindex="0" role="button" aria-label="Rack R-12">
+      <polygon points="2111,2536 2221,2536 2221,2543 2111,2543" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2623 2221,2623 2221,2631 2111,2631" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2711 2221,2711 2221,2719 2111,2719" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2111,2799 2221,2799 2221,2806 2111,2806" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2111,2527 2221,2527 2221,2815 2111,2815" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,2527 2221,2527 2221,2536 2111,2536" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2111,2806 2221,2806 2221,2815 2111,2815" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2106,2527 2226,2527 2226,2815 2106,2815" fill="transparent"/>
+    </g>
+    <g id="rack-0013" class="el rack" data-el="rack-0013" data-code="R-13" data-locked="true" tabindex="0" role="button" aria-label="Rack R-13">
+      <polygon points="2486,2820 2493,2820 2493,2930 2486,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2573,2820 2581,2820 2581,2930 2573,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2661,2820 2669,2820 2669,2930 2661,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2749,2820 2756,2820 2756,2930 2749,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2477,2820 2765,2820 2765,2930 2477,2930" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2477,2820 2486,2820 2486,2930 2477,2930" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2756,2820 2765,2820 2765,2930 2756,2930" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2477,2815 2765,2815 2765,2935 2477,2935" fill="transparent"/>
+    </g>
+    <g id="rack-0014" class="el rack" data-el="rack-0014" data-code="R-14" data-locked="true" tabindex="0" role="button" aria-label="Rack R-14">
+      <polygon points="2774,2820 2781,2820 2781,2930 2774,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2861,2820 2869,2820 2869,2930 2861,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2949,2820 2957,2820 2957,2930 2949,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="3037,2820 3044,2820 3044,2930 3037,2930" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2765,2820 3053,2820 3053,2930 2765,2930" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2765,2820 2774,2820 2774,2930 2765,2930" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="3044,2820 3053,2820 3053,2930 3044,2930" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2765,2815 3053,2815 3053,2935 2765,2935" fill="transparent"/>
+    </g>
+    <g id="rack-0006" class="el rack" data-el="rack-0006" data-code="R-15" data-locked="true" tabindex="0" role="button" aria-label="Rack R-15">
+      <polygon points="2078,3266 2188,3266 2188,3274 2078,3274" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3354 2188,3354 2188,3362 2078,3362" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3442 2188,3442 2188,3450 2078,3450" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3530 2188,3530 2188,3538 2078,3538" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3618 2188,3618 2188,3626 2078,3626" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2078,3257 2188,3257 2188,3635 2078,3635" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,3257 2188,3257 2188,3266 2078,3266" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,3626 2188,3626 2188,3635 2078,3635" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2073,3257 2193,3257 2193,3635 2073,3635" fill="transparent"/>
+    </g>
+    <g id="rack-0005" class="el rack" data-el="rack-0005" data-code="R-16" data-locked="true" tabindex="0" role="button" aria-label="Rack R-16">
+      <polygon points="2078,3644 2188,3644 2188,3651 2078,3651" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3731 2188,3731 2188,3739 2078,3739" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3819 2188,3819 2188,3826 2078,3826" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2078,3635 2188,3635 2188,3835 2078,3835" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,3635 2188,3635 2188,3644 2078,3644" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,3826 2188,3826 2188,3835 2078,3835" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2073,3635 2193,3635 2193,3835 2073,3835" fill="transparent"/>
+    </g>
+    <g id="rack-0008" class="el rack" data-el="rack-0008" data-code="R-17" data-locked="true" tabindex="0" role="button" aria-label="Rack R-17">
+      <polygon points="1301,3756 1309,3756 1309,3866 1301,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1389,3756 1397,3756 1397,3866 1389,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1477,3756 1485,3756 1485,3866 1477,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1565,3756 1573,3756 1573,3866 1565,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1653,3756 1661,3756 1661,3866 1653,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="1292,3756 1670,3756 1670,3866 1292,3866" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="1292,3756 1301,3756 1301,3866 1292,3866" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="1661,3756 1670,3756 1670,3866 1661,3866" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="1292,3751 1670,3751 1670,3871 1292,3871" fill="transparent"/>
+    </g>
+    <g id="rack-0007" class="el rack" data-el="rack-0007" data-code="R-18" data-locked="true" tabindex="0" role="button" aria-label="Rack R-18">
+      <polygon points="1679,3756 1687,3756 1687,3866 1679,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1767,3756 1775,3756 1775,3866 1767,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1855,3756 1863,3756 1863,3866 1855,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="1943,3756 1951,3756 1951,3866 1943,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2031,3756 2039,3756 2039,3866 2031,3866" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="1670,3756 2048,3756 2048,3866 1670,3866" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="1670,3756 1679,3756 1679,3866 1670,3866" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2039,3756 2048,3756 2048,3866 2039,3866" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="1670,3751 2048,3751 2048,3871 1670,3871" fill="transparent"/>
+    </g>
+    <g id="rack-0003" class="el rack" data-el="rack-0003" data-code="R-19" data-locked="true" tabindex="0" role="button" aria-label="Rack R-19">
+      <polygon points="2078,3844 2188,3844 2188,3851 2078,3851" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,3931 2188,3931 2188,3939 2078,3939" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,4019 2188,4019 2188,4026 2078,4026" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2078,3835 2188,3835 2188,4035 2078,4035" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,3835 2188,3835 2188,3844 2078,3844" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,4026 2188,4026 2188,4035 2078,4035" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2073,3835 2193,3835 2193,4035 2073,4035" fill="transparent"/>
+    </g>
+    <g id="rack-0004" class="el rack" data-el="rack-0004" data-code="R-20" data-locked="true" tabindex="0" role="button" aria-label="Rack R-20">
+      <polygon points="2405,3930 2515,3930 2515,3937 2405,3937" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2405,4017 2515,4017 2515,4025 2405,4025" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2405,4105 2515,4105 2515,4112 2405,4112" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2405,3921 2515,3921 2515,4121 2405,4121" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2405,3921 2515,3921 2515,3930 2405,3930" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2405,4112 2515,4112 2515,4121 2405,4121" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2400,3921 2520,3921 2520,4121 2400,4121" fill="transparent"/>
+    </g>
+    <g id="rack-0001" class="el rack" data-el="rack-0001" data-code="R-21" data-locked="true" tabindex="0" role="button" aria-label="Rack R-21">
+      <polygon points="2078,4044 2188,4044 2188,4051 2078,4051" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,4131 2188,4131 2188,4139 2078,4139" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2078,4219 2188,4219 2188,4226 2078,4226" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2078,4035 2188,4035 2188,4235 2078,4235" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,4035 2188,4035 2188,4044 2078,4044" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2078,4226 2188,4226 2188,4235 2078,4235" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2073,4035 2193,4035 2193,4235 2073,4235" fill="transparent"/>
+    </g>
+    <g id="rack-0002" class="el rack" data-el="rack-0002" data-code="R-22" data-locked="true" tabindex="0" role="button" aria-label="Rack R-22">
+      <polygon points="2405,4130 2515,4130 2515,4137 2405,4137" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2405,4217 2515,4217 2515,4225 2405,4225" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon points="2405,4305 2515,4305 2515,4312 2405,4312" fill="#4f84b8" fill-opacity="0.3" stroke="none"/><polygon class="el-base" points="2405,4121 2515,4121 2515,4321 2405,4321" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/><polygon points="2405,4121 2515,4121 2515,4130 2405,4130" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/><polygon points="2405,4312 2515,4312 2515,4321 2405,4321" fill="#4f84b8" fill-opacity="0.75" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2400,4121 2520,4121 2520,4321 2400,4321" fill="transparent"/>
+    </g>
+    <g id="rack-0026" class="el rack" data-el="rack-0026" data-code="R-23" data-locked="true" tabindex="0" role="button" aria-label="Rack R-23">
+      <polygon class="el-base" points="2400,4327 2640,4327 2640,4395 2400,4395" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2400,4322 2640,4322 2640,4400 2400,4400" fill="transparent"/>
+    </g>
+    <g id="rack-0023" class="el rack" data-el="rack-0023" data-code="R-24" data-locked="true" tabindex="0" role="button" aria-label="Rack R-24">
+      <polygon class="el-base" points="1595,4697 2217,4697 2217,4804 1595,4804" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="1595,4692 2217,4692 2217,4809 1595,4809" fill="transparent"/>
+    </g>
+    <g id="rack-0024" class="el rack" data-el="rack-0024" data-code="R-25" data-locked="true" tabindex="0" role="button" aria-label="Rack R-25">
+      <polygon class="el-base" points="1774,4979 2098,4979 2098,5144 1774,5144" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="1774,4974 2098,4974 2098,5149 1774,5149" fill="transparent"/>
+    </g>
+    <g id="rack-0025" class="el rack" data-el="rack-0025" data-code="R-26" data-locked="true" tabindex="0" role="button" aria-label="Rack R-26">
+      <polygon class="el-base" points="2503,4914 2649,4914 2649,5149 2503,5149" fill="#ebf2fc" stroke="#4f84b8" stroke-width="2"/>
+      <polygon class="hit" points="2498,4914 2654,4914 2654,5149 2498,5149" fill="transparent"/>
+    </g>
+  </g>
+  <g id="labels" pointer-events="none">
+    <text class="lbl pallet" data-for="pallet-0252" x="2994" y="831">1</text>
+    <text class="lbl pallet" data-for="pallet-0253" x="2994" y="916">2</text>
+    <text class="lbl pallet" data-for="pallet-0254" x="2994" y="1001">3</text>
+    <text class="lbl pallet" data-for="pallet-0255" x="2994" y="1086">4</text>
+    <text class="lbl pallet" data-for="pallet-0256" x="2994" y="1171">5</text>
+    <text class="lbl pallet" data-for="pallet-0241" x="1923" y="1250">6</text>
+    <text class="lbl pallet" data-for="pallet-0242" x="2008" y="1250">7</text>
+    <text class="lbl pallet" data-for="pallet-0243" x="2138" y="1250">8</text>
+    <text class="lbl pallet" data-for="pallet-0244" x="2223" y="1250">9</text>
+    <text class="lbl pallet" data-for="pallet-0245" x="2504" y="1271">10</text>
+    <text class="lbl pallet" data-for="pallet-0246" x="2589" y="1271">11</text>
+    <text class="lbl pallet" data-for="pallet-0247" x="2674" y="1271">12</text>
+    <text class="lbl pallet" data-for="pallet-0248" x="2759" y="1271">13</text>
+    <text class="lbl pallet" data-for="pallet-0249" x="2844" y="1271">14</text>
+    <text class="lbl pallet" data-for="pallet-0250" x="2929" y="1271">15</text>
+    <text class="lbl pallet" data-for="pallet-0251" x="3014" y="1271">16</text>
+    <text class="lbl pallet" data-for="pallet-0216" x="1186" y="1511">17</text>
+    <text class="lbl pallet" data-for="pallet-0217" x="1271" y="1511">18</text>
+    <text class="lbl pallet" data-for="pallet-0218" x="1356" y="1511">19</text>
+    <text class="lbl pallet" data-for="pallet-0219" x="1441" y="1511">20</text>
+    <text class="lbl pallet" data-for="pallet-0220" x="1526" y="1511">21</text>
+    <text class="lbl pallet" data-for="pallet-0221" x="1611" y="1511">22</text>
+    <text class="lbl pallet" data-for="pallet-0222" x="1696" y="1511">23</text>
+    <text class="lbl pallet" data-for="pallet-0223" x="1946" y="1555">24</text>
+    <text class="lbl pallet" data-for="pallet-0224" x="2031" y="1555">25</text>
+    <text class="lbl pallet" data-for="pallet-0225" x="2116" y="1555">26</text>
+    <text class="lbl pallet" data-for="pallet-0226" x="2201" y="1555">27</text>
+    <text class="lbl pallet" data-for="pallet-0234" x="2529" y="1544">28</text>
+    <text class="lbl pallet" data-for="pallet-0235" x="2614" y="1544">29</text>
+    <text class="lbl pallet" data-for="pallet-0236" x="2699" y="1544">30</text>
+    <text class="lbl pallet" data-for="pallet-0237" x="2784" y="1544">31</text>
+    <text class="lbl pallet" data-for="pallet-0238" x="2869" y="1544">32</text>
+    <text class="lbl pallet" data-for="pallet-0239" x="2954" y="1544">33</text>
+    <text class="lbl pallet" data-for="pallet-0240" x="3039" y="1544">34</text>
+    <text class="lbl pallet" data-for="pallet-0209" x="1186" y="1631">35</text>
+    <text class="lbl pallet" data-for="pallet-0210" x="1271" y="1631">36</text>
+    <text class="lbl pallet" data-for="pallet-0211" x="1356" y="1631">37</text>
+    <text class="lbl pallet" data-for="pallet-0212" x="1441" y="1631">38</text>
+    <text class="lbl pallet" data-for="pallet-0213" x="1526" y="1631">39</text>
+    <text class="lbl pallet" data-for="pallet-0214" x="1611" y="1631">40</text>
+    <text class="lbl pallet" data-for="pallet-0215" x="1696" y="1631">41</text>
+    <text class="lbl pallet" data-for="pallet-0189" x="1973" y="1670">42</text>
+    <text class="lbl pallet" data-for="pallet-0227" x="2529" y="1664">43</text>
+    <text class="lbl pallet" data-for="pallet-0228" x="2614" y="1664">44</text>
+    <text class="lbl pallet" data-for="pallet-0229" x="2699" y="1664">45</text>
+    <text class="lbl pallet" data-for="pallet-0230" x="2784" y="1664">46</text>
+    <text class="lbl pallet" data-for="pallet-0231" x="2869" y="1664">47</text>
+    <text class="lbl pallet" data-for="pallet-0232" x="2954" y="1664">48</text>
+    <text class="lbl pallet" data-for="pallet-0233" x="3039" y="1664">49</text>
+    <text class="lbl pallet" data-for="pallet-0190" x="1973" y="1755">50</text>
+    <text class="lbl pallet" data-for="pallet-0191" x="1973" y="1840">51</text>
+    <text class="lbl pallet" data-for="pallet-0202" x="1186" y="1951">52</text>
+    <text class="lbl pallet" data-for="pallet-0203" x="1271" y="1951">53</text>
+    <text class="lbl pallet" data-for="pallet-0204" x="1356" y="1951">54</text>
+    <text class="lbl pallet" data-for="pallet-0205" x="1441" y="1951">55</text>
+    <text class="lbl pallet" data-for="pallet-0206" x="1526" y="1951">56</text>
+    <text class="lbl pallet" data-for="pallet-0207" x="1611" y="1951">57</text>
+    <text class="lbl pallet" data-for="pallet-0208" x="1696" y="1951">58</text>
+    <text class="lbl pallet" data-for="pallet-0192" x="1973" y="1925">59</text>
+    <text class="lbl pallet" data-for="pallet-0193" x="1973" y="2010">60</text>
+    <text class="lbl pallet" data-for="pallet-0181" x="1186" y="2071">61</text>
+    <text class="lbl pallet" data-for="pallet-0182" x="1271" y="2071">62</text>
+    <text class="lbl pallet" data-for="pallet-0183" x="1356" y="2071">63</text>
+    <text class="lbl pallet" data-for="pallet-0184" x="1441" y="2071">64</text>
+    <text class="lbl pallet" data-for="pallet-0185" x="1526" y="2071">65</text>
+    <text class="lbl pallet" data-for="pallet-0186" x="1611" y="2071">66</text>
+    <text class="lbl pallet" data-for="pallet-0187" x="1696" y="2071">67</text>
+    <text class="lbl pallet" data-for="pallet-0194" x="1973" y="2095">68</text>
+    <text class="lbl pallet" data-for="pallet-0195" x="1973" y="2180">69</text>
+    <text class="lbl pallet" data-for="pallet-0196" x="1973" y="2265">70</text>
+    <text class="lbl pallet" data-for="pallet-0197" x="1973" y="2350">71</text>
+    <text class="lbl pallet" data-for="pallet-0175" x="1312" y="2435">72</text>
+    <text class="lbl pallet" data-for="pallet-0176" x="1397" y="2435">73</text>
+    <text class="lbl pallet" data-for="pallet-0177" x="1482" y="2435">74</text>
+    <text class="lbl pallet" data-for="pallet-0178" x="1567" y="2435">75</text>
+    <text class="lbl pallet" data-for="pallet-0179" x="1652" y="2435">76</text>
+    <text class="lbl pallet" data-for="pallet-0180" x="1737" y="2435">77</text>
+    <text class="lbl pallet" data-for="pallet-0198" x="1973" y="2435">78</text>
+    <text class="lbl pallet" data-for="pallet-0169" x="1312" y="2555">79</text>
+    <text class="lbl pallet" data-for="pallet-0170" x="1397" y="2555">80</text>
+    <text class="lbl pallet" data-for="pallet-0171" x="1482" y="2555">81</text>
+    <text class="lbl pallet" data-for="pallet-0172" x="1567" y="2555">82</text>
+    <text class="lbl pallet" data-for="pallet-0173" x="1652" y="2555">83</text>
+    <text class="lbl pallet" data-for="pallet-0174" x="1737" y="2555">84</text>
+    <text class="lbl pallet" data-for="pallet-0199" x="1973" y="2520">85</text>
+    <text class="lbl pallet" data-for="pallet-0200" x="1973" y="2605">86</text>
+    <text class="lbl pallet" data-for="pallet-0201" x="1973" y="2690">87</text>
+    <text class="lbl pallet" data-for="pallet-0272" x="1973" y="2775">88</text>
+    <text class="lbl pallet" data-for="pallet-0159" x="1312" y="2875">89</text>
+    <text class="lbl pallet" data-for="pallet-0160" x="1397" y="2875">90</text>
+    <text class="lbl pallet" data-for="pallet-0161" x="1482" y="2875">91</text>
+    <text class="lbl pallet" data-for="pallet-0162" x="1567" y="2875">92</text>
+    <text class="lbl pallet" data-for="pallet-0163" x="1652" y="2875">93</text>
+    <text class="lbl pallet" data-for="pallet-0164" x="1737" y="2875">94</text>
+    <text class="lbl pallet" data-for="pallet-0165" x="1946" y="2875">95</text>
+    <text class="lbl pallet" data-for="pallet-0166" x="2031" y="2875">96</text>
+    <text class="lbl pallet" data-for="pallet-0167" x="2116" y="2875">97</text>
+    <text class="lbl pallet" data-for="pallet-0168" x="2201" y="2875">98</text>
+    <text class="lbl pallet" data-for="pallet-0149" x="1312" y="3147">99</text>
+    <text class="lbl pallet" data-for="pallet-0150" x="1397" y="3147">100</text>
+    <text class="lbl pallet" data-for="pallet-0151" x="1482" y="3147">101</text>
+    <text class="lbl pallet" data-for="pallet-0152" x="1567" y="3147">102</text>
+    <text class="lbl pallet" data-for="pallet-0153" x="1652" y="3147">103</text>
+    <text class="lbl pallet" data-for="pallet-0154" x="1737" y="3147">104</text>
+    <text class="lbl pallet" data-for="pallet-0155" x="1822" y="3147">105</text>
+    <text class="lbl pallet" data-for="pallet-0156" x="1907" y="3147">106</text>
+    <text class="lbl pallet" data-for="pallet-0157" x="1992" y="3147">107</text>
+    <text class="lbl pallet" data-for="pallet-0158" x="2077" y="3147">108</text>
+    <text class="lbl pallet" data-for="pallet-0065" x="2554" y="3147">109</text>
+    <text class="lbl pallet" data-for="pallet-0066" x="2639" y="3147">110</text>
+    <text class="lbl pallet" data-for="pallet-0067" x="2724" y="3147">111</text>
+    <text class="lbl pallet" data-for="pallet-0068" x="2809" y="3147">112</text>
+    <text class="lbl pallet" data-for="pallet-0069" x="2894" y="3147">113</text>
+    <text class="lbl pallet" data-for="pallet-0070" x="2979" y="3147">114</text>
+    <text class="lbl pallet" data-for="pallet-0071" x="3064" y="3147">115</text>
+    <text class="lbl pallet" data-for="pallet-0142" x="2554" y="3317">116</text>
+    <text class="lbl pallet" data-for="pallet-0143" x="2639" y="3317">117</text>
+    <text class="lbl pallet" data-for="pallet-0144" x="2724" y="3317">118</text>
+    <text class="lbl pallet" data-for="pallet-0145" x="2809" y="3317">119</text>
+    <text class="lbl pallet" data-for="pallet-0146" x="2894" y="3317">120</text>
+    <text class="lbl pallet" data-for="pallet-0147" x="2979" y="3317">121</text>
+    <text class="lbl pallet" data-for="pallet-0148" x="3064" y="3317">122</text>
+    <text class="lbl pallet" data-for="pallet-0110" x="2874" y="3417">123</text>
+    <text class="lbl pallet" data-for="pallet-0126" x="2994" y="3417">124</text>
+    <text class="lbl pallet" data-for="pallet-0111" x="2874" y="3502">125</text>
+    <text class="lbl pallet" data-for="pallet-0127" x="2994" y="3502">126</text>
+    <text class="lbl pallet" data-for="pallet-0112" x="2874" y="3587">127</text>
+    <text class="lbl pallet" data-for="pallet-0128" x="2994" y="3587">128</text>
+    <text class="lbl pallet" data-for="pallet-0107" x="2460" y="3711">129</text>
+    <text class="lbl pallet" data-for="pallet-0099" x="2580" y="3687">130</text>
+    <text class="lbl pallet" data-for="pallet-0113" x="2874" y="3672">131</text>
+    <text class="lbl pallet" data-for="pallet-0129" x="2994" y="3672">132</text>
+    <text class="lbl pallet" data-for="pallet-0108" x="2460" y="3796">133</text>
+    <text class="lbl pallet" data-for="pallet-0100" x="2580" y="3772">134</text>
+    <text class="lbl pallet" data-for="pallet-0114" x="2874" y="3757">135</text>
+    <text class="lbl pallet" data-for="pallet-0130" x="2994" y="3757">136</text>
+    <text class="lbl pallet" data-for="pallet-0257" x="1221" y="3811">137</text>
+    <text class="lbl pallet" data-for="pallet-0109" x="2460" y="3881">138</text>
+    <text class="lbl pallet" data-for="pallet-0101" x="2580" y="3857">139</text>
+    <text class="lbl pallet" data-for="pallet-0115" x="2874" y="3842">140</text>
+    <text class="lbl pallet" data-for="pallet-0131" x="2994" y="3842">141</text>
+    <text class="lbl pallet" data-for="pallet-0102" x="2580" y="3942">142</text>
+    <text class="lbl pallet" data-for="pallet-0116" x="2874" y="3927">143</text>
+    <text class="lbl pallet" data-for="pallet-0132" x="2994" y="3927">144</text>
+    <text class="lbl pallet" data-for="pallet-0103" x="2580" y="4027">145</text>
+    <text class="lbl pallet" data-for="pallet-0117" x="2874" y="4012">146</text>
+    <text class="lbl pallet" data-for="pallet-0133" x="2994" y="4012">147</text>
+    <text class="lbl pallet" data-for="pallet-0091" x="1282" y="4083">148</text>
+    <text class="lbl pallet" data-for="pallet-0092" x="1367" y="4083">149</text>
+    <text class="lbl pallet" data-for="pallet-0093" x="1452" y="4083">150</text>
+    <text class="lbl pallet" data-for="pallet-0094" x="1537" y="4083">151</text>
+    <text class="lbl pallet" data-for="pallet-0095" x="1622" y="4083">152</text>
+    <text class="lbl pallet" data-for="pallet-0096" x="1707" y="4083">153</text>
+    <text class="lbl pallet" data-for="pallet-0097" x="1792" y="4083">154</text>
+    <text class="lbl pallet" data-for="pallet-0104" x="2580" y="4112">155</text>
+    <text class="lbl pallet" data-for="pallet-0118" x="2874" y="4097">156</text>
+    <text class="lbl pallet" data-for="pallet-0134" x="2994" y="4097">157</text>
+    <text class="lbl pallet" data-for="pallet-0083" x="1197" y="4203">158</text>
+    <text class="lbl pallet" data-for="pallet-0084" x="1282" y="4203">159</text>
+    <text class="lbl pallet" data-for="pallet-0085" x="1367" y="4203">160</text>
+    <text class="lbl pallet" data-for="pallet-0086" x="1452" y="4203">161</text>
+    <text class="lbl pallet" data-for="pallet-0087" x="1537" y="4203">162</text>
+    <text class="lbl pallet" data-for="pallet-0088" x="1622" y="4203">163</text>
+    <text class="lbl pallet" data-for="pallet-0089" x="1707" y="4203">164</text>
+    <text class="lbl pallet" data-for="pallet-0090" x="1792" y="4203">165</text>
+    <text class="lbl pallet" data-for="pallet-0105" x="2580" y="4197">166</text>
+    <text class="lbl pallet" data-for="pallet-0119" x="2874" y="4182">167</text>
+    <text class="lbl pallet" data-for="pallet-0135" x="2994" y="4182">168</text>
+    <text class="lbl pallet" data-for="pallet-0098" x="2133" y="4275">169</text>
+    <text class="lbl pallet" data-for="pallet-0106" x="2580" y="4282">170</text>
+    <text class="lbl pallet" data-for="pallet-0120" x="2874" y="4267">171</text>
+    <text class="lbl pallet" data-for="pallet-0136" x="2994" y="4267">172</text>
+    <text class="lbl pallet" data-for="pallet-0073" x="1197" y="4323">173</text>
+    <text class="lbl pallet" data-for="pallet-0074" x="1282" y="4323">174</text>
+    <text class="lbl pallet" data-for="pallet-0075" x="1367" y="4323">175</text>
+    <text class="lbl pallet" data-for="pallet-0076" x="1452" y="4323">176</text>
+    <text class="lbl pallet" data-for="pallet-0077" x="1537" y="4323">177</text>
+    <text class="lbl pallet" data-for="pallet-0078" x="1622" y="4323">178</text>
+    <text class="lbl pallet" data-for="pallet-0079" x="1707" y="4323">179</text>
+    <text class="lbl pallet" data-for="pallet-0080" x="1792" y="4323">180</text>
+    <text class="lbl pallet" data-for="pallet-0121" x="2874" y="4352">181</text>
+    <text class="lbl pallet" data-for="pallet-0137" x="2994" y="4352">182</text>
+    <text class="lbl pallet" data-for="pallet-0072" x="1217" y="4423">183</text>
+    <text class="lbl pallet" data-for="pallet-0122" x="2874" y="4437">184</text>
+    <text class="lbl pallet" data-for="pallet-0138" x="2994" y="4437">185</text>
+    <text class="lbl pallet" data-for="pallet-0259" x="1217" y="4508">186</text>
+    <text class="lbl pallet" data-for="pallet-0081" x="1773" y="4547">187</text>
+    <text class="lbl pallet" data-for="pallet-0082" x="1898" y="4547">188</text>
+    <text class="lbl pallet" data-for="pallet-0123" x="2874" y="4522">189</text>
+    <text class="lbl pallet" data-for="pallet-0139" x="2994" y="4522">190</text>
+    <text class="lbl pallet" data-for="pallet-0124" x="2874" y="4607">191</text>
+    <text class="lbl pallet" data-for="pallet-0140" x="2994" y="4607">192</text>
+    <text class="lbl pallet" data-for="pallet-0125" x="2874" y="4692">193</text>
+    <text class="lbl pallet" data-for="pallet-0141" x="2994" y="4692">194</text>
+    <text class="lbl rack" data-for="rack-0012" x="2166" y="1807">R-01</text>
+    <text class="lbl rack" data-for="rack-0021" x="2621" y="1963">R-02</text>
+    <text class="lbl rack" data-for="rack-0022" x="2909" y="1963">R-03</text>
+    <text class="lbl rack" data-for="rack-0011" x="2166" y="2095">R-04</text>
+    <text class="lbl rack" data-for="rack-0019" x="2621" y="2083">R-05</text>
+    <text class="lbl rack" data-for="rack-0020" x="2909" y="2083">R-06</text>
+    <text class="lbl rack" data-for="rack-0010" x="2166" y="2383">R-07</text>
+    <text class="lbl rack" data-for="rack-0017" x="2621" y="2433">R-08</text>
+    <text class="lbl rack" data-for="rack-0018" x="2909" y="2433">R-09</text>
+    <text class="lbl rack" data-for="rack-0015" x="2621" y="2553">R-10</text>
+    <text class="lbl rack" data-for="rack-0016" x="2909" y="2553">R-11</text>
+    <text class="lbl rack" data-for="rack-0009" x="2166" y="2671">R-12</text>
+    <text class="lbl rack" data-for="rack-0013" x="2621" y="2875">R-13</text>
+    <text class="lbl rack" data-for="rack-0014" x="2909" y="2875">R-14</text>
+    <text class="lbl rack" data-for="rack-0006" x="2133" y="3446">R-15</text>
+    <text class="lbl rack" data-for="rack-0005" x="2133" y="3735">R-16</text>
+    <text class="lbl rack" data-for="rack-0008" x="1481" y="3811">R-17</text>
+    <text class="lbl rack" data-for="rack-0007" x="1859" y="3811">R-18</text>
+    <text class="lbl rack" data-for="rack-0003" x="2133" y="3935">R-19</text>
+    <text class="lbl rack" data-for="rack-0004" x="2460" y="4021">R-20</text>
+    <text class="lbl rack" data-for="rack-0001" x="2133" y="4135">R-21</text>
+    <text class="lbl rack" data-for="rack-0002" x="2460" y="4221">R-22</text>
+    <text class="lbl rack" data-for="rack-0026" x="2520" y="4361">R-23</text>
+    <text class="lbl rack" data-for="rack-0023" x="1906" y="4751">R-24</text>
+    <text class="lbl rack" data-for="rack-0024" x="1936" y="5062">R-25</text>
+    <text class="lbl rack" data-for="rack-0025" x="2576" y="5032">R-26</text>
+  </g>
+
+</svg>

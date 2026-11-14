@@ -1,0 +1,94 @@
+:root {
+  --bg: #f4f5f8;
+  --panel: #fff;
+  --line: #e1e4ea;
+  --text: #182233;
+  --muted: #667085;
+  --accent: #0f5bd8;
+  --sel: #e53935;
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font-size: 15px; }
+button, input, select { font: inherit; color: inherit; }
+h1, h2, h3, p { margin: 0; }
+[hidden] { display: none !important; }
+
+.btn { border: 1px solid #c9ced8; background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.btn:hover { background: #f1f5ff; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: #0c4cb8; }
+.btn.danger { color: #b42318; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+
+.swatch {
+  display: inline-grid; place-items: center; flex: none;
+  min-width: 28px; height: 28px; padding: 0 6px;
+  border-radius: 7px; border: 1px solid rgba(0, 0, 0, 0.3);
+  background: var(--c); color: var(--ink); font-weight: 700;
+}
+
+.dot { display: inline-block; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #d92d20; }
+.dot.on { background: #12b76a; }
+
+.progress { height: 6px; border-radius: 3px; background: #e6e8ee; overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--c, var(--accent)); }
+
+/* Map */
+.pf-map { display: block; width: 100%; height: 100%; background: #fdfdfb; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.pf-map .el { cursor: pointer; }
+.pf-map .el-base { vector-effect: non-scaling-stroke; transition: fill 0.12s, stroke 0.12s; }
+.pf-map .el.pallet .el-base { fill: #fdfbf7; stroke: #c2c0dc; stroke-width: 1.6; }
+.pf-map .el.pallet.stocked .el-base { fill: #e5e3f5; }
+.pf-map .el.rack .el-base { fill: #ebf2fc; stroke: #4f84b8; stroke-width: 2.2; }
+.pf-map .el.rack.stocked .el-base { fill: #d4e5fc; }
+.pf-map .el.mark .el-base { fill: var(--mark) !important; stroke: #182233 !important; }
+.pf-map .el.mark.done .el-base { fill-opacity: 0.25 !important; }
+.pf-map .el.sel .el-base { stroke: #111 !important; stroke-width: 4 !important; }
+.pf-map .el.sel:not(.mark) .el-base { fill: var(--sel) !important; }
+.pf-map .bg-aisle { fill: #dbe4ed; stroke: #b0c2d4; stroke-width: 1.6; }
+.pf-map .lbl-circulation { font: 700 24px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #4a637a; letter-spacing: 3px; pointer-events: none; }
+.pf-map .lbl-circulation-sub { font: 700 18px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; fill: #4a637a; fill-opacity: 0.8; letter-spacing: 1.5px; pointer-events: none; }
+.pf-map .lbl { font: 24px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #656382; paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+.pf-map .lbl.rack { font-size: 38px; font-weight: 700; fill: #0b2f9e; stroke-width: 6px; }
+.pf-map .lbl-room { font: 700 36px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #374151; letter-spacing: 2px; }
+.pf-map .lbl-room-sub { font: 20px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #6b7280; }
+.pf-map .lbl-room-sm { font: 700 24px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #4b5563; }
+.pf-map .lbl-outside { font: 700 32px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #4e5f52; letter-spacing: 4px; }
+.pf-map .lbl-dock { font: 700 18px Arial, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; fill: #0d47a1; letter-spacing: 1px; }
+.pf-map .lbl-block { font: 700 26px Arial, sans-serif; text-anchor: start; dominant-baseline: central; pointer-events: none; fill: #607282; fill-opacity: 0.55; letter-spacing: 2px; }
+.pf-map .pin {
+  fill: rgba(229, 57, 53, 0.18); stroke: var(--sel); stroke-width: 4; vector-effect: non-scaling-stroke; pointer-events: none;
+  animation: pin-pulse 1.3s ease-in-out infinite alternate;
+}
+@keyframes pin-pulse {
+  from { stroke-width: 4; fill-opacity: 0.12; }
+  to { stroke-width: 9; fill-opacity: 0.35; }
+}
+
+/* Front view */
+.front { display: grid; grid-template-columns: 24px repeat(var(--bays), minmax(0, 1fr)); gap: 4px; }
+.front .ax { display: grid; place-items: center; font-size: 11px; color: var(--muted); }
+.slot {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 2px;
+  min-height: 52px; max-height: 120px; overflow-y: auto; padding: 3px; text-align: left; cursor: pointer;
+  border: 1.5px solid #9aa4b8; border-radius: 4px; background: #fff;
+}
+.slot.empty { background: repeating-linear-gradient(45deg, #f7f8fa, #f7f8fa 6px, #eef0f4 6px, #eef0f4 12px); }
+.slot.hot { border-color: var(--sel); box-shadow: inset 0 0 0 2px var(--sel); background: #fff1f0; }
+.slot.sel { outline: 3px solid var(--accent); outline-offset: 1px; }
+.carton {
+  display: block; padding: 2px 4px; border: 1px solid #c9ad7a; border-radius: 3px; background: #ecdcbd;
+  font-size: 11px; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0;
+}
+.carton.hot { background: var(--sel); border-color: #a51d15; color: #fff; }
+.front .base { grid-column: 2 / -1; height: 8px; border-radius: 2px; background: #b08d57; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); z-index: 50;
+  max-width: 90vw; padding: 9px 14px; border-radius: 10px; background: #182233; color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}

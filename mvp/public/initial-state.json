@@ -1,0 +1,8259 @@
+{
+  "rev": 0,
+  "exportSource": "plan-review-annotations_20261113-222324.json",
+  "floorplanHash": "a7439ce3bcb2919695b37fa3481228b0821be1dc",
+  "bounds": {
+    "x": 1032,
+    "y": 677,
+    "w": 2136,
+    "h": 4646
+  },
+  "products": [
+    {
+      "id": "p1",
+      "sku": "TX-1001",
+      "mfrSku": "PI-81656",
+      "name": "Pizza box 26 cm kraft",
+      "cartonLabel": "PIZZAKARTON 26x26x4 KRAFT 100 ST"
+    },
+    {
+      "id": "p2",
+      "sku": "TX-1002",
+      "mfrSku": "PI-35821",
+      "name": "Pizza box 33 cm kraft",
+      "cartonLabel": "PIZZAKARTON 33x33x4 KRAFT 100 ST"
+    },
+    {
+      "id": "p3",
+      "sku": "TX-1003",
+      "mfrSku": "PI-64994",
+      "name": "Pizza box 40 cm kraft",
+      "cartonLabel": "PIZZAKARTON 40x40x4 KRAFT 50 ST"
+    },
+    {
+      "id": "p4",
+      "sku": "TX-1004",
+      "mfrSku": "PI-96586",
+      "name": "Pizza box 50 cm family",
+      "cartonLabel": "PIZZAKARTON 50x50x5 FAMILY 50 ST"
+    },
+    {
+      "id": "p5",
+      "sku": "TX-1005",
+      "mfrSku": "BU-25289",
+      "name": "Burger box kraft large",
+      "cartonLabel": "BURGERBOX KRAFT L 300 ST"
+    },
+    {
+      "id": "p6",
+      "sku": "TX-1006",
+      "mfrSku": "FR-82010",
+      "name": "Fries tray paper medium",
+      "cartonLabel": "POMMESSCHALE PAPIER M 500 ST"
+    },
+    {
+      "id": "p7",
+      "sku": "TX-1007",
+      "mfrSku": "NO-11472",
+      "name": "Noodle box 26 oz",
+      "cartonLabel": "NUDELBOX 26OZ MIT HENKEL 500 ST"
+    },
+    {
+      "id": "p8",
+      "sku": "TX-1008",
+      "mfrSku": "SU-80051",
+      "name": "Sushi tray black 22 cm with lid",
+      "cartonLabel": "SUSHI TRAY 22CM SCHWARZ + DECKEL 400 ST"
+    },
+    {
+      "id": "p9",
+      "sku": "TX-1009",
+      "mfrSku": "SA-74206",
+      "name": "Salad bowl 750 ml kraft",
+      "cartonLabel": "SALATSCHALE 750ML KRAFT 300 ST"
+    },
+    {
+      "id": "p10",
+      "sku": "TX-1010",
+      "mfrSku": "SA-26440",
+      "name": "Salad bowl lid 750 ml",
+      "cartonLabel": "DECKEL SALATSCHALE 750ML 300 ST"
+    },
+    {
+      "id": "p11",
+      "sku": "TX-1011",
+      "mfrSku": "SO-56528",
+      "name": "Soup cup 16 oz with lid",
+      "cartonLabel": "SUPPENBECHER 16OZ + DECKEL 250 ST"
+    },
+    {
+      "id": "p12",
+      "sku": "TX-1012",
+      "mfrSku": "AL-14712",
+      "name": "Aluminium tray 1/2 GN",
+      "cartonLabel": "ALUSCHALE 1/2 GN 100 ST"
+    },
+    {
+      "id": "p13",
+      "sku": "TX-1013",
+      "mfrSku": "AL-81454",
+      "name": "Aluminium tray lid 1/2 GN",
+      "cartonLabel": "DECKEL ALUSCHALE 1/2 GN 100 ST"
+    },
+    {
+      "id": "p14",
+      "sku": "TX-1014",
+      "mfrSku": "ME-35951",
+      "name": "Menu box 2-compartment",
+      "cartonLabel": "MENUEBOX 2-GETEILT 200 ST"
+    },
+    {
+      "id": "p15",
+      "sku": "TX-1015",
+      "mfrSku": "KE-65200",
+      "name": "Kebab bag foil-lined",
+      "cartonLabel": "DOENERTASCHE ALU 1000 ST"
+    },
+    {
+      "id": "p16",
+      "sku": "TX-1016",
+      "mfrSku": "PA-24128",
+      "name": "Paper bag with handle large",
+      "cartonLabel": "PAPIERTRAGETASCHE L 250 ST"
+    },
+    {
+      "id": "p17",
+      "sku": "TX-1017",
+      "mfrSku": "PA-94605",
+      "name": "Paper bag with handle small",
+      "cartonLabel": "PAPIERTRAGETASCHE S 250 ST"
+    },
+    {
+      "id": "p18",
+      "sku": "TX-1018",
+      "mfrSku": "CA-36432",
+      "name": "Carrier bag recycled 38 cm",
+      "cartonLabel": "TRAGETASCHE RECYCLING 38CM 500 ST"
+    },
+    {
+      "id": "p19",
+      "sku": "TX-1019",
+      "mfrSku": "HO-51297",
+      "name": "Hot cup 8 oz double wall",
+      "cartonLabel": "HEISSBECHER 8OZ DOPPELWAND 500 ST"
+    },
+    {
+      "id": "p20",
+      "sku": "TX-1020",
+      "mfrSku": "HO-46121",
+      "name": "Hot cup 12 oz double wall",
+      "cartonLabel": "HEISSBECHER 12OZ DOPPELWAND 500 ST"
+    },
+    {
+      "id": "p21",
+      "sku": "TX-1021",
+      "mfrSku": "HO-17703",
+      "name": "Hot cup lid 80 mm",
+      "cartonLabel": "DECKEL HEISSBECHER 80MM 1000 ST"
+    },
+    {
+      "id": "p22",
+      "sku": "TX-1022",
+      "mfrSku": "HO-70413",
+      "name": "Hot cup lid 90 mm",
+      "cartonLabel": "DECKEL HEISSBECHER 90MM 1000 ST"
+    },
+    {
+      "id": "p23",
+      "sku": "TX-1023",
+      "mfrSku": "CO-88002",
+      "name": "Cold cup 0.3 l clear",
+      "cartonLabel": "KALTBECHER 0,3L KLAR 800 ST"
+    },
+    {
+      "id": "p24",
+      "sku": "TX-1024",
+      "mfrSku": "CO-49680",
+      "name": "Cold cup 0.5 l clear",
+      "cartonLabel": "KALTBECHER 0,5L KLAR 800 ST"
+    },
+    {
+      "id": "p25",
+      "sku": "TX-1025",
+      "mfrSku": "DO-89320",
+      "name": "Dome lid for cold cup",
+      "cartonLabel": "DOMDECKEL KALTBECHER 800 ST"
+    },
+    {
+      "id": "p26",
+      "sku": "TX-1026",
+      "mfrSku": "PA-40997",
+      "name": "Paper straw 20 cm",
+      "cartonLabel": "PAPIERTRINKHALM 20CM 5000 ST"
+    },
+    {
+      "id": "p27",
+      "sku": "TX-1027",
+      "mfrSku": "CU-14788",
+      "name": "Cup carrier 4-cup",
+      "cartonLabel": "BECHERTRAEGER 4ER 200 ST"
+    },
+    {
+      "id": "p28",
+      "sku": "TX-1028",
+      "mfrSku": "NA-17388",
+      "name": "Napkin 33 cm white 2-ply",
+      "cartonLabel": "SERVIETTE 33CM WEISS 2LG 2000 ST"
+    },
+    {
+      "id": "p29",
+      "sku": "TX-1029",
+      "mfrSku": "NA-92297",
+      "name": "Napkin 40 cm red 3-ply",
+      "cartonLabel": "SERVIETTE 40CM ROT 3LG 1000 ST"
+    },
+    {
+      "id": "p30",
+      "sku": "TX-1030",
+      "mfrSku": "DI-41690",
+      "name": "Dispenser napkin 1-ply",
+      "cartonLabel": "SPENDERSERVIETTE 1LG 9000 ST"
+    },
+    {
+      "id": "p31",
+      "sku": "TX-1031",
+      "mfrSku": "WO-85106",
+      "name": "Wooden fork 16 cm",
+      "cartonLabel": "HOLZGABEL 16CM 1000 ST"
+    },
+    {
+      "id": "p32",
+      "sku": "TX-1032",
+      "mfrSku": "WO-69843",
+      "name": "Wooden knife 16 cm",
+      "cartonLabel": "HOLZMESSER 16CM 1000 ST"
+    },
+    {
+      "id": "p33",
+      "sku": "TX-1033",
+      "mfrSku": "WO-18236",
+      "name": "Wooden spoon 16 cm",
+      "cartonLabel": "HOLZLOEFFEL 16CM 1000 ST"
+    },
+    {
+      "id": "p34",
+      "sku": "TX-1034",
+      "mfrSku": "CH-95723",
+      "name": "Chopsticks bamboo wrapped",
+      "cartonLabel": "ESSSTAEBCHEN BAMBUS 2000 PAAR"
+    },
+    {
+      "id": "p35",
+      "sku": "TX-1035",
+      "mfrSku": "WO-94215",
+      "name": "Wooden stirrer 14 cm",
+      "cartonLabel": "RUEHRSTAEBCHEN HOLZ 14CM 10000 ST"
+    },
+    {
+      "id": "p36",
+      "sku": "TX-1036",
+      "mfrSku": "BA-35197",
+      "name": "Baking paper sheets 40x60",
+      "cartonLabel": "BACKPAPIER 40x60 500 BL"
+    },
+    {
+      "id": "p37",
+      "sku": "TX-1037",
+      "mfrSku": "CL-62636",
+      "name": "Cling film 45 cm x 300 m",
+      "cartonLabel": "FRISCHHALTEFOLIE 45CM 300M 4 RL"
+    },
+    {
+      "id": "p38",
+      "sku": "TX-1038",
+      "mfrSku": "AL-79448",
+      "name": "Aluminium foil 30 cm x 150 m",
+      "cartonLabel": "ALUFOLIE 30CM 150M 4 RL"
+    },
+    {
+      "id": "p39",
+      "sku": "TX-1039",
+      "mfrSku": "GR-52890",
+      "name": "Greaseproof paper 1/8 sheet",
+      "cartonLabel": "EINSCHLAGPAPIER 1/8 BOGEN 12,5 KG"
+    },
+    {
+      "id": "p40",
+      "sku": "TX-1040",
+      "mfrSku": "SA-27858",
+      "name": "Sauce cup 30 ml with lid",
+      "cartonLabel": "DRESSINGBECHER 30ML + DECKEL 2000 ST"
+    },
+    {
+      "id": "p41",
+      "sku": "TX-1041",
+      "mfrSku": "SA-17265",
+      "name": "Sauce cup 80 ml with lid",
+      "cartonLabel": "DRESSINGBECHER 80ML + DECKEL 1000 ST"
+    },
+    {
+      "id": "p42",
+      "sku": "TX-1042",
+      "mfrSku": "NI-22182",
+      "name": "Nitrile gloves M black",
+      "cartonLabel": "NITRILHANDSCHUHE M SCHWARZ 10x100"
+    },
+    {
+      "id": "p43",
+      "sku": "TX-1043",
+      "mfrSku": "NI-59906",
+      "name": "Nitrile gloves L black",
+      "cartonLabel": "NITRILHANDSCHUHE L SCHWARZ 10x100"
+    },
+    {
+      "id": "p44",
+      "sku": "TX-1044",
+      "mfrSku": "BI-16425",
+      "name": "Bin liner 120 l",
+      "cartonLabel": "MUELLSACK 120L 250 ST"
+    },
+    {
+      "id": "p45",
+      "sku": "TX-1045",
+      "mfrSku": "BI-33875",
+      "name": "Bin liner 60 l",
+      "cartonLabel": "MUELLSACK 60L 500 ST"
+    },
+    {
+      "id": "p46",
+      "sku": "TX-1046",
+      "mfrSku": "PA-22516",
+      "name": "Paper towel roll 2-ply",
+      "cartonLabel": "KUECHENROLLE 2LG 32 RL"
+    },
+    {
+      "id": "p47",
+      "sku": "TX-1047",
+      "mfrSku": "HA-51735",
+      "name": "Hand towel paper z-fold",
+      "cartonLabel": "FALTHANDTUCH Z-FALZ 3750 BL"
+    },
+    {
+      "id": "p48",
+      "sku": "TX-1048",
+      "mfrSku": "DI-79015",
+      "name": "Dish soap 10 l",
+      "cartonLabel": "SPUELMITTEL 10L KANISTER"
+    },
+    {
+      "id": "p49",
+      "sku": "TX-1049",
+      "mfrSku": "DE-56841",
+      "name": "Degreaser spray 750 ml",
+      "cartonLabel": "FETTLOESER SPRAY 750ML 12 FL"
+    },
+    {
+      "id": "p50",
+      "sku": "TX-1050",
+      "mfrSku": "TI-25032",
+      "name": "Till roll thermal 80 mm",
+      "cartonLabel": "THERMOROLLE 80MM 50 RL"
+    }
+  ],
+  "elements": [
+    {
+      "id": "rack-0012",
+      "type": "rack",
+      "code": "R-01",
+      "block": "H2.1",
+      "cx": 2166,
+      "cy": 1807,
+      "width": 120,
+      "depth": 288,
+      "dir": "v",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2106,
+          1663
+        ],
+        [
+          2226,
+          1663
+        ],
+        [
+          2226,
+          1951
+        ],
+        [
+          2106,
+          1951
+        ]
+      ]
+    },
+    {
+      "id": "rack-0021",
+      "type": "rack",
+      "code": "R-02",
+      "block": "H2.1",
+      "cx": 2621,
+      "cy": 1963,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2477,
+          1903
+        ],
+        [
+          2765,
+          1903
+        ],
+        [
+          2765,
+          2023
+        ],
+        [
+          2477,
+          2023
+        ]
+      ]
+    },
+    {
+      "id": "rack-0022",
+      "type": "rack",
+      "code": "R-03",
+      "block": "H2.1",
+      "cx": 2909,
+      "cy": 1963,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2765,
+          1903
+        ],
+        [
+          3053,
+          1903
+        ],
+        [
+          3053,
+          2023
+        ],
+        [
+          2765,
+          2023
+        ]
+      ]
+    },
+    {
+      "id": "rack-0011",
+      "type": "rack",
+      "code": "R-04",
+      "block": "H2.1",
+      "cx": 2166,
+      "cy": 2095,
+      "width": 120,
+      "depth": 288,
+      "dir": "v",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2106,
+          1951
+        ],
+        [
+          2226,
+          1951
+        ],
+        [
+          2226,
+          2239
+        ],
+        [
+          2106,
+          2239
+        ]
+      ]
+    },
+    {
+      "id": "rack-0019",
+      "type": "rack",
+      "code": "R-05",
+      "block": "H2.1",
+      "cx": 2621,
+      "cy": 2083,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2477,
+          2023
+        ],
+        [
+          2765,
+          2023
+        ],
+        [
+          2765,
+          2143
+        ],
+        [
+          2477,
+          2143
+        ]
+      ]
+    },
+    {
+      "id": "rack-0020",
+      "type": "rack",
+      "code": "R-06",
+      "block": "H2.1",
+      "cx": 2909,
+      "cy": 2083,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2765,
+          2023
+        ],
+        [
+          3053,
+          2023
+        ],
+        [
+          3053,
+          2143
+        ],
+        [
+          2765,
+          2143
+        ]
+      ]
+    },
+    {
+      "id": "rack-0010",
+      "type": "rack",
+      "code": "R-07",
+      "block": "H2.1",
+      "cx": 2166,
+      "cy": 2383,
+      "width": 120,
+      "depth": 288,
+      "dir": "v",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2106,
+          2239
+        ],
+        [
+          2226,
+          2239
+        ],
+        [
+          2226,
+          2527
+        ],
+        [
+          2106,
+          2527
+        ]
+      ]
+    },
+    {
+      "id": "rack-0017",
+      "type": "rack",
+      "code": "R-08",
+      "block": "H2.1",
+      "cx": 2621,
+      "cy": 2433,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2477,
+          2373
+        ],
+        [
+          2765,
+          2373
+        ],
+        [
+          2765,
+          2493
+        ],
+        [
+          2477,
+          2493
+        ]
+      ]
+    },
+    {
+      "id": "rack-0018",
+      "type": "rack",
+      "code": "R-09",
+      "block": "H2.1",
+      "cx": 2909,
+      "cy": 2433,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2765,
+          2373
+        ],
+        [
+          3053,
+          2373
+        ],
+        [
+          3053,
+          2493
+        ],
+        [
+          2765,
+          2493
+        ]
+      ]
+    },
+    {
+      "id": "rack-0015",
+      "type": "rack",
+      "code": "R-10",
+      "block": "H2.1",
+      "cx": 2621,
+      "cy": 2553,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2477,
+          2493
+        ],
+        [
+          2765,
+          2493
+        ],
+        [
+          2765,
+          2613
+        ],
+        [
+          2477,
+          2613
+        ]
+      ]
+    },
+    {
+      "id": "rack-0016",
+      "type": "rack",
+      "code": "R-11",
+      "block": "H2.1",
+      "cx": 2909,
+      "cy": 2553,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2765,
+          2493
+        ],
+        [
+          3053,
+          2493
+        ],
+        [
+          3053,
+          2613
+        ],
+        [
+          2765,
+          2613
+        ]
+      ]
+    },
+    {
+      "id": "rack-0009",
+      "type": "rack",
+      "code": "R-12",
+      "block": "H2.1",
+      "cx": 2166,
+      "cy": 2671,
+      "width": 120,
+      "depth": 288,
+      "dir": "v",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2106,
+          2527
+        ],
+        [
+          2226,
+          2527
+        ],
+        [
+          2226,
+          2815
+        ],
+        [
+          2106,
+          2815
+        ]
+      ]
+    },
+    {
+      "id": "rack-0013",
+      "type": "rack",
+      "code": "R-13",
+      "block": "H2.1",
+      "cx": 2621,
+      "cy": 2875,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2477,
+          2815
+        ],
+        [
+          2765,
+          2815
+        ],
+        [
+          2765,
+          2935
+        ],
+        [
+          2477,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "rack-0014",
+      "type": "rack",
+      "code": "R-14",
+      "block": "H2.1",
+      "cx": 2909,
+      "cy": 2875,
+      "width": 288,
+      "depth": 120,
+      "dir": "h",
+      "bays": 3,
+      "levels": 3,
+      "count": 3,
+      "locked": true,
+      "points": [
+        [
+          2765,
+          2815
+        ],
+        [
+          3053,
+          2815
+        ],
+        [
+          3053,
+          2935
+        ],
+        [
+          2765,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "rack-0006",
+      "type": "rack",
+      "code": "R-15",
+      "block": "H1.2",
+      "cx": 2133,
+      "cy": 3446,
+      "width": 120,
+      "depth": 378,
+      "dir": "v",
+      "bays": 4,
+      "levels": 3,
+      "count": 4,
+      "locked": true,
+      "points": [
+        [
+          2073,
+          3257
+        ],
+        [
+          2193,
+          3257
+        ],
+        [
+          2193,
+          3635
+        ],
+        [
+          2073,
+          3635
+        ]
+      ]
+    },
+    {
+      "id": "rack-0005",
+      "type": "rack",
+      "code": "R-16",
+      "block": "H1.2",
+      "cx": 2133,
+      "cy": 3735,
+      "width": 120,
+      "depth": 200,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 2,
+      "locked": true,
+      "points": [
+        [
+          2073,
+          3635
+        ],
+        [
+          2193,
+          3635
+        ],
+        [
+          2193,
+          3835
+        ],
+        [
+          2073,
+          3835
+        ]
+      ]
+    },
+    {
+      "id": "rack-0008",
+      "type": "rack",
+      "code": "R-17",
+      "block": "H1.3",
+      "cx": 1481,
+      "cy": 3811,
+      "width": 378,
+      "depth": 120,
+      "dir": "h",
+      "bays": 4,
+      "levels": 3,
+      "count": 4,
+      "locked": true,
+      "points": [
+        [
+          1292,
+          3751
+        ],
+        [
+          1670,
+          3751
+        ],
+        [
+          1670,
+          3871
+        ],
+        [
+          1292,
+          3871
+        ]
+      ]
+    },
+    {
+      "id": "rack-0007",
+      "type": "rack",
+      "code": "R-18",
+      "block": "H1.3",
+      "cx": 1859,
+      "cy": 3811,
+      "width": 378,
+      "depth": 120,
+      "dir": "h",
+      "bays": 4,
+      "levels": 3,
+      "count": 4,
+      "locked": true,
+      "points": [
+        [
+          1670,
+          3751
+        ],
+        [
+          2048,
+          3751
+        ],
+        [
+          2048,
+          3871
+        ],
+        [
+          1670,
+          3871
+        ]
+      ]
+    },
+    {
+      "id": "rack-0003",
+      "type": "rack",
+      "code": "R-19",
+      "block": "H1.2",
+      "cx": 2133,
+      "cy": 3935,
+      "width": 120,
+      "depth": 200,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 2,
+      "locked": true,
+      "points": [
+        [
+          2073,
+          3835
+        ],
+        [
+          2193,
+          3835
+        ],
+        [
+          2193,
+          4035
+        ],
+        [
+          2073,
+          4035
+        ]
+      ]
+    },
+    {
+      "id": "rack-0004",
+      "type": "rack",
+      "code": "R-20",
+      "block": "H1.2",
+      "cx": 2460,
+      "cy": 4021,
+      "width": 120,
+      "depth": 200,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 2,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          3921
+        ],
+        [
+          2520,
+          3921
+        ],
+        [
+          2520,
+          4121
+        ],
+        [
+          2400,
+          4121
+        ]
+      ]
+    },
+    {
+      "id": "rack-0001",
+      "type": "rack",
+      "code": "R-21",
+      "block": "H1.2",
+      "cx": 2133,
+      "cy": 4135,
+      "width": 120,
+      "depth": 200,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 2,
+      "locked": true,
+      "points": [
+        [
+          2073,
+          4035
+        ],
+        [
+          2193,
+          4035
+        ],
+        [
+          2193,
+          4235
+        ],
+        [
+          2073,
+          4235
+        ]
+      ]
+    },
+    {
+      "id": "rack-0002",
+      "type": "rack",
+      "code": "R-22",
+      "block": "H1.2",
+      "cx": 2460,
+      "cy": 4221,
+      "width": 120,
+      "depth": 200,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 2,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          4121
+        ],
+        [
+          2520,
+          4121
+        ],
+        [
+          2520,
+          4321
+        ],
+        [
+          2400,
+          4321
+        ]
+      ]
+    },
+    {
+      "id": "rack-0026",
+      "type": "rack",
+      "code": "R-23",
+      "block": "H1.2",
+      "cx": 2520,
+      "cy": 4361,
+      "width": 240,
+      "depth": 78,
+      "dir": "h",
+      "bays": 2,
+      "levels": 3,
+      "count": 0,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          4322
+        ],
+        [
+          2640,
+          4322
+        ],
+        [
+          2640,
+          4400
+        ],
+        [
+          2400,
+          4400
+        ]
+      ]
+    },
+    {
+      "id": "rack-0023",
+      "type": "rack",
+      "code": "R-24",
+      "block": "H1.1",
+      "cx": 1906,
+      "cy": 4751,
+      "width": 622,
+      "depth": 117,
+      "dir": "h",
+      "bays": 4,
+      "levels": 3,
+      "count": 0,
+      "locked": true,
+      "points": [
+        [
+          1595,
+          4692
+        ],
+        [
+          2217,
+          4692
+        ],
+        [
+          2217,
+          4809
+        ],
+        [
+          1595,
+          4809
+        ]
+      ]
+    },
+    {
+      "id": "rack-0024",
+      "type": "rack",
+      "code": "R-25",
+      "block": "H1.1",
+      "cx": 1936,
+      "cy": 5062,
+      "width": 324,
+      "depth": 175,
+      "dir": "h",
+      "bays": 2,
+      "levels": 3,
+      "count": 0,
+      "locked": true,
+      "points": [
+        [
+          1774,
+          4974
+        ],
+        [
+          2098,
+          4974
+        ],
+        [
+          2098,
+          5149
+        ],
+        [
+          1774,
+          5149
+        ]
+      ]
+    },
+    {
+      "id": "rack-0025",
+      "type": "rack",
+      "code": "R-26",
+      "block": "H1.1",
+      "cx": 2576,
+      "cy": 5032,
+      "width": 156,
+      "depth": 235,
+      "dir": "v",
+      "bays": 2,
+      "levels": 3,
+      "count": 0,
+      "locked": true,
+      "points": [
+        [
+          2498,
+          4914
+        ],
+        [
+          2654,
+          4914
+        ],
+        [
+          2654,
+          5149
+        ],
+        [
+          2498,
+          5149
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0252",
+      "type": "pallet",
+      "code": "P-001",
+      "block": "H2.3",
+      "cx": 2994,
+      "cy": 831,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 1,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          791
+        ],
+        [
+          3054,
+          791
+        ],
+        [
+          3054,
+          871
+        ],
+        [
+          2934,
+          871
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0253",
+      "type": "pallet",
+      "code": "P-002",
+      "block": "H2.3",
+      "cx": 2994,
+      "cy": 916,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 2,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          876
+        ],
+        [
+          3054,
+          876
+        ],
+        [
+          3054,
+          956
+        ],
+        [
+          2934,
+          956
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0254",
+      "type": "pallet",
+      "code": "P-003",
+      "block": "H2.3",
+      "cx": 2994,
+      "cy": 1001,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 3,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          961
+        ],
+        [
+          3054,
+          961
+        ],
+        [
+          3054,
+          1041
+        ],
+        [
+          2934,
+          1041
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0255",
+      "type": "pallet",
+      "code": "P-004",
+      "block": "H2.3",
+      "cx": 2994,
+      "cy": 1086,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 4,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          1046
+        ],
+        [
+          3054,
+          1046
+        ],
+        [
+          3054,
+          1126
+        ],
+        [
+          2934,
+          1126
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0256",
+      "type": "pallet",
+      "code": "P-005",
+      "block": "H2.3",
+      "cx": 2994,
+      "cy": 1171,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 5,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          1131
+        ],
+        [
+          3054,
+          1131
+        ],
+        [
+          3054,
+          1211
+        ],
+        [
+          2934,
+          1211
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0241",
+      "type": "pallet",
+      "code": "P-006",
+      "block": "H2.2",
+      "cx": 1923,
+      "cy": 1250,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 6,
+      "locked": true,
+      "points": [
+        [
+          1883,
+          1190
+        ],
+        [
+          1963,
+          1190
+        ],
+        [
+          1963,
+          1310
+        ],
+        [
+          1883,
+          1310
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0242",
+      "type": "pallet",
+      "code": "P-007",
+      "block": "H2.2",
+      "cx": 2008,
+      "cy": 1250,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 7,
+      "locked": true,
+      "points": [
+        [
+          1968,
+          1190
+        ],
+        [
+          2048,
+          1190
+        ],
+        [
+          2048,
+          1310
+        ],
+        [
+          1968,
+          1310
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0243",
+      "type": "pallet",
+      "code": "P-008",
+      "block": "H2.1",
+      "cx": 2138,
+      "cy": 1250,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 8,
+      "locked": true,
+      "points": [
+        [
+          2098,
+          1190
+        ],
+        [
+          2178,
+          1190
+        ],
+        [
+          2178,
+          1310
+        ],
+        [
+          2098,
+          1310
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0244",
+      "type": "pallet",
+      "code": "P-009",
+      "block": "H2.1",
+      "cx": 2223,
+      "cy": 1250,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 9,
+      "locked": true,
+      "points": [
+        [
+          2183,
+          1190
+        ],
+        [
+          2263,
+          1190
+        ],
+        [
+          2263,
+          1310
+        ],
+        [
+          2183,
+          1310
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0245",
+      "type": "pallet",
+      "code": "P-010",
+      "block": "H2.1",
+      "cx": 2504,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 10,
+      "locked": true,
+      "points": [
+        [
+          2464,
+          1211
+        ],
+        [
+          2544,
+          1211
+        ],
+        [
+          2544,
+          1331
+        ],
+        [
+          2464,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0246",
+      "type": "pallet",
+      "code": "P-011",
+      "block": "H2.1",
+      "cx": 2589,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 11,
+      "locked": true,
+      "points": [
+        [
+          2549,
+          1211
+        ],
+        [
+          2629,
+          1211
+        ],
+        [
+          2629,
+          1331
+        ],
+        [
+          2549,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0247",
+      "type": "pallet",
+      "code": "P-012",
+      "block": "H2.1",
+      "cx": 2674,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 12,
+      "locked": true,
+      "points": [
+        [
+          2634,
+          1211
+        ],
+        [
+          2714,
+          1211
+        ],
+        [
+          2714,
+          1331
+        ],
+        [
+          2634,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0248",
+      "type": "pallet",
+      "code": "P-013",
+      "block": "H2.1",
+      "cx": 2759,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 13,
+      "locked": true,
+      "points": [
+        [
+          2719,
+          1211
+        ],
+        [
+          2799,
+          1211
+        ],
+        [
+          2799,
+          1331
+        ],
+        [
+          2719,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0249",
+      "type": "pallet",
+      "code": "P-014",
+      "block": "H2.1",
+      "cx": 2844,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 14,
+      "locked": true,
+      "points": [
+        [
+          2804,
+          1211
+        ],
+        [
+          2884,
+          1211
+        ],
+        [
+          2884,
+          1331
+        ],
+        [
+          2804,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0250",
+      "type": "pallet",
+      "code": "P-015",
+      "block": "H2.1",
+      "cx": 2929,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 15,
+      "locked": true,
+      "points": [
+        [
+          2889,
+          1211
+        ],
+        [
+          2969,
+          1211
+        ],
+        [
+          2969,
+          1331
+        ],
+        [
+          2889,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0251",
+      "type": "pallet",
+      "code": "P-016",
+      "block": "H2.1",
+      "cx": 3014,
+      "cy": 1271,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 16,
+      "locked": true,
+      "points": [
+        [
+          2974,
+          1211
+        ],
+        [
+          3054,
+          1211
+        ],
+        [
+          3054,
+          1331
+        ],
+        [
+          2974,
+          1331
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0216",
+      "type": "pallet",
+      "code": "P-017",
+      "block": "H2.2",
+      "cx": 1186,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 17,
+      "locked": true,
+      "points": [
+        [
+          1146,
+          1451
+        ],
+        [
+          1226,
+          1451
+        ],
+        [
+          1226,
+          1571
+        ],
+        [
+          1146,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0217",
+      "type": "pallet",
+      "code": "P-018",
+      "block": "H2.2",
+      "cx": 1271,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 18,
+      "locked": true,
+      "points": [
+        [
+          1231,
+          1451
+        ],
+        [
+          1311,
+          1451
+        ],
+        [
+          1311,
+          1571
+        ],
+        [
+          1231,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0218",
+      "type": "pallet",
+      "code": "P-019",
+      "block": "H2.2",
+      "cx": 1356,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 19,
+      "locked": true,
+      "points": [
+        [
+          1316,
+          1451
+        ],
+        [
+          1396,
+          1451
+        ],
+        [
+          1396,
+          1571
+        ],
+        [
+          1316,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0219",
+      "type": "pallet",
+      "code": "P-020",
+      "block": "H2.2",
+      "cx": 1441,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 20,
+      "locked": true,
+      "points": [
+        [
+          1401,
+          1451
+        ],
+        [
+          1481,
+          1451
+        ],
+        [
+          1481,
+          1571
+        ],
+        [
+          1401,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0220",
+      "type": "pallet",
+      "code": "P-021",
+      "block": "H2.2",
+      "cx": 1526,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 21,
+      "locked": true,
+      "points": [
+        [
+          1486,
+          1451
+        ],
+        [
+          1566,
+          1451
+        ],
+        [
+          1566,
+          1571
+        ],
+        [
+          1486,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0221",
+      "type": "pallet",
+      "code": "P-022",
+      "block": "H2.2",
+      "cx": 1611,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 22,
+      "locked": true,
+      "points": [
+        [
+          1571,
+          1451
+        ],
+        [
+          1651,
+          1451
+        ],
+        [
+          1651,
+          1571
+        ],
+        [
+          1571,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0222",
+      "type": "pallet",
+      "code": "P-023",
+      "block": "H2.2",
+      "cx": 1696,
+      "cy": 1511,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 23,
+      "locked": true,
+      "points": [
+        [
+          1656,
+          1451
+        ],
+        [
+          1736,
+          1451
+        ],
+        [
+          1736,
+          1571
+        ],
+        [
+          1656,
+          1571
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0223",
+      "type": "pallet",
+      "code": "P-024",
+      "block": "H2.2",
+      "cx": 1946,
+      "cy": 1555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 24,
+      "locked": true,
+      "points": [
+        [
+          1906,
+          1495
+        ],
+        [
+          1986,
+          1495
+        ],
+        [
+          1986,
+          1615
+        ],
+        [
+          1906,
+          1615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0224",
+      "type": "pallet",
+      "code": "P-025",
+      "block": "H2.2",
+      "cx": 2031,
+      "cy": 1555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 25,
+      "locked": true,
+      "points": [
+        [
+          1991,
+          1495
+        ],
+        [
+          2071,
+          1495
+        ],
+        [
+          2071,
+          1615
+        ],
+        [
+          1991,
+          1615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0225",
+      "type": "pallet",
+      "code": "P-026",
+      "block": "H2.1",
+      "cx": 2116,
+      "cy": 1555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 26,
+      "locked": true,
+      "points": [
+        [
+          2076,
+          1495
+        ],
+        [
+          2156,
+          1495
+        ],
+        [
+          2156,
+          1615
+        ],
+        [
+          2076,
+          1615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0226",
+      "type": "pallet",
+      "code": "P-027",
+      "block": "H2.1",
+      "cx": 2201,
+      "cy": 1555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 27,
+      "locked": true,
+      "points": [
+        [
+          2161,
+          1495
+        ],
+        [
+          2241,
+          1495
+        ],
+        [
+          2241,
+          1615
+        ],
+        [
+          2161,
+          1615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0234",
+      "type": "pallet",
+      "code": "P-028",
+      "block": "H2.1",
+      "cx": 2529,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 28,
+      "locked": true,
+      "points": [
+        [
+          2489,
+          1484
+        ],
+        [
+          2569,
+          1484
+        ],
+        [
+          2569,
+          1604
+        ],
+        [
+          2489,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0235",
+      "type": "pallet",
+      "code": "P-029",
+      "block": "H2.1",
+      "cx": 2614,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 29,
+      "locked": true,
+      "points": [
+        [
+          2574,
+          1484
+        ],
+        [
+          2654,
+          1484
+        ],
+        [
+          2654,
+          1604
+        ],
+        [
+          2574,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0236",
+      "type": "pallet",
+      "code": "P-030",
+      "block": "H2.1",
+      "cx": 2699,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 30,
+      "locked": true,
+      "points": [
+        [
+          2659,
+          1484
+        ],
+        [
+          2739,
+          1484
+        ],
+        [
+          2739,
+          1604
+        ],
+        [
+          2659,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0237",
+      "type": "pallet",
+      "code": "P-031",
+      "block": "H2.1",
+      "cx": 2784,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 31,
+      "locked": true,
+      "points": [
+        [
+          2744,
+          1484
+        ],
+        [
+          2824,
+          1484
+        ],
+        [
+          2824,
+          1604
+        ],
+        [
+          2744,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0238",
+      "type": "pallet",
+      "code": "P-032",
+      "block": "H2.1",
+      "cx": 2869,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 32,
+      "locked": true,
+      "points": [
+        [
+          2829,
+          1484
+        ],
+        [
+          2909,
+          1484
+        ],
+        [
+          2909,
+          1604
+        ],
+        [
+          2829,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0239",
+      "type": "pallet",
+      "code": "P-033",
+      "block": "H2.1",
+      "cx": 2954,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 33,
+      "locked": true,
+      "points": [
+        [
+          2914,
+          1484
+        ],
+        [
+          2994,
+          1484
+        ],
+        [
+          2994,
+          1604
+        ],
+        [
+          2914,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0240",
+      "type": "pallet",
+      "code": "P-034",
+      "block": "H2.1",
+      "cx": 3039,
+      "cy": 1544,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 34,
+      "locked": true,
+      "points": [
+        [
+          2999,
+          1484
+        ],
+        [
+          3079,
+          1484
+        ],
+        [
+          3079,
+          1604
+        ],
+        [
+          2999,
+          1604
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0209",
+      "type": "pallet",
+      "code": "P-035",
+      "block": "H2.2",
+      "cx": 1186,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 35,
+      "locked": true,
+      "points": [
+        [
+          1146,
+          1571
+        ],
+        [
+          1226,
+          1571
+        ],
+        [
+          1226,
+          1691
+        ],
+        [
+          1146,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0210",
+      "type": "pallet",
+      "code": "P-036",
+      "block": "H2.2",
+      "cx": 1271,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 36,
+      "locked": true,
+      "points": [
+        [
+          1231,
+          1571
+        ],
+        [
+          1311,
+          1571
+        ],
+        [
+          1311,
+          1691
+        ],
+        [
+          1231,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0211",
+      "type": "pallet",
+      "code": "P-037",
+      "block": "H2.2",
+      "cx": 1356,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 37,
+      "locked": true,
+      "points": [
+        [
+          1316,
+          1571
+        ],
+        [
+          1396,
+          1571
+        ],
+        [
+          1396,
+          1691
+        ],
+        [
+          1316,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0212",
+      "type": "pallet",
+      "code": "P-038",
+      "block": "H2.2",
+      "cx": 1441,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 38,
+      "locked": true,
+      "points": [
+        [
+          1401,
+          1571
+        ],
+        [
+          1481,
+          1571
+        ],
+        [
+          1481,
+          1691
+        ],
+        [
+          1401,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0213",
+      "type": "pallet",
+      "code": "P-039",
+      "block": "H2.2",
+      "cx": 1526,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 39,
+      "locked": true,
+      "points": [
+        [
+          1486,
+          1571
+        ],
+        [
+          1566,
+          1571
+        ],
+        [
+          1566,
+          1691
+        ],
+        [
+          1486,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0214",
+      "type": "pallet",
+      "code": "P-040",
+      "block": "H2.2",
+      "cx": 1611,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 40,
+      "locked": true,
+      "points": [
+        [
+          1571,
+          1571
+        ],
+        [
+          1651,
+          1571
+        ],
+        [
+          1651,
+          1691
+        ],
+        [
+          1571,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0215",
+      "type": "pallet",
+      "code": "P-041",
+      "block": "H2.2",
+      "cx": 1696,
+      "cy": 1631,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 41,
+      "locked": true,
+      "points": [
+        [
+          1656,
+          1571
+        ],
+        [
+          1736,
+          1571
+        ],
+        [
+          1736,
+          1691
+        ],
+        [
+          1656,
+          1691
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0189",
+      "type": "pallet",
+      "code": "P-042",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 1670,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 42,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          1630
+        ],
+        [
+          2033,
+          1630
+        ],
+        [
+          2033,
+          1710
+        ],
+        [
+          1913,
+          1710
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0227",
+      "type": "pallet",
+      "code": "P-043",
+      "block": "H2.1",
+      "cx": 2529,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 43,
+      "locked": true,
+      "points": [
+        [
+          2489,
+          1604
+        ],
+        [
+          2569,
+          1604
+        ],
+        [
+          2569,
+          1724
+        ],
+        [
+          2489,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0228",
+      "type": "pallet",
+      "code": "P-044",
+      "block": "H2.1",
+      "cx": 2614,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 44,
+      "locked": true,
+      "points": [
+        [
+          2574,
+          1604
+        ],
+        [
+          2654,
+          1604
+        ],
+        [
+          2654,
+          1724
+        ],
+        [
+          2574,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0229",
+      "type": "pallet",
+      "code": "P-045",
+      "block": "H2.1",
+      "cx": 2699,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 45,
+      "locked": true,
+      "points": [
+        [
+          2659,
+          1604
+        ],
+        [
+          2739,
+          1604
+        ],
+        [
+          2739,
+          1724
+        ],
+        [
+          2659,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0230",
+      "type": "pallet",
+      "code": "P-046",
+      "block": "H2.1",
+      "cx": 2784,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 46,
+      "locked": true,
+      "points": [
+        [
+          2744,
+          1604
+        ],
+        [
+          2824,
+          1604
+        ],
+        [
+          2824,
+          1724
+        ],
+        [
+          2744,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0231",
+      "type": "pallet",
+      "code": "P-047",
+      "block": "H2.1",
+      "cx": 2869,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 47,
+      "locked": true,
+      "points": [
+        [
+          2829,
+          1604
+        ],
+        [
+          2909,
+          1604
+        ],
+        [
+          2909,
+          1724
+        ],
+        [
+          2829,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0232",
+      "type": "pallet",
+      "code": "P-048",
+      "block": "H2.1",
+      "cx": 2954,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 48,
+      "locked": true,
+      "points": [
+        [
+          2914,
+          1604
+        ],
+        [
+          2994,
+          1604
+        ],
+        [
+          2994,
+          1724
+        ],
+        [
+          2914,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0233",
+      "type": "pallet",
+      "code": "P-049",
+      "block": "H2.1",
+      "cx": 3039,
+      "cy": 1664,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 49,
+      "locked": true,
+      "points": [
+        [
+          2999,
+          1604
+        ],
+        [
+          3079,
+          1604
+        ],
+        [
+          3079,
+          1724
+        ],
+        [
+          2999,
+          1724
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0190",
+      "type": "pallet",
+      "code": "P-050",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 1755,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 50,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          1715
+        ],
+        [
+          2033,
+          1715
+        ],
+        [
+          2033,
+          1795
+        ],
+        [
+          1913,
+          1795
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0191",
+      "type": "pallet",
+      "code": "P-051",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 1840,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 51,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          1800
+        ],
+        [
+          2033,
+          1800
+        ],
+        [
+          2033,
+          1880
+        ],
+        [
+          1913,
+          1880
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0202",
+      "type": "pallet",
+      "code": "P-052",
+      "block": "H2.2",
+      "cx": 1186,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 52,
+      "locked": true,
+      "points": [
+        [
+          1146,
+          1891
+        ],
+        [
+          1226,
+          1891
+        ],
+        [
+          1226,
+          2011
+        ],
+        [
+          1146,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0203",
+      "type": "pallet",
+      "code": "P-053",
+      "block": "H2.2",
+      "cx": 1271,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 53,
+      "locked": true,
+      "points": [
+        [
+          1231,
+          1891
+        ],
+        [
+          1311,
+          1891
+        ],
+        [
+          1311,
+          2011
+        ],
+        [
+          1231,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0204",
+      "type": "pallet",
+      "code": "P-054",
+      "block": "H2.2",
+      "cx": 1356,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 54,
+      "locked": true,
+      "points": [
+        [
+          1316,
+          1891
+        ],
+        [
+          1396,
+          1891
+        ],
+        [
+          1396,
+          2011
+        ],
+        [
+          1316,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0205",
+      "type": "pallet",
+      "code": "P-055",
+      "block": "H2.2",
+      "cx": 1441,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 55,
+      "locked": true,
+      "points": [
+        [
+          1401,
+          1891
+        ],
+        [
+          1481,
+          1891
+        ],
+        [
+          1481,
+          2011
+        ],
+        [
+          1401,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0206",
+      "type": "pallet",
+      "code": "P-056",
+      "block": "H2.2",
+      "cx": 1526,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 56,
+      "locked": true,
+      "points": [
+        [
+          1486,
+          1891
+        ],
+        [
+          1566,
+          1891
+        ],
+        [
+          1566,
+          2011
+        ],
+        [
+          1486,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0207",
+      "type": "pallet",
+      "code": "P-057",
+      "block": "H2.2",
+      "cx": 1611,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 57,
+      "locked": true,
+      "points": [
+        [
+          1571,
+          1891
+        ],
+        [
+          1651,
+          1891
+        ],
+        [
+          1651,
+          2011
+        ],
+        [
+          1571,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0208",
+      "type": "pallet",
+      "code": "P-058",
+      "block": "H2.2",
+      "cx": 1696,
+      "cy": 1951,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 58,
+      "locked": true,
+      "points": [
+        [
+          1656,
+          1891
+        ],
+        [
+          1736,
+          1891
+        ],
+        [
+          1736,
+          2011
+        ],
+        [
+          1656,
+          2011
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0192",
+      "type": "pallet",
+      "code": "P-059",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 1925,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 59,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          1885
+        ],
+        [
+          2033,
+          1885
+        ],
+        [
+          2033,
+          1965
+        ],
+        [
+          1913,
+          1965
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0193",
+      "type": "pallet",
+      "code": "P-060",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2010,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 60,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          1970
+        ],
+        [
+          2033,
+          1970
+        ],
+        [
+          2033,
+          2050
+        ],
+        [
+          1913,
+          2050
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0181",
+      "type": "pallet",
+      "code": "P-061",
+      "block": "H2.2",
+      "cx": 1186,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 61,
+      "locked": true,
+      "points": [
+        [
+          1146,
+          2011
+        ],
+        [
+          1226,
+          2011
+        ],
+        [
+          1226,
+          2131
+        ],
+        [
+          1146,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0182",
+      "type": "pallet",
+      "code": "P-062",
+      "block": "H2.2",
+      "cx": 1271,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 62,
+      "locked": true,
+      "points": [
+        [
+          1231,
+          2011
+        ],
+        [
+          1311,
+          2011
+        ],
+        [
+          1311,
+          2131
+        ],
+        [
+          1231,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0183",
+      "type": "pallet",
+      "code": "P-063",
+      "block": "H2.2",
+      "cx": 1356,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 63,
+      "locked": true,
+      "points": [
+        [
+          1316,
+          2011
+        ],
+        [
+          1396,
+          2011
+        ],
+        [
+          1396,
+          2131
+        ],
+        [
+          1316,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0184",
+      "type": "pallet",
+      "code": "P-064",
+      "block": "H2.2",
+      "cx": 1441,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 64,
+      "locked": true,
+      "points": [
+        [
+          1401,
+          2011
+        ],
+        [
+          1481,
+          2011
+        ],
+        [
+          1481,
+          2131
+        ],
+        [
+          1401,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0185",
+      "type": "pallet",
+      "code": "P-065",
+      "block": "H2.2",
+      "cx": 1526,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 65,
+      "locked": true,
+      "points": [
+        [
+          1486,
+          2011
+        ],
+        [
+          1566,
+          2011
+        ],
+        [
+          1566,
+          2131
+        ],
+        [
+          1486,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0186",
+      "type": "pallet",
+      "code": "P-066",
+      "block": "H2.2",
+      "cx": 1611,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 66,
+      "locked": true,
+      "points": [
+        [
+          1571,
+          2011
+        ],
+        [
+          1651,
+          2011
+        ],
+        [
+          1651,
+          2131
+        ],
+        [
+          1571,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0187",
+      "type": "pallet",
+      "code": "P-067",
+      "block": "H2.2",
+      "cx": 1696,
+      "cy": 2071,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 67,
+      "locked": true,
+      "points": [
+        [
+          1656,
+          2011
+        ],
+        [
+          1736,
+          2011
+        ],
+        [
+          1736,
+          2131
+        ],
+        [
+          1656,
+          2131
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0194",
+      "type": "pallet",
+      "code": "P-068",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2095,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 68,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2055
+        ],
+        [
+          2033,
+          2055
+        ],
+        [
+          2033,
+          2135
+        ],
+        [
+          1913,
+          2135
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0195",
+      "type": "pallet",
+      "code": "P-069",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2180,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 69,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2140
+        ],
+        [
+          2033,
+          2140
+        ],
+        [
+          2033,
+          2220
+        ],
+        [
+          1913,
+          2220
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0196",
+      "type": "pallet",
+      "code": "P-070",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2265,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 70,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2225
+        ],
+        [
+          2033,
+          2225
+        ],
+        [
+          2033,
+          2305
+        ],
+        [
+          1913,
+          2305
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0197",
+      "type": "pallet",
+      "code": "P-071",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2350,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 71,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2310
+        ],
+        [
+          2033,
+          2310
+        ],
+        [
+          2033,
+          2390
+        ],
+        [
+          1913,
+          2390
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0175",
+      "type": "pallet",
+      "code": "P-072",
+      "block": "H2.2",
+      "cx": 1312,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 72,
+      "locked": true,
+      "points": [
+        [
+          1272,
+          2375
+        ],
+        [
+          1352,
+          2375
+        ],
+        [
+          1352,
+          2495
+        ],
+        [
+          1272,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0176",
+      "type": "pallet",
+      "code": "P-073",
+      "block": "H2.2",
+      "cx": 1397,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 73,
+      "locked": true,
+      "points": [
+        [
+          1357,
+          2375
+        ],
+        [
+          1437,
+          2375
+        ],
+        [
+          1437,
+          2495
+        ],
+        [
+          1357,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0177",
+      "type": "pallet",
+      "code": "P-074",
+      "block": "H2.2",
+      "cx": 1482,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 74,
+      "locked": true,
+      "points": [
+        [
+          1442,
+          2375
+        ],
+        [
+          1522,
+          2375
+        ],
+        [
+          1522,
+          2495
+        ],
+        [
+          1442,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0178",
+      "type": "pallet",
+      "code": "P-075",
+      "block": "H2.2",
+      "cx": 1567,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 75,
+      "locked": true,
+      "points": [
+        [
+          1527,
+          2375
+        ],
+        [
+          1607,
+          2375
+        ],
+        [
+          1607,
+          2495
+        ],
+        [
+          1527,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0179",
+      "type": "pallet",
+      "code": "P-076",
+      "block": "H2.2",
+      "cx": 1652,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 76,
+      "locked": true,
+      "points": [
+        [
+          1612,
+          2375
+        ],
+        [
+          1692,
+          2375
+        ],
+        [
+          1692,
+          2495
+        ],
+        [
+          1612,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0180",
+      "type": "pallet",
+      "code": "P-077",
+      "block": "H2.2",
+      "cx": 1737,
+      "cy": 2435,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 77,
+      "locked": true,
+      "points": [
+        [
+          1697,
+          2375
+        ],
+        [
+          1777,
+          2375
+        ],
+        [
+          1777,
+          2495
+        ],
+        [
+          1697,
+          2495
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0198",
+      "type": "pallet",
+      "code": "P-078",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2435,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 78,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2395
+        ],
+        [
+          2033,
+          2395
+        ],
+        [
+          2033,
+          2475
+        ],
+        [
+          1913,
+          2475
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0169",
+      "type": "pallet",
+      "code": "P-079",
+      "block": "H2.2",
+      "cx": 1312,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 79,
+      "locked": true,
+      "points": [
+        [
+          1272,
+          2495
+        ],
+        [
+          1352,
+          2495
+        ],
+        [
+          1352,
+          2615
+        ],
+        [
+          1272,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0170",
+      "type": "pallet",
+      "code": "P-080",
+      "block": "H2.2",
+      "cx": 1397,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 80,
+      "locked": true,
+      "points": [
+        [
+          1357,
+          2495
+        ],
+        [
+          1437,
+          2495
+        ],
+        [
+          1437,
+          2615
+        ],
+        [
+          1357,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0171",
+      "type": "pallet",
+      "code": "P-081",
+      "block": "H2.2",
+      "cx": 1482,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 81,
+      "locked": true,
+      "points": [
+        [
+          1442,
+          2495
+        ],
+        [
+          1522,
+          2495
+        ],
+        [
+          1522,
+          2615
+        ],
+        [
+          1442,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0172",
+      "type": "pallet",
+      "code": "P-082",
+      "block": "H2.2",
+      "cx": 1567,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 82,
+      "locked": true,
+      "points": [
+        [
+          1527,
+          2495
+        ],
+        [
+          1607,
+          2495
+        ],
+        [
+          1607,
+          2615
+        ],
+        [
+          1527,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0173",
+      "type": "pallet",
+      "code": "P-083",
+      "block": "H2.2",
+      "cx": 1652,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 83,
+      "locked": true,
+      "points": [
+        [
+          1612,
+          2495
+        ],
+        [
+          1692,
+          2495
+        ],
+        [
+          1692,
+          2615
+        ],
+        [
+          1612,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0174",
+      "type": "pallet",
+      "code": "P-084",
+      "block": "H2.2",
+      "cx": 1737,
+      "cy": 2555,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 84,
+      "locked": true,
+      "points": [
+        [
+          1697,
+          2495
+        ],
+        [
+          1777,
+          2495
+        ],
+        [
+          1777,
+          2615
+        ],
+        [
+          1697,
+          2615
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0199",
+      "type": "pallet",
+      "code": "P-085",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2520,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 85,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2480
+        ],
+        [
+          2033,
+          2480
+        ],
+        [
+          2033,
+          2560
+        ],
+        [
+          1913,
+          2560
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0200",
+      "type": "pallet",
+      "code": "P-086",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2605,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 86,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2565
+        ],
+        [
+          2033,
+          2565
+        ],
+        [
+          2033,
+          2645
+        ],
+        [
+          1913,
+          2645
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0201",
+      "type": "pallet",
+      "code": "P-087",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2690,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 87,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2650
+        ],
+        [
+          2033,
+          2650
+        ],
+        [
+          2033,
+          2730
+        ],
+        [
+          1913,
+          2730
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0272",
+      "type": "pallet",
+      "code": "P-088",
+      "block": "H2.2",
+      "cx": 1973,
+      "cy": 2775,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 88,
+      "locked": true,
+      "points": [
+        [
+          1913,
+          2735
+        ],
+        [
+          2033,
+          2735
+        ],
+        [
+          2033,
+          2815
+        ],
+        [
+          1913,
+          2815
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0159",
+      "type": "pallet",
+      "code": "P-089",
+      "block": "H2.2",
+      "cx": 1312,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 89,
+      "locked": true,
+      "points": [
+        [
+          1272,
+          2815
+        ],
+        [
+          1352,
+          2815
+        ],
+        [
+          1352,
+          2935
+        ],
+        [
+          1272,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0160",
+      "type": "pallet",
+      "code": "P-090",
+      "block": "H2.2",
+      "cx": 1397,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 90,
+      "locked": true,
+      "points": [
+        [
+          1357,
+          2815
+        ],
+        [
+          1437,
+          2815
+        ],
+        [
+          1437,
+          2935
+        ],
+        [
+          1357,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0161",
+      "type": "pallet",
+      "code": "P-091",
+      "block": "H2.2",
+      "cx": 1482,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 91,
+      "locked": true,
+      "points": [
+        [
+          1442,
+          2815
+        ],
+        [
+          1522,
+          2815
+        ],
+        [
+          1522,
+          2935
+        ],
+        [
+          1442,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0162",
+      "type": "pallet",
+      "code": "P-092",
+      "block": "H2.2",
+      "cx": 1567,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 92,
+      "locked": true,
+      "points": [
+        [
+          1527,
+          2815
+        ],
+        [
+          1607,
+          2815
+        ],
+        [
+          1607,
+          2935
+        ],
+        [
+          1527,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0163",
+      "type": "pallet",
+      "code": "P-093",
+      "block": "H2.2",
+      "cx": 1652,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 93,
+      "locked": true,
+      "points": [
+        [
+          1612,
+          2815
+        ],
+        [
+          1692,
+          2815
+        ],
+        [
+          1692,
+          2935
+        ],
+        [
+          1612,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0164",
+      "type": "pallet",
+      "code": "P-094",
+      "block": "H2.2",
+      "cx": 1737,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 94,
+      "locked": true,
+      "points": [
+        [
+          1697,
+          2815
+        ],
+        [
+          1777,
+          2815
+        ],
+        [
+          1777,
+          2935
+        ],
+        [
+          1697,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0165",
+      "type": "pallet",
+      "code": "P-095",
+      "block": "H2.2",
+      "cx": 1946,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 95,
+      "locked": true,
+      "points": [
+        [
+          1906,
+          2815
+        ],
+        [
+          1986,
+          2815
+        ],
+        [
+          1986,
+          2935
+        ],
+        [
+          1906,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0166",
+      "type": "pallet",
+      "code": "P-096",
+      "block": "H2.2",
+      "cx": 2031,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 96,
+      "locked": true,
+      "points": [
+        [
+          1991,
+          2815
+        ],
+        [
+          2071,
+          2815
+        ],
+        [
+          2071,
+          2935
+        ],
+        [
+          1991,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0167",
+      "type": "pallet",
+      "code": "P-097",
+      "block": "H2.1",
+      "cx": 2116,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 97,
+      "locked": true,
+      "points": [
+        [
+          2076,
+          2815
+        ],
+        [
+          2156,
+          2815
+        ],
+        [
+          2156,
+          2935
+        ],
+        [
+          2076,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0168",
+      "type": "pallet",
+      "code": "P-098",
+      "block": "H2.1",
+      "cx": 2201,
+      "cy": 2875,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 98,
+      "locked": true,
+      "points": [
+        [
+          2161,
+          2815
+        ],
+        [
+          2241,
+          2815
+        ],
+        [
+          2241,
+          2935
+        ],
+        [
+          2161,
+          2935
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0149",
+      "type": "pallet",
+      "code": "P-099",
+      "block": "H2.2",
+      "cx": 1312,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 99,
+      "locked": true,
+      "points": [
+        [
+          1272,
+          3087
+        ],
+        [
+          1352,
+          3087
+        ],
+        [
+          1352,
+          3207
+        ],
+        [
+          1272,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0150",
+      "type": "pallet",
+      "code": "P-100",
+      "block": "H2.2",
+      "cx": 1397,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 100,
+      "locked": true,
+      "points": [
+        [
+          1357,
+          3087
+        ],
+        [
+          1437,
+          3087
+        ],
+        [
+          1437,
+          3207
+        ],
+        [
+          1357,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0151",
+      "type": "pallet",
+      "code": "P-101",
+      "block": "H2.2",
+      "cx": 1482,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 101,
+      "locked": true,
+      "points": [
+        [
+          1442,
+          3087
+        ],
+        [
+          1522,
+          3087
+        ],
+        [
+          1522,
+          3207
+        ],
+        [
+          1442,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0152",
+      "type": "pallet",
+      "code": "P-102",
+      "block": "H2.2",
+      "cx": 1567,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 102,
+      "locked": true,
+      "points": [
+        [
+          1527,
+          3087
+        ],
+        [
+          1607,
+          3087
+        ],
+        [
+          1607,
+          3207
+        ],
+        [
+          1527,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0153",
+      "type": "pallet",
+      "code": "P-103",
+      "block": "H2.2",
+      "cx": 1652,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 103,
+      "locked": true,
+      "points": [
+        [
+          1612,
+          3087
+        ],
+        [
+          1692,
+          3087
+        ],
+        [
+          1692,
+          3207
+        ],
+        [
+          1612,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0154",
+      "type": "pallet",
+      "code": "P-104",
+      "block": "H2.2",
+      "cx": 1737,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 104,
+      "locked": true,
+      "points": [
+        [
+          1697,
+          3087
+        ],
+        [
+          1777,
+          3087
+        ],
+        [
+          1777,
+          3207
+        ],
+        [
+          1697,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0155",
+      "type": "pallet",
+      "code": "P-105",
+      "block": "H2.2",
+      "cx": 1822,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 105,
+      "locked": true,
+      "points": [
+        [
+          1782,
+          3087
+        ],
+        [
+          1862,
+          3087
+        ],
+        [
+          1862,
+          3207
+        ],
+        [
+          1782,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0156",
+      "type": "pallet",
+      "code": "P-106",
+      "block": "H2.2",
+      "cx": 1907,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 106,
+      "locked": true,
+      "points": [
+        [
+          1867,
+          3087
+        ],
+        [
+          1947,
+          3087
+        ],
+        [
+          1947,
+          3207
+        ],
+        [
+          1867,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0157",
+      "type": "pallet",
+      "code": "P-107",
+      "block": "H2.2",
+      "cx": 1992,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 107,
+      "locked": true,
+      "points": [
+        [
+          1952,
+          3087
+        ],
+        [
+          2032,
+          3087
+        ],
+        [
+          2032,
+          3207
+        ],
+        [
+          1952,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0158",
+      "type": "pallet",
+      "code": "P-108",
+      "block": "H2.1",
+      "cx": 2077,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 108,
+      "locked": true,
+      "points": [
+        [
+          2037,
+          3087
+        ],
+        [
+          2117,
+          3087
+        ],
+        [
+          2117,
+          3207
+        ],
+        [
+          2037,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0065",
+      "type": "pallet",
+      "code": "P-109",
+      "block": "H2.1",
+      "cx": 2554,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 109,
+      "locked": true,
+      "points": [
+        [
+          2514,
+          3087
+        ],
+        [
+          2594,
+          3087
+        ],
+        [
+          2594,
+          3207
+        ],
+        [
+          2514,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0066",
+      "type": "pallet",
+      "code": "P-110",
+      "block": "H2.1",
+      "cx": 2639,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 110,
+      "locked": true,
+      "points": [
+        [
+          2599,
+          3087
+        ],
+        [
+          2679,
+          3087
+        ],
+        [
+          2679,
+          3207
+        ],
+        [
+          2599,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0067",
+      "type": "pallet",
+      "code": "P-111",
+      "block": "H2.1",
+      "cx": 2724,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 111,
+      "locked": true,
+      "points": [
+        [
+          2684,
+          3087
+        ],
+        [
+          2764,
+          3087
+        ],
+        [
+          2764,
+          3207
+        ],
+        [
+          2684,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0068",
+      "type": "pallet",
+      "code": "P-112",
+      "block": "H2.1",
+      "cx": 2809,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 112,
+      "locked": true,
+      "points": [
+        [
+          2769,
+          3087
+        ],
+        [
+          2849,
+          3087
+        ],
+        [
+          2849,
+          3207
+        ],
+        [
+          2769,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0069",
+      "type": "pallet",
+      "code": "P-113",
+      "block": "H2.1",
+      "cx": 2894,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 113,
+      "locked": true,
+      "points": [
+        [
+          2854,
+          3087
+        ],
+        [
+          2934,
+          3087
+        ],
+        [
+          2934,
+          3207
+        ],
+        [
+          2854,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0070",
+      "type": "pallet",
+      "code": "P-114",
+      "block": "H2.1",
+      "cx": 2979,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 114,
+      "locked": true,
+      "points": [
+        [
+          2939,
+          3087
+        ],
+        [
+          3019,
+          3087
+        ],
+        [
+          3019,
+          3207
+        ],
+        [
+          2939,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0071",
+      "type": "pallet",
+      "code": "P-115",
+      "block": "H2.1",
+      "cx": 3064,
+      "cy": 3147,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 115,
+      "locked": true,
+      "points": [
+        [
+          3024,
+          3087
+        ],
+        [
+          3104,
+          3087
+        ],
+        [
+          3104,
+          3207
+        ],
+        [
+          3024,
+          3207
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0142",
+      "type": "pallet",
+      "code": "P-116",
+      "block": "H1.2",
+      "cx": 2554,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 116,
+      "locked": true,
+      "points": [
+        [
+          2514,
+          3257
+        ],
+        [
+          2594,
+          3257
+        ],
+        [
+          2594,
+          3377
+        ],
+        [
+          2514,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0143",
+      "type": "pallet",
+      "code": "P-117",
+      "block": "H1.2",
+      "cx": 2639,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 117,
+      "locked": true,
+      "points": [
+        [
+          2599,
+          3257
+        ],
+        [
+          2679,
+          3257
+        ],
+        [
+          2679,
+          3377
+        ],
+        [
+          2599,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0144",
+      "type": "pallet",
+      "code": "P-118",
+      "block": "H1.2",
+      "cx": 2724,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 118,
+      "locked": true,
+      "points": [
+        [
+          2684,
+          3257
+        ],
+        [
+          2764,
+          3257
+        ],
+        [
+          2764,
+          3377
+        ],
+        [
+          2684,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0145",
+      "type": "pallet",
+      "code": "P-119",
+      "block": "H1.2",
+      "cx": 2809,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 119,
+      "locked": true,
+      "points": [
+        [
+          2769,
+          3257
+        ],
+        [
+          2849,
+          3257
+        ],
+        [
+          2849,
+          3377
+        ],
+        [
+          2769,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0146",
+      "type": "pallet",
+      "code": "P-120",
+      "block": "H1.2",
+      "cx": 2894,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 120,
+      "locked": true,
+      "points": [
+        [
+          2854,
+          3257
+        ],
+        [
+          2934,
+          3257
+        ],
+        [
+          2934,
+          3377
+        ],
+        [
+          2854,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0147",
+      "type": "pallet",
+      "code": "P-121",
+      "block": "H1.2",
+      "cx": 2979,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 121,
+      "locked": true,
+      "points": [
+        [
+          2939,
+          3257
+        ],
+        [
+          3019,
+          3257
+        ],
+        [
+          3019,
+          3377
+        ],
+        [
+          2939,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0148",
+      "type": "pallet",
+      "code": "P-122",
+      "block": "H1.2",
+      "cx": 3064,
+      "cy": 3317,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 122,
+      "locked": true,
+      "points": [
+        [
+          3024,
+          3257
+        ],
+        [
+          3104,
+          3257
+        ],
+        [
+          3104,
+          3377
+        ],
+        [
+          3024,
+          3377
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0110",
+      "type": "pallet",
+      "code": "P-123",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3417,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 123,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3377
+        ],
+        [
+          2934,
+          3377
+        ],
+        [
+          2934,
+          3457
+        ],
+        [
+          2814,
+          3457
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0126",
+      "type": "pallet",
+      "code": "P-124",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3417,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 124,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3377
+        ],
+        [
+          3054,
+          3377
+        ],
+        [
+          3054,
+          3457
+        ],
+        [
+          2934,
+          3457
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0111",
+      "type": "pallet",
+      "code": "P-125",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3502,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 125,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3462
+        ],
+        [
+          2934,
+          3462
+        ],
+        [
+          2934,
+          3542
+        ],
+        [
+          2814,
+          3542
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0127",
+      "type": "pallet",
+      "code": "P-126",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3502,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 126,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3462
+        ],
+        [
+          3054,
+          3462
+        ],
+        [
+          3054,
+          3542
+        ],
+        [
+          2934,
+          3542
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0112",
+      "type": "pallet",
+      "code": "P-127",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3587,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 127,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3547
+        ],
+        [
+          2934,
+          3547
+        ],
+        [
+          2934,
+          3627
+        ],
+        [
+          2814,
+          3627
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0128",
+      "type": "pallet",
+      "code": "P-128",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3587,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 128,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3547
+        ],
+        [
+          3054,
+          3547
+        ],
+        [
+          3054,
+          3627
+        ],
+        [
+          2934,
+          3627
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0107",
+      "type": "pallet",
+      "code": "P-129",
+      "block": "H1.2",
+      "cx": 2460,
+      "cy": 3711,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 129,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          3671
+        ],
+        [
+          2520,
+          3671
+        ],
+        [
+          2520,
+          3751
+        ],
+        [
+          2400,
+          3751
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0099",
+      "type": "pallet",
+      "code": "P-130",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 3687,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 130,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          3647
+        ],
+        [
+          2640,
+          3647
+        ],
+        [
+          2640,
+          3727
+        ],
+        [
+          2520,
+          3727
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0113",
+      "type": "pallet",
+      "code": "P-131",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3672,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 131,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3632
+        ],
+        [
+          2934,
+          3632
+        ],
+        [
+          2934,
+          3712
+        ],
+        [
+          2814,
+          3712
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0129",
+      "type": "pallet",
+      "code": "P-132",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3672,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 132,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3632
+        ],
+        [
+          3054,
+          3632
+        ],
+        [
+          3054,
+          3712
+        ],
+        [
+          2934,
+          3712
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0108",
+      "type": "pallet",
+      "code": "P-133",
+      "block": "H1.2",
+      "cx": 2460,
+      "cy": 3796,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 133,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          3756
+        ],
+        [
+          2520,
+          3756
+        ],
+        [
+          2520,
+          3836
+        ],
+        [
+          2400,
+          3836
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0100",
+      "type": "pallet",
+      "code": "P-134",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 3772,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 134,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          3732
+        ],
+        [
+          2640,
+          3732
+        ],
+        [
+          2640,
+          3812
+        ],
+        [
+          2520,
+          3812
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0114",
+      "type": "pallet",
+      "code": "P-135",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3757,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 135,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3717
+        ],
+        [
+          2934,
+          3717
+        ],
+        [
+          2934,
+          3797
+        ],
+        [
+          2814,
+          3797
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0130",
+      "type": "pallet",
+      "code": "P-136",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3757,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 136,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3717
+        ],
+        [
+          3054,
+          3717
+        ],
+        [
+          3054,
+          3797
+        ],
+        [
+          2934,
+          3797
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0257",
+      "type": "pallet",
+      "code": "P-137",
+      "block": "H1.3",
+      "cx": 1221,
+      "cy": 3811,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 137,
+      "locked": true,
+      "points": [
+        [
+          1181,
+          3751
+        ],
+        [
+          1261,
+          3751
+        ],
+        [
+          1261,
+          3871
+        ],
+        [
+          1181,
+          3871
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0109",
+      "type": "pallet",
+      "code": "P-138",
+      "block": "H1.2",
+      "cx": 2460,
+      "cy": 3881,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 138,
+      "locked": true,
+      "points": [
+        [
+          2400,
+          3841
+        ],
+        [
+          2520,
+          3841
+        ],
+        [
+          2520,
+          3921
+        ],
+        [
+          2400,
+          3921
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0101",
+      "type": "pallet",
+      "code": "P-139",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 3857,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 139,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          3817
+        ],
+        [
+          2640,
+          3817
+        ],
+        [
+          2640,
+          3897
+        ],
+        [
+          2520,
+          3897
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0115",
+      "type": "pallet",
+      "code": "P-140",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3842,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 140,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3802
+        ],
+        [
+          2934,
+          3802
+        ],
+        [
+          2934,
+          3882
+        ],
+        [
+          2814,
+          3882
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0131",
+      "type": "pallet",
+      "code": "P-141",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3842,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 141,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3802
+        ],
+        [
+          3054,
+          3802
+        ],
+        [
+          3054,
+          3882
+        ],
+        [
+          2934,
+          3882
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0102",
+      "type": "pallet",
+      "code": "P-142",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 3942,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 142,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          3902
+        ],
+        [
+          2640,
+          3902
+        ],
+        [
+          2640,
+          3982
+        ],
+        [
+          2520,
+          3982
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0116",
+      "type": "pallet",
+      "code": "P-143",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 3927,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 143,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3887
+        ],
+        [
+          2934,
+          3887
+        ],
+        [
+          2934,
+          3967
+        ],
+        [
+          2814,
+          3967
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0132",
+      "type": "pallet",
+      "code": "P-144",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 3927,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 144,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3887
+        ],
+        [
+          3054,
+          3887
+        ],
+        [
+          3054,
+          3967
+        ],
+        [
+          2934,
+          3967
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0103",
+      "type": "pallet",
+      "code": "P-145",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 4027,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 145,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          3987
+        ],
+        [
+          2640,
+          3987
+        ],
+        [
+          2640,
+          4067
+        ],
+        [
+          2520,
+          4067
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0117",
+      "type": "pallet",
+      "code": "P-146",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4012,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 146,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          3972
+        ],
+        [
+          2934,
+          3972
+        ],
+        [
+          2934,
+          4052
+        ],
+        [
+          2814,
+          4052
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0133",
+      "type": "pallet",
+      "code": "P-147",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4012,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 147,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          3972
+        ],
+        [
+          3054,
+          3972
+        ],
+        [
+          3054,
+          4052
+        ],
+        [
+          2934,
+          4052
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0091",
+      "type": "pallet",
+      "code": "P-148",
+      "block": "H1.3",
+      "cx": 1282,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 148,
+      "locked": true,
+      "points": [
+        [
+          1242,
+          4023
+        ],
+        [
+          1322,
+          4023
+        ],
+        [
+          1322,
+          4143
+        ],
+        [
+          1242,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0092",
+      "type": "pallet",
+      "code": "P-149",
+      "block": "H1.3",
+      "cx": 1367,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 149,
+      "locked": true,
+      "points": [
+        [
+          1327,
+          4023
+        ],
+        [
+          1407,
+          4023
+        ],
+        [
+          1407,
+          4143
+        ],
+        [
+          1327,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0093",
+      "type": "pallet",
+      "code": "P-150",
+      "block": "H1.3",
+      "cx": 1452,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 150,
+      "locked": true,
+      "points": [
+        [
+          1412,
+          4023
+        ],
+        [
+          1492,
+          4023
+        ],
+        [
+          1492,
+          4143
+        ],
+        [
+          1412,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0094",
+      "type": "pallet",
+      "code": "P-151",
+      "block": "H1.3",
+      "cx": 1537,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 151,
+      "locked": true,
+      "points": [
+        [
+          1497,
+          4023
+        ],
+        [
+          1577,
+          4023
+        ],
+        [
+          1577,
+          4143
+        ],
+        [
+          1497,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0095",
+      "type": "pallet",
+      "code": "P-152",
+      "block": "H1.3",
+      "cx": 1622,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 152,
+      "locked": true,
+      "points": [
+        [
+          1582,
+          4023
+        ],
+        [
+          1662,
+          4023
+        ],
+        [
+          1662,
+          4143
+        ],
+        [
+          1582,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0096",
+      "type": "pallet",
+      "code": "P-153",
+      "block": "H1.3",
+      "cx": 1707,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 153,
+      "locked": true,
+      "points": [
+        [
+          1667,
+          4023
+        ],
+        [
+          1747,
+          4023
+        ],
+        [
+          1747,
+          4143
+        ],
+        [
+          1667,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0097",
+      "type": "pallet",
+      "code": "P-154",
+      "block": "H1.3",
+      "cx": 1792,
+      "cy": 4083,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 154,
+      "locked": true,
+      "points": [
+        [
+          1752,
+          4023
+        ],
+        [
+          1832,
+          4023
+        ],
+        [
+          1832,
+          4143
+        ],
+        [
+          1752,
+          4143
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0104",
+      "type": "pallet",
+      "code": "P-155",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 4112,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 155,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          4072
+        ],
+        [
+          2640,
+          4072
+        ],
+        [
+          2640,
+          4152
+        ],
+        [
+          2520,
+          4152
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0118",
+      "type": "pallet",
+      "code": "P-156",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4097,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 156,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4057
+        ],
+        [
+          2934,
+          4057
+        ],
+        [
+          2934,
+          4137
+        ],
+        [
+          2814,
+          4137
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0134",
+      "type": "pallet",
+      "code": "P-157",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4097,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 157,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4057
+        ],
+        [
+          3054,
+          4057
+        ],
+        [
+          3054,
+          4137
+        ],
+        [
+          2934,
+          4137
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0083",
+      "type": "pallet",
+      "code": "P-158",
+      "block": "H1.3",
+      "cx": 1197,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 158,
+      "locked": true,
+      "points": [
+        [
+          1157,
+          4143
+        ],
+        [
+          1237,
+          4143
+        ],
+        [
+          1237,
+          4263
+        ],
+        [
+          1157,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0084",
+      "type": "pallet",
+      "code": "P-159",
+      "block": "H1.3",
+      "cx": 1282,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 159,
+      "locked": true,
+      "points": [
+        [
+          1242,
+          4143
+        ],
+        [
+          1322,
+          4143
+        ],
+        [
+          1322,
+          4263
+        ],
+        [
+          1242,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0085",
+      "type": "pallet",
+      "code": "P-160",
+      "block": "H1.3",
+      "cx": 1367,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 160,
+      "locked": true,
+      "points": [
+        [
+          1327,
+          4143
+        ],
+        [
+          1407,
+          4143
+        ],
+        [
+          1407,
+          4263
+        ],
+        [
+          1327,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0086",
+      "type": "pallet",
+      "code": "P-161",
+      "block": "H1.3",
+      "cx": 1452,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 161,
+      "locked": true,
+      "points": [
+        [
+          1412,
+          4143
+        ],
+        [
+          1492,
+          4143
+        ],
+        [
+          1492,
+          4263
+        ],
+        [
+          1412,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0087",
+      "type": "pallet",
+      "code": "P-162",
+      "block": "H1.3",
+      "cx": 1537,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 162,
+      "locked": true,
+      "points": [
+        [
+          1497,
+          4143
+        ],
+        [
+          1577,
+          4143
+        ],
+        [
+          1577,
+          4263
+        ],
+        [
+          1497,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0088",
+      "type": "pallet",
+      "code": "P-163",
+      "block": "H1.3",
+      "cx": 1622,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 163,
+      "locked": true,
+      "points": [
+        [
+          1582,
+          4143
+        ],
+        [
+          1662,
+          4143
+        ],
+        [
+          1662,
+          4263
+        ],
+        [
+          1582,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0089",
+      "type": "pallet",
+      "code": "P-164",
+      "block": "H1.3",
+      "cx": 1707,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 164,
+      "locked": true,
+      "points": [
+        [
+          1667,
+          4143
+        ],
+        [
+          1747,
+          4143
+        ],
+        [
+          1747,
+          4263
+        ],
+        [
+          1667,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0090",
+      "type": "pallet",
+      "code": "P-165",
+      "block": "H1.3",
+      "cx": 1792,
+      "cy": 4203,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 165,
+      "locked": true,
+      "points": [
+        [
+          1752,
+          4143
+        ],
+        [
+          1832,
+          4143
+        ],
+        [
+          1832,
+          4263
+        ],
+        [
+          1752,
+          4263
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0105",
+      "type": "pallet",
+      "code": "P-166",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 4197,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 166,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          4157
+        ],
+        [
+          2640,
+          4157
+        ],
+        [
+          2640,
+          4237
+        ],
+        [
+          2520,
+          4237
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0119",
+      "type": "pallet",
+      "code": "P-167",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4182,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 167,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4142
+        ],
+        [
+          2934,
+          4142
+        ],
+        [
+          2934,
+          4222
+        ],
+        [
+          2814,
+          4222
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0135",
+      "type": "pallet",
+      "code": "P-168",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4182,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 168,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4142
+        ],
+        [
+          3054,
+          4142
+        ],
+        [
+          3054,
+          4222
+        ],
+        [
+          2934,
+          4222
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0098",
+      "type": "pallet",
+      "code": "P-169",
+      "block": "H1.2",
+      "cx": 2133,
+      "cy": 4275,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 169,
+      "locked": true,
+      "points": [
+        [
+          2073,
+          4235
+        ],
+        [
+          2193,
+          4235
+        ],
+        [
+          2193,
+          4315
+        ],
+        [
+          2073,
+          4315
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0106",
+      "type": "pallet",
+      "code": "P-170",
+      "block": "H1.2",
+      "cx": 2580,
+      "cy": 4282,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 170,
+      "locked": true,
+      "points": [
+        [
+          2520,
+          4242
+        ],
+        [
+          2640,
+          4242
+        ],
+        [
+          2640,
+          4322
+        ],
+        [
+          2520,
+          4322
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0120",
+      "type": "pallet",
+      "code": "P-171",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4267,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 171,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4227
+        ],
+        [
+          2934,
+          4227
+        ],
+        [
+          2934,
+          4307
+        ],
+        [
+          2814,
+          4307
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0136",
+      "type": "pallet",
+      "code": "P-172",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4267,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 172,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4227
+        ],
+        [
+          3054,
+          4227
+        ],
+        [
+          3054,
+          4307
+        ],
+        [
+          2934,
+          4307
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0073",
+      "type": "pallet",
+      "code": "P-173",
+      "block": "H1.3",
+      "cx": 1197,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 173,
+      "locked": true,
+      "points": [
+        [
+          1157,
+          4263
+        ],
+        [
+          1237,
+          4263
+        ],
+        [
+          1237,
+          4383
+        ],
+        [
+          1157,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0074",
+      "type": "pallet",
+      "code": "P-174",
+      "block": "H1.3",
+      "cx": 1282,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 174,
+      "locked": true,
+      "points": [
+        [
+          1242,
+          4263
+        ],
+        [
+          1322,
+          4263
+        ],
+        [
+          1322,
+          4383
+        ],
+        [
+          1242,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0075",
+      "type": "pallet",
+      "code": "P-175",
+      "block": "H1.3",
+      "cx": 1367,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 175,
+      "locked": true,
+      "points": [
+        [
+          1327,
+          4263
+        ],
+        [
+          1407,
+          4263
+        ],
+        [
+          1407,
+          4383
+        ],
+        [
+          1327,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0076",
+      "type": "pallet",
+      "code": "P-176",
+      "block": "H1.3",
+      "cx": 1452,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 176,
+      "locked": true,
+      "points": [
+        [
+          1412,
+          4263
+        ],
+        [
+          1492,
+          4263
+        ],
+        [
+          1492,
+          4383
+        ],
+        [
+          1412,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0077",
+      "type": "pallet",
+      "code": "P-177",
+      "block": "H1.3",
+      "cx": 1537,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 177,
+      "locked": true,
+      "points": [
+        [
+          1497,
+          4263
+        ],
+        [
+          1577,
+          4263
+        ],
+        [
+          1577,
+          4383
+        ],
+        [
+          1497,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0078",
+      "type": "pallet",
+      "code": "P-178",
+      "block": "H1.3",
+      "cx": 1622,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 178,
+      "locked": true,
+      "points": [
+        [
+          1582,
+          4263
+        ],
+        [
+          1662,
+          4263
+        ],
+        [
+          1662,
+          4383
+        ],
+        [
+          1582,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0079",
+      "type": "pallet",
+      "code": "P-179",
+      "block": "H1.3",
+      "cx": 1707,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 179,
+      "locked": true,
+      "points": [
+        [
+          1667,
+          4263
+        ],
+        [
+          1747,
+          4263
+        ],
+        [
+          1747,
+          4383
+        ],
+        [
+          1667,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0080",
+      "type": "pallet",
+      "code": "P-180",
+      "block": "H1.3",
+      "cx": 1792,
+      "cy": 4323,
+      "width": 80,
+      "depth": 120,
+      "dir": "v",
+      "bays": 1,
+      "levels": 1,
+      "index": 180,
+      "locked": true,
+      "points": [
+        [
+          1752,
+          4263
+        ],
+        [
+          1832,
+          4263
+        ],
+        [
+          1832,
+          4383
+        ],
+        [
+          1752,
+          4383
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0121",
+      "type": "pallet",
+      "code": "P-181",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4352,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 181,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4312
+        ],
+        [
+          2934,
+          4312
+        ],
+        [
+          2934,
+          4392
+        ],
+        [
+          2814,
+          4392
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0137",
+      "type": "pallet",
+      "code": "P-182",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4352,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 182,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4312
+        ],
+        [
+          3054,
+          4312
+        ],
+        [
+          3054,
+          4392
+        ],
+        [
+          2934,
+          4392
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0072",
+      "type": "pallet",
+      "code": "P-183",
+      "block": "H1.3",
+      "cx": 1217,
+      "cy": 4423,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 183,
+      "locked": true,
+      "points": [
+        [
+          1157,
+          4383
+        ],
+        [
+          1277,
+          4383
+        ],
+        [
+          1277,
+          4463
+        ],
+        [
+          1157,
+          4463
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0122",
+      "type": "pallet",
+      "code": "P-184",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4437,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 184,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4397
+        ],
+        [
+          2934,
+          4397
+        ],
+        [
+          2934,
+          4477
+        ],
+        [
+          2814,
+          4477
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0138",
+      "type": "pallet",
+      "code": "P-185",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4437,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 185,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4397
+        ],
+        [
+          3054,
+          4397
+        ],
+        [
+          3054,
+          4477
+        ],
+        [
+          2934,
+          4477
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0259",
+      "type": "pallet",
+      "code": "P-186",
+      "block": "H1.3",
+      "cx": 1217,
+      "cy": 4508,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 186,
+      "locked": true,
+      "points": [
+        [
+          1157,
+          4468
+        ],
+        [
+          1277,
+          4468
+        ],
+        [
+          1277,
+          4548
+        ],
+        [
+          1157,
+          4548
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0081",
+      "type": "pallet",
+      "code": "P-187",
+      "block": "H1.3",
+      "cx": 1773,
+      "cy": 4547,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 187,
+      "locked": true,
+      "points": [
+        [
+          1713,
+          4507
+        ],
+        [
+          1833,
+          4507
+        ],
+        [
+          1833,
+          4587
+        ],
+        [
+          1713,
+          4587
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0082",
+      "type": "pallet",
+      "code": "P-188",
+      "block": "H1.3",
+      "cx": 1898,
+      "cy": 4547,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 188,
+      "locked": true,
+      "points": [
+        [
+          1838,
+          4507
+        ],
+        [
+          1958,
+          4507
+        ],
+        [
+          1958,
+          4587
+        ],
+        [
+          1838,
+          4587
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0123",
+      "type": "pallet",
+      "code": "P-189",
+      "block": "H1.2",
+      "cx": 2874,
+      "cy": 4522,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 189,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4482
+        ],
+        [
+          2934,
+          4482
+        ],
+        [
+          2934,
+          4562
+        ],
+        [
+          2814,
+          4562
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0139",
+      "type": "pallet",
+      "code": "P-190",
+      "block": "H1.2",
+      "cx": 2994,
+      "cy": 4522,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 190,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4482
+        ],
+        [
+          3054,
+          4482
+        ],
+        [
+          3054,
+          4562
+        ],
+        [
+          2934,
+          4562
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0124",
+      "type": "pallet",
+      "code": "P-191",
+      "block": "H1.1",
+      "cx": 2874,
+      "cy": 4607,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 191,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4567
+        ],
+        [
+          2934,
+          4567
+        ],
+        [
+          2934,
+          4647
+        ],
+        [
+          2814,
+          4647
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0140",
+      "type": "pallet",
+      "code": "P-192",
+      "block": "H1.1",
+      "cx": 2994,
+      "cy": 4607,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 192,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4567
+        ],
+        [
+          3054,
+          4567
+        ],
+        [
+          3054,
+          4647
+        ],
+        [
+          2934,
+          4647
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0125",
+      "type": "pallet",
+      "code": "P-193",
+      "block": "H1.1",
+      "cx": 2874,
+      "cy": 4692,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 193,
+      "locked": true,
+      "points": [
+        [
+          2814,
+          4652
+        ],
+        [
+          2934,
+          4652
+        ],
+        [
+          2934,
+          4732
+        ],
+        [
+          2814,
+          4732
+        ]
+      ]
+    },
+    {
+      "id": "pallet-0141",
+      "type": "pallet",
+      "code": "P-194",
+      "block": "H1.1",
+      "cx": 2994,
+      "cy": 4692,
+      "width": 120,
+      "depth": 80,
+      "dir": "h",
+      "bays": 1,
+      "levels": 1,
+      "index": 194,
+      "locked": true,
+      "points": [
+        [
+          2934,
+          4652
+        ],
+        [
+          3054,
+          4652
+        ],
+        [
+          3054,
+          4732
+        ],
+        [
+          2934,
+          4732
+        ]
+      ]
+    }
+  ],
+  "stock": [
+    {
+      "productId": "p1",
+      "elementId": "rack-0004",
+      "bay": 2,
+      "level": 2,
+      "qty": 36
+    },
+    {
+      "productId": "p2",
+      "elementId": "rack-0022",
+      "bay": 1,
+      "level": 1,
+      "qty": 14
+    },
+    {
+      "productId": "p3",
+      "elementId": "rack-0012",
+      "bay": 1,
+      "level": 2,
+      "qty": 20
+    },
+    {
+      "productId": "p4",
+      "elementId": "rack-0018",
+      "bay": 3,
+      "level": 1,
+      "qty": 17
+    },
+    {
+      "productId": "p5",
+      "elementId": "rack-0024",
+      "bay": 2,
+      "level": 1,
+      "qty": 36
+    },
+    {
+      "productId": "p6",
+      "elementId": "rack-0006",
+      "bay": 3,
+      "level": 2,
+      "qty": 9
+    },
+    {
+      "productId": "p7",
+      "elementId": "rack-0008",
+      "bay": 2,
+      "level": 1,
+      "qty": 17
+    },
+    {
+      "productId": "p8",
+      "elementId": "rack-0025",
+      "bay": 2,
+      "level": 3,
+      "qty": 35
+    },
+    {
+      "productId": "p9",
+      "elementId": "rack-0020",
+      "bay": 1,
+      "level": 3,
+      "qty": 39
+    },
+    {
+      "productId": "p10",
+      "elementId": "rack-0014",
+      "bay": 3,
+      "level": 3,
+      "qty": 36
+    },
+    {
+      "productId": "p11",
+      "elementId": "rack-0006",
+      "bay": 1,
+      "level": 1,
+      "qty": 48
+    },
+    {
+      "productId": "p12",
+      "elementId": "rack-0010",
+      "bay": 3,
+      "level": 2,
+      "qty": 34
+    },
+    {
+      "productId": "p13",
+      "elementId": "rack-0002",
+      "bay": 2,
+      "level": 1,
+      "qty": 25
+    },
+    {
+      "productId": "p14",
+      "elementId": "rack-0013",
+      "bay": 3,
+      "level": 2,
+      "qty": 30
+    },
+    {
+      "productId": "p15",
+      "elementId": "rack-0026",
+      "bay": 1,
+      "level": 2,
+      "qty": 35
+    },
+    {
+      "productId": "p16",
+      "elementId": "rack-0019",
+      "bay": 1,
+      "level": 1,
+      "qty": 46
+    },
+    {
+      "productId": "p17",
+      "elementId": "rack-0017",
+      "bay": 2,
+      "level": 3,
+      "qty": 42
+    },
+    {
+      "productId": "p18",
+      "elementId": "rack-0002",
+      "bay": 1,
+      "level": 1,
+      "qty": 38
+    },
+    {
+      "productId": "p19",
+      "elementId": "rack-0003",
+      "bay": 2,
+      "level": 3,
+      "qty": 37
+    },
+    {
+      "productId": "p20",
+      "elementId": "rack-0003",
+      "bay": 2,
+      "level": 1,
+      "qty": 33
+    },
+    {
+      "productId": "p21",
+      "elementId": "rack-0026",
+      "bay": 1,
+      "level": 1,
+      "qty": 21
+    },
+    {
+      "productId": "p22",
+      "elementId": "rack-0015",
+      "bay": 3,
+      "level": 1,
+      "qty": 46
+    },
+    {
+      "productId": "p23",
+      "elementId": "rack-0007",
+      "bay": 3,
+      "level": 3,
+      "qty": 22
+    },
+    {
+      "productId": "p24",
+      "elementId": "rack-0009",
+      "bay": 3,
+      "level": 2,
+      "qty": 26
+    },
+    {
+      "productId": "p25",
+      "elementId": "rack-0024",
+      "bay": 1,
+      "level": 1,
+      "qty": 20
+    },
+    {
+      "productId": "p26",
+      "elementId": "pallet-0130",
+      "bay": 1,
+      "level": 1,
+      "qty": 38
+    },
+    {
+      "productId": "p27",
+      "elementId": "pallet-0221",
+      "bay": 1,
+      "level": 1,
+      "qty": 25
+    },
+    {
+      "productId": "p28",
+      "elementId": "pallet-0178",
+      "bay": 1,
+      "level": 1,
+      "qty": 18
+    },
+    {
+      "productId": "p29",
+      "elementId": "pallet-0209",
+      "bay": 1,
+      "level": 1,
+      "qty": 40
+    },
+    {
+      "productId": "p30",
+      "elementId": "pallet-0067",
+      "bay": 1,
+      "level": 1,
+      "qty": 11
+    },
+    {
+      "productId": "p31",
+      "elementId": "pallet-0114",
+      "bay": 1,
+      "level": 1,
+      "qty": 27
+    },
+    {
+      "productId": "p32",
+      "elementId": "pallet-0172",
+      "bay": 1,
+      "level": 1,
+      "qty": 46
+    },
+    {
+      "productId": "p33",
+      "elementId": "pallet-0180",
+      "bay": 1,
+      "level": 1,
+      "qty": 13
+    },
+    {
+      "productId": "p34",
+      "elementId": "pallet-0184",
+      "bay": 1,
+      "level": 1,
+      "qty": 31
+    },
+    {
+      "productId": "p35",
+      "elementId": "pallet-0084",
+      "bay": 1,
+      "level": 1,
+      "qty": 48
+    },
+    {
+      "productId": "p36",
+      "elementId": "pallet-0230",
+      "bay": 1,
+      "level": 1,
+      "qty": 32
+    },
+    {
+      "productId": "p37",
+      "elementId": "pallet-0168",
+      "bay": 1,
+      "level": 1,
+      "qty": 12
+    },
+    {
+      "productId": "p38",
+      "elementId": "pallet-0102",
+      "bay": 1,
+      "level": 1,
+      "qty": 20
+    },
+    {
+      "productId": "p39",
+      "elementId": "pallet-0189",
+      "bay": 1,
+      "level": 1,
+      "qty": 10
+    },
+    {
+      "productId": "p40",
+      "elementId": "pallet-0159",
+      "bay": 1,
+      "level": 1,
+      "qty": 36
+    },
+    {
+      "productId": "p41",
+      "elementId": "pallet-0139",
+      "bay": 1,
+      "level": 1,
+      "qty": 19
+    },
+    {
+      "productId": "p42",
+      "elementId": "pallet-0142",
+      "bay": 1,
+      "level": 1,
+      "qty": 38
+    },
+    {
+      "productId": "p43",
+      "elementId": "pallet-0248",
+      "bay": 1,
+      "level": 1,
+      "qty": 33
+    },
+    {
+      "productId": "p44",
+      "elementId": "pallet-0195",
+      "bay": 1,
+      "level": 1,
+      "qty": 32
+    },
+    {
+      "productId": "p45",
+      "elementId": "pallet-0073",
+      "bay": 1,
+      "level": 1,
+      "qty": 39
+    },
+    {
+      "productId": "p46",
+      "elementId": "pallet-0223",
+      "bay": 1,
+      "level": 1,
+      "qty": 11
+    },
+    {
+      "productId": "p47",
+      "elementId": "pallet-0121",
+      "bay": 1,
+      "level": 1,
+      "qty": 10
+    },
+    {
+      "productId": "p48",
+      "elementId": "pallet-0196",
+      "bay": 1,
+      "level": 1,
+      "qty": 32
+    },
+    {
+      "productId": "p49",
+      "elementId": "pallet-0099",
+      "bay": 1,
+      "level": 1,
+      "qty": 45
+    },
+    {
+      "productId": "p50",
+      "elementId": "pallet-0249",
+      "bay": 1,
+      "level": 1,
+      "qty": 34
+    },
+    {
+      "productId": "p30",
+      "elementId": "pallet-0254",
+      "bay": 1,
+      "level": 1,
+      "qty": 8
+    },
+    {
+      "productId": "p17",
+      "elementId": "pallet-0186",
+      "bay": 1,
+      "level": 1,
+      "qty": 47
+    },
+    {
+      "productId": "p36",
+      "elementId": "pallet-0068",
+      "bay": 1,
+      "level": 1,
+      "qty": 34
+    },
+    {
+      "productId": "p39",
+      "elementId": "pallet-0239",
+      "bay": 1,
+      "level": 1,
+      "qty": 8
+    },
+    {
+      "productId": "p50",
+      "elementId": "pallet-0126",
+      "bay": 1,
+      "level": 1,
+      "qty": 18
+    },
+    {
+      "productId": "p2",
+      "elementId": "pallet-0150",
+      "bay": 1,
+      "level": 1,
+      "qty": 18
+    },
+    {
+      "productId": "p23",
+      "elementId": "pallet-0100",
+      "bay": 1,
+      "level": 1,
+      "qty": 41
+    },
+    {
+      "productId": "p35",
+      "elementId": "pallet-0098",
+      "bay": 1,
+      "level": 1,
+      "qty": 11
+    },
+    {
+      "productId": "p14",
+      "elementId": "pallet-0130",
+      "bay": 1,
+      "level": 1,
+      "qty": 36
+    },
+    {
+      "productId": "p32",
+      "elementId": "pallet-0221",
+      "bay": 1,
+      "level": 1,
+      "qty": 39
+    },
+    {
+      "productId": "p31",
+      "elementId": "pallet-0178",
+      "bay": 1,
+      "level": 1,
+      "qty": 46
+    },
+    {
+      "productId": "p41",
+      "elementId": "pallet-0209",
+      "bay": 1,
+      "level": 1,
+      "qty": 32
+    },
+    {
+      "productId": "p17",
+      "elementId": "pallet-0067",
+      "bay": 1,
+      "level": 1,
+      "qty": 11
+    }
+  ],
+  "pickers": [
+    {
+      "id": "u1",
+      "name": "Ali"
+    },
+    {
+      "id": "u2",
+      "name": "Marta"
+    },
+    {
+      "id": "u3",
+      "name": "Jonas"
+    }
+  ],
+  "orders": [
+    {
+      "id": "o1001",
+      "number": 1001,
+      "customer": "Sushi Kumo",
+      "createdAt": "2026-11-14T05:23:19.203Z",
+      "lines": [
+        {
+          "productId": "p34",
+          "qty": 4
+        },
+        {
+          "productId": "p3",
+          "qty": 4
+        },
+        {
+          "productId": "p22",
+          "qty": 3
+        },
+        {
+          "productId": "p50",
+          "qty": 2
+        },
+        {
+          "productId": "p7",
+          "qty": 4
+        },
+        {
+          "productId": "p9",
+          "qty": 2
+        },
+        {
+          "productId": "p39",
+          "qty": 5
+        },
+        {
+          "productId": "p43",
+          "qty": 5
+        }
+      ]
+    },
+    {
+      "id": "o1002",
+      "number": 1002,
+      "customer": "Taverna Olympos",
+      "createdAt": "2026-11-14T05:23:19.205Z",
+      "lines": [
+        {
+          "productId": "p2",
+          "qty": 4
+        },
+        {
+          "productId": "p18",
+          "qty": 4
+        },
+        {
+          "productId": "p32",
+          "qty": 2
+        },
+        {
+          "productId": "p21",
+          "qty": 6
+        },
+        {
+          "productId": "p19",
+          "qty": 1
+        },
+        {
+          "productId": "p33",
+          "qty": 5
+        }
+      ]
+    },
+    {
+      "id": "o1003",
+      "number": 1003,
+      "customer": "Burger Werk",
+      "createdAt": "2026-11-14T05:23:19.205Z",
+      "lines": [
+        {
+          "productId": "p25",
+          "qty": 1
+        },
+        {
+          "productId": "p10",
+          "qty": 1
+        },
+        {
+          "productId": "p40",
+          "qty": 5
+        },
+        {
+          "productId": "p49",
+          "qty": 2
+        },
+        {
+          "productId": "p50",
+          "qty": 3
+        },
+        {
+          "productId": "p12",
+          "qty": 6
+        }
+      ]
+    },
+    {
+      "id": "o1004",
+      "number": 1004,
+      "customer": "Sushi Kumo",
+      "createdAt": "2026-11-14T05:23:19.205Z",
+      "lines": [
+        {
+          "productId": "p28",
+          "qty": 2
+        },
+        {
+          "productId": "p19",
+          "qty": 4
+        },
+        {
+          "productId": "p3",
+          "qty": 2
+        },
+        {
+          "productId": "p20",
+          "qty": 5
+        },
+        {
+          "productId": "p23",
+          "qty": 4
+        },
+        {
+          "productId": "p50",
+          "qty": 5
+        }
+      ]
+    },
+    {
+      "id": "o1005",
+      "number": 1005,
+      "customer": "Kebab Haus Mitte",
+      "createdAt": "2026-11-14T05:23:19.205Z",
+      "lines": [
+        {
+          "productId": "p34",
+          "qty": 3
+        },
+        {
+          "productId": "p11",
+          "qty": 4
+        },
+        {
+          "productId": "p9",
+          "qty": 6
+        },
+        {
+          "productId": "p23",
+          "qty": 2
+        },
+        {
+          "productId": "p20",
+          "qty": 4
+        },
+        {
+          "productId": "p33",
+          "qty": 4
+        },
+        {
+          "productId": "p47",
+          "qty": 2
+        }
+      ]
+    }
+  ],
+  "picklists": [],
+  "nextOrderNumber": 1006,
+  "nextListNumber": 1
+}

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#182233">
+    <title>PickerFox Picker</title>
+    <link rel="stylesheet" href="./shared.css">
+    <style>
+      body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; overscroll-behavior: none; }
+      #mapwrap { position: relative; flex: 1; min-height: 0; }
+      #map { position: absolute; inset: 0; }
+      .grow { flex: 1; min-width: 0; }
+
+      .top { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; gap: 8px; align-items: center; pointer-events: none; }
+      .top > * { pointer-events: auto; }
+      .chip {
+        display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px;
+        border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 20px; background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 2px 8px rgba(24, 34, 51, 0.14); cursor: pointer;
+      }
+      #q { flex: 1; min-width: 0; height: 40px; padding: 0 14px; font-size: 16px; border: 1px solid rgba(24, 34, 51, 0.25); border-radius: 20px; background: #fff; box-shadow: 0 2px 8px rgba(24, 34, 51, 0.14); }
+      #results {
+        position: absolute; top: 54px; left: 8px; right: 8px; max-height: 60%; overflow: auto; margin: 0; padding: 4px; list-style: none;
+        border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(24, 34, 51, 0.2);
+      }
+      #results button { display: grid; gap: 2px; width: 100%; padding: 9px 10px; border: 0; border-radius: 8px; background: none; text-align: left; cursor: pointer; }
+      #results button:active { background: #eef4ff; }
+      #results .none { padding: 10px; }
+
+      .zoom { position: absolute; right: 8px; top: 58px; display: grid; gap: 6px; opacity: 0.85; }
+      .zoom button { width: 36px; height: 36px; border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 8px; background: #fff; font-size: 1.15rem; line-height: 1; cursor: pointer; }
+
+      #card {
+        position: absolute; left: 8px; right: 8px; bottom: 8px; max-height: 58%; overflow: auto; padding: 12px;
+        border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, 0.97); box-shadow: 0 8px 24px rgba(24, 34, 51, 0.22);
+      }
+      #card h3 { margin-right: 36px; font-size: 1.05rem; }
+      #card .x { position: absolute; top: 6px; right: 6px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+      #card .where { margin-top: 6px; font-weight: 600; }
+      #card .where span { font-weight: 400; }
+      #card .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+      #card .actions .btn { min-height: 40px; }
+      #card ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+      #card .front { margin-top: 10px; }
+      #card .slot { min-height: 34px; }
+
+      #sheet { flex: none; border-top: 1px solid var(--line); background: #fff; box-shadow: 0 -4px 14px rgba(24, 34, 51, 0.1); padding-bottom: env(safe-area-inset-bottom); }
+      #handle { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 8px 14px; border: 0; background: none; text-align: left; cursor: pointer; }
+      #handle .grow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      #sheetBody { max-height: 46vh; max-height: 46dvh; overflow: auto; padding: 0 10px 10px; }
+      .chips { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px; }
+      .listchip { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 4px 10px 4px 4px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; }
+      .listchip.active { border-color: var(--text); background: #f1f3f7; font-weight: 600; }
+      .lines { margin: 0; padding: 0; list-style: none; }
+      .line { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-top: 1px solid var(--line); cursor: pointer; }
+      .line.cur { background: #eef4ff; }
+      .line.picked .nm { text-decoration: line-through; color: var(--muted); }
+      .check { flex: none; width: 40px; height: 40px; border: 2px solid #98a2b3; border-radius: 10px; background: #fff; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+      .line.picked .check { border-color: #067647; background: #067647; color: #fff; }
+      .done-note { padding: 10px 4px; font-weight: 600; color: #067647; }
+
+      #whoModal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; background: rgba(24, 34, 51, 0.5); }
+      #whoModal .box { display: grid; gap: 10px; width: min(340px, 100%); padding: 20px; border-radius: 16px; background: #fff; }
+      #whoModal .btn { min-height: 48px; font-size: 1.05rem; }
+    </style>
+  </head>
+  <body>
+    <div id="mapwrap">
+      <div id="map"></div>
+      <div class="top">
+        <button id="who" class="chip" type="button" aria-label="Change picker"><span class="dot" id="conn"></span><span id="whoName">…</span></button>
+        <button id="searchToggle" class="chip" type="button" aria-label="Search products" aria-expanded="false">🔍</button>
+        <input id="q" type="search" placeholder="Product name or SKU" aria-label="Search products" autocomplete="off" hidden>
+      </div>
+      <ul id="results" hidden></ul>
+      <div class="zoom">
+        <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+        <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+        <button id="zoomReset" type="button" aria-label="Show whole warehouse">⤢</button>
+      </div>
+      <div id="card" hidden></div>
+    </div>
+    <section id="sheet" aria-label="Pick list">
+      <button id="handle" type="button" aria-expanded="false"></button>
+      <div id="sheetBody" hidden></div>
+    </section>
+    <div id="whoModal" hidden><div class="box" id="whoBox"></div></div>
+
+    <script src="./shared.js"></script>
+    <script>
+      const $ = id => document.getElementById(id);
+      const { esc } = PF;
+      let state;
+      let ix;
+      let map;
+      let mapReady;
+      let me = new URLSearchParams(location.search).get('picker') || localStorage.getItem('pf.picker');
+      let activeId = localStorage.getItem('pf.list');
+      let sel = null; // { productId, line?, listId? } or { elementId }
+      let sheetOpen = false;
+      let frontOpen = false;
+      let whoOpen = false;
+      let knownLists = null;
+
+      const myLists = () => state.picklists.filter(l => l.pickerId === me);
+
+      function activeList() {
+        const lists = myLists();
+        return lists.find(l => l.id === activeId) || lists.find(l => PF.status(l) !== 'Done') || lists[0] || null;
+      }
+
+      function selectedElements() {
+        if (!sel) return new Set();
+        if (sel.elementId) return new Set([sel.elementId]);
+        return new Set(PF.locations(ix, sel.productId).map(s => s.elementId));
+      }
+
+      const selectedLine = list => (sel && list && sel.listId === list.id ? list.lines[sel.line] : null);
+
+      function paint() {
+        if (!map) return;
+        const list = activeList();
+        map.paint({
+          stocked: new Set(ix.stockByElement.keys()),
+          marks: list ? PF.listMarks(ix, list) : new Map(),
+          selected: selectedElements(),
+        });
+      }
+
+      function render() {
+        if (!state) return;
+        const picker = ix.pickers.get(me);
+        $('whoName').textContent = picker ? picker.name : 'Choose picker';
+        $('whoModal').hidden = Boolean(picker) && !whoOpen;
+        $('whoBox').innerHTML = '<h2>Who is picking?</h2>' + state.pickers.map(p => `<button class="btn${p.id === me ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}</button>`).join('');
+        renderSheet();
+        renderCard();
+        paint();
+      }
+
+      function renderSheet() {
+        const list = activeList();
+        const lists = myLists();
+        const handle = $('handle');
+        const body = $('sheetBody');
+        handle.setAttribute('aria-expanded', String(sheetOpen));
+        body.hidden = !sheetOpen;
+        if (!list) {
+          handle.innerHTML = '<span class="grow muted">No pick list assigned</span>';
+          body.innerHTML = '<p class="muted">Lists assigned by a manager appear here automatically.</p>';
+          return;
+        }
+        const { done, total } = PF.progress(list);
+        handle.innerHTML = `${PF.swatch(list)}<span class="grow"><b>List ${list.number}</b> · ${esc(list.customer)}</span><span>${done}/${total}</span><span aria-hidden="true">${sheetOpen ? '▾' : '▴'}</span>`;
+        const chips = lists.length > 1
+          ? `<div class="chips">${lists.map(l => {
+            const p = PF.progress(l);
+            return `<button type="button" class="listchip${l.id === list.id ? ' active' : ''}" data-list="${l.id}">${PF.swatch(l)}<span>${esc(l.customer)} ${p.done}/${p.total}</span></button>`;
+          }).join('')}</div>`
+          : '';
+        const lines = list.lines.map((line, i) => {
+          const p = ix.products.get(line.productId);
+          const current = selectedLine(list) === line;
+          return `<li class="line${line.picked ? ' picked' : ''}${current ? ' cur' : ''}" data-line="${i}">
+            <button type="button" class="check" data-check="${i}" aria-pressed="${line.picked}" aria-label="Picked: ${esc(p.name)}">${line.picked ? '✓' : ''}</button>
+            <div class="grow"><div class="nm"><b>${line.qty} ×</b> ${esc(p.name)}</div><div class="small muted">${p.sku} · ${esc(PF.addresses(ix, p.id))}</div></div>
+          </li>`;
+        }).join('');
+        body.innerHTML = `${chips}${done === total ? '<div class="done-note">✓ List complete</div>' : ''}<ul class="lines">${lines}</ul>`;
+      }
+
+      function renderCard() {
+        const card = $('card');
+        card.hidden = !sel;
+        if (!sel) return;
+        const list = activeList();
+        const fronts = [];
+        let html = '<button class="x" type="button" data-close aria-label="Close">×</button>';
+        if (sel.elementId) {
+          const el = ix.elements.get(sel.elementId);
+          const entries = ix.stockByElement.get(el.id) || [];
+          const wanted = new Set(list ? list.lines.filter(l => !l.picked).map(l => l.productId) : []);
+          html += `<h3>${el.type === 'rack' ? 'Rack' : 'Pallet'} ${el.code}</h3>`;
+          html += entries.length
+            ? `<ul>${entries.map(s => {
+              const p = ix.products.get(s.productId);
+              return `<li><b>${s.qty}</b> × ${esc(p.name)} <span class="small muted">${p.sku}${el.type === 'rack' ? ` · B${s.bay} · L${s.level}` : ''}</span>${wanted.has(p.id) ? ` ${PF.swatch(list)}` : ''}</li>`;
+            }).join('')}</ul>`
+            : '<p class="muted">Nothing stored here.</p>';
+          fronts.push({ el, hot: wanted });
+        } else {
+          const p = ix.products.get(sel.productId);
+          const locs = PF.locations(ix, p.id);
+          const line = selectedLine(list);
+          html += `<h3>${esc(p.name)}</h3><div class="small muted">${p.sku} · ${p.mfrSku} · Carton: ${esc(p.cartonLabel)}</div>`;
+          html += locs.length
+            ? locs.map(s => `<div class="where">📍 ${PF.address(ix, s)} <span class="muted">· ${s.qty} cartons</span></div>`).join('')
+            : '<div class="where">No location recorded</div>';
+          const shared = locs.flatMap(s => {
+            const others = (ix.stockByElement.get(s.elementId) || [])
+              .filter(o => o.bay === s.bay && o.level === s.level && o.productId !== p.id);
+            return others.map(o => ({ ...o, slot: s, product: ix.products.get(o.productId) }));
+          });
+          if (shared.length) {
+            html += `<div class="small muted" style="margin-top:6px;padding:4px 8px;border-radius:6px;background:#f5f3ec;border:1px solid #e5dfd0;">
+              <b>Also in this slot:</b> ${shared.map(o => `${o.qty} × ${esc(o.product.name)}`).join(', ')}
+            </div>`;
+          }
+          html += '<div class="actions">';
+          if (line) {
+            html += `${PF.swatch(list)}<b>Pick ${line.qty}</b><span class="grow"></span><button class="btn${line.picked ? '' : ' primary'}" type="button" data-pick>${line.picked ? 'Undo picked' : 'Picked ✓'}</button>`;
+          }
+          if (locs.length) html += `<button class="btn" type="button" data-front>${frontOpen ? 'Hide' : 'Show'} front view</button>`;
+          html += '</div>';
+          if (frontOpen) new Set(locs.map(s => s.elementId)).forEach(id => fronts.push({ el: ix.elements.get(id), hot: new Set([p.id]) }));
+        }
+        card.innerHTML = html;
+        fronts.forEach(f => card.appendChild(PF.frontView(ix, f.el, { hot: f.hot })));
+      }
+
+      function selectProduct(productId, line) {
+        const list = activeList();
+        sel = line === undefined ? { productId } : { productId, line, listId: list.id };
+        frontOpen = false;
+        // The card carries the pick from here, so the list gives the map its space back.
+        sheetOpen = false;
+        render();
+        map?.focus(selectedElements(), ($('card').offsetHeight + 16) / $('mapwrap').clientHeight);
+      }
+
+      function setPicked(index, picked, advance = false) {
+        const list = activeList();
+        const line = list?.lines[index];
+        if (!line) return;
+        line.picked = picked;
+        if (picked && advance) {
+          const order = list.lines.map((_, i) => (index + 1 + i) % list.lines.length);
+          const next = order.find(i => !list.lines[i].picked);
+          if (next === undefined) {
+            sel = null;
+            PF.toast(`List ${list.number} complete`);
+          } else {
+            selectProduct(list.lines[next].productId, next);
+          }
+        }
+        render();
+        PF.post(`/api/picklists/${list.id}/pick`, { line: index, picked });
+      }
+
+      $('handle').addEventListener('click', () => { sheetOpen = !sheetOpen; render(); });
+
+      $('sheetBody').addEventListener('click', event => {
+        const check = event.target.closest('[data-check]');
+        const chip = event.target.closest('[data-list]');
+        const line = event.target.closest('[data-line]');
+        const list = activeList();
+        if (check) {
+          const index = Number(check.dataset.check);
+          setPicked(index, !list.lines[index].picked);
+        } else if (chip) {
+          activeId = chip.dataset.list;
+          localStorage.setItem('pf.list', activeId);
+          sel = null;
+          render();
+        } else if (line) {
+          const index = Number(line.dataset.line);
+          selectProduct(list.lines[index].productId, index);
+        }
+      });
+
+      $('card').addEventListener('click', event => {
+        if (event.target.closest('[data-close]')) {
+          sel = null;
+        } else if (event.target.closest('[data-pick]')) {
+          const list = activeList();
+          const line = selectedLine(list);
+          if (line) setPicked(sel.line, !line.picked, true);
+          return;
+        } else if (event.target.closest('[data-front]')) {
+          frontOpen = !frontOpen;
+        } else {
+          return;
+        }
+        render();
+      });
+
+      function renderResults() {
+        const query = $('q').value.trim().toLowerCase();
+        const box = $('results');
+        box.hidden = !query;
+        if (!query) return;
+        const hits = state.products.filter(p => [p.name, p.sku, p.mfrSku, p.cartonLabel].some(v => v.toLowerCase().includes(query))).slice(0, 8);
+        box.innerHTML = hits.length
+          ? hits.map(p => `<li><button type="button" data-product="${p.id}"><b>${esc(p.name)}</b><span class="small muted">${p.sku} · ${esc(PF.addresses(ix, p.id))}</span></button></li>`).join('')
+          : '<li class="none muted">No product found</li>';
+      }
+
+      $('q').addEventListener('input', renderResults);
+      $('q').addEventListener('focus', renderResults);
+      $('results').addEventListener('click', event => {
+        const hit = event.target.closest('[data-product]');
+        if (!hit) return;
+        $('results').hidden = true;
+        $('q').blur();
+        selectProduct(hit.dataset.product);
+      });
+      $('searchToggle').addEventListener('click', () => {
+        const input = $('q');
+        input.hidden = !input.hidden;
+        $('searchToggle').setAttribute('aria-expanded', String(!input.hidden));
+        input.value = '';
+        $('results').hidden = true;
+        if (!input.hidden) input.focus();
+      });
+
+      $('who').addEventListener('click', () => { whoOpen = true; render(); });
+      $('whoBox').addEventListener('click', event => {
+        const choice = event.target.closest('[data-picker]');
+        if (!choice) return;
+        me = choice.dataset.picker;
+        localStorage.setItem('pf.picker', me);
+        whoOpen = false;
+        sel = null;
+        knownLists = new Set(myLists().map(l => l.id));
+        render();
+      });
+
+      $('zoomIn').addEventListener('click', () => map?.zoom(1.5));
+      $('zoomOut').addEventListener('click', () => map?.zoom(1 / 1.5));
+      $('zoomReset').addEventListener('click', () => map?.reset());
+
+      let lastFloorplanHash = null;
+      PF.connect(async next => {
+        state = next;
+        ix = PF.index(state);
+        if (map) {
+          map.updateElements(state.elements);
+          if (lastFloorplanHash && lastFloorplanHash !== state.floorplanHash) {
+            await map.reloadSvg();
+          }
+        }
+        lastFloorplanHash = state.floorplanHash;
+        if (sel && sel.listId && !myLists().some(l => l.id === sel.listId)) sel = null;
+        const mine = myLists();
+        if (knownLists) {
+          const fresh = mine.filter(l => !knownLists.has(l.id));
+          if (fresh.length) PF.toast(`New pick list ${fresh.map(l => l.number).join(', ')} assigned to you`);
+        }
+        knownLists = new Set(mine.map(l => l.id));
+        mapReady ||= PF.createMap($('map'), state, {
+          onSelect: id => { sel = id ? { elementId: id } : null; if (id) sheetOpen = false; render(); },
+        }).then(created => { map = created; paint(); });
+        render();
+      }, online => $('conn').classList.toggle('on', online));
+    </script>
+  </body>
+</html>
