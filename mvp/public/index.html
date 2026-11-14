@@ -4,19 +4,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PickerFox MVP</title>
-    <link rel="stylesheet" href="./shared.css">
+    <link rel="stylesheet" href="./shared.css?v=__BUILD__">
     <style>
       main { max-width: 520px; margin: 0 auto; padding: 48px 20px; display: grid; gap: 16px; }
       a.card { display: block; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: inherit; text-decoration: none; }
       a.card:hover { border-color: var(--accent); }
       a.card b { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+      .panel { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+      .who { display: flex; align-items: center; gap: 8px; }
     </style>
   </head>
   <body>
     <main>
       <h1>PickerFox MVP</h1>
-      <a class="card" href="./manager.html"><b>Manager</b><span class="muted">Orders, pick lists, assignment and storage details. Best on a desktop.</span></a>
-      <a class="card" href="./picker.html"><b>Picker</b><span class="muted">Map, product search and assigned pick lists. Best on a phone.</span></a>
+      <form id="login" class="panel form" hidden>
+        <h2>Log in</h2>
+        <label>Username<input id="username" autocomplete="username" autocapitalize="none" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <div id="error" class="error" hidden></div>
+        <button class="btn primary" type="submit">Log in</button>
+      </form>
+      <div id="choices" hidden>
+        <div class="who" style="margin-bottom:16px;"><span class="grow">Logged in as <b id="whoName"></b></span><button class="btn" id="logout" type="button">Log out</button></div>
+        <div style="display:grid;gap:16px;">
+          <a class="card" href="./manager.html"><b>Manager</b><span class="muted">Orders, pick lists, users, issues and connected phones.</span></a>
+          <a class="card" href="./editor.html"><b>Layout editor</b><span class="muted">Add, move, turn and remove racks and pallets.</span></a>
+          <a class="card" href="./picker.html"><b>Picker</b><span class="muted">Map, product search and assigned pick lists. Best on a phone.</span></a>
+        </div>
+      </div>
     </main>
+
+    <script src="./shared.js?v=__BUILD__"></script>
+    <script>
+      const $ = id => document.getElementById(id);
+      let state = null;
+
+      function show() {
+        const session = PF.currentUser();
+        if (session && session.role !== 'admin') {
+          location.replace('./picker.html');
+          return;
+        }
+        $('login').hidden = Boolean(session);
+        $('choices').hidden = !session;
+        if (session) $('whoName').textContent = session.username;
+      }
+
+      $('login').addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!state) return;
+        const session = await PF.login(state, $('username').value, $('password').value);
+        $('error').hidden = Boolean(session);
+        $('error').textContent = session ? '' : 'Wrong username or password.';
+        if (session) show();
+      });
+      $('logout').addEventListener('click', () => PF.logout());
+
+      PF.connect(next => {
+        state = next;
+        PF.checkSession(state);
+        show();
+      });
+    </script>
   </body>
 </html>

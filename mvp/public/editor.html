@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>PickerFox Layout editor</title>
+    <link rel="stylesheet" href="./shared.css?v=__BUILD__">
+    <style>
+      body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+      header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 12px; background: #182233; color: #fff; }
+      header .muted { color: #b6c0d2; }
+      header .btn { color: var(--text); text-decoration: none; }
+      header .btn:disabled { opacity: 0.5; cursor: default; }
+      .tools { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tools .btn { white-space: nowrap; }
+      .grow { flex: 1; min-width: 0; }
+      .work { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
+      #mapwrap { position: relative; min-width: 0; }
+      #map { position: absolute; inset: 0; }
+      .zoom { position: absolute; right: 12px; top: 12px; display: grid; gap: 6px; }
+      .zoom button { width: 36px; height: 36px; border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 8px; background: #fff; font-size: 1.15rem; cursor: pointer; }
+      #panel { overflow: auto; padding: 14px; border-left: 1px solid var(--line); background: #f8f9fb; display: grid; gap: 12px; align-content: start; }
+      .card { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: grid; gap: 10px; }
+      .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .pad { display: grid; grid-template-columns: repeat(3, 44px); gap: 4px; }
+      .pad .btn { height: 44px; padding: 0; }
+      .hint { color: var(--muted); }
+      select { padding: 5px 6px; border: 1px solid #c9ced8; border-radius: 6px; background: #fff; }
+      .pf-map .el.sel .el-base { stroke-dasharray: 10 6; }
+      @media (max-width: 700px) {
+        .work { display: block; position: relative; }
+        #mapwrap { position: absolute; inset: 0; }
+        #panel { position: absolute; inset: auto 0 0 0; max-height: 46%; border-left: 0; border-top: 1px solid var(--line); border-radius: 14px 14px 0 0; box-shadow: 0 -6px 18px rgba(24, 34, 51, 0.15); }
+        #panel.empty { padding: 10px 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="btn" href="./manager.html">← Manager</a>
+      <b>Layout editor</b>
+      <span class="grow"></span>
+      <div class="tools">
+        <button class="btn" type="button" data-add="pallet">＋ Pallet</button>
+        <button class="btn" type="button" data-add="rack" data-bays="2">＋ Rack 2-bay</button>
+        <button class="btn" type="button" data-add="rack" data-bays="3">＋ 3-bay</button>
+        <button class="btn" type="button" data-add="rack" data-bays="4">＋ 4-bay</button>
+        <button class="btn" type="button" id="undo" disabled>↶ Undo</button>
+      </div>
+    </header>
+    <div class="work">
+      <main id="mapwrap">
+        <div id="map"></div>
+        <div class="zoom">
+          <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+          <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+          <button id="zoomReset" type="button" aria-label="Show whole warehouse">⤢</button>
+        </div>
+      </main>
+      <aside id="panel"></aside>
+    </div>
+
+    <script src="./shared.js?v=__BUILD__"></script>
+    <script>
+      const session = PF.requireRole(['admin']);
+      const $ = id => document.getElementById(id);
+      let state;
+      let ix;
+      let map;
+      let mapReady;
+      let selectedId = null;
+      const history = [];
+      const snap = 25;
+
+      // Keeps the layout before each change, for Undo.
+      function remember() {
+        history.push(JSON.stringify({ elements: state.elements, stock: state.stock }));
+        if (history.length > 20) history.shift();
+        $('undo').disabled = false;
+      }
+
+      async function change(path, body) {
+        remember();
+        const result = await PF.post(path, body);
+        if (!result) history.pop();
+        $('undo').disabled = !history.length;
+        return result;
+      }
+
+      function paint() {
+        map?.paint({ stocked: new Set(ix.stockByElement.keys()), selected: new Set(selectedId ? [selectedId] : []) });
+      }
+
+      function renderPanel() {
+        const panel = $('panel');
+        const el = ix.elements.get(selectedId);
+        panel.classList.toggle('empty', !el);
+        if (!el) {
+          panel.innerHTML = '<p class="hint">Tap a rack or pallet to select it. Drag the selected one to move it; drag anywhere else to pan.</p>';
+          return;
+        }
+        const rack = el.type === 'rack';
+        const entries = ix.stockByElement.get(el.id) || [];
+        const cartons = entries.reduce((sum, s) => sum + s.qty, 0);
+        panel.innerHTML = `<section class="card">
+          <div class="row"><div class="grow"><div class="small muted">${rack ? `Rack · ${el.bays} bays` : 'Pallet'}${el.block ? ` · ${el.block}` : ''}</div><h3>${el.code}</h3></div>
+            <button class="btn" type="button" data-act="deselect">Done</button></div>
+          <div class="small muted">${cartons ? `${cartons} cartons stored` : 'Empty'}</div>
+          <div class="row">
+            <div class="pad" aria-label="Move by 50 cm">
+              <span></span><button class="btn" type="button" data-nudge="0,-50" aria-label="Up 50 cm">↑</button><span></span>
+              <button class="btn" type="button" data-nudge="-50,0" aria-label="Left 50 cm">←</button><span class="small muted" style="display:grid;place-items:center;">50 cm</span><button class="btn" type="button" data-nudge="50,0" aria-label="Right 50 cm">→</button>
+              <span></span><button class="btn" type="button" data-nudge="0,50" aria-label="Down 50 cm">↓</button><span></span>
+            </div>
+            <div style="display:grid;gap:6px;">
+              <button class="btn" type="button" data-act="rotate">↻ Turn 90°</button>
+              <button class="btn danger" type="button" data-act="delete">Delete</button>
+            </div>
+          </div>
+          <div class="row">
+            <label class="row small"><b>Levels</b>
+              <select data-levels>${[1, 2, 3, 4, 5, 6].map(n => `<option value="${n}"${el.levels === n ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
+            <button class="btn small" type="button" data-act="all-levels">Set all ${rack ? 'racks' : 'pallets'} to ${el.levels}</button>
+          </div>
+        </section>`;
+      }
+
+      function render() {
+        if (!state) return;
+        if (selectedId && !ix.elements.has(selectedId)) selectedId = null;
+        renderPanel();
+        paint();
+      }
+
+      function select(id) {
+        selectedId = id;
+        render();
+      }
+
+      $('panel').addEventListener('click', async event => {
+        const el = ix.elements.get(selectedId);
+        if (!el) return;
+        const nudge = event.target.closest('[data-nudge]');
+        const act = event.target.closest('[data-act]')?.dataset.act;
+        if (nudge) {
+          const [dx, dy] = nudge.dataset.nudge.split(',').map(Number);
+          await change(`/api/elements/${el.id}/move`, { dx, dy });
+        } else if (act === 'rotate') {
+          await change(`/api/elements/${el.id}/rotate`);
+        } else if (act === 'delete') {
+          const cartons = (ix.stockByElement.get(el.id) || []).reduce((sum, s) => sum + s.qty, 0);
+          if (confirm(cartons ? `Delete ${el.code}? Its ${cartons} cartons are removed from stock too.` : `Delete ${el.code}?`)) {
+            await change(`/api/elements/${el.id}/delete`);
+            selectedId = null;
+            render();
+          }
+        } else if (act === 'all-levels') {
+          if (confirm(`Set all ${el.type === 'rack' ? 'racks' : 'pallets'} to ${el.levels} levels?`)) await change(`/api/elements/${el.id}/levels`, { levels: el.levels, applyToAll: true });
+        } else if (act === 'deselect') {
+          select(null);
+        }
+      });
+      $('panel').addEventListener('change', event => {
+        if (!event.target.matches('[data-levels]')) return;
+        change(`/api/elements/${selectedId}/levels`, { levels: Number(event.target.value) });
+      });
+
+      document.querySelector('.tools').addEventListener('click', async event => {
+        const add = event.target.closest('[data-add]');
+        if (!add || !map) return;
+        const at = map.center();
+        const before = new Set(state.elements.map(e => e.id));
+        const result = await change('/api/elements', {
+          type: add.dataset.add,
+          bays: Number(add.dataset.bays) || 1,
+          cx: Math.round(at.x / snap) * snap,
+          cy: Math.round(at.y / snap) * snap,
+        });
+        const added = result && state.elements.find(e => !before.has(e.id));
+        if (added) {
+          select(added.id);
+          PF.toast(`${added.code} added in the middle of the view. Drag it into place.`);
+        }
+      });
+
+      $('undo').addEventListener('click', async () => {
+        const last = history.pop();
+        if (!last) return;
+        await PF.post('/api/layout/restore', JSON.parse(last));
+        $('undo').disabled = !history.length;
+      });
+
+      $('zoomIn').addEventListener('click', () => map?.zoom(1.5));
+      $('zoomOut').addEventListener('click', () => map?.zoom(1 / 1.5));
+      $('zoomReset').addEventListener('click', () => map?.reset());
+
+      if (session) {
+        PF.connect(next => {
+          state = next;
+          ix = PF.index(state);
+          PF.checkSession(state);
+          map?.updateElements(state.elements);
+          mapReady ||= PF.createMap($('map'), state, {
+            onSelect: select,
+            canDrag: id => id === selectedId,
+            onMoveElement: (id, cx, cy) => change(`/api/elements/${id}/move`, { cx, cy }),
+          }).then(created => { map = created; paint(); });
+          render();
+        });
+      }
+    </script>
+  </body>
+</html>

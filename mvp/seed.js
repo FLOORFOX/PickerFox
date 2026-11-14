@@ -68,6 +68,8 @@ const CUSTOMERS = [
 
 const PICKERS = ['Ali', 'Marta', 'Jonas'];
 
+const sha256 = text => crypto.createHash('sha256').update(text).digest('hex');
+
 function mulberry32(seed) {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -563,7 +565,6 @@ function buildSeed(exportPath) {
     levels: e.levels,
     count: e.count,
     index: e.index,
-    locked: true,
     points: e.points,
   }));
 
@@ -618,6 +619,19 @@ function buildSeed(exportPath) {
     elements: cleanElements,
     stock,
     pickers: PICKERS.map((name, i) => ({ id: `u${i + 1}`, name })),
+    // Demo accounts only; see mvp/README.md for the passwords.
+    users: [
+      { id: 'a1', username: 'admin', passHash: sha256('fox-admin'), role: 'admin', pickerId: null },
+      ...PICKERS.map((name, i) => ({
+        id: `a${i + 2}`,
+        username: name.toLowerCase(),
+        passHash: sha256(`fox-${name.toLowerCase()}`),
+        role: 'user',
+        pickerId: `u${i + 1}`,
+      })),
+    ],
+    issues: [],
+    settings: { stock: { low: 10, critical: 3 } },
     orders: [],
     picklists: [],
     nextOrderNumber: 1001,

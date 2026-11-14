@@ -374,7 +374,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2106,
@@ -407,7 +406,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2477,
@@ -440,7 +438,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2765,
@@ -473,7 +470,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2106,
@@ -506,7 +502,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2477,
@@ -539,7 +534,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2765,
@@ -572,7 +566,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2106,
@@ -605,7 +598,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2477,
@@ -638,7 +630,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2765,
@@ -671,7 +662,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2477,
@@ -704,7 +694,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2765,
@@ -737,7 +726,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2106,
@@ -770,7 +758,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2477,
@@ -803,7 +790,6 @@
       "bays": 3,
       "levels": 3,
       "count": 3,
-      "locked": true,
       "points": [
         [
           2765,
@@ -836,7 +822,6 @@
       "bays": 4,
       "levels": 3,
       "count": 4,
-      "locked": true,
       "points": [
         [
           2073,
@@ -869,7 +854,6 @@
       "bays": 2,
       "levels": 3,
       "count": 2,
-      "locked": true,
       "points": [
         [
           2073,
@@ -902,7 +886,6 @@
       "bays": 4,
       "levels": 3,
       "count": 4,
-      "locked": true,
       "points": [
         [
           1292,
@@ -935,7 +918,6 @@
       "bays": 4,
       "levels": 3,
       "count": 4,
-      "locked": true,
       "points": [
         [
           1670,
@@ -968,7 +950,6 @@
       "bays": 2,
       "levels": 3,
       "count": 2,
-      "locked": true,
       "points": [
         [
           2073,
@@ -1001,7 +982,6 @@
       "bays": 2,
       "levels": 3,
       "count": 2,
-      "locked": true,
       "points": [
         [
           2400,
@@ -1034,7 +1014,6 @@
       "bays": 2,
       "levels": 3,
       "count": 2,
-      "locked": true,
       "points": [
         [
           2073,
@@ -1067,7 +1046,6 @@
       "bays": 2,
       "levels": 3,
       "count": 2,
-      "locked": true,
       "points": [
         [
           2400,
@@ -1100,7 +1078,6 @@
       "bays": 2,
       "levels": 3,
       "count": 0,
-      "locked": true,
       "points": [
         [
           2400,
@@ -1133,7 +1110,6 @@
       "bays": 4,
       "levels": 3,
       "count": 0,
-      "locked": true,
       "points": [
         [
           1595,
@@ -1166,7 +1142,6 @@
       "bays": 2,
       "levels": 3,
       "count": 0,
-      "locked": true,
       "points": [
         [
           1774,
@@ -1199,7 +1174,6 @@
       "bays": 2,
       "levels": 3,
       "count": 0,
-      "locked": true,
       "points": [
         [
           2498,
@@ -1232,7 +1206,6 @@
       "bays": 1,
       "levels": 1,
       "index": 1,
-      "locked": true,
       "points": [
         [
           2934,
@@ -1265,7 +1238,6 @@
       "bays": 1,
       "levels": 1,
       "index": 2,
-      "locked": true,
       "points": [
         [
           2934,
@@ -1298,7 +1270,6 @@
       "bays": 1,
       "levels": 1,
       "index": 3,
-      "locked": true,
       "points": [
         [
           2934,
@@ -1331,7 +1302,6 @@
       "bays": 1,
       "levels": 1,
       "index": 4,
-      "locked": true,
       "points": [
         [
           2934,
@@ -1364,7 +1334,6 @@
       "bays": 1,
       "levels": 1,
       "index": 5,
-      "locked": true,
       "points": [
         [
           2934,
@@ -1397,7 +1366,6 @@
       "bays": 1,
       "levels": 1,
       "index": 6,
-      "locked": true,
       "points": [
         [
           1883,
@@ -1430,7 +1398,6 @@
       "bays": 1,
       "levels": 1,
       "index": 7,
-      "locked": true,
       "points": [
         [
           1968,
@@ -1463,7 +1430,6 @@
       "bays": 1,
       "levels": 1,
       "index": 8,
-      "locked": true,
       "points": [
         [
           2098,
@@ -1496,7 +1462,6 @@
       "bays": 1,
       "levels": 1,
       "index": 9,
-      "locked": true,
       "points": [
         [
           2183,
@@ -1529,7 +1494,6 @@
       "bays": 1,
       "levels": 1,
       "index": 10,
-      "locked": true,
       "points": [
         [
           2464,
@@ -1562,7 +1526,6 @@
       "bays": 1,
       "levels": 1,
       "index": 11,
-      "locked": true,
       "points": [
         [
           2549,
@@ -1595,7 +1558,6 @@
       "bays": 1,
       "levels": 1,
       "index": 12,
-      "locked": true,
       "points": [
         [
           2634,
@@ -1628,7 +1590,6 @@
       "bays": 1,
       "levels": 1,
       "index": 13,
-      "locked": true,
       "points": [
         [
           2719,
@@ -1661,7 +1622,6 @@
       "bays": 1,
       "levels": 1,
       "index": 14,
-      "locked": true,
       "points": [
         [
           2804,
@@ -1694,7 +1654,6 @@
       "bays": 1,
       "levels": 1,
       "index": 15,
-      "locked": true,
       "points": [
         [
           2889,
@@ -1727,7 +1686,6 @@
       "bays": 1,
       "levels": 1,
       "index": 16,
-      "locked": true,
       "points": [
         [
           2974,
@@ -1760,7 +1718,6 @@
       "bays": 1,
       "levels": 1,
       "index": 17,
-      "locked": true,
       "points": [
         [
           1146,
@@ -1793,7 +1750,6 @@
       "bays": 1,
       "levels": 1,
       "index": 18,
-      "locked": true,
       "points": [
         [
           1231,
@@ -1826,7 +1782,6 @@
       "bays": 1,
       "levels": 1,
       "index": 19,
-      "locked": true,
       "points": [
         [
           1316,
@@ -1859,7 +1814,6 @@
       "bays": 1,
       "levels": 1,
       "index": 20,
-      "locked": true,
       "points": [
         [
           1401,
@@ -1892,7 +1846,6 @@
       "bays": 1,
       "levels": 1,
       "index": 21,
-      "locked": true,
       "points": [
         [
           1486,
@@ -1925,7 +1878,6 @@
       "bays": 1,
       "levels": 1,
       "index": 22,
-      "locked": true,
       "points": [
         [
           1571,
@@ -1958,7 +1910,6 @@
       "bays": 1,
       "levels": 1,
       "index": 23,
-      "locked": true,
       "points": [
         [
           1656,
@@ -1991,7 +1942,6 @@
       "bays": 1,
       "levels": 1,
       "index": 24,
-      "locked": true,
       "points": [
         [
           1906,
@@ -2024,7 +1974,6 @@
       "bays": 1,
       "levels": 1,
       "index": 25,
-      "locked": true,
       "points": [
         [
           1991,
@@ -2057,7 +2006,6 @@
       "bays": 1,
       "levels": 1,
       "index": 26,
-      "locked": true,
       "points": [
         [
           2076,
@@ -2090,7 +2038,6 @@
       "bays": 1,
       "levels": 1,
       "index": 27,
-      "locked": true,
       "points": [
         [
           2161,
@@ -2123,7 +2070,6 @@
       "bays": 1,
       "levels": 1,
       "index": 28,
-      "locked": true,
       "points": [
         [
           2489,
@@ -2156,7 +2102,6 @@
       "bays": 1,
       "levels": 1,
       "index": 29,
-      "locked": true,
       "points": [
         [
           2574,
@@ -2189,7 +2134,6 @@
       "bays": 1,
       "levels": 1,
       "index": 30,
-      "locked": true,
       "points": [
         [
           2659,
@@ -2222,7 +2166,6 @@
       "bays": 1,
       "levels": 1,
       "index": 31,
-      "locked": true,
       "points": [
         [
           2744,
@@ -2255,7 +2198,6 @@
       "bays": 1,
       "levels": 1,
       "index": 32,
-      "locked": true,
       "points": [
         [
           2829,
@@ -2288,7 +2230,6 @@
       "bays": 1,
       "levels": 1,
       "index": 33,
-      "locked": true,
       "points": [
         [
           2914,
@@ -2321,7 +2262,6 @@
       "bays": 1,
       "levels": 1,
       "index": 34,
-      "locked": true,
       "points": [
         [
           2999,
@@ -2354,7 +2294,6 @@
       "bays": 1,
       "levels": 1,
       "index": 35,
-      "locked": true,
       "points": [
         [
           1146,
@@ -2387,7 +2326,6 @@
       "bays": 1,
       "levels": 1,
       "index": 36,
-      "locked": true,
       "points": [
         [
           1231,
@@ -2420,7 +2358,6 @@
       "bays": 1,
       "levels": 1,
       "index": 37,
-      "locked": true,
       "points": [
         [
           1316,
@@ -2453,7 +2390,6 @@
       "bays": 1,
       "levels": 1,
       "index": 38,
-      "locked": true,
       "points": [
         [
           1401,
@@ -2486,7 +2422,6 @@
       "bays": 1,
       "levels": 1,
       "index": 39,
-      "locked": true,
       "points": [
         [
           1486,
@@ -2519,7 +2454,6 @@
       "bays": 1,
       "levels": 1,
       "index": 40,
-      "locked": true,
       "points": [
         [
           1571,
@@ -2552,7 +2486,6 @@
       "bays": 1,
       "levels": 1,
       "index": 41,
-      "locked": true,
       "points": [
         [
           1656,
@@ -2585,7 +2518,6 @@
       "bays": 1,
       "levels": 1,
       "index": 42,
-      "locked": true,
       "points": [
         [
           1913,
@@ -2618,7 +2550,6 @@
       "bays": 1,
       "levels": 1,
       "index": 43,
-      "locked": true,
       "points": [
         [
           2489,
@@ -2651,7 +2582,6 @@
       "bays": 1,
       "levels": 1,
       "index": 44,
-      "locked": true,
       "points": [
         [
           2574,
@@ -2684,7 +2614,6 @@
       "bays": 1,
       "levels": 1,
       "index": 45,
-      "locked": true,
       "points": [
         [
           2659,
@@ -2717,7 +2646,6 @@
       "bays": 1,
       "levels": 1,
       "index": 46,
-      "locked": true,
       "points": [
         [
           2744,
@@ -2750,7 +2678,6 @@
       "bays": 1,
       "levels": 1,
       "index": 47,
-      "locked": true,
       "points": [
         [
           2829,
@@ -2783,7 +2710,6 @@
       "bays": 1,
       "levels": 1,
       "index": 48,
-      "locked": true,
       "points": [
         [
           2914,
@@ -2816,7 +2742,6 @@
       "bays": 1,
       "levels": 1,
       "index": 49,
-      "locked": true,
       "points": [
         [
           2999,
@@ -2849,7 +2774,6 @@
       "bays": 1,
       "levels": 1,
       "index": 50,
-      "locked": true,
       "points": [
         [
           1913,
@@ -2882,7 +2806,6 @@
       "bays": 1,
       "levels": 1,
       "index": 51,
-      "locked": true,
       "points": [
         [
           1913,
@@ -2915,7 +2838,6 @@
       "bays": 1,
       "levels": 1,
       "index": 52,
-      "locked": true,
       "points": [
         [
           1146,
@@ -2948,7 +2870,6 @@
       "bays": 1,
       "levels": 1,
       "index": 53,
-      "locked": true,
       "points": [
         [
           1231,
@@ -2981,7 +2902,6 @@
       "bays": 1,
       "levels": 1,
       "index": 54,
-      "locked": true,
       "points": [
         [
           1316,
@@ -3014,7 +2934,6 @@
       "bays": 1,
       "levels": 1,
       "index": 55,
-      "locked": true,
       "points": [
         [
           1401,
@@ -3047,7 +2966,6 @@
       "bays": 1,
       "levels": 1,
       "index": 56,
-      "locked": true,
       "points": [
         [
           1486,
@@ -3080,7 +2998,6 @@
       "bays": 1,
       "levels": 1,
       "index": 57,
-      "locked": true,
       "points": [
         [
           1571,
@@ -3113,7 +3030,6 @@
       "bays": 1,
       "levels": 1,
       "index": 58,
-      "locked": true,
       "points": [
         [
           1656,
@@ -3146,7 +3062,6 @@
       "bays": 1,
       "levels": 1,
       "index": 59,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3179,7 +3094,6 @@
       "bays": 1,
       "levels": 1,
       "index": 60,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3212,7 +3126,6 @@
       "bays": 1,
       "levels": 1,
       "index": 61,
-      "locked": true,
       "points": [
         [
           1146,
@@ -3245,7 +3158,6 @@
       "bays": 1,
       "levels": 1,
       "index": 62,
-      "locked": true,
       "points": [
         [
           1231,
@@ -3278,7 +3190,6 @@
       "bays": 1,
       "levels": 1,
       "index": 63,
-      "locked": true,
       "points": [
         [
           1316,
@@ -3311,7 +3222,6 @@
       "bays": 1,
       "levels": 1,
       "index": 64,
-      "locked": true,
       "points": [
         [
           1401,
@@ -3344,7 +3254,6 @@
       "bays": 1,
       "levels": 1,
       "index": 65,
-      "locked": true,
       "points": [
         [
           1486,
@@ -3377,7 +3286,6 @@
       "bays": 1,
       "levels": 1,
       "index": 66,
-      "locked": true,
       "points": [
         [
           1571,
@@ -3410,7 +3318,6 @@
       "bays": 1,
       "levels": 1,
       "index": 67,
-      "locked": true,
       "points": [
         [
           1656,
@@ -3443,7 +3350,6 @@
       "bays": 1,
       "levels": 1,
       "index": 68,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3476,7 +3382,6 @@
       "bays": 1,
       "levels": 1,
       "index": 69,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3509,7 +3414,6 @@
       "bays": 1,
       "levels": 1,
       "index": 70,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3542,7 +3446,6 @@
       "bays": 1,
       "levels": 1,
       "index": 71,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3575,7 +3478,6 @@
       "bays": 1,
       "levels": 1,
       "index": 72,
-      "locked": true,
       "points": [
         [
           1272,
@@ -3608,7 +3510,6 @@
       "bays": 1,
       "levels": 1,
       "index": 73,
-      "locked": true,
       "points": [
         [
           1357,
@@ -3641,7 +3542,6 @@
       "bays": 1,
       "levels": 1,
       "index": 74,
-      "locked": true,
       "points": [
         [
           1442,
@@ -3674,7 +3574,6 @@
       "bays": 1,
       "levels": 1,
       "index": 75,
-      "locked": true,
       "points": [
         [
           1527,
@@ -3707,7 +3606,6 @@
       "bays": 1,
       "levels": 1,
       "index": 76,
-      "locked": true,
       "points": [
         [
           1612,
@@ -3740,7 +3638,6 @@
       "bays": 1,
       "levels": 1,
       "index": 77,
-      "locked": true,
       "points": [
         [
           1697,
@@ -3773,7 +3670,6 @@
       "bays": 1,
       "levels": 1,
       "index": 78,
-      "locked": true,
       "points": [
         [
           1913,
@@ -3806,7 +3702,6 @@
       "bays": 1,
       "levels": 1,
       "index": 79,
-      "locked": true,
       "points": [
         [
           1272,
@@ -3839,7 +3734,6 @@
       "bays": 1,
       "levels": 1,
       "index": 80,
-      "locked": true,
       "points": [
         [
           1357,
@@ -3872,7 +3766,6 @@
       "bays": 1,
       "levels": 1,
       "index": 81,
-      "locked": true,
       "points": [
         [
           1442,
@@ -3905,7 +3798,6 @@
       "bays": 1,
       "levels": 1,
       "index": 82,
-      "locked": true,
       "points": [
         [
           1527,
@@ -3938,7 +3830,6 @@
       "bays": 1,
       "levels": 1,
       "index": 83,
-      "locked": true,
       "points": [
         [
           1612,
@@ -3971,7 +3862,6 @@
       "bays": 1,
       "levels": 1,
       "index": 84,
-      "locked": true,
       "points": [
         [
           1697,
@@ -4004,7 +3894,6 @@
       "bays": 1,
       "levels": 1,
       "index": 85,
-      "locked": true,
       "points": [
         [
           1913,
@@ -4037,7 +3926,6 @@
       "bays": 1,
       "levels": 1,
       "index": 86,
-      "locked": true,
       "points": [
         [
           1913,
@@ -4070,7 +3958,6 @@
       "bays": 1,
       "levels": 1,
       "index": 87,
-      "locked": true,
       "points": [
         [
           1913,
@@ -4103,7 +3990,6 @@
       "bays": 1,
       "levels": 1,
       "index": 88,
-      "locked": true,
       "points": [
         [
           1913,
@@ -4136,7 +4022,6 @@
       "bays": 1,
       "levels": 1,
       "index": 89,
-      "locked": true,
       "points": [
         [
           1272,
@@ -4169,7 +4054,6 @@
       "bays": 1,
       "levels": 1,
       "index": 90,
-      "locked": true,
       "points": [
         [
           1357,
@@ -4202,7 +4086,6 @@
       "bays": 1,
       "levels": 1,
       "index": 91,
-      "locked": true,
       "points": [
         [
           1442,
@@ -4235,7 +4118,6 @@
       "bays": 1,
       "levels": 1,
       "index": 92,
-      "locked": true,
       "points": [
         [
           1527,
@@ -4268,7 +4150,6 @@
       "bays": 1,
       "levels": 1,
       "index": 93,
-      "locked": true,
       "points": [
         [
           1612,
@@ -4301,7 +4182,6 @@
       "bays": 1,
       "levels": 1,
       "index": 94,
-      "locked": true,
       "points": [
         [
           1697,
@@ -4334,7 +4214,6 @@
       "bays": 1,
       "levels": 1,
       "index": 95,
-      "locked": true,
       "points": [
         [
           1906,
@@ -4367,7 +4246,6 @@
       "bays": 1,
       "levels": 1,
       "index": 96,
-      "locked": true,
       "points": [
         [
           1991,
@@ -4400,7 +4278,6 @@
       "bays": 1,
       "levels": 1,
       "index": 97,
-      "locked": true,
       "points": [
         [
           2076,
@@ -4433,7 +4310,6 @@
       "bays": 1,
       "levels": 1,
       "index": 98,
-      "locked": true,
       "points": [
         [
           2161,
@@ -4466,7 +4342,6 @@
       "bays": 1,
       "levels": 1,
       "index": 99,
-      "locked": true,
       "points": [
         [
           1272,
@@ -4499,7 +4374,6 @@
       "bays": 1,
       "levels": 1,
       "index": 100,
-      "locked": true,
       "points": [
         [
           1357,
@@ -4532,7 +4406,6 @@
       "bays": 1,
       "levels": 1,
       "index": 101,
-      "locked": true,
       "points": [
         [
           1442,
@@ -4565,7 +4438,6 @@
       "bays": 1,
       "levels": 1,
       "index": 102,
-      "locked": true,
       "points": [
         [
           1527,
@@ -4598,7 +4470,6 @@
       "bays": 1,
       "levels": 1,
       "index": 103,
-      "locked": true,
       "points": [
         [
           1612,
@@ -4631,7 +4502,6 @@
       "bays": 1,
       "levels": 1,
       "index": 104,
-      "locked": true,
       "points": [
         [
           1697,
@@ -4664,7 +4534,6 @@
       "bays": 1,
       "levels": 1,
       "index": 105,
-      "locked": true,
       "points": [
         [
           1782,
@@ -4697,7 +4566,6 @@
       "bays": 1,
       "levels": 1,
       "index": 106,
-      "locked": true,
       "points": [
         [
           1867,
@@ -4730,7 +4598,6 @@
       "bays": 1,
       "levels": 1,
       "index": 107,
-      "locked": true,
       "points": [
         [
           1952,
@@ -4763,7 +4630,6 @@
       "bays": 1,
       "levels": 1,
       "index": 108,
-      "locked": true,
       "points": [
         [
           2037,
@@ -4796,7 +4662,6 @@
       "bays": 1,
       "levels": 1,
       "index": 109,
-      "locked": true,
       "points": [
         [
           2514,
@@ -4829,7 +4694,6 @@
       "bays": 1,
       "levels": 1,
       "index": 110,
-      "locked": true,
       "points": [
         [
           2599,
@@ -4862,7 +4726,6 @@
       "bays": 1,
       "levels": 1,
       "index": 111,
-      "locked": true,
       "points": [
         [
           2684,
@@ -4895,7 +4758,6 @@
       "bays": 1,
       "levels": 1,
       "index": 112,
-      "locked": true,
       "points": [
         [
           2769,
@@ -4928,7 +4790,6 @@
       "bays": 1,
       "levels": 1,
       "index": 113,
-      "locked": true,
       "points": [
         [
           2854,
@@ -4961,7 +4822,6 @@
       "bays": 1,
       "levels": 1,
       "index": 114,
-      "locked": true,
       "points": [
         [
           2939,
@@ -4994,7 +4854,6 @@
       "bays": 1,
       "levels": 1,
       "index": 115,
-      "locked": true,
       "points": [
         [
           3024,
@@ -5027,7 +4886,6 @@
       "bays": 1,
       "levels": 1,
       "index": 116,
-      "locked": true,
       "points": [
         [
           2514,
@@ -5060,7 +4918,6 @@
       "bays": 1,
       "levels": 1,
       "index": 117,
-      "locked": true,
       "points": [
         [
           2599,
@@ -5093,7 +4950,6 @@
       "bays": 1,
       "levels": 1,
       "index": 118,
-      "locked": true,
       "points": [
         [
           2684,
@@ -5126,7 +4982,6 @@
       "bays": 1,
       "levels": 1,
       "index": 119,
-      "locked": true,
       "points": [
         [
           2769,
@@ -5159,7 +5014,6 @@
       "bays": 1,
       "levels": 1,
       "index": 120,
-      "locked": true,
       "points": [
         [
           2854,
@@ -5192,7 +5046,6 @@
       "bays": 1,
       "levels": 1,
       "index": 121,
-      "locked": true,
       "points": [
         [
           2939,
@@ -5225,7 +5078,6 @@
       "bays": 1,
       "levels": 1,
       "index": 122,
-      "locked": true,
       "points": [
         [
           3024,
@@ -5258,7 +5110,6 @@
       "bays": 1,
       "levels": 1,
       "index": 123,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5291,7 +5142,6 @@
       "bays": 1,
       "levels": 1,
       "index": 124,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5324,7 +5174,6 @@
       "bays": 1,
       "levels": 1,
       "index": 125,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5357,7 +5206,6 @@
       "bays": 1,
       "levels": 1,
       "index": 126,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5390,7 +5238,6 @@
       "bays": 1,
       "levels": 1,
       "index": 127,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5423,7 +5270,6 @@
       "bays": 1,
       "levels": 1,
       "index": 128,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5456,7 +5302,6 @@
       "bays": 1,
       "levels": 1,
       "index": 129,
-      "locked": true,
       "points": [
         [
           2400,
@@ -5489,7 +5334,6 @@
       "bays": 1,
       "levels": 1,
       "index": 130,
-      "locked": true,
       "points": [
         [
           2520,
@@ -5522,7 +5366,6 @@
       "bays": 1,
       "levels": 1,
       "index": 131,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5555,7 +5398,6 @@
       "bays": 1,
       "levels": 1,
       "index": 132,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5588,7 +5430,6 @@
       "bays": 1,
       "levels": 1,
       "index": 133,
-      "locked": true,
       "points": [
         [
           2400,
@@ -5621,7 +5462,6 @@
       "bays": 1,
       "levels": 1,
       "index": 134,
-      "locked": true,
       "points": [
         [
           2520,
@@ -5654,7 +5494,6 @@
       "bays": 1,
       "levels": 1,
       "index": 135,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5687,7 +5526,6 @@
       "bays": 1,
       "levels": 1,
       "index": 136,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5720,7 +5558,6 @@
       "bays": 1,
       "levels": 1,
       "index": 137,
-      "locked": true,
       "points": [
         [
           1181,
@@ -5753,7 +5590,6 @@
       "bays": 1,
       "levels": 1,
       "index": 138,
-      "locked": true,
       "points": [
         [
           2400,
@@ -5786,7 +5622,6 @@
       "bays": 1,
       "levels": 1,
       "index": 139,
-      "locked": true,
       "points": [
         [
           2520,
@@ -5819,7 +5654,6 @@
       "bays": 1,
       "levels": 1,
       "index": 140,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5852,7 +5686,6 @@
       "bays": 1,
       "levels": 1,
       "index": 141,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5885,7 +5718,6 @@
       "bays": 1,
       "levels": 1,
       "index": 142,
-      "locked": true,
       "points": [
         [
           2520,
@@ -5918,7 +5750,6 @@
       "bays": 1,
       "levels": 1,
       "index": 143,
-      "locked": true,
       "points": [
         [
           2814,
@@ -5951,7 +5782,6 @@
       "bays": 1,
       "levels": 1,
       "index": 144,
-      "locked": true,
       "points": [
         [
           2934,
@@ -5984,7 +5814,6 @@
       "bays": 1,
       "levels": 1,
       "index": 145,
-      "locked": true,
       "points": [
         [
           2520,
@@ -6017,7 +5846,6 @@
       "bays": 1,
       "levels": 1,
       "index": 146,
-      "locked": true,
       "points": [
         [
           2814,
@@ -6050,7 +5878,6 @@
       "bays": 1,
       "levels": 1,
       "index": 147,
-      "locked": true,
       "points": [
         [
           2934,
@@ -6083,7 +5910,6 @@
       "bays": 1,
       "levels": 1,
       "index": 148,
-      "locked": true,
       "points": [
         [
           1242,
@@ -6116,7 +5942,6 @@
       "bays": 1,
       "levels": 1,
       "index": 149,
-      "locked": true,
       "points": [
         [
           1327,
@@ -6149,7 +5974,6 @@
       "bays": 1,
       "levels": 1,
       "index": 150,
-      "locked": true,
       "points": [
         [
           1412,
@@ -6182,7 +6006,6 @@
       "bays": 1,
       "levels": 1,
       "index": 151,
-      "locked": true,
       "points": [
         [
           1497,
@@ -6215,7 +6038,6 @@
       "bays": 1,
       "levels": 1,
       "index": 152,
-      "locked": true,
       "points": [
         [
           1582,
@@ -6248,7 +6070,6 @@
       "bays": 1,
       "levels": 1,
       "index": 153,
-      "locked": true,
       "points": [
         [
           1667,
@@ -6281,7 +6102,6 @@
       "bays": 1,
       "levels": 1,
       "index": 154,
-      "locked": true,
       "points": [
         [
           1752,
@@ -6314,7 +6134,6 @@
       "bays": 1,
       "levels": 1,
       "index": 155,
-      "locked": true,
       "points": [
         [
           2520,
@@ -6347,7 +6166,6 @@
       "bays": 1,
       "levels": 1,
       "index": 156,
-      "locked": true,
       "points": [
         [
           2814,
@@ -6380,7 +6198,6 @@
       "bays": 1,
       "levels": 1,
       "index": 157,
-      "locked": true,
       "points": [
         [
           2934,
@@ -6413,7 +6230,6 @@
       "bays": 1,
       "levels": 1,
       "index": 158,
-      "locked": true,
       "points": [
         [
           1157,
@@ -6446,7 +6262,6 @@
       "bays": 1,
       "levels": 1,
       "index": 159,
-      "locked": true,
       "points": [
         [
           1242,
@@ -6479,7 +6294,6 @@
       "bays": 1,
       "levels": 1,
       "index": 160,
-      "locked": true,
       "points": [
         [
           1327,
@@ -6512,7 +6326,6 @@
       "bays": 1,
       "levels": 1,
       "index": 161,
-      "locked": true,
       "points": [
         [
           1412,
@@ -6545,7 +6358,6 @@
       "bays": 1,
       "levels": 1,
       "index": 162,
-      "locked": true,
       "points": [
         [
           1497,
@@ -6578,7 +6390,6 @@
       "bays": 1,
       "levels": 1,
       "index": 163,
-      "locked": true,
       "points": [
         [
           1582,
@@ -6611,7 +6422,6 @@
       "bays": 1,
       "levels": 1,
       "index": 164,
-      "locked": true,
       "points": [
         [
           1667,
@@ -6644,7 +6454,6 @@
       "bays": 1,
       "levels": 1,
       "index": 165,
-      "locked": true,
       "points": [
         [
           1752,
@@ -6677,7 +6486,6 @@
       "bays": 1,
       "levels": 1,
       "index": 166,
-      "locked": true,
       "points": [
         [
           2520,
@@ -6710,7 +6518,6 @@
       "bays": 1,
       "levels": 1,
       "index": 167,
-      "locked": true,
       "points": [
         [
           2814,
@@ -6743,7 +6550,6 @@
       "bays": 1,
       "levels": 1,
       "index": 168,
-      "locked": true,
       "points": [
         [
           2934,
@@ -6776,7 +6582,6 @@
       "bays": 1,
       "levels": 1,
       "index": 169,
-      "locked": true,
       "points": [
         [
           2073,
@@ -6809,7 +6614,6 @@
       "bays": 1,
       "levels": 1,
       "index": 170,
-      "locked": true,
       "points": [
         [
           2520,
@@ -6842,7 +6646,6 @@
       "bays": 1,
       "levels": 1,
       "index": 171,
-      "locked": true,
       "points": [
         [
           2814,
@@ -6875,7 +6678,6 @@
       "bays": 1,
       "levels": 1,
       "index": 172,
-      "locked": true,
       "points": [
         [
           2934,
@@ -6908,7 +6710,6 @@
       "bays": 1,
       "levels": 1,
       "index": 173,
-      "locked": true,
       "points": [
         [
           1157,
@@ -6941,7 +6742,6 @@
       "bays": 1,
       "levels": 1,
       "index": 174,
-      "locked": true,
       "points": [
         [
           1242,
@@ -6974,7 +6774,6 @@
       "bays": 1,
       "levels": 1,
       "index": 175,
-      "locked": true,
       "points": [
         [
           1327,
@@ -7007,7 +6806,6 @@
       "bays": 1,
       "levels": 1,
       "index": 176,
-      "locked": true,
       "points": [
         [
           1412,
@@ -7040,7 +6838,6 @@
       "bays": 1,
       "levels": 1,
       "index": 177,
-      "locked": true,
       "points": [
         [
           1497,
@@ -7073,7 +6870,6 @@
       "bays": 1,
       "levels": 1,
       "index": 178,
-      "locked": true,
       "points": [
         [
           1582,
@@ -7106,7 +6902,6 @@
       "bays": 1,
       "levels": 1,
       "index": 179,
-      "locked": true,
       "points": [
         [
           1667,
@@ -7139,7 +6934,6 @@
       "bays": 1,
       "levels": 1,
       "index": 180,
-      "locked": true,
       "points": [
         [
           1752,
@@ -7172,7 +6966,6 @@
       "bays": 1,
       "levels": 1,
       "index": 181,
-      "locked": true,
       "points": [
         [
           2814,
@@ -7205,7 +6998,6 @@
       "bays": 1,
       "levels": 1,
       "index": 182,
-      "locked": true,
       "points": [
         [
           2934,
@@ -7238,7 +7030,6 @@
       "bays": 1,
       "levels": 1,
       "index": 183,
-      "locked": true,
       "points": [
         [
           1157,
@@ -7271,7 +7062,6 @@
       "bays": 1,
       "levels": 1,
       "index": 184,
-      "locked": true,
       "points": [
         [
           2814,
@@ -7304,7 +7094,6 @@
       "bays": 1,
       "levels": 1,
       "index": 185,
-      "locked": true,
       "points": [
         [
           2934,
@@ -7337,7 +7126,6 @@
       "bays": 1,
       "levels": 1,
       "index": 186,
-      "locked": true,
       "points": [
         [
           1157,
@@ -7370,7 +7158,6 @@
       "bays": 1,
       "levels": 1,
       "index": 187,
-      "locked": true,
       "points": [
         [
           1713,
@@ -7403,7 +7190,6 @@
       "bays": 1,
       "levels": 1,
       "index": 188,
-      "locked": true,
       "points": [
         [
           1838,
@@ -7436,7 +7222,6 @@
       "bays": 1,
       "levels": 1,
       "index": 189,
-      "locked": true,
       "points": [
         [
           2814,
@@ -7469,7 +7254,6 @@
       "bays": 1,
       "levels": 1,
       "index": 190,
-      "locked": true,
       "points": [
         [
           2934,
@@ -7502,7 +7286,6 @@
       "bays": 1,
       "levels": 1,
       "index": 191,
-      "locked": true,
       "points": [
         [
           2814,
@@ -7535,7 +7318,6 @@
       "bays": 1,
       "levels": 1,
       "index": 192,
-      "locked": true,
       "points": [
         [
           2934,
@@ -7568,7 +7350,6 @@
       "bays": 1,
       "levels": 1,
       "index": 193,
-      "locked": true,
       "points": [
         [
           2814,
@@ -7601,7 +7382,6 @@
       "bays": 1,
       "levels": 1,
       "index": 194,
-      "locked": true,
       "points": [
         [
           2934,
@@ -8079,12 +7859,49 @@
       "name": "Jonas"
     }
   ],
+  "users": [
+    {
+      "id": "a1",
+      "username": "admin",
+      "passHash": "a9b342a688eac1949443bf49745ef132593027e6485efa38daa479d97789b899",
+      "role": "admin",
+      "pickerId": null
+    },
+    {
+      "id": "a2",
+      "username": "ali",
+      "passHash": "bb83d9f9ef6f89b64bd9660c6f328a4e6926b28f921906f0ef371f11b54c94ec",
+      "role": "user",
+      "pickerId": "u1"
+    },
+    {
+      "id": "a3",
+      "username": "marta",
+      "passHash": "94dfe9de6959ef6de89622c7d7ffca9bdf503b4c7207b4237808f7feb6577c3d",
+      "role": "user",
+      "pickerId": "u2"
+    },
+    {
+      "id": "a4",
+      "username": "jonas",
+      "passHash": "e531e6dc034fcf0083427839546ea93b7e80498d47af64e0e698b14c23f92773",
+      "role": "user",
+      "pickerId": "u3"
+    }
+  ],
+  "issues": [],
+  "settings": {
+    "stock": {
+      "low": 10,
+      "critical": 3
+    }
+  },
   "orders": [
     {
       "id": "o1001",
       "number": 1001,
       "customer": "Sushi Kumo",
-      "createdAt": "2026-11-14T05:23:19.203Z",
+      "createdAt": "2026-11-14T16:24:41.662Z",
       "lines": [
         {
           "productId": "p34",
@@ -8124,7 +7941,7 @@
       "id": "o1002",
       "number": 1002,
       "customer": "Taverna Olympos",
-      "createdAt": "2026-11-14T05:23:19.205Z",
+      "createdAt": "2026-11-14T16:24:41.663Z",
       "lines": [
         {
           "productId": "p2",
@@ -8156,7 +7973,7 @@
       "id": "o1003",
       "number": 1003,
       "customer": "Burger Werk",
-      "createdAt": "2026-11-14T05:23:19.205Z",
+      "createdAt": "2026-11-14T16:24:41.663Z",
       "lines": [
         {
           "productId": "p25",
@@ -8188,7 +8005,7 @@
       "id": "o1004",
       "number": 1004,
       "customer": "Sushi Kumo",
-      "createdAt": "2026-11-14T05:23:19.205Z",
+      "createdAt": "2026-11-14T16:24:41.663Z",
       "lines": [
         {
           "productId": "p28",
@@ -8220,7 +8037,7 @@
       "id": "o1005",
       "number": 1005,
       "customer": "Kebab Haus Mitte",
-      "createdAt": "2026-11-14T05:23:19.205Z",
+      "createdAt": "2026-11-14T16:24:41.663Z",
       "lines": [
         {
           "productId": "p34",

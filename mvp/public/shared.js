@@ -9,9 +9,19 @@ const PF = (() => {
     { bg: '#56B4E9', ink: '#111' },
   ];
 
-  const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const ISSUE_TYPES = {
+    low: 'Low stock',
+    empty: 'Empty or missing',
+    location: 'Wrong or uncertain location',
+  };
+
+  // Routes a phone logged in with the user role may send to the manager.
+  const USER_ROUTES = [/^\/api\/picklists\/\w+\/pick$/, /^\/api\/issues$/];
+
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const color = list => COLORS[list.color % COLORS.length];
   const swatch = list => `<span class="swatch" style="--c:${color(list).bg};--ink:${color(list).ink}">${list.number}</span>`;
+  const cleanRoute = route => (route.startsWith('/') ? route : '/' + route);
 
   function index(state) {
     const group = key => {
@@ -19,7 +29,7 @@ const PF = (() => {
       state.stock.forEach(s => map.set(s[key], [...(map.get(s[key]) || []), s]));
       return map;
     };
-    const byId = items => new Map(items.map(item => [item.id, item]));
+    const byId = items => new Map((items || []).map(item => [item.id, item]));
     return {
       products: byId(state.products),
       elements: byId(state.elements),
@@ -62,7 +72,72 @@ const PF = (() => {
     return marks;
   }
 
-  let mode = null; // 'server' | 'static'
+  // Stock status per storage element, set by its emptiest slot.
+  function stockStatus(ix, settings) {
+    const { low = 10, critical = 3 } = settings?.stock || {};
+    const result = new Map();
+    ix.stockByElement.forEach((entries, elementId) => {
+      const lowest = Math.min(...entries.map(s => s.qty));
+      result.set(elementId, lowest >= low ? 'ok' : lowest >= critical ? 'low' : 'crit');
+    });
+    return result;
+  }
+
+  const openIssues = state => (state.issues || []).filter(i => i.status === 'open');
+
+  async function sha256(text) {
+    const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(bytes), b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function deviceLabel() {
+    const ua = navigator.userAgent;
+    const os = /Android/.test(ua) ? 'Android' : /iPhone|iPad/.test(ua) ? 'iOS' : /Windows/.test(ua) ? 'Windows' : /Mac/.test(ua) ? 'Mac' : 'Device';
+    const browser = /Edg\//.test(ua) ? 'Edge' : /SamsungBrowser/.test(ua) ? 'Samsung Internet' : /Chrome\//.test(ua) ? 'Chrome' : /Firefox\//.test(ua) ? 'Firefox' : /Safari\//.test(ua) ? 'Safari' : 'Browser';
+    return `${os} · ${browser}`;
+  }
+
+  // ---------------------------------------------------------------- Session
+
+  function currentUser() {
+    try { return JSON.parse(localStorage.getItem('pf.session')) || null; } catch { return null; }
+  }
+
+  function setSession(user, passHash) {
+    const session = { userId: user.id, username: user.username, role: user.role, pickerId: user.pickerId || null, passHash };
+    try { localStorage.setItem('pf.session', JSON.stringify(session)); } catch {}
+    return session;
+  }
+
+  async function login(state, username, password) {
+    const passHash = await sha256(password);
+    const user = (state.users || []).find(u => u.username.toLowerCase() === username.trim().toLowerCase() && u.passHash === passHash);
+    return user ? setSession(user, passHash) : null;
+  }
+
+  function logout() {
+    try { localStorage.removeItem('pf.session'); } catch {}
+    location.href = './index.html';
+  }
+
+  // Sends the visitor to the login page unless the session has one of the roles.
+  function requireRole(roles) {
+    const session = currentUser();
+    if (session && roles.includes(session.role)) return session;
+    location.replace('./index.html');
+    return null;
+  }
+
+  // Ends the session when its account was deleted or its password changed.
+  function checkSession(state) {
+    const session = currentUser();
+    if (!session) return;
+    const user = (state.users || []).find(u => u.id === session.userId);
+    if (!user || user.passHash !== session.passHash || user.role !== session.role) logout();
+  }
+
+  // ---------------------------------------------------------------- State
+
   let clientState = null;
   let onStateCallback = null;
   let broadcastChannel = null;
@@ -73,33 +148,30 @@ const PF = (() => {
     'Pho Saigon', 'Taverna Olympos', 'Kebab Haus Mitte', 'Bowl & Co',
   ];
 
+  const fetchInitial = async () => (await fetch('./initial-state.json?v=' + Date.now())).json();
+
+  // Fills in parts that data saved by an older version lacks.
+  async function normalize(state) {
+    if (!state.users) {
+      try { state.users = (await fetchInitial()).users || []; } catch { state.users = []; }
+    }
+    state.issues ||= [];
+    state.settings ||= {};
+    state.settings.stock ||= { low: 10, critical: 3 };
+    state.elements.forEach(e => { delete e.locked; });
+    return state;
+  }
+
+  function save() {
+    clientState.rev = (clientState.rev || 0) + 1;
+    try { localStorage.setItem('pf.state', JSON.stringify(clientState)); } catch {}
+    broadcastChannel?.postMessage({ type: 'state', state: clientState });
+    onStateCallback?.(clientState);
+  }
+
   async function connect(onState, onStatus) {
     onStateCallback = onState;
-    if (location.protocol === 'file:' || location.hostname.endsWith('github.io')) {
-      mode = 'static';
-    } else {
-      try {
-        const res = await fetch('./api/state', { method: 'GET', cache: 'no-store' });
-        if (res.ok && res.headers.get('content-type')?.includes('application/json')) {
-          mode = 'server';
-        } else {
-          mode = 'static';
-        }
-      } catch {
-        mode = 'static';
-      }
-    }
-
-    if (mode === 'server') {
-      const source = new EventSource('./api/events');
-      source.onmessage = event => onState(JSON.parse(event.data));
-      source.onopen = () => onStatus(true);
-      source.onerror = () => onStatus(false);
-      return;
-    }
-
-    // Static mode (GitHub Pages, local static preview, or file:)
-    onStatus(true);
+    onStatus?.(true);
     if (broadcastChannel) {
       broadcastChannel.onmessage = event => {
         if (event.data?.state) {
@@ -124,164 +196,246 @@ const PF = (() => {
 
     if (!clientState) {
       try {
-        clientState = await (await fetch('./initial-state.json?v=' + Date.now())).json();
-        localStorage.setItem('pf.state', JSON.stringify(clientState));
+        clientState = await fetchInitial();
       } catch (err) {
         console.error('Failed to load initial state:', err);
       }
     }
-    if (clientState) onState(clientState);
+    if (clientState) {
+      await normalize(clientState);
+      try { localStorage.setItem('pf.state', JSON.stringify(clientState)); } catch {}
+      onState(clientState);
+    }
   }
 
-  function applyClientMutation(route, body) {
-    if (!clientState) return;
+  const rectPoints = (cx, cy, w, h) => [[cx - w / 2, cy - h / 2], [cx + w / 2, cy - h / 2], [cx + w / 2, cy + h / 2], [cx - w / 2, cy + h / 2]];
+
+  function bounds(points) {
+    const xs = points.map(p => p[0]);
+    const ys = points.map(p => p[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    return { x0, x1, y0, y1, w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+  }
+
+  function applyMutation(route, body) {
+    const state = clientState;
     let m;
-    const cleanRoute = route.startsWith('/') ? route : '/' + route;
-    if (cleanRoute === '/api/orders/demo') {
-      const num = clientState.nextOrderNumber++;
-      const shuffled = [...clientState.products].sort(() => Math.random() - 0.5).slice(0, 4 + Math.floor(Math.random() * 5));
-      clientState.orders.push({
+    const findList = id => {
+      const list = state.picklists.find(l => l.id === id);
+      if (!list) throw new Error('Pick list not found');
+      return list;
+    };
+    const findElement = id => {
+      const el = state.elements.find(e => e.id === id);
+      if (!el) throw new Error('Storage element not found');
+      return el;
+    };
+    const findUser = id => {
+      const user = state.users.find(u => u.id === id);
+      if (!user) throw new Error('User not found');
+      return user;
+    };
+
+    if (route === '/api/orders/demo') {
+      const num = state.nextOrderNumber++;
+      const shuffled = [...state.products].sort(() => Math.random() - 0.5).slice(0, 4 + Math.floor(Math.random() * 5));
+      state.orders.push({
         id: `o${num}`,
         number: num,
         customer: DEMO_CUSTOMERS[Math.floor(Math.random() * DEMO_CUSTOMERS.length)],
         createdAt: new Date().toISOString(),
-        lines: shuffled.map(p => ({ productId: p.id, qty: 1 + Math.floor(Math.random() * 6) }))
+        lines: shuffled.map(p => ({ productId: p.id, qty: 1 + Math.floor(Math.random() * 6) })),
       });
-    } else if (cleanRoute === '/api/picklists') {
-      const order = clientState.orders.find(o => o.id === body.orderId);
+    } else if (route === '/api/picklists') {
+      const order = state.orders.find(o => o.id === body.orderId);
       if (!order) throw new Error('Order not found');
-      if (clientState.picklists.some(l => l.orderId === order.id)) throw new Error('This order already has a pick list');
-      const busy = new Set(clientState.picklists.filter(l => l.lines.some(line => !line.picked)).map(l => l.color));
-      let color = 0;
-      for (let i = 0; i < 6; i++) { if (!busy.has(i)) { color = i; break; } }
-      const num = clientState.nextListNumber++;
-      clientState.picklists.push({
+      if (state.picklists.some(l => l.orderId === order.id)) throw new Error('This order already has a pick list');
+      const busy = new Set(state.picklists.filter(l => l.lines.some(line => !line.picked)).map(l => l.color));
+      let listColor = 0;
+      for (let i = 0; i < COLORS.length; i++) { if (!busy.has(i)) { listColor = i; break; } }
+      const num = state.nextListNumber++;
+      state.picklists.push({
         id: `l${num}`, number: num, orderId: order.id, orderNumber: order.number, customer: order.customer,
-        color, pickerId: null, createdAt: new Date().toISOString(),
-        lines: order.lines.map(line => ({ ...line, picked: false, pickedAt: null }))
+        color: listColor, pickerId: null, createdAt: new Date().toISOString(),
+        lines: order.lines.map(line => ({ ...line, picked: false, pickedAt: null })),
       });
-    } else if ((m = cleanRoute.match(/\/api\/picklists\/(\w+)\/assign$/))) {
-      const list = clientState.picklists.find(l => l.id === m[1]);
-      if (list) list.pickerId = body.pickerId || null;
-    } else if ((m = cleanRoute.match(/\/api\/picklists\/(\w+)\/pick$/))) {
-      const list = clientState.picklists.find(l => l.id === m[1]);
-      if (list && list.lines[body.line]) {
-        list.lines[body.line].picked = Boolean(body.picked);
-        list.lines[body.line].pickedAt = body.picked ? new Date().toISOString() : null;
+    } else if ((m = route.match(/^\/api\/picklists\/(\w+)\/assign$/))) {
+      findList(m[1]).pickerId = body.pickerId || null;
+    } else if ((m = route.match(/^\/api\/picklists\/(\w+)\/pick$/))) {
+      const line = findList(m[1]).lines[body.line];
+      if (!line) throw new Error('Line not found');
+      const picked = Boolean(body.picked);
+      if (picked && !line.taken) {
+        // Take the cartons from the fullest slots first.
+        let need = line.qty;
+        const takenFrom = [];
+        state.stock.filter(s => s.productId === line.productId).sort((a, b) => b.qty - a.qty).forEach(s => {
+          const qty = Math.min(need, s.qty);
+          if (!qty) return;
+          s.qty -= qty;
+          need -= qty;
+          takenFrom.push({ elementId: s.elementId, bay: s.bay, level: s.level, qty });
+        });
+        state.stock = state.stock.filter(s => s.qty > 0);
+        Object.assign(line, { taken: true, takenFrom, short: need });
+      } else if (!picked && line.taken) {
+        (line.takenFrom || []).forEach(t => {
+          const entry = state.stock.find(s => s.productId === line.productId && s.elementId === t.elementId && s.bay === t.bay && s.level === t.level);
+          if (entry) entry.qty += t.qty;
+          else if (state.elements.some(e => e.id === t.elementId)) state.stock.push({ productId: line.productId, elementId: t.elementId, bay: t.bay, level: t.level, qty: t.qty });
+        });
+        Object.assign(line, { taken: false, takenFrom: [], short: 0 });
       }
-    } else if ((m = cleanRoute.match(/\/api\/picklists\/(\w+)\/delete$/))) {
-      clientState.picklists = clientState.picklists.filter(l => l.id !== m[1]);
-    } else if ((m = cleanRoute.match(/\/api\/elements\/([\w-]+)\/levels$/))) {
-      const el = clientState.elements.find(e => e.id === m[1]);
-      if (el) {
-        const levels = Number(body.levels);
-        const affected = body.applyToAll ? clientState.elements.filter(e => e.type === el.type) : [el];
-        affected.forEach(e => { e.levels = levels; });
-      }
-    } else if (cleanRoute === '/api/elements') {
+      line.picked = picked;
+      line.pickedAt = picked ? new Date().toISOString() : null;
+    } else if ((m = route.match(/^\/api\/picklists\/(\w+)\/delete$/))) {
+      findList(m[1]);
+      state.picklists = state.picklists.filter(l => l.id !== m[1]);
+    } else if (route === '/api/elements') {
       const isRack = body.type === 'rack';
-      const existing = clientState.elements.filter(e => e.type === body.type);
+      const existing = state.elements.filter(e => e.type === body.type);
       const num = Math.max(0, ...existing.map(e => Number((e.code || '').replace(/\D/g, '')))) + 1;
       const code = isRack ? `R-${String(num).padStart(2, '0')}` : `P-${String(num).padStart(3, '0')}`;
-      const id = `${body.type}-custom-${Date.now().toString(36)}`;
-      const cx = body.cx !== undefined ? Math.round(body.cx) : Math.round(clientState.bounds.x + clientState.bounds.w / 2);
-      const cy = body.cy !== undefined ? Math.round(body.cy) : Math.round(clientState.bounds.y + clientState.bounds.h / 2);
+      const cx = body.cx !== undefined ? Math.round(body.cx) : Math.round(state.bounds.x + state.bounds.w / 2);
+      const cy = body.cy !== undefined ? Math.round(body.cy) : Math.round(state.bounds.y + state.bounds.h / 2);
       const bays = isRack ? (Number(body.bays) || 3) : 1;
       const width = isRack ? Math.max(120, bays * 80) : 120;
       const depth = isRack ? 120 : 80;
-      const newEl = {
-        id, type: body.type, code, block: '', cx, cy, width, depth, dir: 'h', bays,
-        levels: isRack ? 3 : 1, count: bays, index: num, locked: false,
-        points: [[cx - width/2, cy - depth/2], [cx + width/2, cy - depth/2], [cx + width/2, cy + depth/2], [cx - width/2, cy + depth/2]]
-      };
-      clientState.elements.push(newEl);
-    } else if ((m = cleanRoute.match(/\/api\/elements\/([\w-]+)\/move$/))) {
-      const el = clientState.elements.find(e => e.id === m[1]);
-      if (el) {
-        el.cx = Math.round(Number(body.cx));
-        el.cy = Math.round(Number(body.cy));
-        const w = el.width || 80, h = el.depth || 120;
-        el.points = [[el.cx - w/2, el.cy - h/2], [el.cx + w/2, el.cy - h/2], [el.cx + w/2, el.cy + h/2], [el.cx - w/2, el.cy + h/2]];
-      }
-    } else if ((m = cleanRoute.match(/\/api\/elements\/([\w-]+)\/rotate$/))) {
-      const el = clientState.elements.find(e => e.id === m[1]);
-      if (el) {
-        el.dir = el.dir === 'h' ? 'v' : 'h';
-        [el.width, el.depth] = [el.depth, el.width];
-        const w = el.width, h = el.depth;
-        el.points = [[el.cx - w/2, el.cy - h/2], [el.cx + w/2, el.cy - h/2], [el.cx + w/2, el.cy + h/2], [el.cx - w/2, el.cy + h/2]];
-      }
-    } else if ((m = cleanRoute.match(/\/api\/elements\/([\w-]+)\/lock$/))) {
-      const el = clientState.elements.find(e => e.id === m[1]);
-      if (el) el.locked = Boolean(body.locked);
-    } else if ((m = cleanRoute.match(/\/api\/elements\/([\w-]+)\/delete$/))) {
-      clientState.elements = clientState.elements.filter(e => e.id !== m[1]);
-      clientState.stock = clientState.stock.filter(s => s.elementId !== m[1]);
-    } else if (cleanRoute === '/api/stock') {
+      state.elements.push({
+        id: `${body.type}-custom-${Date.now().toString(36)}`,
+        type: body.type, code, block: '', cx, cy, width, depth, dir: 'h', bays,
+        levels: isRack ? 3 : 1, count: bays, index: num,
+        points: rectPoints(cx, cy, width, depth),
+      });
+    } else if ((m = route.match(/^\/api\/elements\/([\w-]+)\/levels$/))) {
+      const el = findElement(m[1]);
+      const levels = Number(body.levels);
+      if (!Number.isInteger(levels) || levels < 1 || levels > 6) throw new Error('Levels must be 1 to 6');
+      (body.applyToAll ? state.elements.filter(e => e.type === el.type) : [el]).forEach(e => { e.levels = levels; });
+    } else if ((m = route.match(/^\/api\/elements\/([\w-]+)\/move$/))) {
+      const el = findElement(m[1]);
+      const box = bounds(el.points);
+      // Either a new centre (cx, cy) or a shift (dx, dy).
+      const dx = body.dx !== undefined ? Number(body.dx) : Math.round(Number(body.cx)) - box.cx;
+      const dy = body.dy !== undefined ? Number(body.dy) : Math.round(Number(body.cy)) - box.cy;
+      if (!Number.isFinite(dx) || !Number.isFinite(dy)) throw new Error('Invalid position');
+      el.points = el.points.map(([x, y]) => [x + dx, y + dy]);
+      el.cx = Math.round(box.cx + dx);
+      el.cy = Math.round(box.cy + dy);
+    } else if ((m = route.match(/^\/api\/elements\/([\w-]+)\/rotate$/))) {
+      const el = findElement(m[1]);
+      const box = bounds(el.points);
+      // Quarter turn around the element's centre.
+      el.points = el.points.map(([x, y]) => [Math.round(box.cx - (y - box.cy)), Math.round(box.cy + (x - box.cx))]);
+      el.dir = el.dir === 'h' ? 'v' : 'h';
+      [el.width, el.depth] = [el.depth, el.width];
+    } else if ((m = route.match(/^\/api\/elements\/([\w-]+)\/delete$/))) {
+      findElement(m[1]);
+      state.elements = state.elements.filter(e => e.id !== m[1]);
+      state.stock = state.stock.filter(s => s.elementId !== m[1]);
+    } else if (route === '/api/layout/restore') {
+      state.elements = body.elements;
+      state.stock = body.stock;
+    } else if (route === '/api/stock') {
       const { productId, elementId, bay, level, qty } = body;
       const same = s => s.productId === productId && s.elementId === elementId && s.bay === bay && s.level === level;
       if (qty === 0) {
-        clientState.stock = clientState.stock.filter(s => !same(s));
+        state.stock = state.stock.filter(s => !same(s));
       } else {
-        const entry = clientState.stock.find(same);
+        const entry = state.stock.find(same);
         if (entry) entry.qty = qty;
-        else clientState.stock.push({ productId, elementId, bay, level, qty });
+        else state.stock.push({ productId, elementId, bay, level, qty });
       }
-    } else if (cleanRoute === '/api/reset') {
-      try { localStorage.removeItem('pf.state'); } catch {}
-      fetch('./initial-state.json?v=' + Date.now())
-        .then(r => r.json())
-        .then(initial => {
-          clientState = initial;
-          clientState.rev = (clientState.rev || 0) + 1;
-          clientState.floorplanHash = 'client-' + clientState.rev;
-          try { localStorage.setItem('pf.state', JSON.stringify(clientState)); } catch {}
-          broadcastChannel?.postMessage({ type: 'state', state: clientState });
-          onStateCallback?.(clientState);
-        });
+    } else if (route === '/api/users') {
+      const username = String(body.username || '').trim();
+      if (!username) throw new Error('Enter a username');
+      if (state.users.some(u => u.username.toLowerCase() === username.toLowerCase())) throw new Error('This username is taken');
+      if (!body.passHash) throw new Error('Enter a password');
+      const num = Math.max(0, ...state.users.map(u => Number(u.id.replace(/\D/g, '')) || 0)) + 1;
+      state.users.push({ id: `a${num}`, username, passHash: body.passHash, role: body.role === 'admin' ? 'admin' : 'user', pickerId: body.pickerId || null });
+    } else if ((m = route.match(/^\/api\/users\/(\w+)\/update$/))) {
+      const user = findUser(m[1]);
+      if (body.role && body.role !== user.role && user.role === 'admin' && state.users.filter(u => u.role === 'admin').length === 1) {
+        throw new Error('Keep at least one admin');
+      }
+      if (body.role) user.role = body.role === 'admin' ? 'admin' : 'user';
+      if ('pickerId' in body) user.pickerId = body.pickerId || null;
+      if (body.passHash) user.passHash = body.passHash;
+    } else if ((m = route.match(/^\/api\/users\/(\w+)\/delete$/))) {
+      const user = findUser(m[1]);
+      if (user.role === 'admin' && state.users.filter(u => u.role === 'admin').length === 1) throw new Error('Keep at least one admin');
+      state.users = state.users.filter(u => u.id !== user.id);
+    } else if (route === '/api/issues') {
+      if (!ISSUE_TYPES[body.type]) throw new Error('Choose an issue type');
+      const num = Math.max(0, ...state.issues.map(i => Number(i.id.replace(/\D/g, '')) || 0)) + 1;
+      state.issues.push({
+        id: `i${num}`, type: body.type, productId: body.productId || null, elementId: body.elementId || null,
+        bay: body.bay || null, level: body.level || null, note: String(body.note || '').slice(0, 300),
+        by: body.by || null, at: new Date().toISOString(), status: 'open', resolvedAt: null,
+      });
+    } else if ((m = route.match(/^\/api\/issues\/(\w+)\/resolve$/))) {
+      const issue = state.issues.find(i => i.id === m[1]);
+      if (!issue) throw new Error('Issue not found');
+      issue.status = 'resolved';
+      issue.resolvedAt = new Date().toISOString();
+    } else if (route === '/api/settings/stock') {
+      const low = Number(body.low);
+      const critical = Number(body.critical);
+      if (!Number.isInteger(low) || !Number.isInteger(critical) || critical < 0 || low <= critical) {
+        throw new Error('"Low" must be a whole number above "critical"');
+      }
+      state.settings.stock = { low, critical };
+    } else {
+      throw new Error('Unknown action');
     }
   }
 
+  // Replaces the whole state, for reset and import.
+  async function replaceState(next) {
+    const rev = clientState?.rev || 0;
+    clientState = await normalize(next);
+    clientState.rev = rev;
+    save();
+  }
+
   async function post(path, body = {}) {
+    const route = cleanRoute(path);
     if (clientPeerConnection && clientPeerConnection.open) {
       try {
-        clientPeerConnection.send({ type: 'action', path, body });
+        clientPeerConnection.send({ type: 'action', path: route, body });
         return true;
       } catch (err) {
         console.error('Failed to send action over WebRTC:', err);
       }
     }
-
-    if (mode === 'server') {
-      try {
-        const cleanPath = path.startsWith('/') ? path : '/' + path;
-        const res = await fetch('.' + cleanPath, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Request failed');
-        return data;
-      } catch (error) {
-        toast(error instanceof TypeError ? 'No connection to the server' : error.message);
-        return null;
-      }
-    }
-
-    // Static client mode
     try {
-      applyClientMutation(path, body);
-      clientState.rev = (clientState.rev || 0) + 1;
-      clientState.floorplanHash = 'client-' + clientState.rev;
-      try { localStorage.setItem('pf.state', JSON.stringify(clientState)); } catch {}
-      broadcastChannel?.postMessage({ type: 'state', state: clientState });
-      onStateCallback?.(clientState);
+      if (!clientState) throw new Error('No data loaded');
+      if (route === '/api/reset') {
+        await replaceState(await fetchInitial());
+      } else if (route === '/api/import') {
+        const next = body.state;
+        if (!next || !Array.isArray(next.elements) || !Array.isArray(next.products) || !Array.isArray(next.stock) || !next.bounds) {
+          throw new Error('This file is not a PickerFox export');
+        }
+        await replaceState(next);
+      } else {
+        applyMutation(route, body);
+        save();
+      }
       return clientState;
     } catch (err) {
       toast(err.message || 'Action failed');
       return null;
     }
+  }
+
+  function download(filename, text) {
+    const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+    const link = Object.assign(document.createElement('a'), { href: url, download: filename });
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   let toastTimer;
@@ -296,7 +450,10 @@ const PF = (() => {
     toastTimer = setTimeout(() => node.remove(), 2600);
   }
 
-  async function createMap(container, state, { onSelect, onMoveElement }) {
+  // ---------------------------------------------------------------- Map
+
+  // canDrag(id) decides which element a press may drag; every other press pans.
+  async function createMap(container, state, { onSelect, onMoveElement, canDrag = () => false }) {
     const text = await (await fetch('./floorplan.svg')).text();
     const svg = document.importNode(new DOMParser().parseFromString(text, 'image/svg+xml').documentElement, true);
     const NS = svg.namespaceURI;
@@ -312,31 +469,27 @@ const PF = (() => {
 
     const elements = new Map(state.elements.map(e => [e.id, e]));
     const nodes = new Map();
-    const labels = make('g', {});
     const pins = make('g', {});
     let moveTarget = null;
 
+    // Centre and orientation of an element as drawn in floorplan.svg.
+    function drawnBox(node) {
+      const points = [];
+      node.querySelectorAll('polygon').forEach(poly => (poly.getAttribute('points') || '').trim().split(/\s+/).forEach(pair => {
+        const [x, y] = pair.split(',').map(Number);
+        if (Number.isFinite(x) && Number.isFinite(y)) points.push([x, y]);
+      }));
+      return points.length ? bounds(points) : null;
+    }
+
     svg.querySelectorAll('.el').forEach(node => {
       const id = node.id || node.dataset.el;
-      const el = elements.get(id);
-      if (!el) return;
-      node.dataset.el = el.id;
-      const label = svg.querySelector(`.lbl[data-for="${el.id}"]`);
-      nodes.set(el.id, { node, label });
+      if (!elements.has(id)) return;
+      node.dataset.el = id;
+      node.removeAttribute('data-locked');
+      const label = svg.querySelector(`.lbl[data-for="${id}"]`);
+      nodes.set(id, { node, label, drawn: drawnBox(node) });
     });
-    if (!nodes.size) {
-      svg.querySelectorAll('[data-symbol]').forEach(node => {
-        const el = elements.get(node.id);
-        if (!el) return;
-        node.classList.add('el', el.type);
-        node.dataset.el = el.id;
-        const label = make('text', { x: el.cx, y: el.cy, class: `lbl ${el.type}` });
-        label.textContent = el.type === 'rack' ? el.code : String(Number(el.code.slice(2)));
-        labels.appendChild(label);
-        nodes.set(el.id, { node, label });
-      });
-      svg.appendChild(labels);
-    }
     svg.appendChild(pins);
 
     const pad = 10;
@@ -347,6 +500,7 @@ const PF = (() => {
     container.appendChild(svg);
 
     const toSvg = (x, y) => new DOMPoint(x, y).matrixTransform(svg.getScreenCTM().inverse());
+    const unit = () => 1 / svg.getScreenCTM().a;
 
     function zoomAt(factor, x, y) {
       const w = Math.max(base.w / 14, Math.min(base.w * 1.5, view.w / factor));
@@ -354,6 +508,54 @@ const PF = (() => {
       view = { x: x - (x - view.x) * ratio, y: y - (y - view.y) * ratio, w, h: view.h * ratio };
       apply();
     }
+
+    // Places an element where its state says: drawn elements move and turn as a whole.
+    function place(e) {
+      const item = nodes.get(e.id);
+      if (!item || !e.points?.length) return;
+      const box = bounds(e.points);
+      if (item.drawn) {
+        const turned = (item.drawn.w >= item.drawn.h) !== (box.w >= box.h);
+        item.node.setAttribute('transform', `translate(${box.cx} ${box.cy}) rotate(${turned ? 90 : 0}) translate(${-item.drawn.cx} ${-item.drawn.cy})`);
+      } else {
+        item.node.querySelector('.el-base')?.setAttribute('points', e.points.map(p => p.join(',')).join(' '));
+      }
+      if (item.label) {
+        item.label.setAttribute('x', box.cx);
+        item.label.setAttribute('y', box.cy);
+      }
+    }
+
+    function addNode(e) {
+      const isRack = e.type === 'rack';
+      const node = make('g', {
+        id: e.id, class: `el ${e.type}`, 'data-el': e.id, 'data-code': e.code,
+        tabindex: '0', role: 'button', 'aria-label': `${isRack ? 'Rack' : 'Pallet'} ${e.code}`,
+      });
+      node.appendChild(make('polygon', { class: 'el-base', points: '' }));
+      (svg.querySelector(isRack ? '#storage-racks' : '#storage-pallets') || svg).insertBefore(node, null);
+      const label = make('text', { class: `lbl ${e.type}`, 'data-for': e.id, x: e.cx, y: e.cy });
+      label.textContent = isRack ? e.code : (e.index || e.code.replace(/\D/g, ''));
+      (svg.querySelector('#labels') || svg).appendChild(label);
+      svg.appendChild(pins);
+      nodes.set(e.id, { node, label, drawn: null });
+    }
+
+    function updateElements(list) {
+      elements.clear();
+      list.forEach(e => {
+        elements.set(e.id, e);
+        if (!nodes.has(e.id)) addNode(e);
+        place(e);
+      });
+      nodes.forEach(({ node, label }, id) => {
+        if (elements.has(id)) return;
+        node.remove();
+        label?.remove();
+        nodes.delete(id);
+      });
+    }
+    updateElements(state.elements);
 
     const pointers = new Map();
     let tap = null;
@@ -366,20 +568,15 @@ const PF = (() => {
       svg.setPointerCapture(event.pointerId);
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
       tap = pointers.size === 1 ? { target: event.target, moved: 0 } : null;
-
-      const elNode = event.target.closest?.('[data-el]');
-      const elId = elNode?.dataset.el;
-      const elObj = elId ? elements.get(elId) : null;
-      if (elObj && !elObj.locked && onMoveElement && event.button === 0) {
+      moveTarget = null;
+      const id = event.target.closest?.('[data-el]')?.dataset.el;
+      const item = id && nodes.get(id);
+      if (item && pointers.size === 1 && onMoveElement && canDrag(id)) {
+        const label = item.label;
         moveTarget = {
-          id: elObj.id,
-          el: elObj,
-          node: elNode,
-          startCx: elObj.cx,
-          startCy: elObj.cy,
-          startX: event.clientX,
-          startY: event.clientY,
-          moved: false,
+          id, item, startX: event.clientX, startY: event.clientY, moved: false,
+          transform: item.node.getAttribute('transform') || '',
+          labelX: Number(label?.getAttribute('x')), labelY: Number(label?.getAttribute('y')),
         };
       }
     });
@@ -388,19 +585,27 @@ const PF = (() => {
       if (!last) return;
 
       if (moveTarget) {
-        const scale = 1 / svg.getScreenCTM().a;
-        const dx = (event.clientX - moveTarget.startX) * scale;
-        const dy = (event.clientY - moveTarget.startY) * scale;
-        if (Math.hypot(dx, dy) > 6) moveTarget.moved = true;
+        const dx = (event.clientX - moveTarget.startX) * unit();
+        const dy = (event.clientY - moveTarget.startY) * unit();
+        if (Math.hypot(event.clientX - moveTarget.startX, event.clientY - moveTarget.startY) > 6) moveTarget.moved = true;
         if (moveTarget.moved) {
-          moveTarget.node.style.transform = `translate(${dx}px, ${dy}px)`;
-          return;
+          const { item } = moveTarget;
+          if (item.drawn) {
+            item.node.setAttribute('transform', `translate(${dx} ${dy}) ${moveTarget.transform}`);
+          } else {
+            item.node.setAttribute('transform', `translate(${dx} ${dy})`);
+          }
+          if (item.label) {
+            item.label.setAttribute('x', moveTarget.labelX + dx);
+            item.label.setAttribute('y', moveTarget.labelY + dy);
+          }
         }
+        return;
       }
 
       const before = pointers.size === 2 ? spread() : null;
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-      const scale = 1 / svg.getScreenCTM().a;
+      const scale = unit();
       if (before) {
         const after = spread();
         view.x -= (after.x - before.x) * scale;
@@ -420,20 +625,23 @@ const PF = (() => {
     const release = event => {
       if (!pointers.delete(event.pointerId)) return;
       if (moveTarget) {
-        moveTarget.node.style.transform = '';
-        if (moveTarget.moved) {
-          const scale = 1 / svg.getScreenCTM().a;
-          const dx = (event.clientX - moveTarget.startX) * scale;
-          const dy = (event.clientY - moveTarget.startY) * scale;
-          const snap = 25;
-          const newCx = Math.round((moveTarget.startCx + dx) / snap) * snap;
-          const newCy = Math.round((moveTarget.startCy + dy) / snap) * snap;
-          onMoveElement(moveTarget.id, newCx, newCy);
-          moveTarget = null;
+        const target = moveTarget;
+        moveTarget = null;
+        if (target.moved) {
+          const dx = (event.clientX - target.startX) * unit();
+          const dy = (event.clientY - target.startY) * unit();
+          const el = elements.get(target.id);
+          if (target.item.drawn) target.item.node.setAttribute('transform', target.transform);
+          else target.item.node.removeAttribute('transform');
+          place(el);
           tap = null;
+          if (event.type === 'pointerup' && el) {
+            const box = bounds(el.points);
+            const snap = 25;
+            onMoveElement(target.id, Math.round((box.cx + dx) / snap) * snap, Math.round((box.cy + dy) / snap) * snap);
+          }
           return;
         }
-        moveTarget = null;
       }
       // A press that barely moved is a tap; anything else was a pan.
       if (event.type === 'pointerup' && tap && tap.moved < 8) {
@@ -452,89 +660,16 @@ const PF = (() => {
     return {
       zoom: factor => zoomAt(factor, view.x + view.w / 2, view.y + view.h / 2),
       reset: () => { view = { ...base }; apply(); },
-      updateElements: list => {
-        elements.clear();
-        list.forEach(e => {
-          elements.set(e.id, e);
-          const item = nodes.get(e.id);
-          if (item) {
-            const pts = e.points ? e.points.map(p => `${p[0]},${p[1]}`).join(' ') : null;
-            if (pts) {
-              const base = item.node.querySelector('.el-base');
-              if (base) base.setAttribute('points', pts);
-              const hit = item.node.querySelector('.hit');
-              if (hit) hit.setAttribute('points', pts);
-            }
-            if (item.label) {
-              item.label.setAttribute('x', e.cx);
-              item.label.setAttribute('y', e.cy);
-            }
-          } else {
-            const isRack = e.type === 'rack';
-            const grp = make('g', {
-              id: e.id,
-              class: `el ${e.type}${e.locked ? '' : ' unlocked'}`,
-              'data-el': e.id,
-              'data-code': e.code,
-              'data-locked': String(Boolean(e.locked)),
-              tabindex: '0',
-              role: 'button',
-              'aria-label': `${isRack ? 'Rack' : 'Pallet'} ${e.code}`
-            });
-            const pts = e.points ? e.points.map(p => `${p[0]},${p[1]}`).join(' ') : '';
-            const basePoly = make('polygon', { class: 'el-base', points: pts });
-            grp.appendChild(basePoly);
-            const parentGroup = svg.querySelector(isRack ? '#storage-racks' : '#storage-pallets') || svg;
-            parentGroup.appendChild(grp);
-
-            const lbl = make('text', {
-              class: `lbl ${e.type}`,
-              'data-for': e.id,
-              x: e.cx,
-              y: e.cy
-            });
-            lbl.textContent = isRack ? e.code : (e.index || e.code.replace(/\D/g, ''));
-            const labelsGroup = svg.querySelector('#labels') || svg;
-            labelsGroup.appendChild(lbl);
-            nodes.set(e.id, { node: grp, label: lbl });
-          }
-        });
-        nodes.forEach(({ node, label }, id) => {
-          if (!elements.has(id)) {
-            node.remove();
-            if (label) label.remove();
-            nodes.delete(id);
-          }
-        });
-      },
-      async reloadSvg() {
-        try {
-          const text = await (await fetch('./floorplan.svg?v=' + Date.now())).text();
-          const freshDoc = new DOMParser().parseFromString(text, 'image/svg+xml').documentElement;
-          const freshNodes = document.importNode(freshDoc, true);
-          svg.replaceChildren(...freshNodes.childNodes);
-          nodes.clear();
-          svg.querySelectorAll('.el').forEach(node => {
-            const id = node.id || node.dataset.el;
-            const el = elements.get(id);
-            if (!el) return;
-            node.dataset.el = el.id;
-            const label = svg.querySelector(`.lbl[data-for="${el.id}"]`);
-            nodes.set(el.id, { node, label });
-          });
-          svg.appendChild(pins);
-          apply();
-        } catch (err) {
-          console.error('Failed to reload SVG floorplan:', err);
-        }
-      },
+      center: () => ({ x: view.x + view.w / 2, y: view.y + view.h / 2 }),
+      updateElements,
       // inset = share of the map height covered by an overlay at the bottom.
       focus(ids, inset = 0) {
         const targets = [...ids].map(id => elements.get(id)).filter(Boolean);
         const frame = svg.getBoundingClientRect();
         if (!targets.length || !frame.width || !frame.height) return;
-        const xs = targets.map(e => e.cx);
-        const ys = targets.map(e => e.cy);
+        const centres = targets.map(e => bounds(e.points));
+        const xs = centres.map(b => b.cx);
+        const ys = centres.map(b => b.cy);
         const minBox = Math.max(120, Math.round(state.bounds.w / 3.5));
         const w = Math.max(minBox, Math.max(...xs) - Math.min(...xs) + minBox * 0.4);
         const h = Math.max(minBox, Math.max(...ys) - Math.min(...ys) + minBox * 0.4);
@@ -549,17 +684,18 @@ const PF = (() => {
         };
         apply();
       },
-      paint({ stocked = new Set(), marks = new Map(), selected = new Set() }) {
+      // stock: Map id -> 'ok' | 'low' | 'crit'; issues: Set of ids with open issues.
+      paint({ stocked = new Set(), marks = new Map(), selected = new Set(), stock = null, issues = new Set() }) {
         nodes.forEach(({ node, label }, id) => {
-          const el = elements.get(id);
-          const isUnlocked = el && !el.locked;
-          node.classList.toggle('unlocked', Boolean(isUnlocked));
           const mark = marks.get(id);
           const isSelected = selected.has(id);
+          const level = stock?.get(id);
           node.classList.toggle('stocked', stocked.has(id));
           node.classList.toggle('mark', Boolean(mark));
           node.classList.toggle('done', Boolean(mark?.done));
           node.classList.toggle('sel', isSelected);
+          node.classList.toggle('st', Boolean(level));
+          ['ok', 'low', 'crit'].forEach(name => node.classList.toggle(`st-${name}`, level === name));
           node.style.setProperty('--mark', mark ? mark.color : '');
           if (label) {
             label.style.fill = mark && !mark.done ? mark.ink : isSelected && !mark ? '#fff' : '';
@@ -567,10 +703,21 @@ const PF = (() => {
           }
         });
         const pinR = Math.max(20, Math.round(state.bounds.w / 35));
-        pins.replaceChildren(...[...selected].filter(id => elements.has(id)).map(id => {
-          const el = elements.get(id);
-          return make('circle', { class: 'pin', cx: el.cx, cy: el.cy, r: pinR });
-        }));
+        const markers = [...selected].filter(id => elements.has(id)).map(id => {
+          const box = bounds(elements.get(id).points);
+          return make('circle', { class: 'pin', cx: box.cx, cy: box.cy, r: pinR });
+        });
+        [...issues].filter(id => elements.has(id)).forEach(id => {
+          const box = bounds(elements.get(id).points);
+          const r = Math.round(pinR * 0.75);
+          const group = make('g', { class: 'issue-pin', transform: `translate(${box.x1} ${box.y0})` });
+          group.appendChild(make('circle', { r }));
+          const mark = make('text', {});
+          mark.textContent = '!';
+          group.appendChild(mark);
+          markers.push(group);
+        });
+        pins.replaceChildren(...markers);
       },
     };
   }
@@ -613,8 +760,21 @@ const PF = (() => {
     return wrap;
   }
 
+  // ---------------------------------------------------------------- Phone pairing
+
+  const ICE = {
+    debug: 1,
+    config: {
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+        { urls: 'stun:stun2.l.google.com:19302' },
+        { urls: 'stun:stun.cloudflare.com:3478' },
+      ],
+    },
+  };
+
   let activePeer = null;
-  const peerConnections = new Set();
   let clientPeerConnection = null;
 
   function generateRoomCode() {
@@ -622,96 +782,111 @@ const PF = (() => {
     return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  function startPeerHost({ roomCode, onStatus, onAction, getState }) {
+  // Phones get the state without password hashes.
+  const phoneState = state => ({ ...state, users: (state.users || []).map(({ passHash, ...rest }) => rest) });
+
+  // The manager's side of the room. A phone gets nothing and may do nothing until it logs in.
+  function startPeerHost({ roomCode, getState, onAction, onStatus, onDevices }) {
     if (typeof Peer === 'undefined') {
-      onStatus?.('PeerJS library not loaded', 0);
+      onStatus?.('PeerJS library not loaded');
       return null;
     }
     const code = roomCode || generateRoomCode();
-    const peerId = 'pickerfox-room-' + code.toLowerCase();
+    const devices = new Map(); // conn -> { peerId, user, device, connectedAt, lastSeen }
     let currentStatus = 'Connecting to peer signaling network…';
 
-    try {
-      if (activePeer) activePeer.destroy();
-      activePeer = new Peer(peerId, {
-        debug: 1,
-        config: {
-          iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' },
-            { urls: 'stun:stun2.l.google.com:19302' },
-            { urls: 'stun:stun.cloudflare.com:3478' }
-          ]
-        }
-      });
+    const report = message => {
+      if (message) currentStatus = message;
+      else currentStatus = devices.size ? `${devices.size} device${devices.size === 1 ? '' : 's'} connected` : 'Waiting for a phone to scan…';
+      onStatus?.(currentStatus);
+      onDevices?.(list());
+    };
+    const list = () => [...devices.values()].map(d => ({ ...d, user: { id: d.user.id, username: d.user.username, role: d.user.role } }));
+    const send = (conn, message) => { try { if (conn.open) conn.send(message); } catch {} };
 
-      activePeer.on('open', () => {
-        currentStatus = `Waiting for phone to scan… (Room ${code})`;
-        onStatus?.(currentStatus, 0);
-      });
+    try {
+      activePeer?.destroy();
+      activePeer = new Peer('pickerfox-room-' + code.toLowerCase(), ICE);
+      activePeer.on('open', () => report());
 
       activePeer.on('connection', conn => {
-        peerConnections.add(conn);
-        currentStatus = `Phone connected (${peerConnections.size} phone active)`;
-        onStatus?.(currentStatus, peerConnections.size);
-
-        const pushState = () => {
-          try {
-            const s = getState?.();
-            if (s && conn.open) conn.send({ type: 'state', state: s });
-          } catch {}
-        };
-
-        if (conn.open) pushState();
-        else conn.on('open', pushState);
-        setTimeout(pushState, 350);
-        setTimeout(pushState, 1200);
-
         conn.on('data', data => {
-          if (data?.type === 'get_state') {
-            pushState();
-          } else if (data?.type === 'action') {
-            onAction?.(data.path, data.body);
+          const device = devices.get(conn);
+          if (data?.type === 'hello') {
+            const user = (getState()?.users || []).find(u => u.username.toLowerCase() === String(data.username || '').toLowerCase() && u.passHash === data.passHash);
+            if (!user) {
+              send(conn, { type: 'denied', reason: 'Wrong username or password' });
+              setTimeout(() => conn.close(), 300);
+              return;
+            }
+            const now = new Date().toISOString();
+            devices.set(conn, { peerId: conn.peer, user: { ...user }, device: String(data.device || 'Device').slice(0, 60), connectedAt: now, lastSeen: now });
+            send(conn, { type: 'welcome', user: { id: user.id, username: user.username, role: user.role, pickerId: user.pickerId } });
+            send(conn, { type: 'state', state: phoneState(getState()) });
+            report();
+            return;
           }
+          if (!device) return;
+          device.lastSeen = new Date().toISOString();
+          if (data?.type === 'get_state') {
+            send(conn, { type: 'state', state: phoneState(getState()) });
+          } else if (data?.type === 'action') {
+            const route = cleanRoute(String(data.path || ''));
+            if (device.user.role !== 'admin') {
+              if (!USER_ROUTES.some(rule => rule.test(route))) return;
+              const pick = route.match(/^\/api\/picklists\/(\w+)\/pick$/);
+              if (pick && getState().picklists.find(l => l.id === pick[1])?.pickerId !== device.user.pickerId) return;
+            }
+            onAction?.(route, data.body || {}, device.user.username);
+          }
+          onDevices?.(list());
         });
-
         const drop = () => {
-          peerConnections.delete(conn);
-          currentStatus = peerConnections.size ? `Phone connected (${peerConnections.size} phone active)` : `Waiting for phone to scan… (Room ${code})`;
-          onStatus?.(currentStatus, peerConnections.size);
+          if (devices.delete(conn)) report();
         };
         conn.on('close', drop);
         conn.on('error', drop);
       });
 
       activePeer.on('error', err => {
-        if (err.type === 'unavailable-id') {
-          currentStatus = 'This room is already open in another tab. Press "New room".';
-          onStatus?.(currentStatus, peerConnections.size);
-          return;
-        }
-        currentStatus = 'Peer notice: ' + (err.message || err.type);
-        onStatus?.(currentStatus, peerConnections.size);
+        if (err.type === 'unavailable-id') report('This room is already open in another tab. Press "New room".');
+        else report('Peer notice: ' + (err.message || err.type));
       });
     } catch (err) {
-      currentStatus = 'WebRTC init failed: ' + err.message;
-      onStatus?.(currentStatus, 0);
+      report('WebRTC init failed: ' + err.message);
     }
+
+    const kick = (conn, reason) => {
+      send(conn, { type: 'kicked', reason });
+      devices.delete(conn);
+      setTimeout(() => conn.close(), 300);
+    };
 
     return {
       roomCode: code,
       getStatus: () => currentStatus,
-      broadcastState: s => {
-        peerConnections.forEach(conn => {
-          try { if (conn.open) conn.send({ type: 'state', state: s }); } catch {}
+      devices: list,
+      broadcastState: state => devices.forEach((_, conn) => send(conn, { type: 'state', state: phoneState(state) })),
+      disconnect: peerId => {
+        devices.forEach((d, conn) => { if (d.peerId === peerId) kick(conn, 'Disconnected by the manager'); });
+        report();
+      },
+      // Drops phones whose account was deleted, changed role or got a new password.
+      revalidate: () => {
+        const users = getState()?.users || [];
+        devices.forEach((d, conn) => {
+          const user = users.find(u => u.id === d.user.id);
+          if (!user || user.passHash !== d.user.passHash || user.role !== d.user.role) kick(conn, 'Your account changed. Log in again.');
+          else d.user = { ...user };
         });
+        report();
       },
       close: () => {
-        peerConnections.forEach(c => c.close());
-        peerConnections.clear();
+        devices.forEach((_, conn) => conn.close());
+        devices.clear();
         activePeer?.destroy();
         activePeer = null;
-      }
+      },
     };
   }
 
@@ -724,75 +899,66 @@ const PF = (() => {
     location.reload();
   }
 
-  function connectPeerClient({ roomCode, onState, onStatus }) {
+  // The phone's side: logs in to the manager with the given credentials.
+  function connectPeerClient({ roomCode, credentials, onState, onStatus, onWelcome, onDenied }) {
     if (typeof Peer === 'undefined') {
       onStatus?.(false, 'PeerJS not available');
       return null;
     }
-    const targetPeerId = 'pickerfox-room-' + roomCode.toLowerCase();
     const shortCode = roomCode.slice(0, 6);
     onStatus?.(false, `Connecting to Manager (Room ${shortCode})…`);
+    let peer = null;
 
     try {
-      const clientPeer = new Peer({
-        debug: 1,
-        config: {
-          iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' },
-            { urls: 'stun:stun2.l.google.com:19302' },
-            { urls: 'stun:stun.cloudflare.com:3478' }
-          ]
-        }
-      });
-
-      clientPeer.on('open', () => {
+      peer = new Peer(ICE);
+      peer.on('open', () => {
         onStatus?.(false, `Joining room ${shortCode}…`);
-        const conn = clientPeer.connect(targetPeerId, { reliable: true });
-        clientPeerConnection = conn;
+        const conn = peer.connect('pickerfox-room-' + roomCode.toLowerCase(), { reliable: true });
+        let ended = false;
 
-        const onConnected = () => {
-          onStatus?.(true, `Live with Manager (${shortCode})`);
-          try { conn.send({ type: 'get_state' }); } catch {}
+        const hello = () => {
+          try { conn.send({ type: 'hello', username: credentials.username, passHash: credentials.passHash, device: deviceLabel() }); } catch {}
         };
-
-        if (conn.open) onConnected();
-        else conn.on('open', onConnected);
+        if (conn.open) hello();
+        else conn.on('open', hello);
 
         conn.on('data', data => {
-          if (data?.type === 'state') {
+          if (data?.type === 'welcome') {
+            clientPeerConnection = conn;
+            onWelcome?.(data.user);
+            onStatus?.(true, `Live with Manager (${shortCode})`);
+          } else if (data?.type === 'state') {
             onState?.(data.state);
+          } else if (data?.type === 'denied' || data?.type === 'kicked') {
+            ended = true;
+            clientPeerConnection = null;
+            if (data.type === 'denied') onDenied?.(data.reason);
+            else onStatus?.(false, data.reason || 'Disconnected by the manager');
           }
         });
-
-        const drop = () => {
-          onStatus?.(false, 'Disconnected from manager');
+        conn.on('close', () => {
           clientPeerConnection = null;
-        };
-        conn.on('close', drop);
+          if (!ended) onStatus?.(false, 'Disconnected from manager');
+        });
         conn.on('error', err => {
-          onStatus?.(false, 'Connection error: ' + (err.message || 'room unreachable'));
           clientPeerConnection = null;
+          onStatus?.(false, 'Connection error: ' + (err.message || 'room unreachable'));
         });
       });
-
-      clientPeer.on('error', err => {
-        onStatus?.(false, 'Peer notice: ' + (err.type || err.message));
+      peer.on('error', err => {
+        onStatus?.(false, err.type === 'peer-unavailable' ? 'Room not open. Ask the manager for a new QR code.' : 'Peer notice: ' + (err.type || err.message));
       });
     } catch (err) {
       onStatus?.(false, 'WebRTC error: ' + err.message);
     }
 
-    return {
-      sendAction: (path, body) => {
-        if (clientPeerConnection && clientPeerConnection.open) {
-          clientPeerConnection.send({ type: 'action', path, body });
-          return true;
-        }
-        return false;
-      }
-    };
+    return { close: () => { clientPeerConnection = null; peer?.destroy(); } };
   }
 
-  return { esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, connect, post, toast, createMap, frontView, startPeerHost, connectPeerClient, generateRoomCode, clearSavedData };
+  return {
+    ISSUE_TYPES, esc, color, swatch, index, address, addresses, locations, progress, status, listMarks, stockStatus, openIssues,
+    sha256, currentUser, setSession, login, logout, requireRole, checkSession,
+    connect, post, download, toast, createMap, frontView,
+    startPeerHost, connectPeerClient, generateRoomCode, clearSavedData,
+  };
 })();

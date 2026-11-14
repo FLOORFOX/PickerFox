@@ -4,15 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PickerFox Manager</title>
-    <link rel="stylesheet" href="./shared.css">
-    <script src="./vendor/qrcode.js"></script>
-    <script src="./vendor/peerjs.min.js"></script>
+    <link rel="stylesheet" href="./shared.css?v=__BUILD__">
+    <script src="./vendor/qrcode.js?v=__BUILD__"></script>
+    <script src="./vendor/peerjs.min.js?v=__BUILD__"></script>
     <style>
-      body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-      header { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #182233; color: #fff; }
-      header .btn { color: var(--text); text-decoration: none; }
-      header .btn.danger { color: #b42318; }
+      body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+      header { position: relative; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #182233; color: #fff; }
       header .muted { color: #b6c0d2; }
+      #menu { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+      #menu .btn { color: var(--text); text-decoration: none; white-space: nowrap; padding: 5px 10px; font-size: 14px; }
+      #menu .who { display: none; }
+      #menu .btn.danger { color: #b42318; }
+      #menuBtn { display: none; color: var(--text); }
       .grow { flex: 1; min-width: 0; }
       .cols { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr) minmax(320px, 400px); }
       @media (max-width: 1100px) {
@@ -20,25 +23,46 @@
         #leftcol { grid-row: 1 / 3; }
         #detail { border-left: 0; border-top: 1px solid var(--line); }
       }
+      #views { display: none; }
+      @media (max-width: 700px) {
+        header { padding: 8px 12px; }
+        #menuBtn { display: inline-block; }
+        #menu { display: none; position: absolute; z-index: 60; top: 100%; right: 8px; width: min(280px, calc(100vw - 16px)); flex-direction: column; align-items: stretch; padding: 8px; border-radius: 12px; background: #fff; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25); }
+        #menu.open { display: flex; }
+        #menu .btn { text-align: left; min-height: 42px; font-size: 15px; }
+        #menu .who { color: var(--muted); padding: 4px 6px; }
+        #views { display: flex; border-bottom: 1px solid var(--line); background: #fff; }
+        #views button { flex: 1; padding: 11px 6px; border: 0; border-bottom: 3px solid transparent; background: none; cursor: pointer; }
+        #views button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 700; }
+        .cols { display: block; position: relative; }
+        .cols > #leftcol, .cols > #mapwrap, .cols > #detail { position: absolute; inset: 0; }
+        #menu .who { display: block; }
+        .cols > *:not(.shown) { visibility: hidden; pointer-events: none; }
+        #detail { border: 0; }
+        #tabs button { padding: 10px 2px; font-size: 13.5px; }
+      }
       aside { display: flex; flex-direction: column; min-height: 0; background: #f8f9fb; }
       #leftcol { border-right: 1px solid var(--line); }
       #detail { border-left: 1px solid var(--line); overflow: auto; padding: 12px; gap: 12px; }
       #left { flex: 1; overflow: auto; padding: 12px; display: grid; gap: 10px; align-content: start; }
 
-      #tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; }
-      #tabs button { flex: 1; padding: 11px 6px; border: 0; border-bottom: 3px solid transparent; background: none; cursor: pointer; }
+      #tabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; overflow-x: auto; scrollbar-width: none; }
+      #tabs button { flex: 1 0 auto; padding: 11px 5px; border: 0; border-bottom: 3px solid transparent; background: none; cursor: pointer; white-space: nowrap; font-size: 13.5px; }
       #tabs button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 700; }
       #q { margin: 12px 12px 0; padding: 8px 10px; border: 1px solid #c9ced8; border-radius: 8px; }
 
       .card { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: grid; gap: 8px; }
       .card.selected { border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
-      .row { display: flex; align-items: center; gap: 8px; }
+      .card.resolved { opacity: 0.6; }
+      .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
       .rowbtn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; }
-      .bar { display: flex; gap: 8px; }
+      .bar { display: flex; gap: 8px; flex-wrap: wrap; }
       .badge { padding: 2px 8px; border-radius: 10px; background: #eef0f4; font-size: 12px; white-space: nowrap; }
       .badge.Done { background: #d1fadf; color: #05603a; }
       .badge.In { background: #fef0c7; color: #93370d; }
       .badge.Assigned { background: #d9e8ff; color: #0b3d91; }
+      .badge.issue { background: #ffe8d9; color: #9a3412; }
+      .badge.short { background: #fee4e2; color: #b42318; }
       .link { padding: 2px 0; border: 0; background: none; text-align: left; cursor: pointer; }
       .link:hover { color: var(--accent); text-decoration: underline; }
       .lines { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; font-size: 13.5px; }
@@ -46,14 +70,18 @@
       .lines li.picked .link { color: #067647; }
       .prow { display: grid; gap: 2px; width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; text-align: left; cursor: pointer; }
       .prow.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
-      select, input[type="number"] { padding: 5px 6px; border: 1px solid #c9ced8; border-radius: 6px; background: #fff; }
+      select, input[type="number"], input[type="text"], input[type="password"] { padding: 5px 6px; border: 1px solid #c9ced8; border-radius: 6px; background: #fff; }
       input[type="number"] { width: 72px; }
 
       #mapwrap { position: relative; min-width: 0; }
       #map { position: absolute; inset: 0; }
       .zoom { position: absolute; right: 12px; top: 12px; display: grid; gap: 6px; }
       .zoom button { width: 36px; height: 36px; border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 8px; background: #fff; font-size: 1.15rem; cursor: pointer; }
-      #legend { position: absolute; left: 12px; top: 12px; max-width: calc(100% - 72px); display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255, 255, 255, 0.95); font-size: 13px; }
+      .maptools { position: absolute; left: 12px; top: 12px; right: 60px; display: grid; gap: 6px; justify-items: start; pointer-events: none; }
+      .maptools > * { pointer-events: auto; }
+      .legend { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255, 255, 255, 0.95); font-size: 13px; }
+      .legend input[type="number"] { width: 56px; }
+      .key { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.2); vertical-align: -2px; }
 
       dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 13.5px; }
       dt { color: var(--muted); }
@@ -69,73 +97,71 @@
       .qty-field input { width: 100%; }
       .add-btn { flex: 1; min-height: 36px; font-weight: 600; white-space: nowrap; }
       .hint { padding: 24px 8px; text-align: center; }
-
-      .layout-strip {
-        display: flex; align-items: center; gap: 8px; padding: 6px 16px; flex: none;
-        background: #fff8e1; border-bottom: 1.5px solid #ffb74d; color: #7c4700;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-      }
-      .layout-badge {
-        background: #ff9800; color: #fff; font-weight: 700; font-size: 11.5px;
-        padding: 2px 8px; border-radius: 6px;
-      }
-      body.layout-mode aside#leftcol { display: none !important; }
-      body.layout-mode .cols { grid-template-columns: minmax(0, 1fr) 380px !important; }
-      #toggleLayout.active { background: #fff3e0; border-color: #ff9800; color: #e65100; font-weight: 700; }
-      .lock-card {
-        display: flex; align-items: center; justify-content: space-between; gap: 8px;
-        padding: 8px 10px; border-radius: 8px; margin-bottom: 8px;
-      }
-      .lock-card.locked { background: #f3f4f6; border: 1px solid #e5e7eb; }
-      .lock-card.unlocked { background: #fff3e0; border: 1.5px solid #ffb74d; }
+      .device { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); }
+      .device:first-child { border-top: 0; }
     </style>
   </head>
   <body>
     <header>
-      <b>PickerFox</b><span class="muted">Manager</span><span class="dot" id="conn" title="Connection to server"></span>
+      <b>PickerFox</b><span class="muted">Manager</span><span class="dot" id="conn" title="Data loaded"></span>
       <span class="grow"></span>
-      <span class="small muted" id="phone"></span>
-      <button class="btn" id="pairBtn" type="button"><span>📱</span> <span id="pairBtnText">Connect Phone</span></button>
-      <button class="btn" id="toggleLayout" type="button"><span id="layoutIcon">🔒</span> <span id="layoutText">Edit layout</span></button>
-      <a class="btn" href="./picker.html" target="_blank" rel="noopener">Open picker view</a>
-      <button class="btn" id="clearData" type="button">Clear saved data</button>
-      <button class="btn danger" id="reset" type="button">Reset demo</button>
+      <button class="btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+      <nav id="menu">
+        <span class="small muted who" id="who"></span>
+        <button class="btn" id="pairBtn" type="button">📱 <span id="pairBtnText">Connect phone</span></button>
+        <button class="btn" id="devicesBtn" type="button">Devices (<span id="deviceCount">0</span>)</button>
+        <a class="btn" href="./editor.html">Layout editor</a>
+        <a class="btn" href="./picker.html" target="_blank" rel="noopener">Open picker view</a>
+        <button class="btn" id="exportBtn" type="button">Export data</button>
+        <button class="btn" id="importBtn" type="button">Import data</button>
+        <button class="btn" id="clearData" type="button">Clear saved data</button>
+        <button class="btn danger" id="reset" type="button">Reset demo</button>
+        <button class="btn" id="logout" type="button">Log out</button>
+      </nav>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
     </header>
+    <nav id="views" role="tablist">
+      <button type="button" data-view="leftcol" aria-selected="true">List</button>
+      <button type="button" data-view="mapwrap" aria-selected="false">Map</button>
+      <button type="button" data-view="detail" aria-selected="false">Details</button>
+    </nav>
+
     <div id="pairModal" class="modal-backdrop" hidden>
       <div class="modal-card">
-        <div class="row" style="justify-content:space-between;">
-          <h3>📱 Connect Phone</h3>
-          <button class="x" id="closePairModal" type="button" style="width:32px;height:32px;border:0;background:none;font-size:1.4rem;cursor:pointer;">×</button>
+        <div class="modal-head"><h3>📱 Connect phone</h3><button class="modal-x" data-close type="button" aria-label="Close">×</button></div>
+        <p class="small muted">Scan this QR code with the phone camera, then log in on the phone. The phone stays connected while this page is open.</p>
+        <div id="qrHost" class="qr-box" style="text-align:center;"></div>
+        <div class="row small" style="justify-content:center;">
+          <span class="muted">Room code:</span><code id="roomCodeText" class="code-text"></code>
         </div>
-        <p class="small muted">Scan this QR code with your phone camera to control picking live from your phone:</p>
-        <div id="qrHost" class="qr-box" style="text-align:center;margin:8px 0;"></div>
-        <div class="row small" style="justify-content:center;gap:6px;">
-          <span class="muted">Room code:</span>
-          <code id="roomCodeText" style="font-weight:700;font-size:14px;background:#eee;padding:2px 8px;border-radius:4px;"></code>
+        <div class="row small" style="justify-content:center;">
           <button type="button" class="btn small" id="copyRoomLink">Copy link</button>
-          <button type="button" class="btn small" id="refreshRoomBtn" title="Generate new room code and QR">↻ New room</button>
+          <button type="button" class="btn small" id="refreshRoomBtn" title="New room code and QR; connected phones are dropped">↻ New room</button>
+          <button type="button" class="btn small" id="pairDevices">Devices</button>
         </div>
-        <div id="peerStatus" class="small muted" style="margin-top:4px;text-align:center;padding:4px;border-radius:6px;background:#f3f4f6;">Connecting to peer signaling network…</div>
+        <div id="peerStatus" class="small muted" style="text-align:center;padding:4px;border-radius:6px;background:#f3f4f6;">Connecting to peer signaling network…</div>
       </div>
     </div>
-    <div id="layoutBar" class="layout-strip" hidden>
-      <span class="layout-badge">Layout tools</span>
-      <button type="button" class="btn small" data-add-type="pallet">＋ Pallet</button>
-      <button type="button" class="btn small" data-add-type="rack" data-bays="2">＋ Rack 2-Bay</button>
-      <button type="button" class="btn small" data-add-type="rack" data-bays="3">＋ Rack 3-Bay</button>
-      <button type="button" class="btn small" data-add-type="rack" data-bays="4">＋ Rack 4-Bay</button>
-      <span class="grow"></span>
-      <span class="small muted">Drag unlocked elements to move · Click "Unlock" in panel to edit position</span>
+
+    <div id="devicesModal" class="modal-backdrop" hidden>
+      <div class="modal-card">
+        <div class="modal-head"><h3>Connected devices</h3><button class="modal-x" data-close type="button" aria-label="Close">×</button></div>
+        <div id="deviceList"></div>
+      </div>
     </div>
+
     <div class="cols">
-      <aside id="leftcol">
+      <aside id="leftcol" class="shown">
         <nav id="tabs" role="tablist"></nav>
         <input id="q" type="search" placeholder="Search name, SKU or carton label" aria-label="Search products" hidden>
         <div id="left"></div>
       </aside>
       <main id="mapwrap">
         <div id="map"></div>
-        <div id="legend" hidden></div>
+        <div class="maptools">
+          <div id="legend" class="legend" hidden></div>
+          <div id="stockLegend" class="legend"></div>
+        </div>
         <div class="zoom">
           <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
           <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
@@ -145,22 +171,25 @@
       <aside id="detail"></aside>
     </div>
 
-    <script src="./shared.js"></script>
+    <script src="./shared.js?v=__BUILD__"></script>
     <script>
+      const session = PF.requireRole(['admin']);
       const $ = id => document.getElementById(id);
       const { esc } = PF;
       let state;
       let ix;
       let map;
       let mapReady;
-      const ui = { tab: 'orders', listId: null, elementId: null, slot: null, productId: null, addProduct: '', addQty: 10 };
+      let peerHost = null;
+      const ui = { tab: 'orders', listId: null, elementId: null, slot: null, productId: null, addProduct: '', addQty: 10, stockColors: false, view: 'leftcol' };
+      const narrow = window.matchMedia('(max-width: 700px)');
 
       // Updates from other devices must not wipe a field the manager is typing in.
       function guarded(container, draw) {
         let stale = false;
         const run = force => {
           const active = document.activeElement;
-          if (!force && container.contains(active) && /^(INPUT|SELECT)$/.test(active.tagName)) {
+          if (!force && container.contains(active) && /^(INPUT|SELECT|TEXTAREA)$/.test(active.tagName)) {
             stale = true;
             return;
           }
@@ -173,17 +202,40 @@
 
       const selectedList = () => state.picklists.find(l => l.id === ui.listId) || null;
       const productElements = () => new Set(PF.locations(ix, ui.productId).map(s => s.elementId));
+      const when = iso => new Date(iso).toLocaleString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+      const issueWhere = i => i.elementId ? PF.address(ix, { elementId: i.elementId, bay: i.bay || 1, level: i.level || 1 }) : PF.addresses(ix, i.productId);
+
+      function showView(view) {
+        ui.view = view;
+        document.querySelectorAll('.cols > *').forEach(node => node.classList.toggle('shown', node.id === view));
+        document.querySelectorAll('#views [data-view]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === view)));
+      }
 
       function paint() {
         if (!map) return;
         const list = selectedList();
         const selected = productElements();
         if (ui.elementId) selected.add(ui.elementId);
-        map.paint({ stocked: new Set(ix.stockByElement.keys()), marks: list ? PF.listMarks(ix, list) : new Map(), selected });
+        map.paint({
+          stocked: new Set(ix.stockByElement.keys()),
+          marks: list ? PF.listMarks(ix, list) : new Map(),
+          selected,
+          stock: ui.stockColors && !list ? PF.stockStatus(ix, state.settings) : null,
+          issues: new Set(PF.openIssues(state).map(i => i.elementId || PF.locations(ix, i.productId)[0]?.elementId).filter(Boolean)),
+        });
         const legend = $('legend');
         legend.hidden = !list;
         if (list) legend.innerHTML = `${PF.swatch(list)}<span>List ${list.number} · ${esc(list.customer)} · faded = picked</span>`;
       }
+
+      const drawStockLegend = guarded($('stockLegend'), () => {
+        const { low, critical } = state.settings.stock;
+        $('stockLegend').innerHTML = `<label class="row"><input type="checkbox" id="stockToggle"${ui.stockColors ? ' checked' : ''}> Stock colors</label>${ui.stockColors ? `
+          <span><span class="key" style="background:#cfe8d2"></span> ≥ <input type="number" min="1" id="lowAt" value="${low}" aria-label="Low below"></span>
+          <span><span class="key" style="background:#f6e3a8"></span> ≥ <input type="number" min="0" id="criticalAt" value="${critical}" aria-label="Critical below"></span>
+          <span><span class="key" style="background:#f2b8ae"></span> below</span>
+          <span class="small muted">cartons in the emptiest slot</span>` : ''}`;
+      });
 
       function renderTabs() {
         const withList = new Set(state.picklists.map(l => l.orderId));
@@ -191,8 +243,10 @@
           orders: state.orders.filter(o => !withList.has(o.id)).length,
           lists: state.picklists.filter(l => PF.status(l) !== 'Done').length,
           products: state.products.length,
+          issues: PF.openIssues(state).length,
+          users: state.users.length,
         };
-        $('tabs').innerHTML = [['orders', 'Orders'], ['lists', 'Pick lists'], ['products', 'Products']]
+        $('tabs').innerHTML = [['orders', 'Orders'], ['lists', 'Lists'], ['products', 'Products'], ['issues', 'Issues'], ['users', 'Users']]
           .map(([id, label]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${ui.tab === id}">${label} (${counts[id]})</button>`).join('');
         $('q').hidden = ui.tab !== 'products';
       }
@@ -208,7 +262,7 @@
               ? `<button type="button" class="link row" data-act="show-list" data-id="${list.id}">${PF.swatch(list)} List ${list.number}</button>`
               : `<button type="button" class="btn primary" data-act="create" data-id="${o.id}">Create pick list</button>`}</div>
             <div class="small muted">${o.lines.length} products · ${cartons} cartons</div>
-            <ul class="lines">${o.lines.map(l => `<li><button type="button" class="link" data-act="product" data-id="${l.productId}">${l.qty} × ${esc(ix.products.get(l.productId).name)}</button></li>`).join('')}</ul>
+            <ul class="lines">${o.lines.map(l => `<li><button type="button" class="link" data-act="product" data-id="${l.productId}">${l.qty} × ${esc(ix.products.get(l.productId)?.name)}</button></li>`).join('')}</ul>
           </article>`;
         }).join('');
         return `<div class="bar"><button type="button" class="btn" data-act="demo-order">+ Demo order</button>${
@@ -221,14 +275,15 @@
           const { done, total } = PF.progress(list);
           const status = PF.status(list);
           const selected = list.id === ui.listId;
+          const short = list.lines.filter(l => l.short > 0).length;
           const options = [`<option value="">Unassigned</option>`, ...state.pickers.map(p => `<option value="${p.id}"${p.id === list.pickerId ? ' selected' : ''}>${esc(p.name)}</option>`)].join('');
           return `<article class="card${selected ? ' selected' : ''}" style="--c:${PF.color(list).bg}">
-            <button type="button" class="rowbtn" data-act="select-list" data-id="${list.id}" aria-expanded="${selected}">${PF.swatch(list)}<b>List ${list.number}</b><span class="grow">${esc(list.customer)}</span><span class="badge ${status.split(' ')[0]}">${status}</span></button>
+            <button type="button" class="rowbtn" data-act="select-list" data-id="${list.id}" aria-expanded="${selected}">${PF.swatch(list)}<b>List ${list.number}</b><span class="grow">${esc(list.customer)}</span>${short ? `<span class="badge short">${short} short</span>` : ''}<span class="badge ${status.split(' ')[0]}">${status}</span></button>
             <div class="progress"><i style="width:${(done / total) * 100}%"></i></div>
             <div class="row small"><span class="muted grow">Order ${list.orderNumber} · ${done}/${total} picked</span>
               <label>Picker <select data-assign="${list.id}">${options}</select></label>
               <button type="button" class="btn danger" data-act="delete-list" data-id="${list.id}">Delete</button></div>
-            ${selected ? `<ul class="lines">${list.lines.map(line => `<li class="${line.picked ? 'picked' : ''}"><button type="button" class="link" data-act="product" data-id="${line.productId}">${line.picked ? '✓' : '○'} ${line.qty} × ${esc(ix.products.get(line.productId).name)}</button><span class="muted small">${esc(PF.addresses(ix, line.productId))}</span></li>`).join('')}</ul>` : ''}
+            ${selected ? `<ul class="lines">${list.lines.map(line => `<li class="${line.picked ? 'picked' : ''}"><button type="button" class="link" data-act="product" data-id="${line.productId}">${line.picked ? '✓' : '○'} ${line.qty} × ${esc(ix.products.get(line.productId)?.name)}${line.short > 0 ? ` <span class="badge short">short ${line.short}</span>` : ''}</button><span class="muted small">${esc(PF.addresses(ix, line.productId))}</span></li>`).join('')}</ul>` : ''}
           </article>`;
         }).join('');
       }
@@ -240,8 +295,47 @@
           || '<p class="muted hint">No product found.</p>';
       }
 
+      function issueCard(i) {
+        const product = ix.products.get(i.productId);
+        return `<article class="card${i.status === 'resolved' ? ' resolved' : ''}">
+          <div class="row"><span class="badge issue">${esc(PF.ISSUE_TYPES[i.type] || i.type)}</span><span class="grow small muted">${when(i.at)}${i.by ? ` · ${esc(i.by)}` : ''}</span>
+            ${i.status === 'open' ? `<button type="button" class="btn small" data-act="resolve" data-id="${i.id}">Resolve</button>` : `<span class="small muted">Resolved ${when(i.resolvedAt)}</span>`}</div>
+          <div>${product ? `<button type="button" class="link" data-act="product" data-id="${product.id}"><b>${esc(product.name)}</b></button>` : ''}
+            ${i.elementId || product ? `<button type="button" class="link small" data-act="issue-map" data-id="${i.id}">📍 ${esc(issueWhere(i))}</button>` : ''}</div>
+          ${i.note ? `<div class="small">${esc(i.note)}</div>` : ''}
+        </article>`;
+      }
+
+      function renderIssues() {
+        const open = PF.openIssues(state).slice().reverse();
+        const resolved = state.issues.filter(i => i.status === 'resolved').slice(-20).reverse();
+        if (!open.length && !resolved.length) return '<p class="muted hint">No issues reported. Pickers report them with the "!" button.</p>';
+        return `${open.length ? open.map(issueCard).join('') : '<p class="muted">No open issues.</p>'}${resolved.length ? `<div class="small muted" style="margin-top:8px;">Recently resolved</div>${resolved.map(issueCard).join('')}` : ''}`;
+      }
+
+      function renderUsers() {
+        const pickerOptions = selected => ['<option value="">No picker</option>', ...state.pickers.map(p => `<option value="${p.id}"${p.id === selected ? ' selected' : ''}>${esc(p.name)}</option>`)].join('');
+        const rows = state.users.map(u => `<article class="card">
+          <div class="row"><b class="grow">${esc(u.username)}${u.id === session?.userId ? ' <span class="small muted">(you)</span>' : ''}</b>
+            <button type="button" class="btn small" data-act="password" data-id="${u.id}">New password</button>
+            <button type="button" class="btn small danger" data-act="delete-user" data-id="${u.id}">Delete</button></div>
+          <div class="row small">
+            <label>Role <select data-user-role="${u.id}"><option value="user"${u.role === 'user' ? ' selected' : ''}>User (picker only)</option><option value="admin"${u.role === 'admin' ? ' selected' : ''}>Admin (all)</option></select></label>
+            <label>Picks as <select data-user-picker="${u.id}">${pickerOptions(u.pickerId)}</select></label>
+          </div>
+        </article>`).join('');
+        return `<form class="card form" id="addUser">
+          <b>Add user</b>
+          <label>Username<input type="text" name="username" autocomplete="off" autocapitalize="none" required></label>
+          <label>Password<input type="password" name="password" autocomplete="new-password" required></label>
+          <div class="row"><label>Role <select name="role"><option value="user">User (picker only)</option><option value="admin">Admin (all)</option></select></label>
+            <label>Picks as <select name="pickerId">${pickerOptions(null)}</select></label></div>
+          <button class="btn primary" type="submit">Add user</button>
+        </form>${rows}`;
+      }
+
       const drawLeft = guarded($('left'), () => {
-        $('left').innerHTML = { orders: renderOrders, lists: renderLists, products: renderProducts }[ui.tab]();
+        $('left').innerHTML = { orders: renderOrders, lists: renderLists, products: renderProducts, issues: renderIssues, users: renderUsers }[ui.tab]();
       });
 
       const drawDetail = guarded($('detail'), () => {
@@ -257,56 +351,19 @@
               ? locs.map(s => `<button type="button" class="link" data-act="loc" data-el="${s.elementId}" data-bay="${s.bay}" data-level="${s.level}">${PF.address(ix, s)} · ${s.qty} cartons</button>`).join('<br>')
               : 'None. Select a slot on the map and place it there.'}</dd></dl></section>`;
         }
+        const related = PF.openIssues(state).filter(i => (el && i.elementId === el.id) || (product && i.productId === product.id));
+        if (related.length) html += `<section class="card"><div class="small muted">Open issues</div>${related.map(i => `<div class="row small"><span class="badge issue">${esc(PF.ISSUE_TYPES[i.type])}</span><span class="grow">${esc(i.note || '')}</span><button type="button" class="btn small" data-act="resolve" data-id="${i.id}">Resolve</button></div>`).join('')}</section>`;
         if (!el) {
-          box.innerHTML = html || '<p class="muted hint">Select a rack or pallet on the map to open its front view, or pick a product, order or pick list on the left.</p>';
+          box.innerHTML = html || '<p class="muted hint">Select a rack or pallet on the map to open its front view, or pick a product, order or pick list in the list.</p>';
           return;
         }
         const entries = ix.stockByElement.get(el.id) || [];
         const rack = el.type === 'rack';
         const kinds = new Set(entries.map(s => s.productId)).size;
         const totalCartons = entries.reduce((sum, s) => sum + s.qty, 0);
-
-        let lockCardHtml = '';
-        if (ui.layoutMode) {
-          const isUnlocked = !el.locked;
-          lockCardHtml = `
-            <div class="lock-card ${el.locked ? 'locked' : 'unlocked'}">
-              <div class="row" style="justify-content:space-between;width:100%;">
-                <span class="small"><b>${el.locked ? '🔒 Position fixed' : '🔓 Unlocked to move'}</b></span>
-                <button type="button" class="btn small ${el.locked ? '' : 'primary'}" data-act="toggle-lock" data-id="${el.id}">
-                  ${el.locked ? 'Unlock to move' : 'Lock position'}
-                </button>
-              </div>
-              ${isUnlocked ? `
-                <div class="row" style="gap:4px;margin-top:6px;flex-wrap:wrap;">
-                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="0" data-dy="-50" title="Move up 50cm">↑ 50cm</button>
-                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="0" data-dy="50" title="Move down 50cm">↓ 50cm</button>
-                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="-50" data-dy="0" title="Move left 50cm">← 50cm</button>
-                  <button type="button" class="btn small" data-act="nudge" data-id="${el.id}" data-dx="50" data-dy="0" title="Move right 50cm">→ 50cm</button>
-                  <button type="button" class="btn small" data-act="rotate-element" data-id="${el.id}" title="Rotate 90 degrees">↻ 90°</button>
-                  <button type="button" class="btn danger small" data-act="delete-element" data-id="${el.id}">Delete</button>
-                </div>
-                <div class="small muted" style="margin-top:4px;">You can also drag it directly on the map.</div>
-              ` : ''}
-            </div>
-          `;
-        }
-
         html += `<section class="card">
-          ${lockCardHtml}
-          <div class="row">
-            <div class="grow">
-              <div class="small muted">${rack ? 'Rack' : 'Pallet'} · front view</div>
-              <h3>${el.code}</h3>
-            </div>
-            <label class="row small">
-              <span><b>Levels</b></span>
-              <select data-el-levels="${el.id}" aria-label="Number of levels for ${el.code}">
-                ${[1, 2, 3, 4, 5, 6].map(n => `<option value="${n}"${el.levels === n ? ' selected' : ''}>${n}</option>`).join('')}
-              </select>
-            </label>
-            <button type="button" class="btn small" data-act="apply-all-levels" data-id="${el.id}" title="Set all ${rack ? 'racks' : 'pallets'} to ${el.levels} levels">All ${rack ? 'racks' : 'pallets'}</button>
-          </div>
+          <div class="small muted">${rack ? 'Rack' : 'Pallet'} · front view</div>
+          <h3>${el.code}</h3>
           <div class="small muted">${rack ? `${el.bays} bays × ${el.levels} levels · ` : (el.levels > 1 ? `${el.levels} stacked levels · ` : '')}${kinds} product${kinds === 1 ? '' : 's'} · ${totalCartons} cartons</div>
           <div id="frontHost"></div>
         </section>`;
@@ -354,10 +411,11 @@
 
       function render(force) {
         if (!state) return;
-        $('phone').textContent = state.serverUrls?.[0] ? `Picker on phones: ${state.serverUrls[0]}/picker` : (location.hostname.endsWith('github.io') ? 'GitHub Pages Demo' : 'Static Demo');
+        $('who').textContent = session ? `Logged in as ${session.username}` : '';
         renderTabs();
         drawLeft(force);
         drawDetail(force);
+        drawStockLegend(force);
         paint();
       }
 
@@ -367,6 +425,7 @@
         ui.elementId = first ? first.elementId : null;
         ui.slot = first ? { bay: first.bay, level: first.level } : null;
         render(true);
+        if (narrow.matches) showView('detail');
         map?.focus(productElements());
       }
 
@@ -381,9 +440,21 @@
           ui.slot = here ? { bay: here.bay, level: here.level } : el.type === 'pallet' ? { bay: 1, level: 1 } : null;
         }
         render(true);
+        if (el && narrow.matches) showView('detail');
       }
 
       const setStock = (productId, qty) => PF.post('/api/stock', { productId, elementId: ui.elementId, ...ui.slot, qty });
+
+      async function userChange(path, body) {
+        await PF.post(path, body);
+        peerHost?.revalidate();
+        PF.checkSession(state);
+      }
+
+      $('views').addEventListener('click', event => {
+        const button = event.target.closest('[data-view]');
+        if (button) showView(button.dataset.view);
+      });
 
       $('tabs').addEventListener('click', event => {
         const tab = event.target.closest('[data-tab]');
@@ -393,9 +464,7 @@
       });
       $('q').addEventListener('input', () => drawLeft(true));
 
-      $('left').addEventListener('click', async event => {
-        const target = event.target.closest('[data-act]');
-        if (!target) return;
+      async function onAct(target) {
         const { act, id } = target.dataset;
         if (act === 'demo-order') {
           PF.post('/api/orders/demo');
@@ -417,13 +486,61 @@
           if (confirm(`Delete pick list ${list.number}? Its order becomes available again.`)) PF.post(`/api/picklists/${id}/delete`);
         } else if (act === 'product') {
           selectProduct(id);
+        } else if (act === 'resolve') {
+          PF.post(`/api/issues/${id}/resolve`);
+        } else if (act === 'issue-map') {
+          const issue = state.issues.find(i => i.id === id);
+          if (issue?.elementId) {
+            ui.productId = issue.productId;
+            ui.elementId = issue.elementId;
+            ui.slot = { bay: issue.bay || 1, level: issue.level || 1 };
+            render(true);
+            if (narrow.matches) showView('mapwrap');
+            map?.focus([issue.elementId]);
+          } else if (issue?.productId) {
+            selectProduct(issue.productId);
+          }
+        } else if (act === 'password') {
+          const user = state.users.find(u => u.id === id);
+          const password = prompt(`New password for ${user.username}:`);
+          if (password) await userChange(`/api/users/${id}/update`, { passHash: await PF.sha256(password) });
+        } else if (act === 'delete-user') {
+          const user = state.users.find(u => u.id === id);
+          if (confirm(`Delete user ${user.username}? Their connected phones are disconnected.`)) await userChange(`/api/users/${id}/delete`);
         }
+      }
+
+      $('left').addEventListener('click', event => {
+        const target = event.target.closest('[data-act]');
+        if (target) onAct(target);
       });
       $('left').addEventListener('change', event => {
-        const select = event.target.closest('[data-assign]');
-        if (!select) return;
-        select.blur();
-        PF.post(`/api/picklists/${select.dataset.assign}/assign`, { pickerId: select.value || null });
+        const { assign, userRole, userPicker } = event.target.dataset;
+        if (assign) {
+          event.target.blur();
+          PF.post(`/api/picklists/${assign}/assign`, { pickerId: event.target.value || null });
+        } else if (userRole) {
+          event.target.blur();
+          userChange(`/api/users/${userRole}/update`, { role: event.target.value });
+        } else if (userPicker) {
+          event.target.blur();
+          userChange(`/api/users/${userPicker}/update`, { pickerId: event.target.value || null });
+        }
+      });
+      $('left').addEventListener('submit', async event => {
+        if (event.target.id !== 'addUser') return;
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const result = await PF.post('/api/users', {
+          username: form.get('username'),
+          passHash: form.get('password') ? await PF.sha256(form.get('password')) : '',
+          role: form.get('role'),
+          pickerId: form.get('pickerId') || null,
+        });
+        if (result) {
+          PF.toast(`User ${form.get('username')} added`);
+          render(true);
+        }
       });
 
       $('detail').addEventListener('click', async event => {
@@ -445,60 +562,21 @@
           ui.addProduct = '';
           await setStock(pId, qty);
           render(true);
-        } else if (act === 'apply-all-levels') {
-          const el = ix.elements.get(id);
-          if (el && confirm(`Set all ${el.type === 'rack' ? 'racks' : 'pallets'} to ${el.levels} levels?`)) {
-            PF.post(`/api/elements/${id}/levels`, { levels: el.levels, applyToAll: true });
-          }
-        } else if (act === 'toggle-lock') {
-          const el = ix.elements.get(id);
-          if (el) {
-            await PF.post(`/api/elements/${id}/lock`, { locked: !el.locked });
-            PF.toast(el.locked ? `${el.code} unlocked (ready to move)` : `${el.code} locked`);
-          }
-        } else if (act === 'nudge') {
-          const el = ix.elements.get(id);
-          if (el) {
-            const dx = Number(target.dataset.dx) || 0;
-            const dy = Number(target.dataset.dy) || 0;
-            await PF.post(`/api/elements/${id}/move`, { cx: el.cx + dx, cy: el.cy + dy });
-            PF.toast(`${el.code} moved`);
-          }
-        } else if (act === 'rotate-element') {
-          await PF.post(`/api/elements/${id}/rotate`);
-          PF.toast('Rotated 90°');
-        } else if (act === 'delete-element') {
-          const el = ix.elements.get(id);
-          const stockCount = state.stock.filter(s => s.elementId === id).reduce((sum, s) => sum + s.qty, 0);
-          const msg = stockCount > 0
-            ? `Delete ${el.code}? It currently holds ${stockCount} cartons which will also be removed.`
-            : `Delete ${el.code}?`;
-          if (confirm(msg)) {
-            await PF.post(`/api/elements/${id}/delete`, { force: true });
-            ui.elementId = null;
-            ui.slot = null;
-            render(true);
-            PF.toast(`${el.code} deleted`);
-          }
+        } else {
+          onAct(target);
         }
       });
       $('detail').addEventListener('keydown', event => {
         if (event.key === 'Enter' && (event.target.id === 'addQty' || event.target.id === 'addProduct')) {
           event.preventDefault();
-          const btn = document.querySelector('[data-act="place"]');
-          if (btn) btn.click();
+          document.querySelector('[data-act="place"]')?.click();
         }
       });
       $('detail').addEventListener('input', event => {
         if (event.target.id === 'addQty') ui.addQty = event.target.value;
       });
       $('detail').addEventListener('change', event => {
-        if (event.target.dataset.elLevels) {
-          const id = event.target.dataset.elLevels;
-          const levels = Number(event.target.value);
-          event.target.blur();
-          PF.post(`/api/elements/${id}/levels`, { levels });
-        } else if (event.target.id === 'addProduct') {
+        if (event.target.id === 'addProduct') {
           ui.addProduct = event.target.value;
         } else if (event.target.dataset.qty) {
           const qty = Number(event.target.value);
@@ -512,128 +590,145 @@
         }
       });
 
-      let peerHost = null;
+      $('stockLegend').addEventListener('change', event => {
+        if (event.target.id === 'stockToggle') {
+          ui.stockColors = event.target.checked;
+          if (ui.stockColors) ui.listId = null;
+          render(true);
+        } else if (event.target.id === 'lowAt' || event.target.id === 'criticalAt') {
+          event.target.blur();
+          PF.post('/api/settings/stock', { low: Number($('lowAt').value), critical: Number($('criticalAt').value) }).then(() => render(true));
+        }
+      });
+
+      // ---- Menu and modals
+      const closeMenu = () => { $('menu').classList.remove('open'); $('menuBtn').setAttribute('aria-expanded', 'false'); };
+      $('menuBtn').addEventListener('click', () => {
+        const open = $('menu').classList.toggle('open');
+        $('menuBtn').setAttribute('aria-expanded', String(open));
+      });
+      $('menu').addEventListener('click', event => { if (event.target.closest('button, a')) closeMenu(); });
+      document.addEventListener('click', event => { if (!event.target.closest('#menu, #menuBtn')) closeMenu(); });
+
+      document.querySelectorAll('.modal-backdrop').forEach(modal => modal.addEventListener('click', event => {
+        if (event.target === modal || event.target.closest('[data-close]')) modal.hidden = true;
+      }));
+
+      function pickerLink(room) {
+        const url = new URL('./picker.html', location.href);
+        url.search = `?room=${room}`;
+        return url.toString();
+      }
+
+      function renderDevices(list = peerHost?.devices() || []) {
+        $('deviceCount').textContent = list.length;
+        $('pairBtnText').textContent = list.length ? `Phones (${list.length})` : 'Connect phone';
+        $('deviceList').innerHTML = !peerHost
+          ? '<p class="muted">No room open. Use "Connect phone" to open one.</p>'
+          : list.length
+            ? list.map(d => `<div class="device"><div class="row"><b class="grow">${esc(d.user.username)} <span class="small muted">${d.user.role}</span></b>
+                <button type="button" class="btn small danger" data-kick="${esc(d.peerId)}">Disconnect</button></div>
+                <div class="small muted">${esc(d.device)} · since ${when(d.connectedAt)} · last active ${when(d.lastSeen)}</div></div>`).join('')
+            : '<p class="muted">No phone connected yet.</p>';
+      }
 
       function showPairModal(forceNew = false) {
-        const modal = $('pairModal');
-        modal.hidden = false;
+        $('pairModal').hidden = false;
         let room = localStorage.getItem('pf.room');
         if (!room || forceNew || room.length < 32) {
           room = PF.generateRoomCode();
           localStorage.setItem('pf.room', room);
-          if (peerHost) {
-            peerHost.close();
-            peerHost = null;
-          }
+          peerHost?.close();
+          peerHost = null;
         }
         $('roomCodeText').textContent = room;
-
-        const pickerUrl = new URL(location.href);
-        pickerUrl.pathname = pickerUrl.pathname.replace(/manager(\.html)?$/, 'picker.html');
-        pickerUrl.search = `?room=${room}`;
-
         if (typeof qrcode !== 'undefined') {
           try {
             const qr = qrcode(0, 'M');
-            qr.addData(pickerUrl.toString());
+            qr.addData(pickerLink(room));
             qr.make();
             $('qrHost').innerHTML = qr.createSvgTag(6, 12);
           } catch (e) {
             console.error('QR code generation failed:', e);
           }
         }
-
         if (peerHost) {
           $('peerStatus').textContent = peerHost.getStatus();
-        } else if (PF.startPeerHost) {
-          $('peerStatus').textContent = 'Connecting to peer signaling network…';
-          peerHost = PF.startPeerHost({
-            roomCode: room,
-            getState: () => state,
-            onAction: async (path, body) => {
-              await PF.post(path, body);
-              render(true);
-            },
-            onStatus: (msg, count) => {
-              $('peerStatus').textContent = msg;
-              $('pairBtnText').textContent = count ? `Phone connected (${count})` : 'Connect Phone';
-            }
-          });
+          return;
         }
+        $('peerStatus').textContent = 'Connecting to peer signaling network…';
+        peerHost = PF.startPeerHost({
+          roomCode: room,
+          getState: () => state,
+          onAction: async (path, body, username) => {
+            if (path === '/api/issues') body = { ...body, by: username };
+            await PF.post(path, body);
+          },
+          onStatus: message => { $('peerStatus').textContent = message; },
+          onDevices: list => renderDevices(list),
+        });
+        renderDevices();
       }
 
       $('pairBtn').addEventListener('click', () => showPairModal(false));
       $('refreshRoomBtn').addEventListener('click', () => showPairModal(true));
-      $('closePairModal').addEventListener('click', () => { $('pairModal').hidden = true; });
-      $('pairModal').addEventListener('click', e => { if (e.target.id === 'pairModal') $('pairModal').hidden = true; });
       $('copyRoomLink').addEventListener('click', () => {
-        let room = localStorage.getItem('pf.room');
-        const pickerUrl = new URL(location.href);
-        pickerUrl.pathname = pickerUrl.pathname.replace(/manager(\.html)?$/, 'picker.html');
-        pickerUrl.search = `?room=${room}`;
-        navigator.clipboard?.writeText(pickerUrl.toString());
-        PF.toast('Link copied to clipboard');
+        navigator.clipboard?.writeText(pickerLink(localStorage.getItem('pf.room')));
+        PF.toast('Link copied');
+      });
+      $('pairDevices').addEventListener('click', () => { $('pairModal').hidden = true; $('devicesModal').hidden = false; renderDevices(); });
+      $('devicesBtn').addEventListener('click', () => { $('devicesModal').hidden = false; renderDevices(); });
+      $('deviceList').addEventListener('click', event => {
+        const kick = event.target.closest('[data-kick]');
+        if (kick) peerHost?.disconnect(kick.dataset.kick);
       });
 
-      $('clearData').addEventListener('click', () => {
-        if (confirm('Clear the data saved in this browser and reload? Phones need to scan the new QR code afterwards.')) PF.clearSavedData();
+      $('exportBtn').addEventListener('click', () => {
+        PF.download(`pickerfox-demo-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(state, null, 2));
       });
-
-      $('reset').addEventListener('click', () => {
-        if (confirm('Reset all demo data? Pick lists, new orders and stock changes are discarded.')) PF.post('/api/reset');
-      });
-
-      $('toggleLayout').addEventListener('click', () => {
-        ui.layoutMode = !ui.layoutMode;
-        $('toggleLayout').classList.toggle('active', ui.layoutMode);
-        $('layoutIcon').textContent = ui.layoutMode ? '🔓' : '🔒';
-        $('layoutText').textContent = ui.layoutMode ? 'Done layout' : 'Edit layout';
-        $('layoutBar').hidden = !ui.layoutMode;
-        document.body.classList.toggle('layout-mode', ui.layoutMode);
-        PF.toast(ui.layoutMode ? 'Layout editing enabled. Select an element and unlock it to move.' : 'Layout editing disabled. All positions locked.');
-        render(true);
-      });
-
-      $('layoutBar').addEventListener('click', async event => {
-        const btn = event.target.closest('[data-add-type]');
-        if (!btn) return;
-        const type = btn.dataset.addType;
-        const bays = Number(btn.dataset.bays) || 1;
-        const res = await PF.post('/api/elements', { type, bays });
-        if (res && res.elements) {
-          const added = res.elements[res.elements.length - 1];
-          selectElement(added.id);
-          PF.toast(`Added ${added.code} (unlocked - drag to move)`);
+      $('importBtn').addEventListener('click', () => $('importFile').click());
+      $('importFile').addEventListener('change', async event => {
+        const file = event.target.files[0];
+        event.target.value = '';
+        if (!file) return;
+        let data;
+        try { data = JSON.parse(await file.text()); } catch { return PF.toast('This file is not valid JSON'); }
+        if (!confirm('Replace all data in this browser with the imported file?')) return;
+        if (await PF.post('/api/import', { state: data })) {
+          PF.toast('Data imported');
+          peerHost?.revalidate();
+          PF.checkSession(state);
         }
       });
+      $('clearData').addEventListener('click', () => {
+        if (confirm('Clear the data saved in this browser and reload? You are logged out and phones need to scan a new QR code.')) PF.clearSavedData();
+      });
+      $('reset').addEventListener('click', async () => {
+        if (!confirm('Reset all demo data? Pick lists, new orders, issues, users and stock changes are discarded.')) return;
+        await PF.post('/api/reset');
+        peerHost?.revalidate();
+        PF.checkSession(state);
+      });
+      $('logout').addEventListener('click', () => PF.logout());
 
       $('zoomIn').addEventListener('click', () => map?.zoom(1.5));
       $('zoomOut').addEventListener('click', () => map?.zoom(1 / 1.5));
       $('zoomReset').addEventListener('click', () => map?.reset());
 
-      let lastFloorplanHash = null;
-      PF.connect(async next => {
-        state = next;
-        ix = PF.index(state);
-        if (map) {
-          map.updateElements(state.elements);
-          if (lastFloorplanHash && lastFloorplanHash !== state.floorplanHash) {
-            await map.reloadSvg();
-          }
-        }
-        lastFloorplanHash = state.floorplanHash;
-        if (!selectedList()) ui.listId = null;
-        mapReady ||= PF.createMap($('map'), state, {
-          onSelect: selectElement,
-          onMoveElement: async (id, newCx, newCy) => {
-            const el = ix.elements.get(id);
-            await PF.post(`/api/elements/${id}/move`, { cx: newCx, cy: newCy });
-            PF.toast(`${el?.code || 'Element'} moved`);
-          }
-        }).then(created => { map = created; paint(); });
-        render();
-        peerHost?.broadcastState(state);
-      }, online => $('conn').classList.toggle('on', online));
+      if (session) {
+        showView('leftcol');
+        PF.connect(next => {
+          state = next;
+          ix = PF.index(state);
+          PF.checkSession(state);
+          map?.updateElements(state.elements);
+          if (!selectedList()) ui.listId = null;
+          if (ui.elementId && !ix.elements.has(ui.elementId)) Object.assign(ui, { elementId: null, slot: null });
+          mapReady ||= PF.createMap($('map'), state, { onSelect: selectElement }).then(created => { map = created; paint(); });
+          render();
+          peerHost?.broadcastState(state);
+        }, online => $('conn').classList.toggle('on', online));
+      }
     </script>
   </body>
 </html>

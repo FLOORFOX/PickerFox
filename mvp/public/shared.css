@@ -45,6 +45,9 @@ h1, h2, h3, p { margin: 0; }
 .pf-map .el.pallet.stocked .el-base { fill: #e5e3f5; }
 .pf-map .el.rack .el-base { fill: #ebf2fc; stroke: #4f84b8; stroke-width: 2.2; }
 .pf-map .el.rack.stocked .el-base { fill: #d4e5fc; }
+.pf-map .el.st.st-ok .el-base { fill: #cfe8d2; }
+.pf-map .el.st.st-low .el-base { fill: #f6e3a8; }
+.pf-map .el.st.st-crit .el-base { fill: #f2b8ae; }
 .pf-map .el.mark .el-base { fill: var(--mark) !important; stroke: #182233 !important; }
 .pf-map .el.mark.done .el-base { fill-opacity: 0.25 !important; }
 .pf-map .el.sel .el-base { stroke: #111 !important; stroke-width: 4 !important; }
@@ -64,6 +67,9 @@ h1, h2, h3, p { margin: 0; }
   fill: rgba(229, 57, 53, 0.18); stroke: var(--sel); stroke-width: 4; vector-effect: non-scaling-stroke; pointer-events: none;
   animation: pin-pulse 1.3s ease-in-out infinite alternate;
 }
+.pf-map .issue-pin { pointer-events: none; }
+.pf-map .issue-pin circle { fill: #d9480f; stroke: #fff; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.pf-map .issue-pin text { font: 700 34px Arial, sans-serif; fill: #fff; text-anchor: middle; dominant-baseline: central; }
 @keyframes pin-pulse {
   from { stroke-width: 4; fill-opacity: 0.12; }
   to { stroke-width: 9; fill-opacity: 0.35; }
@@ -100,10 +106,25 @@ h1, h2, h3, p { margin: 0; }
   background: rgba(24, 34, 51, 0.55);
 }
 .modal-card {
-  display: grid; gap: 12px; width: min(400px, 100%);
-  padding: 22px; border-radius: 16px; background: #fff;
+  display: grid; gap: 12px; width: min(420px, 100%); min-width: 0; max-height: calc(100dvh - 40px); overflow: auto;
+  padding: 20px; border-radius: 16px; background: #fff;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
+.modal-card > * { min-width: 0; }
 .modal-card h3 { font-size: 1.15rem; }
-.qr-box svg { display: inline-block; max-width: 220px; height: auto; border: 8px solid #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14); }
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.modal-x { width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.qr-box svg { display: inline-block; width: 100%; max-width: 240px; height: auto; border: 8px solid #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14); }
+.code-text { font-weight: 700; font-size: 12.5px; background: #eee; padding: 2px 8px; border-radius: 4px; word-break: break-all; }
+
+/* Forms */
+.form { display: grid; gap: 10px; }
+.form label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.form input, .form select, .form textarea {
+  width: 100%; padding: 9px 10px; border: 1px solid #c9ced8; border-radius: 8px; background: #fff; font-size: 16px; color: var(--text);
+}
+.form .error { color: #b42318; font-size: 13px; }
+.choice { display: grid; gap: 6px; }
+.choice label { display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; color: var(--text); font-size: 15px; cursor: pointer; }
+.choice input { width: auto; }
 .peer-indicator { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; }

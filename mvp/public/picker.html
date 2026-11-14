@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#182233">
     <title>PickerFox Picker</title>
-    <link rel="stylesheet" href="./shared.css">
-    <script src="./vendor/peerjs.min.js"></script>
+    <link rel="stylesheet" href="./shared.css?v=__BUILD__">
+    <script src="./vendor/peerjs.min.js?v=__BUILD__"></script>
     <style>
       body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; overscroll-behavior: none; }
       #mapwrap { position: relative; flex: 1; min-height: 0; }
@@ -16,10 +16,13 @@
       .top { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; gap: 8px; align-items: center; pointer-events: none; }
       .top > * { pointer-events: auto; }
       .chip {
-        display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px;
+        display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; max-width: 100%;
         border: 1px solid rgba(24, 34, 51, 0.18); border-radius: 20px; background: rgba(255, 255, 255, 0.94);
-        box-shadow: 0 2px 8px rgba(24, 34, 51, 0.14); cursor: pointer;
+        box-shadow: 0 2px 8px rgba(24, 34, 51, 0.14); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       }
+      #roomBadge { cursor: default; font-weight: 600; padding: 0 10px; min-width: 0; }
+      #roomBadge.on { color: #05603a; background: #d1fadf; border-color: #a6f4c5; }
+      #roomBadge.off { color: #93370d; background: #fef0c7; border-color: #fedf89; }
       #q { flex: 1; min-width: 0; height: 40px; padding: 0 14px; font-size: 16px; border: 1px solid rgba(24, 34, 51, 0.25); border-radius: 20px; background: #fff; box-shadow: 0 2px 8px rgba(24, 34, 51, 0.14); }
       #results {
         position: absolute; top: 54px; left: 8px; right: 8px; max-height: 60%; overflow: auto; margin: 0; padding: 4px; list-style: none;
@@ -45,6 +48,7 @@
       #card ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
       #card .front { margin-top: 10px; }
       #card .slot { min-height: 34px; }
+      .report { min-width: 40px; font-weight: 800; color: #9a3412; border-color: #f5c6a5; background: #fff7f0; }
 
       #sheet { flex: none; border-top: 1px solid var(--line); background: #fff; box-shadow: 0 -4px 14px rgba(24, 34, 51, 0.1); padding-bottom: env(safe-area-inset-bottom); }
       #handle { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 8px 14px; border: 0; background: none; text-align: left; cursor: pointer; }
@@ -57,21 +61,19 @@
       .line { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-top: 1px solid var(--line); cursor: pointer; }
       .line.cur { background: #eef4ff; }
       .line.picked .nm { text-decoration: line-through; color: var(--muted); }
+      .short { color: #b42318; font-weight: 600; }
       .check { flex: none; width: 40px; height: 40px; border: 2px solid #98a2b3; border-radius: 10px; background: #fff; font-size: 1.3rem; line-height: 1; cursor: pointer; }
       .line.picked .check { border-color: #067647; background: #067647; color: #fff; }
       .done-note { padding: 10px 4px; font-weight: 600; color: #067647; }
-
-      #whoModal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; background: rgba(24, 34, 51, 0.5); }
-      #whoModal .box { display: grid; gap: 10px; width: min(340px, 100%); padding: 20px; border-radius: 16px; background: #fff; }
-      #whoModal .btn { min-height: 48px; font-size: 1.05rem; }
+      .modal-card .btn { min-height: 46px; font-size: 1.02rem; }
     </style>
   </head>
   <body>
     <div id="mapwrap">
       <div id="map"></div>
       <div class="top">
-        <button id="who" class="chip" type="button" aria-label="Change picker"><span class="dot" id="conn"></span><span id="whoName">…</span></button>
-        <span id="roomBadge" class="chip small" style="display:none;font-weight:600;padding:0 10px;background:#eef4ff;border-color:#b0c8f5;color:#0b3d91;"></span>
+        <button id="who" class="chip" type="button" aria-label="Account and picker"><span class="dot" id="conn"></span><span id="whoName">…</span></button>
+        <span id="roomBadge" class="chip small" hidden></span>
         <button id="searchToggle" class="chip" type="button" aria-label="Search products" aria-expanded="false">🔍</button>
         <input id="q" type="search" placeholder="Product name or SKU" aria-label="Search products" autocomplete="off" hidden>
       </div>
@@ -87,23 +89,57 @@
       <button id="handle" type="button" aria-expanded="false"></button>
       <div id="sheetBody" hidden></div>
     </section>
-    <div id="whoModal" hidden><div class="box" id="whoBox"></div></div>
 
-    <script src="./shared.js"></script>
+    <div id="loginModal" class="modal-backdrop" hidden>
+      <form id="login" class="modal-card form">
+        <h3>Log in to the manager's room</h3>
+        <label>Username<input id="username" autocomplete="username" autocapitalize="none" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <div id="loginError" class="error" hidden></div>
+        <button class="btn primary" type="submit">Log in</button>
+      </form>
+    </div>
+
+    <div id="accountModal" class="modal-backdrop" hidden>
+      <div class="modal-card" id="accountBox"></div>
+    </div>
+
+    <div id="issueModal" class="modal-backdrop" hidden>
+      <form id="issueForm" class="modal-card form">
+        <div class="modal-head"><h3>Report a problem</h3><button class="modal-x" data-close type="button" aria-label="Close">×</button></div>
+        <div class="small muted" id="issueWhat"></div>
+        <div class="choice" id="issueTypes"></div>
+        <label>Note (optional)<textarea id="issueNote" rows="2" maxlength="300"></textarea></label>
+        <button class="btn primary" type="submit">Send report</button>
+      </form>
+    </div>
+
+    <script src="./shared.js?v=__BUILD__"></script>
     <script>
       const $ = id => document.getElementById(id);
       const { esc } = PF;
+      const params = new URLSearchParams(location.search);
+      const room = params.get('room');
+      // Without a room the picker works on this browser's data and needs a local login.
+      let session = room ? PF.currentUser() : PF.requireRole(['admin', 'user']);
       let state;
       let ix;
       let map;
       let mapReady;
-      let me = new URLSearchParams(location.search).get('picker') || localStorage.getItem('pf.picker');
+      let me = null;
       let activeId = localStorage.getItem('pf.list');
       let sel = null; // { productId, line?, listId? } or { elementId }
       let sheetOpen = false;
       let frontOpen = false;
-      let whoOpen = false;
       let knownLists = null;
+      let issueTarget = null;
+      let peerClient = null;
+
+      function choosePicker() {
+        if (!session) return;
+        if (session.role === 'user') me = session.pickerId;
+        else me = params.get('picker') || localStorage.getItem('pf.picker') || me;
+      }
 
       const myLists = () => state.picklists.filter(l => l.pickerId === me);
 
@@ -133,16 +169,30 @@
       function render() {
         if (!state) return;
         const picker = ix.pickers.get(me);
-        $('whoName').textContent = picker ? picker.name : 'Choose picker';
-        $('whoModal').hidden = Boolean(picker) && !whoOpen;
-        $('whoBox').innerHTML = '<h2>Who is picking?</h2>' + state.pickers.map(p => {
-          const count = state.picklists.filter(l => l.pickerId === p.id && PF.status(l) !== 'Done').length;
-          const badge = count ? ` <b>(${count} list${count > 1 ? 's' : ''} waiting)</b>` : ' <span class="muted">(0 lists)</span>';
-          return `<button class="btn${p.id === me || (!me && count > 0) ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}${badge}</button>`;
-        }).join('') + '<button class="btn" type="button" data-clear-data>Clear saved data</button>';
+        $('whoName').textContent = picker ? picker.name : session ? session.username : 'Log in';
         renderSheet();
         renderCard();
+        renderAccount();
         paint();
+      }
+
+      function renderAccount() {
+        const box = $('accountBox');
+        if (!session) {
+          box.innerHTML = '';
+          return;
+        }
+        const admin = session.role === 'admin';
+        const pickers = admin ? state.pickers.map(p => {
+          const count = state.picklists.filter(l => l.pickerId === p.id && PF.status(l) !== 'Done').length;
+          const badge = count ? ` <b>(${count} list${count > 1 ? 's' : ''} waiting)</b>` : ' <span class="muted">(0 lists)</span>';
+          return `<button class="btn${p.id === me ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}${badge}</button>`;
+        }).join('') : '';
+        box.innerHTML = `<div class="modal-head"><h3>${esc(session.username)} <span class="small muted">${admin ? 'admin' : 'picker'}</span></h3><button class="modal-x" data-close type="button" aria-label="Close">×</button></div>
+          ${admin ? `<div class="small muted">Pick as</div>${pickers}` : ''}
+          ${admin && !room ? '<a class="btn" href="./index.html" style="text-align:center;text-decoration:none;color:inherit;">All interfaces</a>' : ''}
+          <button class="btn" type="button" data-logout>Log out</button>
+          <button class="btn" type="button" data-clear-data>Clear saved data</button>`;
       }
 
       function renderSheet() {
@@ -153,22 +203,20 @@
         handle.setAttribute('aria-expanded', String(sheetOpen));
         body.hidden = !sheetOpen;
         if (!list) {
-          const otherActive = state.picklists.filter(l => PF.status(l) !== 'Done');
+          const otherActive = session?.role === 'admin' ? state.picklists.filter(l => PF.status(l) !== 'Done' && l.pickerId) : [];
           if (otherActive.length) {
             const firstOther = otherActive[0];
-            const otherPicker = ix.pickers.get(firstOther.pickerId);
-            const otherName = otherPicker ? otherPicker.name : 'another picker';
+            const otherName = esc(ix.pickers.get(firstOther.pickerId)?.name || 'another picker');
             handle.innerHTML = `<span class="grow" style="color:#b45309;">${PF.swatch(firstOther)} List ${firstOther.number} assigned to <b>${otherName}</b> · Tap to switch</span>`;
             body.innerHTML = `
               <div style="padding:14px;background:#fef3c7;border-radius:12px;margin:8px 0;display:grid;gap:8px;">
                 <div><b>List ${firstOther.number} (${esc(firstOther.customer)})</b> is assigned to <b>${otherName}</b>.</div>
-                <button type="button" class="btn primary" data-switch-picker="${firstOther.pickerId}">Switch to ${otherName} and start picking</button>
-              </div>
-            `;
+                <button type="button" class="btn primary" data-switch-picker="${firstOther.pickerId}">Pick as ${otherName}</button>
+              </div>`;
             return;
           }
-          handle.innerHTML = '<span class="grow muted">No pick list assigned</span>';
-          body.innerHTML = '<p class="muted">Lists assigned by a manager appear here automatically.</p>';
+          handle.innerHTML = `<span class="grow muted">${me ? 'No pick list assigned' : 'Not linked to a picker'}</span>`;
+          body.innerHTML = `<p class="muted">${me ? 'Lists assigned by a manager appear here automatically.' : 'Ask an admin to link your account to a picker.'}</p>`;
           return;
         }
         const { done, total } = PF.progress(list);
@@ -183,8 +231,8 @@
           const p = ix.products.get(line.productId);
           const current = selectedLine(list) === line;
           return `<li class="line${line.picked ? ' picked' : ''}${current ? ' cur' : ''}" data-line="${i}">
-            <button type="button" class="check" data-check="${i}" aria-pressed="${line.picked}" aria-label="Picked: ${esc(p.name)}">${line.picked ? '✓' : ''}</button>
-            <div class="grow"><div class="nm"><b>${line.qty} ×</b> ${esc(p.name)}</div><div class="small muted">${p.sku} · ${esc(PF.addresses(ix, p.id))}</div></div>
+            <button type="button" class="check" data-check="${i}" aria-pressed="${line.picked}" aria-label="Picked: ${esc(p?.name)}">${line.picked ? '✓' : ''}</button>
+            <div class="grow"><div class="nm"><b>${line.qty} ×</b> ${esc(p?.name)}</div><div class="small muted">${p?.sku} · ${esc(PF.addresses(ix, line.productId))}${line.short > 0 ? ` · <span class="short">short ${line.short}</span>` : ''}</div></div>
           </li>`;
         }).join('');
         body.innerHTML = `${chips}${done === total ? '<div class="done-note">✓ List complete</div>' : ''}<ul class="lines">${lines}</ul>`;
@@ -199,6 +247,7 @@
         let html = '<button class="x" type="button" data-close aria-label="Close">×</button>';
         if (sel.elementId) {
           const el = ix.elements.get(sel.elementId);
+          if (!el) { sel = null; card.hidden = true; return; }
           const entries = ix.stockByElement.get(el.id) || [];
           const wanted = new Set(list ? list.lines.filter(l => !l.picked).map(l => l.productId) : []);
           html += `<h3>${el.type === 'rack' ? 'Rack' : 'Pallet'} ${el.code}</h3>`;
@@ -208,6 +257,7 @@
               return `<li><b>${s.qty}</b> × ${esc(p.name)} <span class="small muted">${p.sku}${el.type === 'rack' ? ` · B${s.bay} · L${s.level}` : ''}</span>${wanted.has(p.id) ? ` ${PF.swatch(list)}` : ''}</li>`;
             }).join('')}</ul>`
             : '<p class="muted">Nothing stored here.</p>';
+          html += '<div class="actions"><span class="grow"></span><button class="btn report" type="button" data-report aria-label="Report a problem here">!</button></div>';
           fronts.push({ el, hot: wanted });
         } else {
           const p = ix.products.get(sel.productId);
@@ -217,11 +267,9 @@
           html += locs.length
             ? locs.map(s => `<div class="where">📍 ${PF.address(ix, s)} <span class="muted">· ${s.qty} cartons</span></div>`).join('')
             : '<div class="where">No location recorded</div>';
-          const shared = locs.flatMap(s => {
-            const others = (ix.stockByElement.get(s.elementId) || [])
-              .filter(o => o.bay === s.bay && o.level === s.level && o.productId !== p.id);
-            return others.map(o => ({ ...o, slot: s, product: ix.products.get(o.productId) }));
-          });
+          const shared = locs.flatMap(s => (ix.stockByElement.get(s.elementId) || [])
+            .filter(o => o.bay === s.bay && o.level === s.level && o.productId !== p.id)
+            .map(o => ({ ...o, product: ix.products.get(o.productId) })));
           if (shared.length) {
             html += `<div class="small muted" style="margin-top:6px;padding:4px 8px;border-radius:6px;background:#f5f3ec;border:1px solid #e5dfd0;">
               <b>Also in this slot:</b> ${shared.map(o => `${o.qty} × ${esc(o.product.name)}`).join(', ')}
@@ -229,9 +277,12 @@
           }
           html += '<div class="actions">';
           if (line) {
-            html += `${PF.swatch(list)}<b>Pick ${line.qty}</b><span class="grow"></span><button class="btn${line.picked ? '' : ' primary'}" type="button" data-pick>${line.picked ? 'Undo picked' : 'Picked ✓'}</button>`;
+            html += `${PF.swatch(list)}<b>Pick ${line.qty}</b>${line.short > 0 ? `<span class="short">short ${line.short}</span>` : ''}<span class="grow"></span><button class="btn${line.picked ? '' : ' primary'}" type="button" data-pick>${line.picked ? 'Undo picked' : 'Picked ✓'}</button>`;
+          } else {
+            html += '<span class="grow"></span>';
           }
           if (locs.length) html += `<button class="btn" type="button" data-front>${frontOpen ? 'Hide' : 'Show'} front view</button>`;
+          html += '<button class="btn report" type="button" data-report aria-label="Report a problem with this product">!</button>';
           html += '</div>';
           if (frontOpen) new Set(locs.map(s => s.elementId)).forEach(id => fronts.push({ el: ix.elements.get(id), hot: new Set([p.id]) }));
         }
@@ -253,10 +304,9 @@
         const list = activeList();
         const line = list?.lines[index];
         if (!line) return;
-        line.picked = picked;
         if (picked && advance) {
           const order = list.lines.map((_, i) => (index + 1 + i) % list.lines.length);
-          const next = order.find(i => !list.lines[i].picked);
+          const next = order.find(i => i !== index && !list.lines[i].picked);
           if (next === undefined) {
             sel = null;
             PF.toast(`List ${list.number} complete`);
@@ -264,9 +314,33 @@
             selectProduct(list.lines[next].productId, next);
           }
         }
-        render();
         PF.post(`/api/picklists/${list.id}/pick`, { line: index, picked });
       }
+
+      function openIssue() {
+        if (!sel) return;
+        if (sel.elementId) {
+          const el = ix.elements.get(sel.elementId);
+          issueTarget = { elementId: el.id, bay: 1, level: 1, productId: null };
+          $('issueWhat').textContent = `${el.type === 'rack' ? 'Rack' : 'Pallet'} ${el.code}`;
+        } else {
+          const product = ix.products.get(sel.productId);
+          const loc = PF.locations(ix, product.id)[0];
+          issueTarget = { productId: product.id, elementId: loc?.elementId || null, bay: loc?.bay || null, level: loc?.level || null };
+          $('issueWhat').textContent = `${product.name}${loc ? ` · ${PF.address(ix, loc)}` : ''}`;
+        }
+        $('issueTypes').innerHTML = Object.entries(PF.ISSUE_TYPES).map(([key, label], i) => `<label><input type="radio" name="issueType" value="${key}"${i === 0 ? ' checked' : ''}> ${label}</label>`).join('');
+        $('issueNote').value = '';
+        $('issueModal').hidden = false;
+      }
+
+      $('issueForm').addEventListener('submit', async event => {
+        event.preventDefault();
+        const type = new FormData(event.target).get('issueType');
+        $('issueModal').hidden = true;
+        const result = await PF.post('/api/issues', { ...issueTarget, type, note: $('issueNote').value.trim(), by: session?.username || null });
+        if (result) PF.toast('Report sent to the managers');
+      });
 
       $('handle').addEventListener('click', () => { sheetOpen = !sheetOpen; render(); });
 
@@ -301,12 +375,14 @@
         if (event.target.closest('[data-close]')) {
           sel = null;
         } else if (event.target.closest('[data-pick]')) {
-          const list = activeList();
-          const line = selectedLine(list);
+          const line = selectedLine(activeList());
           if (line) setPicked(sel.line, !line.picked, true);
           return;
         } else if (event.target.closest('[data-front]')) {
           frontOpen = !frontOpen;
+        } else if (event.target.closest('[data-report]')) {
+          openIssue();
+          return;
         } else {
           return;
         }
@@ -317,7 +393,7 @@
         const query = $('q').value.trim().toLowerCase();
         const box = $('results');
         box.hidden = !query;
-        if (!query) return;
+        if (!query || !state) return;
         const hits = state.products.filter(p => [p.name, p.sku, p.mfrSku, p.cartonLabel].some(v => v.toLowerCase().includes(query))).slice(0, 8);
         box.innerHTML = hits.length
           ? hits.map(p => `<li><button type="button" data-product="${p.id}"><b>${esc(p.name)}</b><span class="small muted">${p.sku} · ${esc(PF.addresses(ix, p.id))}</span></button></li>`).join('')
@@ -342,17 +418,35 @@
         if (!input.hidden) input.focus();
       });
 
-      $('who').addEventListener('click', () => { whoOpen = true; render(); });
-      $('whoBox').addEventListener('click', event => {
+      $('who').addEventListener('click', () => {
+        if (!session) { $('loginModal').hidden = false; return; }
+        renderAccount();
+        $('accountModal').hidden = false;
+      });
+      document.querySelectorAll('.modal-backdrop').forEach(modal => modal.addEventListener('click', event => {
+        if (modal.id === 'loginModal') return;
+        if (event.target === modal || event.target.closest('[data-close]')) modal.hidden = true;
+      }));
+      $('accountBox').addEventListener('click', event => {
         if (event.target.closest('[data-clear-data]')) {
-          if (confirm('Clear the data saved on this device and reload?')) PF.clearSavedData();
+          if (confirm('Clear the data saved on this device and reload? You are logged out.')) PF.clearSavedData();
+          return;
+        }
+        if (event.target.closest('[data-logout]')) {
+          peerClient?.close();
+          if (room) {
+            try { localStorage.removeItem('pf.session'); } catch {}
+            location.reload();
+          } else {
+            PF.logout();
+          }
           return;
         }
         const choice = event.target.closest('[data-picker]');
         if (!choice) return;
         me = choice.dataset.picker;
         localStorage.setItem('pf.picker', me);
-        whoOpen = false;
+        $('accountModal').hidden = true;
         sel = null;
         knownLists = new Set(myLists().map(l => l.id));
         render();
@@ -362,17 +456,10 @@
       $('zoomOut').addEventListener('click', () => map?.zoom(1 / 1.5));
       $('zoomReset').addEventListener('click', () => map?.reset());
 
-      let lastFloorplanHash = null;
-      PF.connect(async next => {
+      function applyState(next) {
         state = next;
         ix = PF.index(state);
-        if (map) {
-          map.updateElements(state.elements);
-          if (lastFloorplanHash && lastFloorplanHash !== state.floorplanHash) {
-            await map.reloadSvg();
-          }
-        }
-        lastFloorplanHash = state.floorplanHash;
+        map?.updateElements(state.elements);
         if (sel && sel.listId && !myLists().some(l => l.id === sel.listId)) sel = null;
         const mine = myLists();
         if (knownLists) {
@@ -384,36 +471,59 @@
           onSelect: id => { sel = id ? { elementId: id } : null; if (id) sheetOpen = false; render(); },
         }).then(created => { map = created; paint(); });
         render();
-      }, online => $('conn').classList.toggle('on', online));
+      }
 
-      const roomParam = new URLSearchParams(location.search).get('room');
-      if (roomParam && PF.connectPeerClient) {
-        PF.connectPeerClient({
-          roomCode: roomParam,
-          onState: next => {
-            state = next;
-            ix = PF.index(state);
-            const activeLists = state.picklists.filter(l => PF.status(l) !== 'Done');
-            if ((!me || !myLists().length) && activeLists.length && activeLists[0].pickerId) {
-              me = activeLists[0].pickerId;
-              localStorage.setItem('pf.picker', me);
-            }
-            map?.updateElements(state.elements);
-            render();
+      function badge(online, text) {
+        $('conn').classList.toggle('on', online);
+        const node = $('roomBadge');
+        node.hidden = false;
+        node.className = `chip small ${online ? 'on' : 'off'}`;
+        node.textContent = online ? `🟢 ${room.slice(0, 6)}` : `🟡 ${text || 'Connecting…'}`;
+      }
+
+      function joinRoom(credentials) {
+        peerClient?.close();
+        peerClient = PF.connectPeerClient({
+          roomCode: room,
+          credentials,
+          onWelcome: user => {
+            session = PF.setSession(user, credentials.passHash);
+            $('loginModal').hidden = true;
+            choosePicker();
           },
+          onDenied: reason => {
+            try { localStorage.removeItem('pf.session'); } catch {}
+            session = null;
+            badge(false, 'Not logged in');
+            $('loginError').textContent = reason || 'Wrong username or password';
+            $('loginError').hidden = false;
+            $('loginModal').hidden = false;
+          },
+          onState: applyState,
           onStatus: (online, text) => {
-            $('conn').classList.toggle('on', online);
-            const badge = $('roomBadge');
-            if (badge) {
-              badge.style.display = 'inline-flex';
-              badge.textContent = online ? `🟢 ${roomParam.slice(0, 6)}` : `🟡 ${text || 'Connecting…'}`;
-              badge.style.color = online ? '#05603a' : '#93370d';
-              badge.style.background = online ? '#d1fadf' : '#fef0c7';
-              badge.style.borderColor = online ? '#a6f4c5' : '#fedf89';
-            }
+            badge(online, text);
             if (online) PF.toast(text);
-          }
+          },
         });
+      }
+
+      $('login').addEventListener('submit', async event => {
+        event.preventDefault();
+        $('loginError').hidden = true;
+        joinRoom({ username: $('username').value.trim(), passHash: await PF.sha256($('password').value) });
+      });
+
+      if (room) {
+        // The manager checks the login; this phone works on the manager's data.
+        badge(false, 'Not logged in');
+        if (session) joinRoom({ username: session.username, passHash: session.passHash });
+        else $('loginModal').hidden = false;
+      } else if (session) {
+        choosePicker();
+        PF.connect(next => {
+          PF.checkSession(next);
+          applyState(next);
+        }, online => $('conn').classList.toggle('on', online));
       }
     </script>
   </body>
