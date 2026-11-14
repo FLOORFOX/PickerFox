@@ -112,8 +112,9 @@
           <span class="muted">Room code:</span>
           <code id="roomCodeText" style="font-weight:700;font-size:14px;background:#eee;padding:2px 8px;border-radius:4px;"></code>
           <button type="button" class="btn small" id="copyRoomLink">Copy link</button>
+          <button type="button" class="btn small" id="refreshRoomBtn" title="Generate new room code and QR">↻ New room</button>
         </div>
-        <div id="peerStatus" class="small muted" style="margin-top:4px;text-align:center;">Initializing peer network…</div>
+        <div id="peerStatus" class="small muted" style="margin-top:4px;text-align:center;padding:4px;border-radius:6px;background:#f3f4f6;">Connecting to peer signaling network…</div>
       </div>
     </div>
     <div id="layoutBar" class="layout-strip" hidden>
@@ -512,13 +513,17 @@
 
       let peerHost = null;
 
-      function showPairModal() {
+      function showPairModal(forceNew = false) {
         const modal = $('pairModal');
         modal.hidden = false;
         let room = localStorage.getItem('pf.room');
-        if (!room) {
+        if (!room || forceNew) {
           room = 'FOX-' + Math.floor(1000 + Math.random() * 9000);
           localStorage.setItem('pf.room', room);
+          if (peerHost) {
+            peerHost.close();
+            peerHost = null;
+          }
         }
         $('roomCodeText').textContent = room;
 
@@ -537,7 +542,10 @@
           }
         }
 
-        if (!peerHost && PF.startPeerHost) {
+        if (peerHost) {
+          $('peerStatus').textContent = peerHost.getStatus();
+        } else if (PF.startPeerHost) {
+          $('peerStatus').textContent = 'Connecting to peer signaling network…';
           peerHost = PF.startPeerHost({
             roomCode: room,
             getState: () => state,
@@ -553,7 +561,8 @@
         }
       }
 
-      $('pairBtn').addEventListener('click', showPairModal);
+      $('pairBtn').addEventListener('click', () => showPairModal(false));
+      $('refreshRoomBtn').addEventListener('click', () => showPairModal(true));
       $('closePairModal').addEventListener('click', () => { $('pairModal').hidden = true; });
       $('pairModal').addEventListener('click', e => { if (e.target.id === 'pairModal') $('pairModal').hidden = true; });
       $('copyRoomLink').addEventListener('click', () => {

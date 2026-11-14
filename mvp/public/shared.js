@@ -628,33 +628,56 @@ const PF = (() => {
     }
     const code = roomCode || generateRoomCode();
     const peerId = 'pickerfox-room-' + code.toLowerCase();
+    let currentStatus = 'Connecting to peer signaling network…';
 
     try {
       if (activePeer) activePeer.destroy();
-      activePeer = new Peer(peerId);
+      activePeer = new Peer(peerId, {
+        debug: 1,
+        config: {
+          iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' },
+            { urls: 'stun:stun2.l.google.com:19302' },
+            { urls: 'stun:stun.cloudflare.com:3478' }
+          ]
+        }
+      });
 
       activePeer.on('open', () => {
-        onStatus?.(`Waiting for phone to scan… (Room ${code})`, 0);
+        currentStatus = `Waiting for phone to scan… (Room ${code})`;
+        onStatus?.(currentStatus, 0);
       });
 
       activePeer.on('connection', conn => {
         peerConnections.add(conn);
-        onStatus?.(`Phone connected (${peerConnections.size} phone active)`, peerConnections.size);
+        currentStatus = `Phone connected (${peerConnections.size} phone active)`;
+        onStatus?.(currentStatus, peerConnections.size);
 
-        conn.on('open', () => {
-          const s = getState?.();
-          if (s) conn.send({ type: 'state', state: s });
-        });
+        const pushState = () => {
+          try {
+            const s = getState?.();
+            if (s && conn.open) conn.send({ type: 'state', state: s });
+          } catch {}
+        };
+
+        if (conn.open) pushState();
+        else conn.on('open', pushState);
+        setTimeout(pushState, 350);
+        setTimeout(pushState, 1200);
 
         conn.on('data', data => {
-          if (data?.type === 'action') {
+          if (data?.type === 'get_state') {
+            pushState();
+          } else if (data?.type === 'action') {
             onAction?.(data.path, data.body);
           }
         });
 
         const drop = () => {
           peerConnections.delete(conn);
-          onStatus?.(peerConnections.size ? `Phone connected (${peerConnections.size} phone active)` : `Waiting for phone to scan…`, peerConnections.size);
+          currentStatus = peerConnections.size ? `Phone connected (${peerConnections.size} phone active)` : `Waiting for phone to scan… (Room ${code})`;
+          onStatus?.(currentStatus, peerConnections.size);
         };
         conn.on('close', drop);
         conn.on('error', drop);
@@ -662,17 +685,19 @@ const PF = (() => {
 
       activePeer.on('error', err => {
         if (err.type === 'unavailable-id') {
-          // If ID is busy, restart with random code
           return startPeerHost({ roomCode: generateRoomCode(), onStatus, onAction, getState });
         }
-        onStatus?.('Peer notice: ' + (err.message || err.type), peerConnections.size);
+        currentStatus = 'Peer notice: ' + (err.message || err.type);
+        onStatus?.(currentStatus, peerConnections.size);
       });
     } catch (err) {
-      onStatus?.('WebRTC init failed: ' + err.message, 0);
+      currentStatus = 'WebRTC init failed: ' + err.message;
+      onStatus?.(currentStatus, 0);
     }
 
     return {
       roomCode: code,
+      getStatus: () => currentStatus,
       broadcastState: s => {
         peerConnections.forEach(conn => {
           try { if (conn.open) conn.send({ type: 'state', state: s }); } catch {}
@@ -693,17 +718,33 @@ const PF = (() => {
       return null;
     }
     const targetPeerId = 'pickerfox-room-' + roomCode.toLowerCase();
-    onStatus?.(false, 'Connecting to manager…');
+    onStatus?.(false, `Connecting to Manager (Room ${roomCode})…`);
 
     try {
-      const clientPeer = new Peer();
+      const clientPeer = new Peer({
+        debug: 1,
+        config: {
+          iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' },
+            { urls: 'stun:stun2.l.google.com:19302' },
+            { urls: 'stun:stun.cloudflare.com:3478' }
+          ]
+        }
+      });
+
       clientPeer.on('open', () => {
+        onStatus?.(false, `Joining room ${roomCode}…`);
         const conn = clientPeer.connect(targetPeerId, { reliable: true });
         clientPeerConnection = conn;
 
-        conn.on('open', () => {
+        const onConnected = () => {
           onStatus?.(true, `Live with Manager (${roomCode})`);
-        });
+          try { conn.send({ type: 'get_state' }); } catch {}
+        };
+
+        if (conn.open) onConnected();
+        else conn.on('open', onConnected);
 
         conn.on('data', data => {
           if (data?.type === 'state') {
@@ -716,14 +757,17 @@ const PF = (() => {
           clientPeerConnection = null;
         };
         conn.on('close', drop);
-        conn.on('error', drop);
+        conn.on('error', err => {
+          onStatus?.(false, 'Connection error: ' + (err.message || 'room unreachable'));
+          clientPeerConnection = null;
+        });
       });
 
       clientPeer.on('error', err => {
-        onStatus?.(false, 'Peer error: ' + err.type);
+        onStatus?.(false, 'Peer notice: ' + (err.type || err.message));
       });
     } catch (err) {
-      onStatus?.(false, 'WebRTC error');
+      onStatus?.(false, 'WebRTC error: ' + err.message);
     }
 
     return {

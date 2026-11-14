@@ -71,6 +71,7 @@
       <div id="map"></div>
       <div class="top">
         <button id="who" class="chip" type="button" aria-label="Change picker"><span class="dot" id="conn"></span><span id="whoName">…</span></button>
+        <span id="roomBadge" class="chip small" style="display:none;font-weight:600;padding:0 10px;background:#eef4ff;border-color:#b0c8f5;color:#0b3d91;"></span>
         <button id="searchToggle" class="chip" type="button" aria-label="Search products" aria-expanded="false">🔍</button>
         <input id="q" type="search" placeholder="Product name or SKU" aria-label="Search products" autocomplete="off" hidden>
       </div>
@@ -134,7 +135,11 @@
         const picker = ix.pickers.get(me);
         $('whoName').textContent = picker ? picker.name : 'Choose picker';
         $('whoModal').hidden = Boolean(picker) && !whoOpen;
-        $('whoBox').innerHTML = '<h2>Who is picking?</h2>' + state.pickers.map(p => `<button class="btn${p.id === me ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}</button>`).join('');
+        $('whoBox').innerHTML = '<h2>Who is picking?</h2>' + state.pickers.map(p => {
+          const count = state.picklists.filter(l => l.pickerId === p.id && PF.status(l) !== 'Done').length;
+          const badge = count ? ` <b>(${count} list${count > 1 ? 's' : ''} waiting)</b>` : ' <span class="muted">(0 lists)</span>';
+          return `<button class="btn${p.id === me || (!me && count > 0) ? ' primary' : ''}" type="button" data-picker="${p.id}">${esc(p.name)}${badge}</button>`;
+        }).join('');
         renderSheet();
         renderCard();
         paint();
@@ -148,6 +153,20 @@
         handle.setAttribute('aria-expanded', String(sheetOpen));
         body.hidden = !sheetOpen;
         if (!list) {
+          const otherActive = state.picklists.filter(l => PF.status(l) !== 'Done');
+          if (otherActive.length) {
+            const firstOther = otherActive[0];
+            const otherPicker = ix.pickers.get(firstOther.pickerId);
+            const otherName = otherPicker ? otherPicker.name : 'another picker';
+            handle.innerHTML = `<span class="grow" style="color:#b45309;">${PF.swatch(firstOther)} List ${firstOther.number} assigned to <b>${otherName}</b> · Tap to switch</span>`;
+            body.innerHTML = `
+              <div style="padding:14px;background:#fef3c7;border-radius:12px;margin:8px 0;display:grid;gap:8px;">
+                <div><b>List ${firstOther.number} (${esc(firstOther.customer)})</b> is assigned to <b>${otherName}</b>.</div>
+                <button type="button" class="btn primary" data-switch-picker="${firstOther.pickerId}">Switch to ${otherName} and start picking</button>
+              </div>
+            `;
+            return;
+          }
           handle.innerHTML = '<span class="grow muted">No pick list assigned</span>';
           body.innerHTML = '<p class="muted">Lists assigned by a manager appear here automatically.</p>';
           return;
@@ -252,6 +271,14 @@
       $('handle').addEventListener('click', () => { sheetOpen = !sheetOpen; render(); });
 
       $('sheetBody').addEventListener('click', event => {
+        const switchBtn = event.target.closest('[data-switch-picker]');
+        if (switchBtn) {
+          me = switchBtn.dataset.switchPicker;
+          localStorage.setItem('pf.picker', me);
+          sel = null;
+          render();
+          return;
+        }
         const check = event.target.closest('[data-check]');
         const chip = event.target.closest('[data-list]');
         const line = event.target.closest('[data-line]');
@@ -362,12 +389,24 @@
           onState: next => {
             state = next;
             ix = PF.index(state);
+            const activeLists = state.picklists.filter(l => PF.status(l) !== 'Done');
+            if ((!me || !myLists().length) && activeLists.length && activeLists[0].pickerId) {
+              me = activeLists[0].pickerId;
+              localStorage.setItem('pf.picker', me);
+            }
             map?.updateElements(state.elements);
             render();
           },
           onStatus: (online, text) => {
             $('conn').classList.toggle('on', online);
-            $('whoName').title = text;
+            const badge = $('roomBadge');
+            if (badge) {
+              badge.style.display = 'inline-flex';
+              badge.textContent = online ? `🟢 ${roomParam}` : `🟡 ${text || 'Connecting…'}`;
+              badge.style.color = online ? '#05603a' : '#93370d';
+              badge.style.background = online ? '#d1fadf' : '#fef0c7';
+              badge.style.borderColor = online ? '#a6f4c5' : '#fedf89';
+            }
             if (online) PF.toast(text);
           }
         });
